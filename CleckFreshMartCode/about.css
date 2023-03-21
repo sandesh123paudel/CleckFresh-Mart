@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    overflow:hidden;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 2;
+    padding-bottom: 60px;
+}
+
+.banner{
+    margin-top: 15%;
+    margin-block: 5%; 
+    width: 100%;
+    height: 220px;
+}
+.banner img{
+    width: 100%;
+    height: 95%;
+}
+.banner h1{
+    width: 180px;
+    position: absolute;
+    margin-inline: 45%;
+    margin-block: 100px;
+    color: white;
+}
+
+.about-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 80%;
+    margin-inline: 10%;
+    margin-block:2%;
+    box-shadow: 1px 0px 2px 3px lightgray;
+    border-radius: 5px;
+}
+
+.about-info{
+    display: flex;
+    flex-direction: column;
+    margin-inline: 50px;
+    row-gap: 25px;
+}
+
+.about-info .about-header{
+    display: flex;
+    justify-content: center;
+    margin-block:25px;
+}
+
+.social-links{
+ display: flex;
+ justify-content: center;
+}
+
+.social-links img{
+    width: 17px;
+    height: 17px;
+    padding: 5px;
+    background-color:orange;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.members{
+    display: flex;
+    column-gap: 30px;
+    justify-content: center;
+    margin-block-end: 40px;
+    padding-block: 9px;
+}
+
+.member-info{
+    max-width:200px;
+    height: 250px;
+    box-shadow: 1px 0px 2px 3px lightgray;
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
+.member-info img{
+    width:95%;
+    height: 200px;
+}
+
+.member-def{
+    display: flex;
+    justify-content: center;
+}
+
+.traders{
+    max-width: 80%;
+    margin-inline: 10%;
+    display: flex;
+    justify-content: center;
+    padding-block: 30px;
+    box-shadow: 1px 0px 2px 3px lightgray;
+    border-radius: 5px;
+}
+
+.trader-info{
+    max-width:200px;
+    height: 250px;
+    padding: 10px;
+    box-shadow: 1px 0px 2px 3px lightgray;
+    border-radius: 5px;
+    margin-inline: 20px;
+}
+
+.trader-info img{
+    width: 95%;
+    height: 200px;
+}
+
+.trader-def{
+    display: flex;
+    justify-content: center;
+}
+
+.customer-review{
+    margin-block: 35px;
+    max-width: 80%;
+    margin-inline: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 30px;
+    box-shadow: 1px 0px 2px 3px lightgray;
+    border-radius: 5px;
+}
+
+.customer-review .customer-name{
+    display: flex;
+    justify-content: center;
+}
+
+.customer-review .review-info{
+    margin-inline: 50px;
+}
+
+.review-info p{
+    margin-block: 20px;
+}
+
+.dots{
+    display: flex;
+    justify-content: center;
+}
+
+.dots div{
+    width: 8px;
+    height: 8px;
+    margin-inline: 10px;
+    margin-block: 20px;
+    border: 1px solid gray;
+    border-radius: 50%;
+}
+
+.dots div:nth-child(1){
+    background-color: gray;
+}
+
+
