@@ -1,0 +1,202 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+}
+
+.checkout-container{
+    display:flex;
+    flex-direction: column;
+    padding-block: 2%;
+    padding-inline: 2%;
+}
+.checkout-part1{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+.checkout-part1 h3{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.checkout-part1 form{
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-slot{
+    display: flex;
+    margin-left: 20px;
+    margin-block: 10px;
+}
+
+.collection-slot label{
+    font-size: 20px;
+    width: 80px;
+}
+.collection-slot select{
+    width: 200px;
+    padding: 5px;
+    outline: none;
+    /* border: none; */
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.checkout-part2{
+    width: 100%;
+}
+.checkout-part2 table{
+    width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.checkout-part2 table,td{
+    margin-top:3%;
+    padding-block: 10px;
+}
+.head{
+    font-size: 22px;
+    font-weight: 500;
+}
+.checkout-part2 td{
+    padding-inline:50px;
+}
+
+.item td img{
+    width: 100px;
+}
+
+.order-summary{
+    width: 100%;
+    margin-block:2%;
+    padding-inline: 2%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.total-items{
+    width:82%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    margin-top: 3%;
+    width: 87%;
+    display: flex;
+    justify-content: right;
+}
+.btn input{
+    font-size: 20px;
+    padding-inline: 25px;
+    padding-block: 8px;
+    background-color: orange;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.order-slot{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.order-data{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.order-slot button{
+    padding-inline: 30px;
+    border: 5px;
+    padding-block: 5px;
+    font-size: 18px;
+    background-color: orange;
+    color:white;
+    border-radius: 10px;
+    height: 100%;
+}
+
+/* Pay Now */
+
+.payment{
+    width: 350px;
+    background-color: white;
+    border: 1px solid lightgray;
+    position: absolute;
+    top: 150px;
+    margin-inline: 40%;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment h3{
+    font-size: 30px;
+}
+.payment h4{
+    font-size: 20px;
+}
+
+.payment img{
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column;
+    margin-block: 0.3rem;
+}
+.input-box label{
+    font-size: 18px;
+}
+
+.input-box input{
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+    border:1px solid gray;
+}
+.total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay-btn{
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+    border:1px solid gray;
+    background-color: orange;
+    color: white;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    margin-block: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width:420px) {
+    .payment{
+        margin-inline: 5%;
+        width: 300px;
+        top: 60px;
+        padding-inline: 1rem;
+    }
+        
+}

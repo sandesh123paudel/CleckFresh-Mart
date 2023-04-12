@@ -1,0 +1,22 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding:0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar{
+    overflow:hidden;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 2;
+    padding-bottom: 60px;
+  }
+  .container{
+    margin-top: 8%;
+    width: 100%;
+    margin-bottom: 3%;
+  }

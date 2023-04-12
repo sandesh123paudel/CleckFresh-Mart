@@ -1,0 +1,90 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.profile-customer{
+    display: flex;
+    width: 100%;
+    margin-inline: 2%;
+    margin-block: 2%;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding-inline: 5%;
+
+}
+
+.menu h4{
+    font-size: 25px;
+}
+
+.menu a{
+    text-decoration: none;
+    color:black;
+    font-size: 18px;
+}
+.menu a:hover{
+    color:orange;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.content h3{
+    font-size: 22px;
+}
+
+.content h4{
+    font-size: 20px;
+}
+
+.content form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.form-data{
+    display: flex;
+    flex-direction: column;
+}
+.form-data label{
+    font-size: 18px;
+}
+.inputbox{
+    border: none;
+    padding-right: 20px;
+    outline: none;
+    padding-block: 5px;
+    font-size: 15px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.update-btn{
+    background-color: orange;
+    border-radius:5px ;
+    padding-inline:20px ;
+    padding-block: 5px;
+    color: white;
+    font-weight: 550;
+    margin-right:20px ;
+}
+.optionbox{
+    color: gray;
+}
+
+
+
