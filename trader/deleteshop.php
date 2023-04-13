@@ -4,11 +4,14 @@
     if(isset($_GET['id']) && isset($_GET['action'])){
         $delid = $_GET['id'];
 
-        $sql = "DELETE FROM shop WHERE Id=$delid";
+        $sql = "DELETE FROM shop WHERE Id = :id";
 
-        $qry = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+        
+        $stid = oci_parse($connection,$sql);
 
-        if($qry){
+        oci_bind_by_name($stid,':id', $delid);
+
+        if(oci_execute($stid)){
             header("location:traderdashboard.php");
         }
     }

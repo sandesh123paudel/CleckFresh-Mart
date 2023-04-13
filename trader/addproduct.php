@@ -1,6 +1,7 @@
 <?php
   // inculde database connection
   include('../db/connection.php');
+
   $errname = $errprice = $errqty = $errstock =$errimage ='';
   if(isset($_POST['addProduct']))
   {
@@ -37,9 +38,21 @@
               if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
               {
                   $sql = "INSERT INTO products (Name,Category,Description,ShopName,Image,Price,Offer,Quantity,Stock) 
-                      VALUES('$name','$category','$description','$shop','$image','$price','$offer','$quantity','$stock')";
-                  $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
-                  if($qry){
+                      VALUES(:name,:category,:description,:shop,:image,:price,:offer,:quantity,:stock)";
+                
+                  $stid = oci_parse($connection,$sql);
+
+                  oci_bind_by_name($stid ,':name',$name);
+                  oci_bind_by_name($stid ,':category',$category);
+                  oci_bind_by_name($stid ,':description',$description);
+                  oci_bind_by_name($stid ,':shop',$shop);
+                  oci_bind_by_name($stid ,':image',$image);
+                  oci_bind_by_name($stid ,':price',$price);
+                  oci_bind_by_name($stid ,':offer',$offer);
+                  oci_bind_by_name($stid ,':quantity',$quantity);
+                  oci_bind_by_name($stid ,':stock',$stock);
+                  
+                  if(oci_execute($stid)){
                       if(move_uploaded_file($utmpname,$ulocation)){
                           echo "<script>window.alert('Data Inserted Successfully!')</script>";
                           // header("Location:traderdashboard.php");

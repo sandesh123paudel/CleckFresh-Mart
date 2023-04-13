@@ -19,22 +19,37 @@
           $ulocation = "../db/uploads/shops/".$image;
           
           if(!empty($image)){
-            $sql = "UPDATE shop SET Name='$name',Category='$category',Image='$image',Email='$email',Phone='$phone'  WHERE Id='$uid' ";
-            $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
+            $sql = "UPDATE shop SET Name= :name,Category= :category,Image= :image,Email= :email,Phone= :phone  WHERE Id= :uid ";
+            
+            $stid = oci_parse($connection,$sql);
+                                    
+            oci_bind_by_name($stid ,':uid',$uid);
+            oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':category',$category);
+            oci_bind_by_name($stid ,':image',$image);
+            oci_bind_by_name($stid ,':email',$email);
+            oci_bind_by_name($stid ,':phone',$phone);
             
             if(unlink("../db/uploads/shops".$previous)){
               if(move_uploaded_file($utmpname,$ulocation)){
-                if($qry){
+                if(oci_execute($stid)){
                     header('location:traderdashboard.php');
                 }
               }
             }
           }
           else{
-            $sql = "UPDATE shop SET Name='$name',Category='$category',Image='$previous',Email='$email',Phone='$phone'  WHERE Id='$uid' ";
-            $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
-            
-            if($qry){
+            $sql = "UPDATE shop SET Name= :name,Category= :category,Image= :previous,Email= :email,Phone= :phone  WHERE Id= :uid ";
+            $stid = oci_parse($connection,$sql);
+                                    
+            oci_bind_by_name($stid ,':uid',$uid);
+            oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':category',$category);
+            oci_bind_by_name($stid ,':previous',$previous);
+            oci_bind_by_name($stid ,':email',$email);
+            oci_bind_by_name($stid ,':phone',$phone);
+
+            if(oci_execute($stid)){
                 header('location:traderdashboard.php');
             }
           }         

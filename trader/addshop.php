@@ -42,11 +42,17 @@
                 if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
                 {
                     $sql = "INSERT INTO shop (Name,Category,Image,Email,Phone) 
-                        VALUES ('$name','$category','$image','$email','$phone')";
+                        VALUES (:name, :category, :image, :email, :phone )";
 
-                    $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
+                    $stid = oci_parse($connection,$sql);
+                                    
+                    oci_bind_by_name($stid ,':name',$name);
+                    oci_bind_by_name($stid ,':category',$category);
+                    oci_bind_by_name($stid ,':image',$image);
+                    oci_bind_by_name($stid ,':email',$email);
+                    oci_bind_by_name($stid ,':phone',$phone);
 
-                    if($qry){
+                    if(ocie_execute($stid)){
                         if(move_uploaded_file($utmpname,$ulocation)){
                             echo "<script>window.alert('Data Inserted Successfully!')</script>";
                             // header("location:addshop.php");

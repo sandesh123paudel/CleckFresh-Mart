@@ -16,11 +16,15 @@ include('../db/connection.php');
     if(isset($_GET['id']) && isset($_GET['action'])){
       $eid = $_GET['id'];
 
-      $sql = "SELECT * FROM products WHERE Id = $eid";
-      $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
+      $sql = "SELECT * FROM products WHERE Id = eid";
+
+      $stid = oci_parse($connection,$sql);
+      oci_bind_by_name($stid, ':eid' ,$eid);
+      oci_execute($stid);
+
     }
 
-    while($row = mysqli_fetch_array($qry)){
+    while($row = oci_fetch_array($stid, OCI_ASSOC)){
       $eid = $row['Id'];
       $ename = $row['Name'];
       $ecategory = $row['Category'];

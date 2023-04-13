@@ -5,7 +5,7 @@
 //   Update Product code
   if(isset($_POST['updateProduct']))
   {
-        $uid = $_POST['uid'];
+          $uid = $_POST['uid'];
           $name = $_POST['productname'];
           $category = $_POST['productcategory'];
           $description = $_POST['description'];
@@ -23,13 +23,26 @@
           $ulocation = "../db/uploads/products/".$image;
 
           if(!empty($image)){
-            $sql = "UPDATE products SET Name='$name', Category='$category',Description='$description',
-            ShopName='$shop',Image='$image',Price='$price',Offer='$offer',Quantity='$quantity',Stock='$stock' WHERE Id='$uid' ";
-            $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
+            $sql = "UPDATE products SET Name = :name, Category= :category, Description= :description,
+            ShopName= :shop,Image= :image,Price= :price,Offer= :offer,Quantity= :quantity,Stock= :stock WHERE Id= :uid ";
+                      
+            $stid = oci_parse($connection,$sql);
+
+            oci_bind_by_name($stid ,':uid',$uid);
+
+            oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':category',$category);
+            oci_bind_by_name($stid ,':description',$description);
+            oci_bind_by_name($stid ,':shop',$shop);
+            oci_bind_by_name($stid ,':image',$image);
+            oci_bind_by_name($stid ,':price',$price);
+            oci_bind_by_name($stid ,':offer',$offer);
+            oci_bind_by_name($stid ,':quantity',$quantity);
+            oci_bind_by_name($stid ,':stock',$stock);
             
             if(unlink("../db/uploads/products".$previous)){
               if(move_uploaded_file($utmpname,$ulocation)){
-                if($qry){
+                if(oci_execute($stid)){
                   header('Location:traderdashboard.php');
                 }
               }

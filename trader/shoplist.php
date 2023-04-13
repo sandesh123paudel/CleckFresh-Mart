@@ -38,12 +38,10 @@
             // selecting all items from shops
                 $sql = "SELECT * FROM shop";
 
-                $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
-
-                // counting the records
-                $count = mysqli_num_rows($qry);
+                $stid = oci_parse($connection,$sql);
+                oci_execute($stid);
                 
-                while($row = mysqli_fetch_array($qry)){
+                while($row = oci_fetch_array($stid,OCI_ASSOC)){
                     $id = $row['Id'];
 
                     echo "<div class='shop-item'>";
