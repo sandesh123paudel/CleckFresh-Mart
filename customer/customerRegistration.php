@@ -1,7 +1,7 @@
 <!-- registration validation  -->
 <?php
 
-    include('connection.php');
+include('../db/connection.php');
 
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errpassword =$errCpassword=$errremember='';
 
@@ -102,7 +102,7 @@
                 
                 else{
                     
-                    $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail AND CONTACT = : dcontact"
+                    $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail AND CONTACT = : dcontact";
 
                     $fpassword = md5($password);
                     $role = 'customer';
@@ -122,8 +122,7 @@
                     oci_bind_by_name($stid, ':password', $fpassword);
 
                     if(oci_execute($stid)){
-                        // header("location:login.php");
-                        echo "successfully created";
+                        header("location:login.php");
                     }
                 }
             }

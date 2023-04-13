@@ -5,14 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/term&s.css" />
+    <link rel="stylesheet" href="css/term.css" />
   </head>
   <body>
-    <!-- <div class='navbar'>
+  <div class="policy">
+
+  <div class='navbar'>
     <?php
         require('navbar.php');
     ?>
-</div> -->
+    </div>
 
     <div class="banner">
       <img src="../logo/basket.png" alt="basket" />
@@ -109,8 +111,11 @@
       </p>
     </div>
 
-    <!-- <?php
+    <?php
       require('footer.php');
-    ?>    -->
+    ?>
+    
+  </div>
+  
   </body>
 </html>

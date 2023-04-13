@@ -7,16 +7,19 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.navbar{
-    overflow:hidden;
-    position: fixed;
-    top:0;
-    width: 100%;
-    z-index: 2;
-    padding-bottom: 60px;
-  }
-  .container{
-    margin-top: 8%;
-    width: 100%;
-    margin-bottom: 3%;
-  }
+.home{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.home .navbar{
+  overflow: hidden;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  padding-bottom:60px ;
+  background-color: transparent;
+}
+

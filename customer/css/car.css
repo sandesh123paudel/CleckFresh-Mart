@@ -18,12 +18,14 @@
   
 
 .navbar{
-    overflow:hidden;
+    overflow: hidden;
     position: fixed;
     top:0;
+    left: 0;
     width: 100%;
-    z-index: 2;
-    padding-bottom: 60px;
+    z-index: 1;
+    padding-bottom:60px ;
+    background-color: transparent;
 }
 
 .cart-container{

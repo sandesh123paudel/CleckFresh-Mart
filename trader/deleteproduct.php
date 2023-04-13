@@ -1,5 +1,5 @@
 <?php
-    include_once("connection.php");
+  include('../db/connection.php');
 
     if(isset($_GET['id']) && isset($_GET['action'])){
         $delid = $_GET['id'];

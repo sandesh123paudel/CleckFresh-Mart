@@ -1,6 +1,6 @@
 <?php
   // inculde database connection
-  include('connection.php');
+  include('../db/connection.php');
   $errname = $errprice = $errqty = $errstock =$errimage ='';
   if(isset($_POST['addProduct']))
   {

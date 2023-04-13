@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/contactusss.css" />
+    <link rel="stylesheet" href="css/cont.css" />
     
 </head>
 <body>
+<div class="contact">
+
     
-<!-- <div class='navbar'>
+<div class='navbar'>
     <?php
         require('navbar.php');
     ?>
-</div> -->
+</div>
+
     <div class="contact-container">
         <div class="banner">
             <img src="../logo/basket.png" alt="basket" />
@@ -82,8 +85,10 @@
         </div>
     </div>
 
-        <!-- <?php
+        <?php
             require('footer.php');
-        ?> -->
+        ?>
+</div>
+        
 </body>
 </html>

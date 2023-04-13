@@ -5,16 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/abouts.css" />
+    <link rel="stylesheet" href="css/abos.css" />
     
 </head>
 <body>
 
-<div class='navbar'>
-    <?php
-        require('navbar.php');
-    ?>
-</div>
+<div class="about">
+
+    <div class='navbar'>
+        <?php
+            require('navbar.php');
+        ?>
+    </div>
+
+
 
         <div class="banner">
             <img src="../logo/basket.png" alt="basket" />
@@ -71,30 +75,30 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>   
         
         <div class="trader-container">
             <h3>Our Traders</h3>
 
-            <div class="traders">
-                <div class="trader-info">
+            <div class="members">
+                <div class="member-info">
                     <img src="../logo/avtar.png" alt="admin" />
-                    <div class="trader-def">
+                    <div class="member-def">
                         <h3>Partner</h3>
                     </div>
                 </div>
                 
                 <!-- optional -->
-                <div class="trader-info">
+                <div class="member-info">
                     <img src="../logo/avtar.png" alt="admin" />
-                    <div class="trader-def">
+                    <div class="member-def">
                         <h3>Partner</h3>
                     </div>
                 </div>
     
-                <div class="trader-info">
+                <div class="member-info">
                     <img src="../logo/avtar.png" alt="admin" />
-                    <div class="trader-def">
+                    <div class="member-def">
                         <h3>Partner</h3>
                     </div>
                 </div>
@@ -129,9 +133,14 @@
             <div class="customer-name">
                 <h3>Customer Name - Happy Customer</h3>
             </div>
-        </div>
+        </div> 
+ 
+        
 <?php
     require('footer.php');
-?>       
+?>  
+</div>
+     
+
 </body>
 </html>

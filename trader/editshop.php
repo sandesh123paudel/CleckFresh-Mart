@@ -9,7 +9,7 @@
 </head>
 <body>
     <?php
-        include('connection.php');
+  include('../db/connection.php');
 
         if(isset($_GET['id']) && isset($_GET['action'])){
             $eid = $_GET['id'];

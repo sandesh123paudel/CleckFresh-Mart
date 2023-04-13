@@ -2,7 +2,7 @@
 <?php
 
     // include connection
-    require('connection.php');
+    include('../db/connection.php');
 
     $err = $erremail= $errpassword = $errrole ='';
 
@@ -49,7 +49,6 @@
 
                 if($role == 'customer'){
                     header('location:productview.php');
-                    // echo "Successfully connected to user account";
                 }
                 if($role  == 'trader'){
                     header('location:productview.php');
@@ -59,8 +58,8 @@
                 }
             }
             else{
-                $err='User cannot recognize Please Try Again.';
-                // header("location:login.php");
+                // $err='User cannot recognize Please Try Again.';
+                header("location:login.php");
                 
             }
             oci_free_statement($stid);

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/overviewss.css" />
+    <link rel="stylesheet" href="css/over.css" />
 </head>
 <body>
     <div class="overview-container">
@@ -26,9 +26,12 @@
                     <h3>300</h3>
                     <p>New orders today</p>
                 </div>
-                <span class="material-symbols-outlined icons" >
-                    local_mall
-                </span>
+                <div class="icon">
+                    <span class="material-symbols-outlined" >
+                        local_mall
+                    </span>
+                </div>
+                
             </div>
 
             <div class="report">
@@ -36,9 +39,12 @@
                     <h3>275</h3>
                     <p>Total Products</p>
                 </div>
-                <span class="material-symbols-outlined icons">
-                   work
-                </span>
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                    work
+                    </span>
+                </div>
+                
             </div>
 
             <div class="report">
@@ -46,9 +52,12 @@
                     <h3>Report</h3>
                     <p>View Report</p>
                 </div>
-                <span class="material-symbols-outlined icons">
-                    analytics
-                </span>
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                        analytics
+                    </span>
+                </div>
+                
             </div>
 
             <div class="report">
@@ -56,9 +65,12 @@
                     <h3>&#163; 3000</h3>
                     <p>Total Earnings</p>
                 </div>
-                <span class="material-symbols-outlined icons">
-                   paid
-                </span>
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                    paid
+                    </span>
+                </div>
+                
             </div>
 
         </div>

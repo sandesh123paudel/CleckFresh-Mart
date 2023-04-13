@@ -1,7 +1,7 @@
 <!-- registration validation  -->
 <?php
-    include('connection.php');
-    $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
+  include('../db/connection.php');
+  $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
 
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty

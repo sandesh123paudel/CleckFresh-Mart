@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/footers.css">
+    <link rel="stylesheet" href="css/foot.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
@@ -18,9 +18,9 @@
                 <div class="footer-links">
                     <a href="aboutus.php">About us</a>
                     <a href="contactus.php">Contact us</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms & Conditions</a>
-                    <a href="#">FAQs</a>
+                    <a href="policyPrivacy.php">Privacy Policy</a>
+                    <a href="terms&condition.php">Terms & Conditions</a>
+                    <a href="faq.php">FAQs</a>
                 </div>
             </div>
 

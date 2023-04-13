@@ -1,7 +1,7 @@
 <?php
 
     // inculde database connection
-    include('connection.php');
+    include('../db/connection.php');
 
     $errname = $erremail = $errcategory = $errphone = $errimage='';
     

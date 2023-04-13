@@ -30,7 +30,9 @@
 }
 .trader a{
 background-color: rgb(248, 230, 172);
-padding: 15px;
+padding-block: 5px;
+padding-inline: 10px;
+margin-bottom: 120px;
 border-radius: 5px;
 border: 1px solid orange;
 color: orange;
@@ -45,16 +47,23 @@ text-decoration: none;
     padding-block-end: 2%;
 }
 .trader-info{
-    color: rgb(160, 160, 160);
+    color: rgb(160, 160, 160);   
 }
+.trader-info h2{
+    padding-block: 5px;
+}
+
 .trader-info label{
     color:black;
+    position: relative;
+    top: 10px;
+    padding-block: 5px;
 }
 
 .report{
     display: flex;
     justify-content: space-around;
-    width: 30%;
+    width: 350px;
     margin: 2%;
     padding: 2%;
     background-color: white;
@@ -68,15 +77,31 @@ text-decoration: none;
 
 .report-info h3{
     font-size: 25px;
+    padding-block: 5px;
 }
 .report-info p{
     color: gray;
 }
 
-.icons{
-    color: white;
-    padding: 20px;
+.icon{
+    width: 80px;
+    height: 80px;    
     border-radius:50% ;
     background-color: var(--yellow);
 }
 
+.icon span{
+    color: white;
+    font-size: 35px;
+    margin-block:14px;
+    margin-inline:17px;
+}
+
+@media screen and (max-width:420px) {
+    .trader a{
+        position:relative;
+        top: 20px;
+        width: 200px;
+        font-size: 14px;
+        }
+}

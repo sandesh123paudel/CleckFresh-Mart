@@ -39,6 +39,7 @@
 .foot-container h3{
     font-size: 20px;
     margin-block: 20px;
+    padding-block: 5px;
 }
 
 .footer-links{
