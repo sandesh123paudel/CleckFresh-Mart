@@ -1,7 +1,8 @@
 <!-- registration validation  -->
 <?php
-  include('../db/connection.php');
-  $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
+    include('../db/connection.php');
+    $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
+    $errcount = 0;
 
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty
@@ -39,7 +40,7 @@
             $fname=trim($_POST['fname']);
             $lname = trim($_POST['lname']);
             $email = $_POST['email'];
-            $dob = date("d/m/y" , strtotime($_POST['birthday']));
+            $dob = $_POST['birthday'];
             $gender = $_POST['gender'];
             $phone=$_POST['phone'];
             $category = $_POST['category'];
@@ -48,9 +49,7 @@
             $remember = $_POST['remember'];
 
             // email verification
-            $femail = filter_var($email,FILTER_SANITIZE_EMAIL);
-            $pregmatch = (preg_match("/^[9]{1}[8]{1}[0-9]{8}$/", $phone));
-           
+            $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
             $uppercase = preg_match('@[A-Z]@',$password);
             $lowercase = preg_match('@[a-z]@',$password);
             $number = preg_match('@[0-9]@',$password);
@@ -58,73 +57,117 @@
 
             // error validation
             if(strlen(trim($fname)) != strlen($fname)){
+                $errcount+=1;
                 $errfname="You cannot input space as a first name";
             }
             if(strlen(trim($lname)) != strlen($lname)){
+                $errcount+=1;
                 $errlname="You cannot input space as a first name";
             }
             if(strlen(trim($phone)) != strlen($phone)){
+                $errcount+=1;
                 $errPhone='You cannot input space as a phone number';
             }
             if(strlen(trim($category)) != strlen($category)){
+                $errcount+=1;
                 $errPhone='You cannot input space as a Category';
             }
             if(!preg_match('/^[a-zA-Z]*$/',$fname)){
+                $errcount+=1;
                 $errfname = "Only letters allowed";
             }
             
             if(!preg_match('/^[a-zA-Z]*$/',$lname)){
+                $errcount+=1;
                 $errlname = "Only letters allowed";
             }
 
             // email validation
             if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){
+                $errcount+=1;
                 $erremail = "Email you entered is invalid";
             }
             
             // phone number validation
             if(strlen($phone) < 10 || strlen($phone) > 10){
+                $errcount+=1;
                 $errPhone = "Phone number length should be 10";
             }
-            if(!$pregmatch){
+            if(!preg_match("/^9[0-9]{9}$/", $phone)){
+                $errcount+=1;
                 $errPhone = "Phone number is not valid. Please enter a valid Phone number";
             }
 
-            $date_now = date("d/m/y");
-            if($date_now < $dob){
-                $errDOB = "Date of birth is bigger than today.";
+            $age = date_diff(date_create($date_of_birth), date_create('now'))->y;
+
+            if($age < 20) {
+                $errcount+=1;
+                $errDOB = "Age should be more than 20";
             }
 
             // password confirmation and validation
             if($password == $cpassword){
                 if(!$uppercase){
+                    $errcount+=1;
                     $errpassword="Password should include at least one upper case letter.";
                 }
                 if(!$lowercase){
+                    $errcount+=1;
                     $errpassword="Password should include at least one lower case letter.";
                 }
                 if(!$specialChars){
+                    $errcount+=1;
                     $errpassword="Password should include at least one special character.";
                 }
                 if(!$number){
+                    $errcount+=1;
                     $errpassword="Password should include at least one number.";
                 }
 
-                else{
+                $contact = (int)$phone;
+                $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory";
+
+                $stid1 = oci_parse($connection, $sql);
+                oci_bind_by_name($stid1,':demail' ,$femail);
+                oci_bind_by_name($stid1, ':dcontact' ,$contact);
+                oci_bind_by_name($stid1,':dcategory',$category);
+                oci_execute($stid1);
+
+                while($row = oci_fetch_array($stid1,OCI_ASSOC)){
+                    $vemail = $row['EMAIL'];
+                    $vcontact = (int)$row['CONTACT'];
+                    if($row['CATEGORY'] != ''){
+                        $vcategory = $row['CATEGORY'];
+                    }
+                }
+
+                if($vemail === $femail){
+                    $errcount+=1;
+                    $errPhone="Email is already Exists";
+                }
+                if($vcontact === $contact){
+                    $errcount+=1;
+                    $errPhone="Phone number is already Exists";
+                }
+                if($vcategory === $category){
+                    $errcount+=1;
+                    $errcategory="Trader Category is already Exists";
+                }
+                if($errcount == 0){
                     $fpassword = md5($password);
                     $role = 'trader';
-                    
-                    $sql = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD) 
+                        
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD) 
                     VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password)";
-                    
-                    $stid = oci_parse($connection,$sql);
+                        
+                    $stid = oci_parse($connection,$sql1);
                     // bind_by_name to convert php variable to insert into database
                     oci_bind_by_name($stid, ':user_id', $user_id);
                     oci_bind_by_name($stid, ':fname', $fname);
                     oci_bind_by_name($stid, ':lname', $lname);
                     oci_bind_by_name($stid, ':gender', $gender);
                     oci_bind_by_name($stid, ':contact', $contact);
-                    oci_bind_by_name($stid, ':email', $email);
+                    oci_bind_by_name($stid, ':email', $femail);
                     oci_bind_by_name($stid, ':dob', $dob);
                     oci_bind_by_name($stid, ':role', $role);
                     oci_bind_by_name($stid, ':category', $category);
@@ -132,8 +175,10 @@
 
                     if(oci_execute($stid))
                     {
-                        header("location:login.php");
-                    } 
+                        // header("location:login.php");
+                        echo "succsfully created";
+                    }
+                    
                 }
             }
             else{
@@ -206,7 +251,7 @@
                 
                 <div class='form-data'>
                     <label>Phone Number <span class='error'> * <?php echo $errPhone; ?> </span></label>
-                    <input type='number' class='inputbox' placeholder='Phone Number' maxlength='10' name='phone' />
+                    <input type='number' class='inputbox' placeholder='9......' maxlength='10' name='phone' />
                 </div> 
 
                 <div class='form-data'>

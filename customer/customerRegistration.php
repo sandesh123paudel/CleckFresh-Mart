@@ -4,6 +4,7 @@
 include('../db/connection.php');
 
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errpassword =$errCpassword=$errremember='';
+    $errcount = 0;
 
     if(isset($_POST['subCustomer'])){
         // verifying the errors if inbox is empty
@@ -38,7 +39,7 @@ include('../db/connection.php');
             $fname=$_POST['fname'];
             $lname = $_POST['lname'];
             $email = $_POST['email'];
-            $dob = date("d/m/y" , strtotime($_POST['birthday']));
+            $dob = $_POST['birthday'];
             $gender = $_POST['gender'];
             $phone=$_POST['phone'];
             $password = $_POST['password'];
@@ -46,8 +47,7 @@ include('../db/connection.php');
             $remember = $_POST['remember'];
 
             $femail = filter_var($email,FILTER_SANITIZE_EMAIL);
-            $pregmatch = (preg_match("/^[9]{1}[8]{1}[0-9]{8}$/", $_POST['phone']));
-           
+
             $uppercase = preg_match('@[A-Z]@',$password);
             $lowercase = preg_match('@[a-z]@',$password);
             $number = preg_match('@[0-9]@',$password);
@@ -55,74 +55,115 @@ include('../db/connection.php');
 
             // error validation
             if(strlen(trim($fname)) != strlen($fname)){
+                $errcount+=1;
                 $errfname="You cannot input space as a first name";
             }
             if(strlen(trim($lname)) != strlen($lname)){
+                $errcount+=1;
                 $errlname="You cannot input space as a first name";
             }
             if(strlen(trim($phone)) != strlen($phone)){
+                $errcount+=1;
                 $errPhone='You cannot input space as a phone number';
             }
             if(!preg_match('/^[a-zA-Z]*$/',$fname)){
+                $errcount+=1;
                 $errfname = "Only letters allowed";
             }
             
             if(!preg_match('/^[a-zA-Z]*$/',$lname)){
+                $errcount+=1;
                 $errlname = "Only letters allowed";
             }
 
             // email validation
             if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){
+                $errcount+=1;
                 $erremail = "Email you entered is invalid";
             }
             
             // phone number validation
-            if(!$pregmatch){
+            if(strlen($phone) < 10 || strlen($phone) >10){
+                $errcount+=1;
+                $errPhone = "Phone number length should be 10";
+            }
+
+            if(!preg_match("/^9[0-9]{9}$/", $phone)){
+                $errcount+=1;
                 $errPhone = "Phone number is not valid. Please enter a valid Phone number";
             }
            
-            if (strtotime($dob) > time()) {
-                $errDOB = "Date of birth should no be greate";
-              }
+            $age = date_diff(date_create($date_of_birth), date_create('now'))->y;
+
+            if($age < 16) {
+                $errcount+=1;
+                $errDOB = "Age should be more than 16";
+            }
 
             // password confirmation and validation
             if($password == $cpassword){
                 if(!$uppercase){
+                    $errcount+=1;
                     $errpassword="Password should include at least one upper case letter.";
                 }
                 if(!$lowercase){
+                    $errcount+=1;
                     $errpassword="Password should include at least one lower case letter.";
                 }
                 if(!$specialChars){
+                    $errcount+=1;
                     $errpassword="Password should include at least one special character.";
                 }
                 if(!$number){
+                    $errcount+=1;
                     $errpassword="Password should include at least one number.";
                 }
                 
-                else{
-                    
-                    $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail AND CONTACT = : dcontact";
+                $contact = (int)$phone;
 
+                $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact";
+                $stid1 = oci_parse($connection, $sql);
+
+                oci_bind_by_name($stid1,':demail' ,$femail);
+                oci_bind_by_name($stid1, ':dcontact' ,$contact);
+                oci_execute($stid1);
+                
+                while($row = oci_fetch_array($stid1,OCI_ASSOC)){
+                    $vemail = $row['EMAIL'];
+                    $vcontact = (int)$row['CONTACT'];
+                }
+
+                if($vemail == $femail){
+                    $errcount += 1;
+                    $erremail="Email is already Exists";
+                    
+                }
+                if($vcontact == $contact){
+                    $errcount += 1;
+                    $errPhone="Phone number is already Exists";
+                }    
+                
+                if($errcount == 0){
                     $fpassword = md5($password);
                     $role = 'customer';
-                    $contact = (int)$phone;
-                    $sql = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password)";
+
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password)";
                     
-                    $stid = oci_parse($connection,$sql);
+                    $stid = oci_parse($connection,$sql1);
                     
                     oci_bind_by_name($stid, ':user_id', $user_id);
                     oci_bind_by_name($stid, ':fname', $fname);
                     oci_bind_by_name($stid, ':lname', $lname);
                     oci_bind_by_name($stid, ':gender', $gender);
                     oci_bind_by_name($stid, ':contact', $contact);
-                    oci_bind_by_name($stid, ':email', $email);
+                    oci_bind_by_name($stid, ':email', $femail);
                     oci_bind_by_name($stid, ':dob', $dob);
                     oci_bind_by_name($stid, ':role', $role);
                     oci_bind_by_name($stid, ':password', $fpassword);
 
                     if(oci_execute($stid)){
-                        header("location:login.php");
+                        // header("location:login.php");
+                        echo "succsfully created";
                     }
                 }
             }
@@ -200,7 +241,7 @@ include('../db/connection.php');
                 
                 <div class='form-data'>
                     <label>Phone Number <span class='error'> * <?php echo $errPhone; ?> </span></label>
-                    <input type='number' class='inputbox' placeholder='98....' maxlength='10' name='phone' />
+                    <input type='number' class='inputbox' placeholder='9....' maxlength='10' name='phone' />
                 </div> 
                 
                 <div class='form-data'>
@@ -239,37 +280,37 @@ include('../db/connection.php');
     </div>
 
      <!-- otp verification for forget password -->
-     <div class="otp-container" id='show'>
-      <span class="closebtn" onclick="closeBtn()">&times;</span>
-      <h1>Verification code</h1>
-      <p>Please type the verification code sent to your registered email.</p>
-      
-      <form method="post">
-        <div class="numbers">
-          <input type="text" name="num1" maxlength="1" placeholder="-" />
-          <input type="text" name="num2" maxlength="1" placeholder="-" />
-          <input type="text" name="num3" maxlength="1" placeholder="-" />
-          <input type="text" name="num4" maxlength="1" placeholder="-" />
-          <input type="text" name="num5" maxlength="1" placeholder="-" />
-          <input type="text" name="num6" maxlength="1" placeholder="-" />
-        </div>
-        <p>
-          Don't receive the OTP?<input
-            class="resend"
-            type="submit"
-            name="resendOTP"
-            value="Resend OTP"
-          />
-        </p>
-        <input
-          class="verify-btn"
-          type="submit"
-          name="verify"
-          value="Verify  >>"
-        />
-      </form>
+        <div class="otp-container" id='show'>
+            <span class="closebtn" onclick="closeBtn()">&times;</span>
+            <h1>Verification code</h1>
+            <p>Please type the verification code sent to your registered email.</p>
+            
+            <form method="post">
+                <div class="numbers">
+                <input type="text" name="num1" maxlength="1" placeholder="-" />
+                <input type="text" name="num2" maxlength="1" placeholder="-" />
+                <input type="text" name="num3" maxlength="1" placeholder="-" />
+                <input type="text" name="num4" maxlength="1" placeholder="-" />
+                <input type="text" name="num5" maxlength="1" placeholder="-" />
+                <input type="text" name="num6" maxlength="1" placeholder="-" />
+                </div>
+                <p>
+                Don't receive the OTP?<input
+                    class="resend"
+                    type="submit"
+                    name="resendOTP"
+                    value="Resend OTP"
+                />
+                </p>
+                <input
+                class="verify-btn"
+                type="submit"
+                name="verify"
+                value="Verify  >>"
+                />
+            </form>
 
-    </div>
+        </div>
     </div>
     <script>
  function otpPass(){

@@ -4,6 +4,30 @@
     // include connection
     include('../db/connection.php');
 
+    // for session
+    if(isset($_SESSION['ID'])){
+        $user = $_SESSION['ID'];
+
+        $_SESSION['userID'] = $user['USER_ID'];
+        $_SESSION['role'] = $user['ROLE'];
+        $_SESSION['username'] =$user['FIRST_NAME']." ".$user['LAST_NAME'];
+
+        // echo "USER ID :" .$_SESSION['userID']."<br> ";
+        // echo "ROLE  : " .$_SESSION['role']. " <br>";
+        // echo "USERNAME : ". $_SESSION['username'] ."<br>";
+
+        if($_SESSION['role'] == 'customer'){
+            header('location:productview.php');
+        }
+        if($_SESSION['role'] == 'trader'){
+            header('location:../trader/traderdashboard.php');
+        }
+        if($_SESSION['role'] == 'admin'){
+            echo "successfully connected to admin";
+        }
+    }
+
+    // for login purpose
     $err = $erremail= $errpassword = $errrole ='';
 
     if(isset($_POST['sublogin'])){
@@ -32,7 +56,7 @@
             }
 
             // for user
-            $sql = "SELECT USER_ID FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role ";
+            $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role ";
 
             // query from the database
             $stid = oci_parse($connection,$sql);
@@ -45,27 +69,20 @@
 
             if($data = oci_fetch_array($stid, OCI_ASSOC)) 
             {
-                // $_SESSION['ID'] = $data;   
-
-                if($role == 'customer'){
-                    header('location:productview.php');
-                }
-                if($role  == 'trader'){
-                    header('location:productview.php');
-                }
-                if($role  === 'admin'){
-                    echo "successfully login to admin account";
-                }
+                $_SESSION['ID'] = $data; 
+                header("location:login.php");
+  
             }
             else{
-                // $err='User cannot recognize Please Try Again.';
+                $_SESSION['error']= 'User not recognised';
                 header("location:login.php");
-                
+
             }
             oci_free_statement($stid);
             oci_close($connection);
         }
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -148,41 +165,128 @@
         </div>
     </div>
 
-    <!-- otp verification for forget password -->
+    <!-- email for forget password -->
     <div class="otp-container" id='show'>
       <span class="closebtn" id='close-btn' onclick="closeBtn()">&times;</span>
-      <h1>Get Your Password</h1>
-      <p>Please type registered email to receive your password.</p>
-      <form method="post">
+      <h1>Get Your OTP</h1>
+      <p>Please type registered email to receive an otp.</p>
+      
+      <form method="POST" action=''>
         <div class="numbers">
           <input type="email" name="email"  placeholder="Enter your email" />
         </div>
-        <p>
-          Don't receive email?<input
-          class='resend-btn'
-            type="submit"
-            name="verify"
-            value="Resend Email"
-            />
-        </p>
+        <p></p>
             <input
                 class="verify-btn"
                 type="submit"
-                name="verify"
+                name="sendemail"
                 value="Send  >>"
             />
       </form>
     </div>
-    </div>
+
+    <?php
+        if(isset($_POST['sendemail']))
+        {
+            $email = $_POST['email'];
+            
+            $sql = "SELECT * from USER_I WHERE EMAIL = :email";
+            $stid = oci_parse($connection,$stid);
+            oci_execute($stid);
+            while($row = oci_fetch_array($stid,OCI_ASSOC))
+            {
+                $id = $row['USER_ID'];
+            }
+        
+        }
+    ?>
+
+    <!-- otp from email -->
+    <div class="otp-container" id='show-otp'>
+            <span class="closebtn" onclick="closeBtn()">&times;</span>
+            <h1>Verify Your OTP code</h1>
+            <p>Please type the OTP code sent to your registered email.</p>
+            
+            <form method="post">
+                <div class="numbers">
+                    <input type="text" name="num1" maxlength="1" placeholder="-" />
+                    <input type="text" name="num2" maxlength="1" placeholder="-" />
+                    <input type="text" name="num3" maxlength="1" placeholder="-" />
+                    <input type="text" name="num4" maxlength="1" placeholder="-" />
+                    <input type="text" name="num5" maxlength="1" placeholder="-" />
+                    <input type="text" name="num6" maxlength="1" placeholder="-" />
+                </div>
+                <p>
+                Don't receive the OTP?<input
+                    class="resend"
+                    type="submit"
+                    name="resendOTP"
+                    value="Resend OTP"
+                />
+                </p>
+                <input
+                    class="verify-btn"
+                    type="submit"
+                    name="verifyotp"
+                    value="Verify  >>"    
+                />
+            </form>
+        </div>
+
+        <!-- Set New password -->
+        <div class="otp-container" id='show-new'>
+            <span class="closebtn" id='close-btn' onclick="closeBtn()">&times;</span>
+            
+            <h1>Generate Password</h1>
+            <p>Please type New Password.</p>
+            
+            <form method="post">
+                <p>New Password</p>
+                <div class="numbers">
+                <input type="password" name="email"  placeholder="Enter New Password" />
+                </div>
+                
+                <p>Re Type Password</p>
+                <div class="numbers">
+                <input type="email" name="email"  placeholder="Enter Confirm Password" />
+                </div>
+
+                    <input
+                        class="verify-btn"
+                        type="submit"
+                        name="newpassword"
+                        value="Confirm  >>"
+                    />
+            </form>
+        </div>
+
     <script>
         function otpPass(){
+            document.getElementById('show-otp').style.display='none';
             document.getElementById('show').style.display="block";
-            document.getElementById('login-cont').style.opacity="0.4";
+            document.getElementById('show-new').style.display="none";
+            document.getElementById('login-cont').style.opacity='0.4';   
         }
         function closeBtn(){
             document.getElementById('show').style.display='none';
+            document.getElementById('show-otp').style.display='none';
+            document.getElementById('show-new').style.display="none";
             document.getElementById('login-cont').style.opacity='1';   
         }
+        function forgetemail(){
+            document.getElementById('show-otp').style.display='block';
+            document.getElementById('show').style.display="none";
+            document.getElementById('show-new').style.display="none";
+            document.getElementById('login-cont').style.opacity='0.4';   
+        }
+
+        function newpass(){
+            document.getElementById('show-otp').style.display='none';
+            document.getElementById('show').style.display="none";
+            document.getElementById('show-new').style.display="block";
+            document.getElementById('login-cont').style.opacity='0.4';   
+        }
+
     </script>
 </body>
 </html>
