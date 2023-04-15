@@ -29,28 +29,29 @@
     }
 
     while($row = oci_fetch_array($stid, OCI_ASSOC)){
-      $eid = $row['PRODUCT_ID'];
-      $ename = $row['PRODUCT_NAME'];
-      $ecategory = $row['PRODUCT_TYPE'];
-      $edescription = $row['PRODUCT_DESCP'];
-      $eshop = $row['SHOP_ID'];
-      $eprice = $row['PRODUCT_PRICE'];
-      $eoffer = $row['OFFER_ID'];
-      $equantity =  $row['QUANTITY'];
-      $estock =  $row['STOCK_NUMBER'];
-      $eimage = $row['PRODUCT_IMAGE'];
+      $pid = $row['PRODUCT_ID'];
+      $pcategory_id = (int)$row['CATEGORY_ID'];
+      $pshop_id = (int)$row['SHOP_ID'];
+      $poffer_id = (int)$row['OFFER_ID'];
+      $pname = $row['PRODUCT_NAME'];
+      $pprice = $row['PRODUCT_PRICE'];
+      // $pcategory = $row['PRODUCT_TYPE'];
+      $pdescription = $row['PRODUCT_DESCP'];
+      $pquantity =  (int)$row['QUANTITY'];
+      $pstock =  (int)$row['STOCK_NUMBER'];
+      $pimage = $row['PRODUCT_IMAGE'];
     }
 
     echo "<div class='product-container'>";
       echo "<h2>UPDATE PRODUCT</h2>";
       echo "<form method='POST' enctype='multipart/form-data' action='updateproduct.php'>";
-          echo "<input type='hidden' name='uid' value='$eid'>";
+          echo "<input type='hidden' name='uid' value='$pid'>";
         echo "<div class='product-part1'>";
           echo "<div class='image-file'>";
             echo "<label>Product Images</label>";
             echo "<p>Upload Image</p>";
-            echo "<input type='hidden' name='previous' value='$eimage' />";
-            echo "<input type='file' class='inputbox' name='productimage' placeholder='UploadImage' value='$eimage' />";
+            echo "<input type='hidden' name='previous' value='$pimage' />";
+            echo "<input type='file' class='inputbox' name='productimage' placeholder='UploadImage' value='$pimage' />";
           echo "</div>";
           echo "<div class='info1'>";
             echo "<h3>Product Information</h3>";
@@ -59,30 +60,50 @@
 
           echo "<div class='info2'>";
             echo "<label>Product Name</label>";
-            echo "<input type='text' class='inputbox' name='productname' placeholder='Product Name'  value='$ename' />";
+            echo "<input type='text' class='inputbox' name='productname' placeholder='Product Name'  value='$pname' />";
           echo "</div>";
 
           echo "<div class='info2'>";
             echo "<label>Product Category</label>";
-            echo "<input type='text' class='inputbox' name='productcategory' placeholder='Product Category' value='$ecategory' />";
+            
+            $sql = "SELECT * FROM CATEGORY WHERE CATEGORY_ID = :cat_id";
+            $stid = oci_parse($connection,$sql);
+            oci_bind_by_name($stid, ':cat_id', $pcategory_id); 
+            oci_execute($stid);
+
+            while($row = oci_fetch_array($stid,OCI_ASSOC)){
+              echo "<option value=".$row['CATEGORY_ID'].">".$row['CATEGORY_NAME']."</option>";
+            }
+          
+            // echo "<input type='text' class='inputbox' name='productcategory' placeholder='Product Category' value='$pcategory' />";
             
           echo "</div>";
 
           echo "<div class='info2'>";
             echo "<label>Description</label>";
-            echo "<textarea name='description' class='inputbox' cols='30' rows='5' placeholder='Write description about products...' >$edescription
-            </textarea> ";
+            echo "<textarea name='description' class='inputbox' cols='30' rows='5' placeholder='Write description about products...' >
+              ". $pdescription ."</textarea> ";
           echo "</div>";
 
           echo "<div class='info2'>";
             echo "<label>Shop Name</label>";
-            echo "<input
-              type='text'
-              class='inputbox'
-              name='shopname'
-              placeholder='Shop Name'
-              value='$eshop'
-            />";
+
+            $sql = "SELECT * FROM SHOP WHERE SHOP_ID = :shop_id";
+            $stid = oci_parse($connection,$sql);
+            oci_bind_by_name($stid, ':shop_id', $pshop_id); 
+            oci_execute($stid);
+
+            while($row = oci_fetch_array($stid,OCI_ASSOC)){
+              echo "<option value=".$row['SHOP_ID'].">".$row['SHOP_NAME']."</option>";
+            }
+
+            // echo "<input
+            //   type='text'
+            //   class='inputbox'
+            //   name='shopname'
+            //   placeholder='Shop Name'
+            //   value='$pshop'
+            // />";
           echo "</div>";
         echo "</div>";
         
@@ -101,27 +122,44 @@
               class='inputbox'
               name='productprice'
               placeholder='Base Price'
-              value='$eprice'
+              value='$pprice'
             />
           </div>
 
           <div class='info2'>
             <label>Offer Type</label>
-            <select class='inputbox selectbox' name='offer'>
-              <option value='$eoffer'>Choose Offer Type</option>
-              <option value='10'>Offer 1</option>
-              <option value='20'>Offer 2</option>
-              <option value='30'>Offer 3</option>
+            <select class='inputbox selectbox' name='offer'>".
+              
+                $sql = "SELECT * FROM OFFER WHERE OFFER_ID = :offer_id";
+                $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid,":offer_id",$poffer_id );
+                oci_execute($stid);
+
+                while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                  echo "<option value=".$row['OFFER_ID'].">".$row['OFFER_NAME']."</option>";
+                }
+                // options for selecting offers
+                $sql1 = "SELECT * FROM OFFER";
+                $stid1 = oci_parse($connection,$sql1);
+                oci_execute($stid1);
+
+                while($row = oci_fetch_array($stid1,OCI_ASSOC)){
+                  echo "<option value=".$row['OFFER_ID'].">".$row['OFFER_NAME']."</option>";
+                }
+                
+              ."
             </select>
           </div>
           <div class='info2'>
             <label>Quantity</label>
+            
             <select class='inputbox selectbox' name='quantity'>
-              <option value='$equantity'>Please Select Quantity</option>
-              <option value='10'>10</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
+              <option value='$pquantity'>$pquantity</option>
+              <option value='250'>250gm</option>
+              <option value='500'>500gm</option>
+              <option value='1000'>1000gm</option>
             </select>
+
           </div>
           <div class='info2'>
             <label>Stock</label>
@@ -130,7 +168,7 @@
               class='inputbox'
               name='productstock'
               placeholder='Product Stock'
-              value='$estock'
+              value='$pstock'
             />
           </div>
         </div>

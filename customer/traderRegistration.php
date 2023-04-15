@@ -4,6 +4,8 @@
     include('../db/connection.php');
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
+    
+    $sfname = $slname = $semail= $sDOB = $sgender = $sPhone = $scategory ='';
 
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty
@@ -39,16 +41,18 @@
             $errremember='Terms & Conditions is required';
         }
         else{
-            $fname=trim($_POST['fname']);
-            $lname = trim($_POST['lname']);
-            $email = $_POST['email'];
-            $dob = $_POST['birthday'];
-            $gender = $_POST['gender'];
-            $phone=$_POST['phone'];
-            $category = $_POST['category'];
+
+            $fname = $sfname = trim($_POST['fname']);
+            $lname = $slname = trim($_POST['lname']);
+            $email = $semail= $_POST['email'];
+            $dob = $sDOB = $_POST['birthday'];
+            $gender = $sgender= $_POST['gender'];
+            $phone = $sPhone= $_POST['phone'];
+            $category = $scategory = $_POST['category'];
             $password = $_POST['password'];
             $cpassword = $_POST['cpassword'];
             $remember = $_POST['remember'];
+
 
             // email verification
             $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
@@ -100,7 +104,7 @@
                 $errcount+=1;
                 $errPhone = "Phone number is not valid. Please enter a valid Phone number";
             }
-
+ 
             $age = date_diff(date_create($dob), date_create('now'))->y;
 
             if($age < 20) {
@@ -142,7 +146,6 @@
                     $vemail = $row['EMAIL'];
                     $vcontact = (int)$row['CONTACT'];
                     if($row['CATEGORY'] == true){
-                        echo $row['CATEGORY'];
                         $vcategory = $row['CATEGORY'];
                     }  
                 }
@@ -225,44 +228,44 @@
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>First Name <span class='error'> * <?php echo $errfname; ?> </span></label>
-                        <input type='text' class='inputbox' placeholder='First Name' name='fname'  />
+                        <input type='text' class='inputbox' placeholder='First Name' name='fname' value='<?php echo $sfname; ?>' />
                     </div>
 
                     <div class='form-data'>
                         <label>Last Name <span class='error'> * <?php echo $errlname; ?> </span></label>
-                        <input type='text' class='inputbox' placeholder='Last Name' name='lname'  />
+                        <input type='text' class='inputbox' placeholder='Last Name' name='lname'  value='<?php echo $slname; ?>' />
                     </div>          
                 </div>
 
                 <div class='form-data'>
                     <label>Email <span class='error'> * <?php echo $erremail; ?> </span></label>
-                    <input type='email' class='inputbox' placeholder='Email Address' name='email'  />
+                    <input type='email' class='inputbox' placeholder='Email Address' name='email' value='<?php echo $semail; ?>' />
                 </div> 
                     
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>Date of Birth <span class='error'> * <?php echo $errDOB; ?> </span></label>
-                        <input type='date' class='inputbox' name='birthday' id="birthday" value='' />
+                        <input type='date' class='inputbox' name='birthday' id="birthday"  />
                     </div> 
                     <div class='form-data'>
                         <label>Gender <span class='error'> * <?php echo $errgender; ?> </span></label>
-                        <select class='inputbox optionbox' name='gender'>
+                        <select class='inputbox optionbox' name='gender' >
                             <option value=''>Select Gender</option>
-                            <option value='M'>Male</option>
-                            <option value='F'>Female</option>
-                            <option value='O'>Other</option>
+                            <option value='Male'>Male</option>
+                            <option value='Female'>Female</option>
+                            <option value='Other'>Other</option>
                         </select>  
                     </div> 
                 </div>
                 
                 <div class='form-data'>
                     <label>Phone Number <span class='error'> * <?php echo $errPhone; ?> </span></label>
-                    <input type='number' class='inputbox' placeholder='9......' maxlength='10' name='phone' />
+                    <input type='number' class='inputbox' placeholder='9......' maxlength='10' name='phone' value='<?php echo $sPhone; ?>' />
                 </div> 
 
                 <div class='form-data'>
                     <label>Category <span class='error'> * <?php echo $errcategory; ?> </span></label>
-                    <input type='text' class='inputbox' placeholder='Category'  name='category' />
+                    <input type='text' class='inputbox' placeholder='Category'  name='category' value='<?php echo $scategory; ?>' />
                 </div> 
                 
                 <div class='form-data'>
@@ -294,7 +297,7 @@
             <div class='create-link'>
                 <p>Already have an account? </p>
                  <a href='login.php'>Login.</a>
-                 <a class='backbtn' href="homepage.php">Back</a>
+                 <a class='backbtn' href="homepage.php">Go To Home</a>
             </div>
             
         </div>

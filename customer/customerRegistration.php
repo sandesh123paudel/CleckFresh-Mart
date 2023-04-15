@@ -5,6 +5,8 @@
     
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
+    $sfname = $slname = $semail= $sDOB = $sgender = $sPhone = $scategory =null;
+
 
     if(isset($_POST['subCustomer'])){
         // verifying the errors if inbox is empty
@@ -37,12 +39,13 @@
             $errremember='Terms & Conditions is required';
         }
         else{
-            $fname=$_POST['fname'];
-            $lname = $_POST['lname'];
-            $email = $_POST['email'];
-            $dob = $_POST['birthday'];
-            $gender = $_POST['gender'];
-            $phone=$_POST['phone'];
+
+            $fname = $sfname = trim($_POST['fname']);
+            $lname = $slname = trim($_POST['lname']);
+            $email = $semail= $_POST['email'];
+            $dob = $sDOB = $_POST['birthday'];
+            $gender = $sgender= $_POST['gender'];
+            $phone = $sPhone= $_POST['phone'];
             $password = $_POST['password'];
             $cpassword = $_POST['cpassword'];
             $remember = $_POST['remember'];
@@ -212,18 +215,18 @@
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>First Name <span class='error'> * <?php echo $errfname; ?> </span></label>
-                        <input type='text' class='inputbox' placeholder='First Name' name='fname' />
+                        <input type='text' class='inputbox' placeholder='First Name' name='fname'  value='<?php echo $sfname; ?>' />
                     </div>
 
                     <div class='form-data'>
                         <label>Last Name <span class='error'> * <?php echo $errlname; ?> </span></label>
-                        <input type='text' class='inputbox' placeholder='Last Name' name='lname'  />
+                        <input type='text' class='inputbox' placeholder='Last Name' name='lname' value='<?php echo $slname; ?>' />
                     </div>          
                 </div>
 
                 <div class='form-data'>
                     <label>Email <span class='error'> * <?php echo $erremail; ?> </span></label>
-                    <input type='email' class='inputbox' placeholder='Email Address' name='email'  />
+                    <input type='email' class='inputbox' placeholder='Email Address' name='email'  value='<?php echo $semail; ?>'/>
                 </div> 
                     
                 <div class='input-name'>
@@ -235,16 +238,16 @@
                         <label>Gender <span class='error'> * <?php echo $errgender; ?> </span></label>
                         <select class='inputbox optionbox' name='gender'>
                             <option value=''>Select Gender</option>
-                            <option value='M'>Male</option>
-                            <option value='F'>Female</option>
-                            <option value='O'>Other</option>
+                            <option value='Male'>Male</option>
+                            <option value='Female'>Female</option>
+                            <option value='Other'>Other</option>
                         </select>  
                     </div> 
                 </div>
                 
                 <div class='form-data'>
                     <label>Phone Number <span class='error'> * <?php echo $errPhone; ?> </span></label>
-                    <input type='number' class='inputbox' placeholder='9....' maxlength='10' name='phone' />
+                    <input type='number' class='inputbox' placeholder='9....' maxlength='10' name='phone' value='<?php echo $sPhone; ?>'/>
                 </div> 
                 
                 <div class='form-data'>
@@ -276,7 +279,7 @@
             <div class='create-link'>
                 <p>Already have an account? </p>
                  <a href='login.php'>Login.</a>
-                 <a class='backbtn' href="homepage.php">Back</a>
+                 <a class='backbtn' href="homepage.php">Back To Home</a>
             </div>
             
         </div>

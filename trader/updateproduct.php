@@ -7,14 +7,16 @@
   {
           $uid = $_POST['uid'];
           $name = $_POST['productname'];
-          $category = $_POST['productcategory'];
+          $category_id = (int) $_POST['productcategory'];
+          $category = $_SESSION['type'];
           $description = $_POST['description'];
-          $shop = $_POST['shopname'];
+          $shop_id = (int) $_POST['shopname'];
           $price = $_POST['productprice'];
-          $offer = $_POST['offer'];
-          $quantity =  $_POST['quantity'];
-          $stock =   $_POST['productstock'];
+          $offer_id = (int) $_POST['offer'];
+          $quantity = (int) $_POST['quantity'];
+          $stock =  (int) $_POST['productstock'];
           $previous = $_POST['previous'];
+
           // image uploads
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];
@@ -22,24 +24,25 @@
           $usize = $_FILES['productimage']['size'];
           $ulocation = "../db/uploads/products/".$image;
 
-          if(!empty($image)){
-            $sql = "UPDATE products SET Name = :name, Category= :category, Description= :description,
-            ShopName= :shop,Image= :image,Price= :price,Offer= :offer,Quantity= :quantity,Stock= :stock WHERE Id= :uid ";
-                      
+          if(!empty($image)){     
+            
+            $sql = "UPDATE PRODUCT SET CATEGORY_ID = :category_id, SHOP_ID = :shop_id, OFFER_ID = :offer_id, PRODUCT_NAME = :name, PRODUCT_PRICE = :price, 
+            PRODUCT_TYPE= :category, PRODUCT_DESCP= :description, QUANTITY = :quantity, STOCK_NUMBER = :stock, PRODUCT_IMAGE = :image WHERE PRODUCT_ID= :uid";
+  
             $stid = oci_parse($connection,$sql);
 
             oci_bind_by_name($stid ,':uid',$uid);
-
+            oci_bind_by_name($stid ,':category_id',$category_id);
+            oci_bind_by_name($stid ,':shop_id',$shop_id);
+            oci_bind_by_name($stid ,':offer_id',$offer_id);
             oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':price',$price);
             oci_bind_by_name($stid ,':category',$category);
             oci_bind_by_name($stid ,':description',$description);
-            oci_bind_by_name($stid ,':shop',$shop);
-            oci_bind_by_name($stid ,':image',$image);
-            oci_bind_by_name($stid ,':price',$price);
-            oci_bind_by_name($stid ,':offer',$offer);
             oci_bind_by_name($stid ,':quantity',$quantity);
             oci_bind_by_name($stid ,':stock',$stock);
-            
+            oci_bind_by_name($stid ,':image',$image);
+
             if(unlink("../db/uploads/products".$previous)){
               if(move_uploaded_file($utmpname,$ulocation)){
                 if(oci_execute($stid)){
@@ -49,21 +52,22 @@
             }
           }
           else{
-            $sql = "UPDATE products SET Name = :name, Category= :category, Description= :description,
-            ShopName= :shop,Image= :previous,Price= :price,Offer= :offer,Quantity= :quantity,Stock= :stock WHERE Id= :uid ";
-                      
+            $sql = "UPDATE PRODUCT SET CATEGORY_ID = :category_id, SHOP_ID = :shop_id, OFFER_ID = :offer_id, PRODUCT_NAME = :name, PRODUCT_PRICE = :price, 
+            PRODUCT_TYPE= :category, PRODUCT_DESCP= :description, QUANTITY = :quantity, STOCK_NUMBER = :stock, PRODUCT_IMAGE = :previous WHERE PRODUCT_ID= :uid";
+             
             $stid = oci_parse($connection,$sql);
 
             oci_bind_by_name($stid ,':uid',$uid);
+            oci_bind_by_name($stid ,':category_id',$category_id);
+            oci_bind_by_name($stid ,':shop_id',$shop_id);
+            oci_bind_by_name($stid ,':offer_id',$offer_id);
             oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':price',$price);
             oci_bind_by_name($stid ,':category',$category);
             oci_bind_by_name($stid ,':description',$description);
-            oci_bind_by_name($stid ,':shop',$shop);
-            oci_bind_by_name($stid ,':previous',$previous);
-            oci_bind_by_name($stid ,':price',$price);
-            oci_bind_by_name($stid ,':offer',$offer);
             oci_bind_by_name($stid ,':quantity',$quantity);
             oci_bind_by_name($stid ,':stock',$stock);
+            oci_bind_by_name($stid ,':previous',$previous);
 
             if(oci_execute($stid)){
                 header('Location:traderdashboard.php');

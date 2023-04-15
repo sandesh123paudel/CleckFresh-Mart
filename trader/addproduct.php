@@ -29,14 +29,16 @@
           $errimage ="Image is required";
       }
       else{
+          
           $name = $_POST['productname'];
-          $category = $_POST['productcategory'];
+          $category_id = (int) $_POST['productcategory'];
+          $category = $_SESSION['type'];
           $description = $_POST['description'];
-          $shop = $_POST['shopname'];
+          $shop_id = (int) $_POST['shopname'];
           $price = $_POST['productprice'];
-          $offer = $_POST['offer'];
-          $quantity =  $_POST['quantity'];
-          $stock =   $_POST['productstock'];
+          $offer_id = (int) $_POST['offer'];
+          $quantity = (int) $_POST['quantity'];
+          $stock =  (int) $_POST['productstock'];
           // image uploads
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];
@@ -55,25 +57,27 @@
             $errcount+=1;
             $errname="Product Name is Already exists";
           }
+
           if($errcount == 0)
           {
               if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
               {
-                  $sql1 = "INSERT INTO products (Name,Category,Description,ShopName,Image,Price,Offer,Quantity,Stock) 
-                      VALUES(:name,:category,:description,:shop,:image,:price,:offer,:quantity,:stock)";
+                  $sql1 = "INSERT INTO products (CATEGORY_ID, SHOP_ID, OFFER_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPE, PRODUCT_DESCP, QUANTITY, STOCK_NUMBER, PRODUCT_IMAGE) 
+                  VALUES(:category_id, :shop_id,:offer_id, :name, :price, :category, :description, :quantity, :stock, :image )";
                 
                   $stid = oci_parse($connection,$sql1);
-
+                  
+                  oci_bind_by_name($stid ,':category_id',$category_id);
+                  oci_bind_by_name($stid ,':shop_id',$shop_id);
+                  oci_bind_by_name($stid ,':offer_id',$offer_id);
                   oci_bind_by_name($stid ,':name',$name);
+                  oci_bind_by_name($stid ,':price',$price);
                   oci_bind_by_name($stid ,':category',$category);
                   oci_bind_by_name($stid ,':description',$description);
-                  oci_bind_by_name($stid ,':shop',$shop);
-                  oci_bind_by_name($stid ,':image',$image);
-                  oci_bind_by_name($stid ,':price',$price);
-                  oci_bind_by_name($stid ,':offer',$offer);
                   oci_bind_by_name($stid ,':quantity',$quantity);
                   oci_bind_by_name($stid ,':stock',$stock);
-                  
+                  oci_bind_by_name($stid ,':image',$image);
+
                   if(oci_execute($stid1)){
                       if(move_uploaded_file($utmpname,$ulocation)){
                           echo "<script>window.alert('Data Inserted Successfully!')</script>";
@@ -90,8 +94,6 @@
           }
       } 
   }
-
-  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,7 +167,17 @@
             /> -->
             
             <select class="inputbox" name="productcategory">
-              <option value="<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['type']; ?></option>
+              <!-- <option value="<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['type']; ?></option> -->
+              <?php
+                $sql = "SELECT * FROM CATEGORY WHERE CATEGORY_NAME = :cat_name";
+                $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid, ':cat_name', $_SESSION['type']); 
+                oci_execute($stid);
+
+                while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                  echo "<option value=".$row['CATEGORY_ID'].">".$row['CATEGORY_NAME']."</option>";
+                }
+                ?>
             </select>
 
           </div>
@@ -240,7 +252,6 @@
                   echo "<option value=".$row['OFFER_ID'].">".$row['OFFER_NAME']."</option>";
                 }
                 ?>
-
             </select>
 
 
