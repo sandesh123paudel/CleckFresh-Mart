@@ -15,26 +15,27 @@
     <div class="shop-container">
         <div class="shop_header">
             <h3>Shops Lists</h3>
-            <div class="search-box">
-                <div class="search">
-                    <input type="text" placeholder="Search...">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </div>
+                <div class="search-box">
+                    <div class="search">
+                        <input type="text" name='searchTerm' placeholder="Search..." >
+                        <span class="material-symbols-outlined">
+                            search
+                        </span>
+                     
+                    </div>
 
-                <select name="" id="">
-                    <option value="">All</option>
-                    <option value="">Asce</option>
-                    <option value="">Desc</option>
-                </select>
-                
-            </div>
+                    <select name="filter" id="">
+                        <option value="">All</option>
+                        <option value="Asce">Asce</option>
+                        <option value="Desc">Desc</option>
+                    </select>  
+                </div>  
         </div>
 
         
         <div class="shopitems">
             <?php
+     
             // selecting all items from shops
                 $sql = "SELECT * FROM SHOP";
                 $stid = oci_parse($connection,$sql);

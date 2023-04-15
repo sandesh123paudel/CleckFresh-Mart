@@ -18,7 +18,7 @@
     if(isset($_GET['id']) && isset($_GET['action'])){
       $eid = $_GET['id'];
       
-      echo $eid;
+      // echo $eid;
 
       $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = :eid";
 
@@ -29,16 +29,16 @@
     }
 
     while($row = oci_fetch_array($stid, OCI_ASSOC)){
-      $eid = $row['Id'];
-      $ename = $row['Name'];
-      $ecategory = $row['Category'];
-      $edescription = $row['Description'];
-      $eshop = $row['ShopName'];
-      $eprice = $row['Price'];
-      $eoffer = $row['Offer'];
-      $equantity =  $row['Quantity'];
-      $estock =  $row['Stock'];
-      $eimage = $row['Image'];
+      $eid = $row['PRODUCT_ID'];
+      $ename = $row['PRODUCT_NAME'];
+      $ecategory = $row['PRODUCT_TYPE'];
+      $edescription = $row['PRODUCT_DESCP'];
+      $eshop = $row['SHOP_ID'];
+      $eprice = $row['PRODUCT_PRICE'];
+      $eoffer = $row['OFFER_ID'];
+      $equantity =  $row['QUANTITY'];
+      $estock =  $row['STOCK_NUMBER'];
+      $eimage = $row['PRODUCT_IMAGE'];
     }
 
     echo "<div class='product-container'>";

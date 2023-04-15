@@ -38,6 +38,22 @@
             $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
 
+            $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
+
+            if(strlen($phone) < 10 || strlen($phone) > 10){
+                $errcount+=1;
+                $errPhone = "Phone number length should be 10";
+            }
+
+            if(!preg_match("/^9[0-9]{9}$/", $phone)){
+                $errcount+=1;
+                $errPhone = "Phone number is not valid. Please enter a valid Phone number";
+            }
+            if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){
+                $errcount+=1;
+                $erremail = "Email you entered is invalid";
+            }
+
             $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :s_name";
             $stid1 = oci_parse($connection,$sql);
             oci_bind_by_name($stid1 , ":s_name" , $name);
@@ -53,6 +69,8 @@
               $errname="Product Name is Already exists";
             }
 
+            $contact = (int)$phone;
+
             if($errcount == 0)
             {
                 if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
@@ -66,8 +84,8 @@
                     oci_bind_by_name($stid ,':name',$name);
                     oci_bind_by_name($stid ,':category',$category);
                     oci_bind_by_name($stid ,':image',$image);
-                    oci_bind_by_name($stid ,':email',$email);
-                    oci_bind_by_name($stid ,':phone',$phone);
+                    oci_bind_by_name($stid ,':email',$femail);
+                    oci_bind_by_name($stid ,':phone',$contact);
 
                     if(oci_execute($stid)){
                         if(move_uploaded_file($utmpname,$ulocation)){
@@ -123,7 +141,10 @@
 
                     <div class="info2">
                         <label>Shop Category <span class="error"> * <?php echo $errcategory; ?> </label>
-                        <input type="text" class='inputbox' name="shopcategory" placeholder="Shop Category" value="<?php echo $_SESSION['type']; ?>" />
+                        <!-- <input type="text" class='inputbox' name="shopcategory" placeholder="Shop Category" value="<?php echo $_SESSION['type']; ?>" /> -->
+                        <select class="inputbox" name="shopcategory">
+                            <option value="<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['type']; ?></option>
+                        </select>
                     </div>
                     
                     <div class="info2">

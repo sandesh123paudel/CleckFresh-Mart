@@ -2,7 +2,7 @@
   // inculde database connection
   include('../db/connection.php');
 
-  $errname = $errprice = $errqty = $errstock =$errimage ='';
+  $errname = $errprice= $errcategory= $errshop= $errqty = $errstock =$errimage ='';
   $errcount = 0;
 
   if(isset($_POST['addProduct']))
@@ -14,10 +14,16 @@
           $errprice ="Price is required";
       }
       if(empty($_POST['quantity'])){
-          $errqty ="Category is required";
+          $errqty ="Quantity is required";
       }
       if(empty($_POST['productstock'])){
           $errstock="Stock is required";
+      }
+      if(empty($_POST['productcategory'])){
+        $errcategory="Category is required";
+      }
+      if(empty($_POST['shopname'])){
+        $errshop="ShopName is required";
       }
       if(empty($_FILES["productimage"]["name"])){
           $errimage ="Image is required";
@@ -44,6 +50,7 @@
           while($row = oci_fetch_array($stid1,OCI_ASSOC)){
             $p_name = $row['PRODUCT_NAME'];
           }
+          
           if($p_name == $name){
             $errcount+=1;
             $errname="Product Name is Already exists";
@@ -81,7 +88,7 @@
                   $errimage ="Image type doesnot match";
               }
           }
-      }
+      } 
   }
 
   
@@ -142,15 +149,25 @@
           </div>
 
           <div class="info2">
-            <label>Product Category</label>
-
-            <input
+            <label>Product Category
+            <span class="error">
+                *
+                <?php echo $errcategory; ?>
+              </span>
+            </label>
+            
+            <!-- <input
               type="text"
               class="inputbox"
-              name="productcategory"
+              name=""
               placeholder="Product Category"
               value="<?php echo $_SESSION['type']; ?>";
-            />
+            /> -->
+            
+            <select class="inputbox" name="productcategory">
+              <option value="<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['type']; ?></option>
+            </select>
+
           </div>
 
           <div class="info2">
@@ -165,14 +182,12 @@
           </div>
 
           <div class="info2">
-            <label>Shop Name</label>
-            <!-- <input
-              type="text"
-              class="inputbox"
-              name="shopname"
-              placeholder="Shop Name"
-            /> -->
-            
+            <label>Shop Name
+            <span class="error">
+                *
+                <?php echo $errshop; ?>
+              </span>
+            </label>
             <select class="inputbox" name="shopname">
               <option value="">Please Select Shop</option>
               <?php
@@ -184,6 +199,7 @@
                 while($row = oci_fetch_array($stid,OCI_ASSOC)){
                   echo "<option value=".$row['SHOP_ID'].">".$row['SHOP_NAME']."</option>";
                 }
+                
                 ?>
             </select>
           </div>
@@ -216,15 +232,15 @@
             <select class="inputbox" name="offer">
               <option value="">Choose Offer Type</option>
               <?php
-                $sql = "SELECT * FROM OFFER WHERE USER_ID = :user_id";
+                $sql = "SELECT * FROM OFFER";
                 $stid = oci_parse($connection,$sql);
-                oci_bind_by_name($stid, ':user_id', $_SESSION['userID']); 
                 oci_execute($stid);
 
                 while($row = oci_fetch_array($stid,OCI_ASSOC)){
-                  echo "<option value=".$row['SHOP_ID'].">".$row['SHOP_NAME']."</option>";
+                  echo "<option value=".$row['OFFER_ID'].">".$row['OFFER_NAME']."</option>";
                 }
                 ?>
+
             </select>
 
 
@@ -239,9 +255,9 @@
             >
             <select class="inputbox" name="quantity">
               <option value="">Please Select Quantity</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
+              <option value="250">250gm</option>
+              <option value="500">500gm</option>
+              <option value="1000">1000gm</option>
             </select>
           </div>
           <div class="info2">
@@ -253,7 +269,7 @@
               </span></label
             >
             <input
-              type="text"
+              type="number"
               class="inputbox"
               name="productstock"
               placeholder="Product Stock"

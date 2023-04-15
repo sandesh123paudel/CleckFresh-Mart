@@ -43,14 +43,14 @@
                 oci_execute($stid);
                 
                 while($row = oci_fetch_array($stid, OCI_ASSOC)){
-                    $id = $row['PRODUCT_ID'];
+                    $pid = $row['PRODUCT_ID'];
 
                     echo "<div class='shop-item'>";
-                        echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['Name']." >";
+                        echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
                         echo "<h3>".$row['PRODUCT_NAME']."</h3>";
                         echo "<div class='buttons'>";
-                            echo "<a href='traderdashboard.php?cat=editproduct&id=$id&action=edit' id='edit'>Edit</a>";
-                            echo "<a href='deleteproduct.php?&id=$id&action=delete' id='delete'>Delete</a>";
+                            echo "<a href='traderdashboard.php?cat=editproduct&id=$pid&action=edit' id='edit'>Edit</a>";
+                            echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
                         echo "</div>";
                     echo "</div>";
                 }

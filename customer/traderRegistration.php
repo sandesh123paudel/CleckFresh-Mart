@@ -84,7 +84,6 @@
                 $errcount+=1;
                 $errlname = "Only letters allowed";
             }
-           
 
             // email validation
             if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){

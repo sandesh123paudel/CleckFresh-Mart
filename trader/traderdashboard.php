@@ -117,7 +117,7 @@
           </div>
 
           <div class="logout">
-            <a href="#">LOGOUT</a>
+            <a href="../db/logout.php">LOGOUT</a>
           </div>
         </div>
       </div>
