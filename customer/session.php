@@ -7,7 +7,7 @@ if(isset($_SESSION['ID'])){
     $_SESSION['userID'] = $user['USER_ID'];
     $_SESSION['role'] = $user['ROLE'];
     $_SESSION['username'] = $user['FIRST_NAME'];
-    $_SESSION['category'] = $user['CATEGORY'];
+    $_SESSION['type'] = $user['CATEGORY'];
 
     if($_SESSION['role'] === 'customer'){
         header('location:productview.php');

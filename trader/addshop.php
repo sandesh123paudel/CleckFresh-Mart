@@ -12,15 +12,15 @@
         }
         
         if(empty($_POST['shopcategory'])){
-            $errcategory ="Price is required";
+            $errcategory ="Category is required";
         }
         
         if(empty($_POST['email'])){
-            $erremail ="Category is required";
+            $erremail ="Email is required";
         }
         
         if(empty($_POST['phone'])){
-            $errphone ="Category is required";
+            $errphone ="Phone number is required";
         }
         if(empty($_FILES["shopimage"]["name"])){
             $errimage ="Image is required";
@@ -41,13 +41,18 @@
             $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :s_name";
             $stid1 = oci_parse($connection,$sql);
             oci_bind_by_name($stid1 , ":s_name" , $name);
+
+            oci_execute($stid1);
+            $p_name ='';
             while($row = oci_fetch_array($stid1,OCI_ASSOC)){
               $p_name = $row['SHOP_NAME'];
             }
+
             if($p_name == $name){
               $errcount+=1;
               $errname="Product Name is Already exists";
             }
+
             if($errcount == 0)
             {
                 if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
@@ -57,14 +62,14 @@
 
                     $stid = oci_parse($connection,$sql);
                     oci_bind_by_name($stid ,':shop_id',$shop_id);  
-                    oci_bind_by_name($stid, ':user_id', $_SESSION['userID'])              
+                    oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
                     oci_bind_by_name($stid ,':name',$name);
                     oci_bind_by_name($stid ,':category',$category);
                     oci_bind_by_name($stid ,':image',$image);
                     oci_bind_by_name($stid ,':email',$email);
                     oci_bind_by_name($stid ,':phone',$phone);
 
-                    if(ocie_execute($stid)){
+                    if(oci_execute($stid)){
                         if(move_uploaded_file($utmpname,$ulocation)){
                             echo "<script>window.alert('Data Inserted Successfully!')</script>";
                             // header("location:addshop.php");
@@ -118,7 +123,7 @@
 
                     <div class="info2">
                         <label>Shop Category <span class="error"> * <?php echo $errcategory; ?> </label>
-                        <input type="text" class='inputbox' disable name="shopcategory" placeholder="Shop Category" value='<?php echo $_SESSION['category']; ?>' />
+                        <input type="text" class='inputbox' name="shopcategory" placeholder="Shop Category" value="<?php echo $_SESSION['type']; ?>" />
                     </div>
                     
                     <div class="info2">

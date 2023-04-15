@@ -83,6 +83,8 @@
           }
       }
   }
+
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,6 +149,7 @@
               class="inputbox"
               name="productcategory"
               placeholder="Product Category"
+              value="<?php echo $_SESSION['type']; ?>";
             />
           </div>
 
@@ -163,12 +166,26 @@
 
           <div class="info2">
             <label>Shop Name</label>
-            <input
+            <!-- <input
               type="text"
               class="inputbox"
               name="shopname"
               placeholder="Shop Name"
-            />
+            /> -->
+            
+            <select class="inputbox" name="shopname">
+              <option value="">Please Select Shop</option>
+              <?php
+                $sql = "SELECT * FROM SHOP WHERE USER_ID = :user_id";
+                $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid, ':user_id', $_SESSION['userID']); 
+                oci_execute($stid);
+
+                while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                  echo "<option value=".$row['SHOP_ID'].">".$row['SHOP_NAME']."</option>";
+                }
+                ?>
+            </select>
           </div>
         </div>
         <!-- part 2 -->
@@ -198,10 +215,19 @@
             <label>Offer Type</label>
             <select class="inputbox" name="offer">
               <option value="">Choose Offer Type</option>
-              <option value="10">Offer 1</option>
-              <option value="20">Offer 2</option>
-              <option value="30">Offer 3</option>
+              <?php
+                $sql = "SELECT * FROM OFFER WHERE USER_ID = :user_id";
+                $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid, ':user_id', $_SESSION['userID']); 
+                oci_execute($stid);
+
+                while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                  echo "<option value=".$row['SHOP_ID'].">".$row['SHOP_NAME']."</option>";
+                }
+                ?>
             </select>
+
+
           </div>
           <div class="info2">
             <label

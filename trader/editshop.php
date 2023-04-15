@@ -16,7 +16,8 @@
 
         if(isset($_GET['id']) && isset($_GET['action'])){
             $eid = $_GET['id'];
-            $sql = "SELECT * FROM  SHOP WHERE Id = eid";
+
+            $sql = "SELECT * FROM  SHOP WHERE SHOP_ID = :eid";
 
             $stid = oci_parse($connection,$sql);
             oci_bind_by_name($stid, ':eid' ,$eid);
@@ -25,12 +26,12 @@
         }    
 
         while($row = oci_fetch_array($stid, OCI_ASSOC)){
-            $eid = $row['Id'];
-            $ename = $row['Name'];
-            $ecategory = $row['Category'];
-            $eemail = $row['Email'];
-            $ephone = $row['Phone'];
-            $eimage = $row['Image'];
+            $eid = $row['SHOP_ID'];
+            $ename = $row['SHOP_NAME'];
+            $ecategory = $row['SHOP_TYPE'];
+            $eemail = $row['EMAIL'];
+            $ephone = $row['CONTACT'];
+            $eimage = $row['SHOP_IMAGE'];
         }
             
    echo "

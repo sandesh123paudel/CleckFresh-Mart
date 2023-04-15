@@ -1,7 +1,7 @@
 <?php
-    $to = 'karandk536@gmail.com';
+    $to = 'mmukesh21@tbc.edu.np';
     $subject = "Test mail";
-    $message = "Hi this email is sent from my local host";
+    $message = "Hi Mukesh, This message remind you to prepare about your work in progress presentation So be prepare it. And we our demo is in Monday 10 am.";
     $message = wordwrap($message,70);
     $header = "FROM:cleckfreshmart@gmail.com\r\nReply-To:cleckfreshmart@gmail.com";
 

@@ -4,17 +4,6 @@
     session_start();
     include('../db/connection.php');
 
-    // for inserting category in category table
-    if(isset($_SESSION['category'])){
-            
-        $cat_name = $_SESSION['category'];
-
-        $sql1 = "INSERT INTO CATEGORY(CATEGORY_NAME) VALUES(:cat_name)";
-        $stid1 = oci_parse($connection,$sql1);
-        oci_bind_by_name($stid1,':cat_name',$cat_name);
-        oci_execute($stid1);
-    }
-
     // for login purpose
     $err = $erremail= $errpassword = $errrole ='';
 

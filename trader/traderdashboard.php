@@ -140,7 +140,7 @@
             </h5>
           </div>
           <div class="header2">
-            <h3><?php  echo $_SESSION['username'] ?> </h3>
+            <h3><?php  echo $_SESSION['username']; ?> </h3>
             <span>▼</span>
           </div>
         </div>

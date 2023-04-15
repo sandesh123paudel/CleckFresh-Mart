@@ -13,6 +13,5 @@
         if(oci_execute($stid)){
             header("location:traderdashboard.php");
         }
-
     }
 ?>

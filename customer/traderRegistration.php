@@ -142,13 +142,15 @@
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
                     $vcontact = (int)$row['CONTACT'];
-                    $vcategory = $row['CATEGORY'];
-                    $vusername = $row['USER_NAME'];
+                    if($row['CATEGORY'] == true){
+                        echo $row['CATEGORY'];
+                        $vcategory = $row['CATEGORY'];
+                    }  
                 }
 
                 if($vemail === $femail){
                     $errcount+=1;
-                    $errPhone="Email is already Exists";
+                    $erremail="Email is already Exists";
                 }
                 if($vcontact === $contact){
                     $errcount+=1;
@@ -181,7 +183,7 @@
                     if(oci_execute($stid))
                     {
                         $_SESSION['category'] = $category;
-                        header("location:login.php");
+                        header("location:category.php");
                     }
                 }
             }
