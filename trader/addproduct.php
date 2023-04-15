@@ -32,9 +32,9 @@
           $name = $_POST['productname'];
           $category = $_POST['productcategory'];
           $description = $_POST['description'];
-          $shop = $_POST['shopname'];
+          $shop = (int)$_POST['shopname'];
           $price = $_POST['productprice'];
-          $offer = $_POST['offer'];
+          $offer = (int)$_POST['offer'];
           $quantity =  $_POST['quantity'];
           $stock =   $_POST['productstock'];
           // image uploads
