@@ -49,11 +49,23 @@
             }
           }
           else{
-            $sql = "UPDATE products SET Name='$name', Category='$category',Description='$description',
-            ShopName='$shop',Image='$previous',Price='$price',Offer='$offer',Quantity='$quantity',Stock='$stock' WHERE Id='$uid'";
-            $qry = mysqli_query($connection,$sql) or die(mysqli_error($connection));
-            
-            if($qry){
+            $sql = "UPDATE products SET Name = :name, Category= :category, Description= :description,
+            ShopName= :shop,Image= :previous,Price= :price,Offer= :offer,Quantity= :quantity,Stock= :stock WHERE Id= :uid ";
+                      
+            $stid = oci_parse($connection,$sql);
+
+            oci_bind_by_name($stid ,':uid',$uid);
+            oci_bind_by_name($stid ,':name',$name);
+            oci_bind_by_name($stid ,':category',$category);
+            oci_bind_by_name($stid ,':description',$description);
+            oci_bind_by_name($stid ,':shop',$shop);
+            oci_bind_by_name($stid ,':previous',$previous);
+            oci_bind_by_name($stid ,':price',$price);
+            oci_bind_by_name($stid ,':offer',$offer);
+            oci_bind_by_name($stid ,':quantity',$quantity);
+            oci_bind_by_name($stid ,':stock',$stock);
+
+            if(oci_execute($stid)){
                 header('Location:traderdashboard.php');
             }
           }                 

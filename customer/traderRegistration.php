@@ -1,11 +1,13 @@
 <!-- registration validation  -->
 <?php
+    session_start();
     include('../db/connection.php');
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
 
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty
+
         if(empty($_POST['fname'])){
             $errfname='First Name is required';
         }
@@ -56,6 +58,7 @@
             $specialChars = preg_match('@[^\w]@',$password);
 
             // error validation
+           
             if(strlen(trim($fname)) != strlen($fname)){
                 $errcount+=1;
                 $errfname="You cannot input space as a first name";
@@ -81,6 +84,7 @@
                 $errcount+=1;
                 $errlname = "Only letters allowed";
             }
+           
 
             // email validation
             if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){
@@ -98,7 +102,7 @@
                 $errPhone = "Phone number is not valid. Please enter a valid Phone number";
             }
 
-            $age = date_diff(date_create($date_of_birth), date_create('now'))->y;
+            $age = date_diff(date_create($dob), date_create('now'))->y;
 
             if($age < 20) {
                 $errcount+=1;
@@ -125,7 +129,7 @@
                 }
 
                 $contact = (int)$phone;
-                $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory";
+                $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory ";
 
                 $stid1 = oci_parse($connection, $sql);
                 oci_bind_by_name($stid1,':demail' ,$femail);
@@ -133,12 +137,13 @@
                 oci_bind_by_name($stid1,':dcategory',$category);
                 oci_execute($stid1);
 
+                $vemail=$vcontact=$vcategory='';
+
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
                     $vcontact = (int)$row['CONTACT'];
-                    if($row['CATEGORY'] != ''){
-                        $vcategory = $row['CATEGORY'];
-                    }
+                    $vcategory = $row['CATEGORY'];
+                    $vusername = $row['USER_NAME'];
                 }
 
                 if($vemail === $femail){
@@ -175,10 +180,9 @@
 
                     if(oci_execute($stid))
                     {
-                        // header("location:login.php");
-                        echo "succsfully created";
+                        $_SESSION['category'] = $category;
+                        header("location:login.php");
                     }
-                    
                 }
             }
             else{
@@ -216,6 +220,7 @@
         <div class='part2'>
             <h1>Create Trader Account</h1>
             <form method='Post' action=''>
+
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>First Name <span class='error'> * <?php echo $errfname; ?> </span></label>

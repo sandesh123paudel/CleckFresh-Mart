@@ -36,17 +36,17 @@
         <div class="shopitems">
             <?php
             // selecting all items from shops
-                $sql = "SELECT * FROM shop";
+                $sql = "SELECT * FROM SHOP";
 
                 $stid = oci_parse($connection,$sql);
                 oci_execute($stid);
                 
                 while($row = oci_fetch_array($stid,OCI_ASSOC)){
-                    $id = $row['Id'];
+                    $id = $row['SHOP_ID'];
 
                     echo "<div class='shop-item'>";
-                        echo "<img src=\"../db/uploads/shops/".$row['Image']."\" alt=".$row['Name']." >";
-                        echo "<h3>".$row['Name']."</h3>";
+                        echo "<img src=\"../db/uploads/shops/".$row['SHOP_IMAGE']."\" alt=".$row['Name']." >";
+                        echo "<h3>".$row['SHOP_NAME']."</h3>";
                         echo "<div class='buttons'>";
                             echo "<a href='traderdashboard.php?cat=editshop&id=$id&action=edit' id='edit'>Edit</a>";
                             echo "<a href='deleteshop.php?id=$id&action=delete' id='delete'>Delete</a>";

@@ -4,7 +4,7 @@
     if(isset($_GET['id']) && isset($_GET['action'])){
         $delid = $_GET['id'];
 
-        $sql = "DELETE FROM products WHERE Id = :id";
+        $sql = "DELETE FROM PRODUCT WHERE Id = :id";
         
         $stid = oci_parse($connection,$sql);
 

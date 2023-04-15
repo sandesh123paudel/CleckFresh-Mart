@@ -3,6 +3,8 @@
   include('../db/connection.php');
 
   $errname = $errprice = $errqty = $errstock =$errimage ='';
+  $errcount = 0;
+
   if(isset($_POST['addProduct']))
   {
       if(empty($_POST['productname'])){
@@ -35,12 +37,25 @@
           $utmpname = $_FILES['productimage']['tmp_name'];
           $usize = $_FILES['productimage']['size'];
           $ulocation = "../db/uploads/products/".$image;
+
+          $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME= :p_name";
+          $stid1 = oci_parse($connection,$sql);
+          oci_bind_by_name($stid1 , ":p_name" , $name);
+          while($row = oci_fetch_array($stid1,OCI_ASSOC)){
+            $p_name = $row['PRODUCT_NAME'];
+          }
+          if($p_name == $name){
+            $errcount+=1;
+            $errname="Product Name is Already exists";
+          }
+          if($errcount == 0)
+          {
               if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
               {
-                  $sql = "INSERT INTO products (Name,Category,Description,ShopName,Image,Price,Offer,Quantity,Stock) 
+                  $sql1 = "INSERT INTO products (Name,Category,Description,ShopName,Image,Price,Offer,Quantity,Stock) 
                       VALUES(:name,:category,:description,:shop,:image,:price,:offer,:quantity,:stock)";
                 
-                  $stid = oci_parse($connection,$sql);
+                  $stid = oci_parse($connection,$sql1);
 
                   oci_bind_by_name($stid ,':name',$name);
                   oci_bind_by_name($stid ,':category',$category);
@@ -52,7 +67,7 @@
                   oci_bind_by_name($stid ,':quantity',$quantity);
                   oci_bind_by_name($stid ,':stock',$stock);
                   
-                  if(oci_execute($stid)){
+                  if(oci_execute($stid1)){
                       if(move_uploaded_file($utmpname,$ulocation)){
                           echo "<script>window.alert('Data Inserted Successfully!')</script>";
                           // header("Location:traderdashboard.php");
@@ -65,6 +80,7 @@
               else{
                   $errimage ="Image type doesnot match";
               }
+          }
       }
   }
 ?>

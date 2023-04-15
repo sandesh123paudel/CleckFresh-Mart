@@ -185,6 +185,7 @@ body{
 .header2 h3{
     font-size: 25px;
     font-weight: 600;
+    padding-block: 5px;
     background: -webkit-linear-gradient(rgb(60, 204, 38),rgb(255, 179, 1),rgb(244, 52, 129), #333);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -192,6 +193,7 @@ body{
 .header2 span{
     color:rgb(135, 126, 126);
     padding:1px;
+    padding-block: 5px;
     text-align: center;
     border-radius: 50%;
 }

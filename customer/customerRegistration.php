@@ -1,13 +1,14 @@
 <!-- registration validation  -->
 <?php
-
-include('../db/connection.php');
-
+    session_start();
+    include('../db/connection.php');
+    
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
 
     if(isset($_POST['subCustomer'])){
         // verifying the errors if inbox is empty
+
         if(empty($_POST['fname'])){
             $errfname='First Name is required';
         }
@@ -75,7 +76,7 @@ include('../db/connection.php');
                 $errcount+=1;
                 $errlname = "Only letters allowed";
             }
-
+            
             // email validation
             if(!filter_var($femail,FILTER_VALIDATE_EMAIL)){
                 $errcount+=1;
@@ -93,7 +94,7 @@ include('../db/connection.php');
                 $errPhone = "Phone number is not valid. Please enter a valid Phone number";
             }
            
-            $age = date_diff(date_create($date_of_birth), date_create('now'))->y;
+            $age = date_diff(date_create($dob), date_create('now'))->y;
 
             if($age < 16) {
                 $errcount+=1;
@@ -128,15 +129,17 @@ include('../db/connection.php');
                 oci_bind_by_name($stid1, ':dcontact' ,$contact);
                 oci_execute($stid1);
                 
+                $vemail=$vcontact='';
+
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
                     $vcontact = (int)$row['CONTACT'];
+                    
                 }
 
                 if($vemail == $femail){
                     $errcount += 1;
-                    $erremail="Email is already Exists";
-                    
+                    $erremail="Email is already Exists";   
                 }
                 if($vcontact == $contact){
                     $errcount += 1;
@@ -162,8 +165,7 @@ include('../db/connection.php');
                     oci_bind_by_name($stid, ':password', $fpassword);
 
                     if(oci_execute($stid)){
-                        // header("location:login.php");
-                        echo "succsfully created";
+                        header("location:login.php");
                     }
                 }
             }
@@ -206,6 +208,7 @@ include('../db/connection.php');
             <h1>Create Customer Account</h1>
 
             <form method='Post' action=''>
+            
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>First Name <span class='error'> * <?php echo $errfname; ?> </span></label>

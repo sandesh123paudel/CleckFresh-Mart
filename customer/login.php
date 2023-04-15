@@ -1,30 +1,18 @@
 <!-- Validation Handling in Login using php -->
 <?php
-
     // include connection
+    session_start();
     include('../db/connection.php');
 
-    // for session
-    if(isset($_SESSION['ID'])){
-        $user = $_SESSION['ID'];
+    // for inserting category in category table
+    if(isset($_SESSION['category'])){
+            
+        $cat_name = $_SESSION['category'];
 
-        $_SESSION['userID'] = $user['USER_ID'];
-        $_SESSION['role'] = $user['ROLE'];
-        $_SESSION['username'] =$user['FIRST_NAME']." ".$user['LAST_NAME'];
-
-        // echo "USER ID :" .$_SESSION['userID']."<br> ";
-        // echo "ROLE  : " .$_SESSION['role']. " <br>";
-        // echo "USERNAME : ". $_SESSION['username'] ."<br>";
-
-        if($_SESSION['role'] == 'customer'){
-            header('location:productview.php');
-        }
-        if($_SESSION['role'] == 'trader'){
-            header('location:../trader/traderdashboard.php');
-        }
-        if($_SESSION['role'] == 'admin'){
-            echo "successfully connected to admin";
-        }
+        $sql1 = "INSERT INTO CATEGORY(CATEGORY_NAME) VALUES(:cat_name)";
+        $stid1 = oci_parse($connection,$sql1);
+        oci_bind_by_name($stid1,':cat_name',$cat_name);
+        oci_execute($stid1);
     }
 
     // for login purpose
@@ -70,13 +58,12 @@
             if($data = oci_fetch_array($stid, OCI_ASSOC)) 
             {
                 $_SESSION['ID'] = $data; 
-                header("location:login.php");
+                header("location:session.php");
   
             }
             else{
                 $_SESSION['error']= 'User not recognised';
-                header("location:login.php");
-
+                header("location:session.php");
             }
             oci_free_statement($stid);
             oci_close($connection);

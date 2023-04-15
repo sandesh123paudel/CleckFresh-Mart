@@ -4,7 +4,7 @@
     include('../db/connection.php');
 
     $errname = $erremail = $errcategory = $errphone = $errimage='';
-    
+    $errcount = 0;
     if(isset($_POST['addshop']))
     {
         if(empty($_POST['shopname'])){
@@ -37,15 +37,27 @@
             $utmpname = $_FILES['shopimage']['tmp_name'];
             $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
-            
 
+            $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :s_name";
+            $stid1 = oci_parse($connection,$sql);
+            oci_bind_by_name($stid1 , ":s_name" , $name);
+            while($row = oci_fetch_array($stid1,OCI_ASSOC)){
+              $p_name = $row['SHOP_NAME'];
+            }
+            if($p_name == $name){
+              $errcount+=1;
+              $errname="Product Name is Already exists";
+            }
+            if($errcount == 0)
+            {
                 if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
                 {
-                    $sql = "INSERT INTO shop (Name,Category,Image,Email,Phone) 
-                        VALUES (:name, :category, :image, :email, :phone )";
+                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL) 
+                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email )";
 
                     $stid = oci_parse($connection,$sql);
-                                    
+                    oci_bind_by_name($stid ,':shop_id',$shop_id);  
+                    oci_bind_by_name($stid, ':user_id', $_SESSION['userID'])              
                     oci_bind_by_name($stid ,':name',$name);
                     oci_bind_by_name($stid ,':category',$category);
                     oci_bind_by_name($stid ,':image',$image);
@@ -65,6 +77,7 @@
                 else{
                     $errimage ="Image type doesnot match";
                 }
+            }
            
         }
     }
@@ -105,7 +118,7 @@
 
                     <div class="info2">
                         <label>Shop Category <span class="error"> * <?php echo $errcategory; ?> </label>
-                        <input type="text" class='inputbox' name="shopcategory" placeholder="Shop Category" />
+                        <input type="text" class='inputbox' disable name="shopcategory" placeholder="Shop Category" value='<?php echo $_SESSION['category']; ?>' />
                     </div>
                     
                     <div class="info2">

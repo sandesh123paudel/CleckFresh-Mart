@@ -1,3 +1,7 @@
+<?php
+  include("../db/connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +13,10 @@
 </head>
 <body>
     <?php
-  include('../db/connection.php');
 
         if(isset($_GET['id']) && isset($_GET['action'])){
             $eid = $_GET['id'];
-            $sql = "SELECT * FROM  shop WHERE Id = eid";
+            $sql = "SELECT * FROM  SHOP WHERE Id = eid";
 
             $stid = oci_parse($connection,$sql);
             oci_bind_by_name($stid, ':eid' ,$eid);

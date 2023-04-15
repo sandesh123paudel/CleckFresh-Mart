@@ -1,3 +1,7 @@
+<?php
+ session_start();
+  include("../db/connection.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +13,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/dashboardss.css" />
+    <link rel="stylesheet" href="css/dash.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -136,7 +140,7 @@
             </h5>
           </div>
           <div class="header2">
-            <h3>Zaapp</h3>
+            <h3><?php  echo $_SESSION['username'] ?> </h3>
             <span>▼</span>
           </div>
         </div>
