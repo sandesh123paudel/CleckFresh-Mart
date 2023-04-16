@@ -34,11 +34,19 @@
           $category_id = (int) $_POST['productcategory'];
           $category = $_SESSION['type'];
           $description = $_POST['description'];
+<<<<<<< HEAD
           $shop_id = (int) $_POST['shopname'];
           $price = $_POST['productprice'];
           $offer_id = (int) $_POST['offer'];
           $quantity = (int) $_POST['quantity'];
           $stock =  (int) $_POST['productstock'];
+=======
+          $shop = (int)$_POST['shopname'];
+          $price = $_POST['productprice'];
+          $offer = (int)$_POST['offer'];
+          $quantity =  $_POST['quantity'];
+          $stock =   $_POST['productstock'];
+>>>>>>> f6c8d3a1bc989d6a120e4d70574a28abf11ff0e6
           // image uploads
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];
