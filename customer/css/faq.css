@@ -13,7 +13,7 @@
     flex-direction: column;
     width: 100%;
 }
-.faq .navbar{
+.faq .nav-bar{
     overflow: hidden;
     position: fixed;
     top:0;
@@ -136,11 +136,7 @@
     }
     
     .banner{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15%;
-        width: 100%;
-        height: 130px;
+       margin-top: 30%;
     }
     .banner img{
         width: 120px;

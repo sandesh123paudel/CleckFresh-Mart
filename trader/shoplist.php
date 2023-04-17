@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/shops.css">
+    <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
     <div class="shop-container">
@@ -46,12 +46,19 @@
                     $id = $row['SHOP_ID'];
 
                     echo "<div class='shop-item'>";
+                        echo "<div class='image'>";
                         echo "<img src=\"../db/uploads/shops/".$row['SHOP_IMAGE']."\" alt=".$row['SHOP_NAME']." >";
-                        echo "<h3>".$row['SHOP_NAME']."</h3>";
+                        echo "</div>";
+                        echo "<div class='shop-info'>";
+                        echo "<label>Shop ID: ".$row['SHOP_ID']."</label>";
+                        echo "<label>Shop Name: ".$row['SHOP_NAME']."</label>";
+                        echo "</div>";
+                        
                         echo "<div class='buttons'>";
-                            echo "<a href='traderdashboard.php?cat=editshop&id=$id&action=edit' id='edit'>Edit</a>";
+                            echo "<a href='traderdashboard.php?cat=EditShop&id=$id&action=edit&name=Shops' id='edit'>Edit</a>";
                             echo "<a href='deleteshop.php?id=$id&action=delete' id='delete'>Delete</a>";
                         echo "</div>";
+                        
                     echo "</div>";
                 }
             ?>

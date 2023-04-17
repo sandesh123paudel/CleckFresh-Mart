@@ -21,7 +21,7 @@ body {
 }
 
 .nav {
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   background-color: var(--nav-color);
@@ -324,14 +324,18 @@ body {
     font-size: 13px;
   }
   .nav .links-container{
-    width: 15%;
+    width: 20%;
   }
-
+  .links-btn{
+    width: unset;
+  }
   .nav .content {
     display: flex;
     margin-inline: 0px;
+    column-gap: 2px;
   }
   .nav .content span {
+    padding-block: 5px;
     color: black;
     font-size: 30px;
     margin-inline: 5px;

@@ -15,10 +15,10 @@
     <div class="overview-container">
         <div class="trader">
             <div class="trader-info">
-                <h2>Greeting, <label>ZAAPP</label></h2>
+                <h2>Greeting, <label><?php echo $_SESSION['username']; ?></label></h2>
                 <p>Here's what's happening with your store today.</p>
             </div>
-            <a href="#">Add Product +</a>
+            <a href="traderdashboard.php?cat=Addproduct&name=Products">Add Product +</a>
         </div>
         
 

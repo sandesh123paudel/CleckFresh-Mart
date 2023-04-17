@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/shops.css">
+    <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
     <div class="shop-container">
@@ -42,18 +42,47 @@
                 $stid = oci_parse($connection,$sql);
                 oci_execute($stid);
                 
+                // while($row = oci_fetch_array($stid, OCI_ASSOC)){
+                //     $pid = $row['PRODUCT_ID'];
+
+                //     echo "<div class='shop-item'>";
+                //         echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
+                //         echo "<h3>".$row['PRODUCT_NAME']."</h3>";
+                //         echo "<div class='buttons'>";
+                //             echo "<a href='traderdashboard.php?cat=editproduct&id=$pid&action=edit' id='edit'>Edit</a>";
+                //             echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
+                //         echo "</div>";
+                //     echo "</div>";
+                // }
+
                 while($row = oci_fetch_array($stid, OCI_ASSOC)){
                     $pid = $row['PRODUCT_ID'];
+                    $s_id = $row['SHOP_ID'];
+                    echo "<div class='card'>";
+                        echo "<div class='card-info'>";
+                            echo "<div class='card-details'>";
+                                echo "<label>P_ID :  ".$row['PRODUCT_ID']."</label>";
+                                echo "<label>Name:  ".$row['PRODUCT_NAME']."</label>";
+                                
+                                echo "<label>Shop Name:  ".$row['SHOP_ID']."</label>";
 
-                    echo "<div class='shop-item'>";
-                        echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
-                        echo "<h3>".$row['PRODUCT_NAME']."</h3>";
-                        echo "<div class='buttons'>";
-                            echo "<a href='traderdashboard.php?cat=editproduct&id=$pid&action=edit' id='edit'>Edit</a>";
+                                echo "<label>Price:  <span>".$row['PRODUCT_PRICE'] ."<span></label>";
+                            echo "</div>";
+                            
+                            echo "<div class='image'>";
+                                echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
+                            echo "</div>";
+                        echo "</div>"; 
+    
+                        echo "<div class='btns'>";
+                            echo "<a href='traderdashboard.php?cat=EditProduct&id=$pid&action=edit&name=Products' id='edit'>Edit</a>";
                             echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
                         echo "</div>";
+                
                     echo "</div>";
                 }
+
+
             ?>
            
         </div>

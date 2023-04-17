@@ -9,17 +9,17 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/fq.css" />
+    <link rel="stylesheet" href="css/faq.css" />
   </head>
   <body>
 
   <div class="faq">
 
-  <div class="navbar">
-    <?php
-      require('navbar.php');
-    ?>
-  </div>
+    <div class="nav-bar">
+      <?php
+        require('navbar.php');
+      ?>
+    </div>
 
     <div class="faq-container">
       <div class="banner">

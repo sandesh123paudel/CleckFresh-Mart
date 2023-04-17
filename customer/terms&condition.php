@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/term.css" />
+    <link rel="stylesheet" href="css/termsa.css" />
   </head>
   <body>
 
   <div class="terms">
   
-    <div class='navbar'>
+    <div class='nav-bar'>
       <?php
           require('navbar.php');
       ?>
@@ -19,7 +19,7 @@
 
         <div class="banner">
             <img src="../logo/basket.png" alt="basket" />
-            <h1>Terms & Conditions</h1>
+            <h1 id='terms'>Terms & Conditions</h1>
             <img src="../logo/basket.png" alt="basket" />
         </div>
 

@@ -9,7 +9,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.terms .navbar{
+.terms .nav-bar{
     overflow: hidden;
     position: fixed;
     top:0;
@@ -19,7 +19,7 @@
     padding-bottom:60px ;
     background-color: transparent;
 }
-.policy .navbar{
+.policy .nav-bar{
     overflow: hidden;
     position: fixed;
     top:0;
@@ -77,12 +77,8 @@
         box-shadow: none;
     }
     
-.banner{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15%;
-    width: 100%;
-    height: 130px;
+.banner{   
+    margin-top: 30%;
 }
 .banner img{
     width: 120px;
@@ -94,6 +90,9 @@
     margin-block: 40px;
     z-index: 2;
     margin-left: -30px;
+}
+#terms{
+    width: 200px;
 }
 
     .contact-part1{

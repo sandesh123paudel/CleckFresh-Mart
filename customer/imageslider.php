@@ -9,24 +9,63 @@
 
     <style>
         .image-slider{
-            width: 100%;
-            height: 500px;
+            max-width: 100%;
         }
         .image-slider img{
             width: 100%;
-            height: 100%;
+            height: 70vh;
+            object-fit:cover;
+            filter: brightness(70%);
             background-image: linear-gradient(180deg, rgba(255,0,0,0), rgba(255,0,0,1));
-        };
+        }
+        .image-header{
+            position: absolute;
+            top: 20%;
+            display:flex;
+            width: 100%;
+            color: orange;
+            justify-content: left;
+            padding-inline: 10%;
+        }
+        .image-header h2{
+            margin-top:4rem;
+            padding-block:10px;
+            font-size: 40px;
+            font-weight: 800;
+            width: 500px;
+            word-wrap: break-word;
+        }
+        @media  screen and (max-width:420px) {
+            .image-slider img{
+                height: 40vh;
+            }
+            .image-header{
+                padding-inline: 2rem;
+            }
+            .image-header h2{
+                margin-top:unset;
+                padding-block:5px;
+                font-size: 30px;
+                font-weight: 800;
+                width: 370px;
+                word-wrap: break-word;
+            }
+        }
         
     </style>
 </head>
 <body>
+
     <div class="image-slider">
         <img class='mySlides w3-animate-opacity' src="../logo/imgeslider.png"  alt="image" />
         <img class='mySlides w3-animate-opacity' src="../logo/mac.jpg"  alt="image" />
         <img class='mySlides w3-animate-opacity' src="../logo/salmon.jpg"  alt="image"/>
         <img class='mySlides w3-animate-opacity' src="../logo/veg.jpg"  alt="image"/>
         <img class='mySlides w3-animate-opacity' src="../logo/wine.png"  alt="image"/>
+    </div>
+    
+    <div class="image-header">
+        <h2>BUY PRODUCTS FROM US AND START SUPPORTING LOCAL TRADERS</h2>
     </div>
 
     <script>

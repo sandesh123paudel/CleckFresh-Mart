@@ -13,7 +13,7 @@
     flex-direction: column;
     width: 100%;
 }
-.contact .navbar{
+.contact .nav-bar{
     overflow: hidden;
     position: fixed;
     top:0;
@@ -178,7 +178,7 @@
 .banner{
     display: flex;
     justify-content: space-between;
-    margin-top: 15%;
+    margin-top: 30%;
     width: 100%;
     height: 130px;
 }

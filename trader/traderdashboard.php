@@ -34,7 +34,7 @@
         <div class="side-links">
           <div class="home-link">
             <span class="material-symbols-outlined">home</span>
-            <a href="#">HOME</a>
+            <a href="traderdashboard.php">HOME</a>
           </div>
 
           <!-- Product dropdown -->
@@ -58,8 +58,8 @@
               onmouseout="outMouse('product')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Productlist">Products Lists</a>
-                <a href="traderdashboard.php?cat=Addproduct">Add Products</a>
+                <a href="traderdashboard.php?cat=Productlist&name=Products">Products Lists</a>
+                <a href="traderdashboard.php?cat=Addproduct&name=Products">Add Products</a>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@
               onmouseout="outMouse('shop')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Shoplist">Shops Lists</a>
-                <a href="traderdashboard.php?cat=Addshop">Add Shops</a>
+                <a href="traderdashboard.php?cat=Shoplist&name=Shops">Shops Lists</a>
+                <a href="traderdashboard.php?cat=Addshop&name=Shops">Add Shops</a>
               </div>
             </div>
           </div>
@@ -110,8 +110,8 @@
               onmouseout="outMouse('order')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Orderlist">Order Lists</a>
-                <a href="traderdashboard.php?cat=Orderhistory">Order History</a>
+                <a href="traderdashboard.php?cat=Orderlist&name=Orders">Order Lists</a>
+                <a href="traderdashboard.php?cat=Orderhistor&namey=Orders">Order History</a>
               </div>
             </div>
           </div>
@@ -135,8 +135,18 @@
               menu
             </span>
             <h5 id="link">
-              <p>Home ></p>
-              Overview
+              <?php
+                if(isset($_GET['cat']) && isset($_GET['name'])){
+                  $links = $_GET['cat'];
+                  $name = strtoupper($_GET['name']);
+                  echo "<p>".$name." > </p>".$links;
+                }
+                else{
+                  echo "<p>Home ></p>
+                  Overview";
+                }
+              ?>
+              
             </h5>
           </div>
           <div class="header2">
@@ -168,12 +178,12 @@
               if($links == "Orderhistory"){
                 require('orderhistory.php');
               }
-              if($links == "editproduct"){
+              if($links == "EditProduct"){
                 $id = $_GET['id'];
                 $action = $_GET['action'];
                 require_once('editProduct.php');
               }
-              if($links == "editshop"){
+              if($links == "EditShop"){
                 $id = $_GET['id'];
                 $action = $_GET['action'];
                 require_once('editshop.php');
@@ -212,7 +222,7 @@
         <div class="side-links">
           <div class="home-link">
             <span class="material-symbols-outlined">home</span>
-            <a href="#">HOME</a>
+            <a href="traderdashboard.php">HOME</a>
           </div>
 
           <!-- Product dropdown -->
@@ -236,8 +246,8 @@
               onmouseout="outMouse('products')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Productlist">Products Lists</a>
-                <a href="traderdashboard.php?cat=Addproduct">Add Products</a>
+                <a href="traderdashboard.php?cat=Productlist&name=Products">Products Lists</a>
+                <a href="traderdashboard.php?cat=Addproduct&name=Products">Add Products</a>
               </div>
             </div>
           </div>
@@ -262,8 +272,8 @@
               onmouseout="outMouse('shops')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Shoplist">Shops Lists</a>
-                <a href="traderdashboard.php?cat=Addshop">Add Shops</a>
+                <a href="traderdashboard.php?cat=Shoplist&name=Shops">Shops Lists</a>
+                <a href="traderdashboard.php?cat=Addshop&name=Shops">Add Shops</a>
               </div>
             </div>
           </div>
@@ -288,8 +298,8 @@
               onmouseout="outMouse('orders')"
             >
               <div>
-                <a href="traderdashboard.php?cat=Orderlist">Order Lists</a>
-                <a href="traderdashboard.php?cat=Orderhistory">Order History</a>
+                <a href="traderdashboard.php?cat=Orderlist&name=Orders">Order Lists</a>
+                <a href="traderdashboard.php?cat=Orderhistory&name=Orders">Order History</a>
               </div>
             </div>
           </div>
@@ -297,6 +307,7 @@
           <div class="logout">
             <a href="#">LOGOUT</a>
           </div>
+          <div id='result'></div>
         </div>
       </div>
     </div>
@@ -353,6 +364,7 @@
           document.getElementById("orders").style.display = "none";
         }
       }
+
     </script>
 
     <script

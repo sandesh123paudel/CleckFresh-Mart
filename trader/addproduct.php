@@ -39,7 +39,7 @@
           $price = $_POST['productprice'];
           $offer_id =  $_POST['offer'];
           $quantity =  $_POST['quantity'];
-          $stock =   $_POST['productstock']
+          $stock =   $_POST['productstock'];
 
           // image uploads
           $image = $_FILES["productimage"]["name"];

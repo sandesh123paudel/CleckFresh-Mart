@@ -51,7 +51,7 @@
             oci_bind_by_name($stid1 ,':phone',$phone);
 
             if(oci_execute($stid1)){
-                header('location:traderdashboard.php');
+                header('location:traderdashboard.php?cat=Shoplist');
             }
           }         
       }

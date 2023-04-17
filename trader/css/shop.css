@@ -86,30 +86,27 @@ option{
 
 .shop-item{
     display: flex;
-    width: 330px;
-    height: 130px;
-    justify-content: space-between;
+    width: 370px;
+    height: 170px;
     box-shadow: 2px 3px 6px 2px lightgray;
     padding-block: 0.5rem;
     padding-inline: 0.5rem;
-    margin-block: 0.5rem;
     margin-inline: 1rem;
     border-radius: 10px;
 }
-
-.shop-item img{
-    margin-top: 5px;
-    border-radius: 5px;
-    width: 100px;
-    height: 100px;
+.shop-item .image{
+    width: 40%;
 }
-.shop-item h3{
-    padding-block: 20px;
-    font-size: 20px;
+
+.shop-info{
+    width: 40%;
+    padding-block: 1rem;
+}
+.shop-info label{
+    font-size: 15px;
     width: 130px;
     overflow-wrap: break-word;
-    font-weight: 600;
-    color: var(--green);
+    font-weight: 600;    
 }
 
 .buttons{
@@ -137,8 +134,75 @@ option{
     background-color: var(--pink);
 }
 
+.card{
+    width: 370px;
+    height: 250px;
+    padding: 10px;
+    margin:10px;
+    display:flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px 2px white;
+}
+
+.card-info{
+    display: flex;
+}
+
+.card-details{
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    gap: 10px;
+    margin-inline: 20px;
+}
+
+.card-details label{
+    font-size: 14px;
+    font-weight: 600px;
+}
+
+.card-details label span{
+    color: var(--pink);
+    font-weight: 800;
+    font-size: 15px;
+}
+
+ .image{
+    width: 50%;
+}
+.image img{
+    width: 130px;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px 2px white;
+}
+
+.btns{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.btns a{
+    text-decoration: none;
+    padding-inline:20px ;
+    width: 200px;
+    text-align: center;
+    padding-block: 8px;
+    border-radius: 5px;
+    margin-inline: 5px;
+    color: white;
+}
+
 /* Responsive */
 @media  screen and (max-width:420px) {
+    .shop-container{
+        padding-inline: 0%;
+    }
+    .shop_header{
+        margin-inline: 0.3rem;
+    }
     .search input{
         width: 200px;
     }
@@ -150,5 +214,6 @@ option{
     }
     .shopitems{
         height: 600px;
+        padding-inline: 0rem;
     }
 }

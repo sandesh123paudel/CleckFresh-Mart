@@ -56,7 +56,7 @@ session_start();
             if (unlink("../db/uploads/products/" . $uprevious)) {
                 if (move_uploaded_file($utmpname, $ulocation)) {
                     if (oci_execute($stid)) {
-                        header('Location:traderdashboard.php');
+                        header('Location:traderdashboard.php?cat=Productlist');
                     }
                 }
             }
@@ -80,7 +80,7 @@ session_start();
             $result = oci_execute($stid);
             
             if($result){
-                header('location:traderdashboard.php');
+                header('location:traderdashboard.php?cat=Productlist');
             }
           }                 
   }
