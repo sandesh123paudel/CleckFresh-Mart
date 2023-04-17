@@ -20,8 +20,4 @@ if(isset($_SESSION['ID'])){
     }
 }
 
-if(isset($_SESSION['error'])){
-    header('location:login.php');
-}
-
 ?>

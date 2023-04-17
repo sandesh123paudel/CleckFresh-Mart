@@ -29,23 +29,17 @@
           $errimage ="Image is required";
       }
       else{
-          
+          $description = $offer_id ='';
           $name = $_POST['productname'];
-          $category_id = (int) $_POST['productcategory'];
+          $category_id =  $_POST['productcategory'];
           $category = $_SESSION['type'];
           $description = $_POST['description'];
           
-          $shop_id = (int) $_POST['shopname'];
+          $shop_id =  $_POST['shopname'];
           $price = $_POST['productprice'];
-          $offer_id = (int) $_POST['offer'];
-          $quantity = (int) $_POST['quantity'];
-          $stock =  (int) $_POST['productstock'];
-
-          $shop = (int)$_POST['shopname'];
-          $price = $_POST['productprice'];
-          $offer = (int)$_POST['offer'];
+          $offer_id =  $_POST['offer'];
           $quantity =  $_POST['quantity'];
-          $stock =   $_POST['productstock'];
+          $stock =   $_POST['productstock']
 
           // image uploads
           $image = $_FILES["productimage"]["name"];
@@ -57,6 +51,8 @@
           $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME= :p_name";
           $stid1 = oci_parse($connection,$sql);
           oci_bind_by_name($stid1 , ":p_name" , $name);
+          oci_execute($stid1);
+          $p_name='';
           while($row = oci_fetch_array($stid1,OCI_ASSOC)){
             $p_name = $row['PRODUCT_NAME'];
           }
@@ -70,7 +66,7 @@
           {
               if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
               {
-                  $sql1 = "INSERT INTO products (CATEGORY_ID, SHOP_ID, OFFER_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPE, PRODUCT_DESCP, QUANTITY, STOCK_NUMBER, PRODUCT_IMAGE) 
+                  $sql1 = "INSERT INTO PRODUCT (CATEGORY_ID, SHOP_ID, OFFER_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPE, PRODUCT_DESCP, QUANTITY, STOCK_NUMBER, PRODUCT_IMAGE) 
                   VALUES(:category_id, :shop_id,:offer_id, :name, :price, :category, :description, :quantity, :stock, :image )";
                 
                   $stid = oci_parse($connection,$sql1);
@@ -86,7 +82,7 @@
                   oci_bind_by_name($stid ,':stock',$stock);
                   oci_bind_by_name($stid ,':image',$image);
 
-                  if(oci_execute($stid1)){
+                  if(oci_execute($stid)){
                       if(move_uploaded_file($utmpname,$ulocation)){
                           echo "<script>window.alert('Data Inserted Successfully!')</script>";
                           // header("Location:traderdashboard.php");

@@ -52,11 +52,15 @@
             }
             else{
                 $_SESSION['error']= 'User not recognised';
-                header("location:session.php");
+                header("location:login.php");
             }
             oci_free_statement($stid);
             oci_close($connection);
         }
+    }
+
+    if(isset($_SESSION['error'])){
+        $err = $_SESSION['error'];
     }
 
 ?>
@@ -92,7 +96,7 @@
             <h1>Log In</h1>
 
             <form method='Post' action=''>
-                <div class='error'><?php $err;?></div>
+                <div class='error'><?php echo $err; ?></div>
                 <div class='form-data'>
                     <label>Email or Username <span class='error'> * <?php echo $erremail; ?> </span></label>
                     <input type='email' class='inputbox' placeholder='Email Address' name='email' />
