@@ -2,7 +2,7 @@
 <?php
     // include connection
     session_start();
-    include('../db/connection.php');
+    include('db/connection.php');
 
     // for login purpose
     $err = $erremail= $errpassword = $errrole ='';
@@ -72,7 +72,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='css/loginssss.css' />
+    <link rel='stylesheet' href='customer/css/login.css' />
 </head>
 <body>
 
@@ -81,7 +81,7 @@
         <!-- part 1 -->
         <div class='part1'>
             <div class='logo'>
-                <a href='homepage.php'><img src='../logo/logo.png' alt='CheckFreshMart' /></a>
+                <a href='customer/homepage.php'><img src='logo/logo.png' alt='CheckFreshMart' /></a>
             </div>
             <div class='login-text'>
                 <div>
@@ -113,7 +113,7 @@
                     <label>User Type <span class='error'> * <?php echo $errrole; ?> </span></label>
                     <select class="inputbox selectoption" name='role' >
                         <option value=''>Select Role</option>
-                        <option value='customer'>User</option>
+                        <option value='customer'>Customer</option>
                         <option value='trader'>Trader</option>
                         <option value='admin'>Admin</option>
                     </select>

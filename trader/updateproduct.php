@@ -53,7 +53,7 @@ session_start();
             oci_bind_by_name($stid ,':stock',$stock);
             oci_bind_by_name($stid ,':uimage',$image);
 
-            if (unlink("../db/uploads/products/" . $uprevious)) {
+            if (unlink("../db/uploads/products/" . $previous)) {
                 if (move_uploaded_file($utmpname, $ulocation)) {
                     if (oci_execute($stid)) {
                         header('Location:traderdashboard.php?cat=Productlist');

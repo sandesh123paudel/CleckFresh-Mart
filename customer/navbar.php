@@ -60,7 +60,7 @@
 
       <div class="links-container">
         <div class="links-btn">
-          <a href="login.php">Login</a>
+          <a href="../login.php">Login</a>
           <label
             onmouseover="onMouse('show')"
             onmouseout="outMouse('show')"
@@ -118,8 +118,8 @@
       onmouseover="onMouse('show')"
       onmouseout="outMouse('show')"
     >
-      <a href="customerRegistration.php">Customer</a>
-      <a href="traderRegistration.php">Trader</a>
+      <a href="../customerRegistration.php">Customer</a>
+      <a href="../traderRegistration.php">Trader</a>
     </div>
 
   
@@ -273,6 +273,8 @@
       </div>
       <div class="line"></div>
       <div class="offcanvas-body">
+    <!-- Off canvas part -->
+
         <p>Try scrolling the rest of the page to see this option in action.</p>
       </div>
     </div>

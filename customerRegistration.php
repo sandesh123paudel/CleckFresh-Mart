@@ -1,7 +1,7 @@
 <!-- registration validation  -->
 <?php
     session_start();
-    include('../db/connection.php');
+    include('db/connection.php');
     
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
@@ -188,7 +188,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='css/registerssss.css' />
+    <link rel='stylesheet' href='customer/css/register.css' />
 </head>
 <body>
   
@@ -196,7 +196,7 @@
         <!-- part 1 -->
         <div class='part1'>
             <div class='logo'>
-                <a href='homepage.php'><img src='../logo/logo.png' alt='CheckFreshMart' /></a>
+                <a href='customer/homepage.php'><img src='logo/logo.png' alt='CheckFreshMart' /></a>
             </div>
             <div class='login-text'>
                 <div>
@@ -279,7 +279,7 @@
             <div class='create-link'>
                 <p>Already have an account? </p>
                  <a href='login.php'>Login.</a>
-                 <a class='backbtn' href="homepage.php">Back To Home</a>
+                 <a class='backbtn' href="customer/homepage.php">Back To Home</a>
             </div>
             
         </div>

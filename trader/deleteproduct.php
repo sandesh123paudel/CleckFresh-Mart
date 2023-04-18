@@ -11,7 +11,7 @@
         oci_bind_by_name($stid,':pid', $delid);
 
         if(oci_execute($stid)){
-            header("location:traderdashboard.php");
+            header("location:traderdashboard.php?cat=Productlist");
         }
     }
 ?>

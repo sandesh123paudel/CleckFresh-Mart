@@ -33,19 +33,21 @@
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
         }
+        echo $eimage;
             
-   echo "
+    ?>
+
     <div class='product-container'>
         <h2>UPDATE SHOP</h2>
         <form method='POST' enctype='multipart/form-data' action='updateshop.php'>
 
             <div class='product-part1'>
-                <input type='hidden' name='uid' value='$eid'>
+                <input type='hidden' name='uid' value='<?php echo $eid ; ?>'>
                 <div class='image-file'>
                     <label>Shop Images</label>
                     <p>Upload Image</p>
-                    <input type='hidden' name='previous' value='$eimage' />
-                    <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='$eimage'/>
+                    <input type='hidden' name='previous' value='<?php echo $eimage; ?>' />
+                    <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='<?php echo $eimage; ?>'/>
                 </div>
               
                     <div class='info1'>
@@ -55,31 +57,32 @@
                     
                     <div class='info2'>
                         <label>Shop Name</label>
-                        <input type='text' class='inputbox' name='shopname' placeholder='Shop Name' value='$ename'/>
+                        <input type='text' class='inputbox' name='shopname' placeholder='Shop Name' value='<?php echo $ename; ?>'/>
                     </div>
 
                     <div class='info2'>
                         <label>Shop Category</label>
-                        <input type='text' class='inputbox' name='shopcategory' placeholder='Shop Category' value='$ecategory' />
+                        <select class='inputbox selectbox' name='shopcategory'>
+                            <option value="<?php echo $ecategory; ?>"><?php echo $ecategory; ?></option>
+                        </select>
+                        <!-- <input type='text' class='inputbox' name='shopcategory' placeholder='Shop Category' value='<?php echo $ecategory; ?>' /> -->
                     </div>
                     
                     <div class='info2'>
                         <label>Email</label>
-                        <input type='email' class='inputbox' name='email' placeholder='Email' value='$eemail'/>
+                        <input type='email' class='inputbox' name='email' placeholder='Email' value='<?php echo $eemail; ?>'/>
                     </div>
 
                     
                     <div class='info2'>
                         <label>Phone Number</label>
-                        <input type='number' class='inputbox' name='phone' maxlength='10' placeholder='Phone Number' value='$ephone' />
+                        <input type='number' class='inputbox' name='phone' maxlength='10' placeholder='Phone Number' value='<?php echo $ephone; ?>' />
                     </div> 
             </div>
             <div class='add-product'>
                 <input type='submit' name='updateshop' value='Update Shop +' class='addbtn' />
             </div>
         </form>
-    </div> ";
-
-    ?>
+    </div>  
 </body>
 </html>

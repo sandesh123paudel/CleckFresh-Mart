@@ -197,6 +197,10 @@ body{
     text-align: center;
     border-radius: 50%;
 }
+.header2 .setting{
+    padding-block: 10px;
+    height: 190px;
+}
 
 .menu{
     display: none;

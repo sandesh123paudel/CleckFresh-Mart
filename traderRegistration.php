@@ -1,7 +1,7 @@
 <!-- registration validation  -->
 <?php
     session_start();
-    include('../db/connection.php');
+    include('db/connection.php');
     $errfname =$errlname = $erremail=$errDOB = $errgender = $errPhone =$errcategory=$errpassword =$errCpassword=$errremember='';
     $errcount = 0;
     
@@ -48,7 +48,7 @@
             $dob = $sDOB = $_POST['birthday'];
             $gender = $sgender= $_POST['gender'];
             $phone = $sPhone= $_POST['phone'];
-            $category = $scategory = $_POST['category'];
+            $category = $scategory = strtolower($_POST['category']);
             $password = $_POST['password'];
             $cpassword = $_POST['cpassword'];
             $remember = $_POST['remember'];
@@ -185,7 +185,7 @@
                     if(oci_execute($stid))
                     {
                         $_SESSION['category'] = $category;
-                        header("location:category.php");
+                        header("location:insertcategory.php");
                     }
                 }
             }
@@ -203,14 +203,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='css/registerssss.css' />
+    <link rel='stylesheet' href='customer/css/register.css' />
 </head>
 <body>
     <div class='login-container' id='login-cont'>
         <!-- part 1 -->
         <div class='part1'>
             <div class='logo'>
-                <a href='homepage.php'><img src='../logo/logo.png' alt='CheckFreshMart' /></a>
+                <a href='customer/homepage.php'><img src='logo/logo.png' alt='CheckFreshMart' /></a>
             </div>
             <div class='login-text'>
                 <div>
@@ -297,7 +297,7 @@
             <div class='create-link'>
                 <p>Already have an account? </p>
                  <a href='login.php'>Login.</a>
-                 <a class='backbtn' href="homepage.php">Go To Home</a>
+                 <a class='backbtn' href="customer/homepage.php">Go To Home</a>
             </div>
             
         </div>

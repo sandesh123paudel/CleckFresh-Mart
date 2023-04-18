@@ -1,7 +1,23 @@
 <?php
  session_start();
-  include("../db/connection.php");
-?>
+ include("../db/connection.php");
+ 
+ if($_SESSION['userID']){
+  $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
+  $stid = oci_parse($connection,$sql);
+
+  oci_bind_by_name($stid,':id',$_SESSION['userID']);
+
+  oci_execute($stid);
+  
+  $username='';
+  while($row = oci_fetch_array($stid,OCI_ASSOC)){
+    $username = $row['FIRST_NAME'];
+    $_SESSION['username'] = $username;
+  }
+}
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,14 +29,13 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/dash.css" />
+    <link rel="stylesheet" href="css/dashb.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
-
 
   </head>
   <body>
@@ -111,7 +126,7 @@
             >
               <div>
                 <a href="traderdashboard.php?cat=Orderlist&name=Orders">Order Lists</a>
-                <a href="traderdashboard.php?cat=Orderhistor&namey=Orders">Order History</a>
+                <a href="traderdashboard.php?cat=Orderhistory&name=Orders">Order History</a>
               </div>
             </div>
           </div>
@@ -150,8 +165,36 @@
             </h5>
           </div>
           <div class="header2">
-            <h3><?php  echo $_SESSION['username']; ?> </h3>
-            <span>▼</span>
+
+            <h3 class="profile dropdown-toggle" 
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <?php  
+
+                  echo $_SESSION['username']; 
+                
+                ?> </h3>              
+            <div>
+              <ul class="dropdown-menu setting">
+                <li><a class="dropdown-item" href="traderdashboard.php?cat=Profile&name=Home">Profile</a></li>
+                <li>
+                <label class="dropdown-item dropdown-toggle" 
+                  onmouseover="onMouse('Profile')"
+                  onmouseout="outMouse('Profile')" 
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">Setting</label>
+                <div>
+                  <ul class="dropdown-menu" id='setting'>
+                    <li><a class="dropdown-item" href="traderdashboard.php?cat=UpdateProfile&name=Home">Update Profile</a></li>
+                    <li><a class="dropdown-item" href="../profile/deactivate/php">Deactivate</a></li>
+                    <li><a class="dropdown-item" href="../profile/activate.php">Activate</a></li>
+                  </ul>
+                </div>
+              </li>
+              </ul>
+            </div>
+
           </div>
         </div>
         <!-- content import pages -->
@@ -188,7 +231,12 @@
                 $action = $_GET['action'];
                 require_once('editshop.php');
               }
-              
+              if($links == "Profile"){
+                require_once('../profile/profilepage.php');
+              }
+              if($links == "UpdateProfile"){
+                require_once('../profile/editprofile.php');
+              } 
             }
             else{
               require('overview.php'); 
@@ -337,6 +385,9 @@
         if (prop == "orders") {
           document.getElementById("orders").style.display = "block";
         }
+        if (prop == "Profile") {
+          document.getElementById("setting").style.display = "block";
+        }
       }
 
       function outMouse(prop) {
@@ -362,6 +413,9 @@
 
         if (prop == "orders") {
           document.getElementById("orders").style.display = "none";
+        }
+        if (prop == "Profile") {
+          document.getElementById("setting").style.display = "block";
         }
       }
 
