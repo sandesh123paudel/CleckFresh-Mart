@@ -382,4 +382,25 @@ body {
     background-color: lightgray;
     height: 2px;  
   }
+  .offcanvas-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: black;
+    font-size: 20px;
+  }
+  .offcanvas-body .create{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   
+  }
+  .offcanvas-body .create a{
+    text-decoration: none;
+  }
+
+  .offcanvas-body .profile-links{
+    display: none;
+  }
+
 }

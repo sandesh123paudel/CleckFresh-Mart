@@ -22,7 +22,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/nave.css" />
+    <link rel="stylesheet" href="css/naved.css" />
   </head>
 
   <body>
@@ -274,8 +274,27 @@
       <div class="line"></div>
       <div class="offcanvas-body">
     <!-- Off canvas part -->
+        <div class='create'>
+            <a href="../login.php">Login</a>
+            <label
+              class="dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Signup</label
+            >
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../customerRegistration.php">Customer</a></li>
+              <li><a class="dropdown-item" href="../traderRegistration.php">Trader</a></li>
+            </ul>
+          </div>
 
-        <p>Try scrolling the rest of the page to see this option in action.</p>
+        <div class='profile-links' id='link-show'>
+             <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Setting</a>
+              <a class="dropdown-item" href="#">Logout</a>
+            
+          </div>
       </div>
     </div>
 

@@ -25,8 +25,9 @@
     margin-inline: 3%;
     margin-block: 2%;
     flex-direction: column;  
-    box-shadow: 2px 3px 6px 2px lightgray; 
     border-radius: 10px;
+    box-shadow: 2px 3px 6px 2px lightgray; 
+
 }
 
 .order_header{

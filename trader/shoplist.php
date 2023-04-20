@@ -37,9 +37,9 @@
             <?php
      
             // selecting all items from shops
-                $sql = "SELECT * FROM SHOP";
+                $sql = "SELECT * FROM SHOP WHERE SHOP_TYPE = :shop_cat";
                 $stid = oci_parse($connection,$sql);
-
+                oci_bind_by_name($stid,':shop_cat',$_SESSION['type']);
                 oci_execute($stid);
                 
                 while($row = oci_fetch_array($stid,OCI_ASSOC)){

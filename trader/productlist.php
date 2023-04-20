@@ -36,50 +36,45 @@
         
         <div class="shopitems">
             <?php
-            // selecting all items from shops
-                $sql = "SELECT * FROM PRODUCT";
-
+            // selecting all items from product
+                $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = :product_cat";
                 $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid,':product_cat',$_SESSION['type']);
+
                 oci_execute($stid);
                 
-                // while($row = oci_fetch_array($stid, OCI_ASSOC)){
-                //     $pid = $row['PRODUCT_ID'];
-
-                //     echo "<div class='shop-item'>";
-                //         echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
-                //         echo "<h3>".$row['PRODUCT_NAME']."</h3>";
-                //         echo "<div class='buttons'>";
-                //             echo "<a href='traderdashboard.php?cat=editproduct&id=$pid&action=edit' id='edit'>Edit</a>";
-                //             echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
-                //         echo "</div>";
-                //     echo "</div>";
-                // }
-
                 while($row = oci_fetch_array($stid, OCI_ASSOC)){
                     $pid = $row['PRODUCT_ID'];
                     $s_id = $row['SHOP_ID'];
-                    echo "<div class='card'>";
-                        echo "<div class='card-info'>";
-                            echo "<div class='card-details'>";
-                                echo "<label>P_ID :  ".$row['PRODUCT_ID']."</label>";
-                                echo "<label>Name:  ".$row['PRODUCT_NAME']."</label>";
-                                
-                                echo "<label>Shop Name:  ".$row['SHOP_ID']."</label>";
 
-                                echo "<label>Price:  <span>".$row['PRODUCT_PRICE'] ."<span></label>";
+                    $sql1 = "SELECT SHOP_NAME FROM SHOP WHERE SHOP_ID = :s_id";
+                    $stid1 = oci_parse($connection,$sql);
+                    oci_bind_by_name($stid1,':product_cat',$s_id);
+
+                    if(oci_execute($stid1)){
+                        echo "<div class='card'>";
+                            echo "<div class='card-info'>";
+                                echo "<div class='card-details'>";
+                                    echo "<label>P_ID :  ".$row['PRODUCT_ID']."</label>";
+                                    echo "<label>Name:  ".$row['PRODUCT_NAME']."</label>";
+                                    
+                                    echo "<label>Shop Name:  ".$row['SHOP_ID']."</label>";
+
+                                    echo "<label>Price:  <span>".$row['PRODUCT_PRICE'] ."<span></label>";
+                                echo "</div>";
+                                
+                                echo "<div class='image'>";
+                                    echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
+                                echo "</div>";
+                            echo "</div>"; 
+        
+                            echo "<div class='btns'>";
+                                echo "<a href='traderdashboard.php?cat=EditProduct&id=$pid&action=edit&name=Products' id='edit'>Edit</a>";
+                                echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
                             echo "</div>";
-                            
-                            echo "<div class='image'>";
-                                echo "<img src=\"../db/uploads/products/".$row['PRODUCT_IMAGE']."\" alt=".$row['PRODUCT_NAME']." >";
-                            echo "</div>";
-                        echo "</div>"; 
-    
-                        echo "<div class='btns'>";
-                            echo "<a href='traderdashboard.php?cat=EditProduct&id=$pid&action=edit&name=Products' id='edit'>Edit</a>";
-                            echo "<a href='deleteproduct.php?&id=$pid&action=delete' id='delete'>Delete</a>";
+                    
                         echo "</div>";
-                
-                    echo "</div>";
+                    }
                 }
 
 
