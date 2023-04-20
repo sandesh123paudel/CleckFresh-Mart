@@ -47,7 +47,7 @@
             $email = $semail= $_POST['email'];
             $dob = $sDOB = $_POST['birthday'];
             $gender = $sgender= $_POST['gender'];
-            $phone = $sPhone= $_POST['phone'];
+            $phone = (INT)$sPhone= $_POST['phone'];
             $category = $scategory = strtolower($_POST['category']);
             $password = $_POST['password'];
             $cpassword = $_POST['cpassword'];
