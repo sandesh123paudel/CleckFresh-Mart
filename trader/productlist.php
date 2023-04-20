@@ -47,18 +47,23 @@
                     $pid = $row['PRODUCT_ID'];
                     $s_id = $row['SHOP_ID'];
 
-                    $sql1 = "SELECT SHOP_NAME FROM SHOP WHERE SHOP_ID = :s_id";
-                    $stid1 = oci_parse($connection,$sql);
-                    oci_bind_by_name($stid1,':product_cat',$s_id);
+                    $sql1 = "SELECT SHOP_NAME AS SHOPNAME FROM SHOP WHERE SHOP_ID = :s_id ";
+                            $stid1 = oci_parse($connection,$sql1);
+                            oci_bind_by_name($stid1 , ':s_id', $s_id);
 
-                    if(oci_execute($stid1)){
+                            oci_define_by_name($stid1 , 'SHOPNAME', $shopname);
+                            oci_execute($stid1);
+                            
+                            // echo $shopname;
+
+                    if(oci_fetch($stid1)){
                         echo "<div class='card'>";
                             echo "<div class='card-info'>";
                                 echo "<div class='card-details'>";
                                     echo "<label>P_ID :  ".$row['PRODUCT_ID']."</label>";
                                     echo "<label>Name:  ".$row['PRODUCT_NAME']."</label>";
                                     
-                                    echo "<label>Shop Name:  ".$row['SHOP_ID']."</label>";
+                                    echo "<label>Shop Name:  ".$shopname."</label>";
 
                                     echo "<label>Price:  <span>".$row['PRODUCT_PRICE'] ."<span></label>";
                                 echo "</div>";
