@@ -18,13 +18,10 @@
 }
 
   if(empty($_SESSION['userID'])){
-    echo "<script>alert('SESSION is EXPIRED Please Login!!!')</script>";
-    echo sleep(3);
-    sessionExpired();
-  }
-  
-  function sessionExpired(){
-    return header('location:../login.php');
+    echo "<script>
+      alert('SESSION is EXPIRED Please Login!!!');
+      document.location.href='../login.php';
+      </script>";
   }
 
  ?>

@@ -113,19 +113,19 @@
     border: none;
     outline: none;
     background-color: lightgray;
-    color: darkgray;
+    color: rgb(75, 75, 75);
     font-size: 15px;
     border-radius: 5px;
 }
 .contact-input .message{
-    height: 50px;
+    /* height: 50px; */
     padding-block: 5px;
     margin-block: 15px;
     padding-left: 10px;
     border: none;
     outline: none;
     background-color: lightgray;
-    color: darkgray;
+    color: rgb(75, 75, 75);
     font-size: 15px;
     border-radius: 5px;
 }
