@@ -22,7 +22,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/naved.css" />
+    <link rel="stylesheet" href="css/nave.css" />
   </head>
 
   <body>
@@ -71,29 +71,33 @@
 
         <div class="content">
           <!-- Cart -->
-          <div>
-            <b class="number">
-              <!-- <?php
-                            $number =0;
-                            echo $number;
-                        ?> -->0
-            </b>
-            <span class="material-symbols-outlined"> shopping_cart </span>
-            <p class="icon">Cart</p>
-          </div>
+          <a href="cartpage.php">
+            <div>
+              <b class="number">
+                <?php
+                              $number =0;
+                              echo $number;
+                          ?>
+              </b>
+              <span class="material-symbols-outlined"> shopping_cart </span>
+              <p class="icon">Cart</p>
+            </div>
+          </a>
 
           <!-- Wishlist -->
-          <div>
-            <b class="number">
-              <!-- <?php
-                            $number =12;
-                            echo $number;
-                        ?> -->12
-            </b>
-            <span class="material-symbols-outlined"> favorite </span>
+          <a href="wishlist.php">
+            <div>
+              <b class="number">
+                <?php
+                              $number =12;
+                              echo $number;
+                          ?>
+              </b>
+              <span class="material-symbols-outlined"> favorite </span>
 
-            <p class="icon">Wishlist</p>
-          </div>
+              <p class="icon">Wishlist</p>
+            </div>
+          </a>
 
           <div>
             <img

@@ -12,14 +12,23 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/cars.css" />
   </head>
   <body>
+
+    <div class='nav-bar'>
+        <?php
+            require('navbar.php');
+        ?>
+    </div> 
+
     <div class="cart-container">
       <div class="title">
-        <span class="material-symbols-outlined">
-            arrow_back_ios_new
-            </span>
+         
+              <span class="material-symbols-outlined">
+                arrow_back_ios_new
+                </span>
+          
         <h3>Shopping Continue</h3>
       </div>
       <div class="line"></div>
@@ -102,5 +111,9 @@
             <button>Process to Checkout</button>
           </div>
     </div>
+</div>
+<?php
+        require('footer.php');
+    ?>
   </body>
 </html>

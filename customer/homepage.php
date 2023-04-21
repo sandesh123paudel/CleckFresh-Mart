@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href="css/hom.css" />
+    <link rel='stylesheet' href="css/ind.css" />
 </head>
 <body>
     <div class='nav-bar'>
@@ -16,13 +16,15 @@
     <!-- including the image slider -->
     <?php
         require('imageslider.php');
+        
     ?>
-  
+    <?php
+        require('homes.php');
+    ?>
     
-
     <?php
         require('footer.php');
     ?>
-</div>
+
 </body>
 </html>

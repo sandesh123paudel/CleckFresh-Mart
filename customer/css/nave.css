@@ -16,9 +16,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-body {
-  background-color: var(--bg-color);
-}
 
 .nav {
   max-width: 100%;
@@ -118,6 +115,9 @@ body {
   margin-inline: 20px;
   justify-content: space-between;
 }
+.nav .content a{
+  text-decoration: none;
+}
 .nav .content span {
   color: black;
   font-size: 30px;
@@ -156,8 +156,9 @@ body {
   display: flex;
   position: relative;
   left: -15px;
-  top: -5px;
+  /* top: -5px; */
   align-items: center;
+  color: black;
 }
 
 .signup {
@@ -169,7 +170,7 @@ body {
   width: 90px;
   padding-block: 10px;
   float: right;
-  right: 250px;
+  right: 280px;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   box-shadow: 1px 1px 5px 1px rgb(160, 160, 160);

@@ -185,7 +185,7 @@
 
       <div class="contact-links">
         <h3>STILL HAVE QUESTIONS? CONTACT US</h3>
-        <a href="contactus.html">CONTACT US</a>
+        <a href="contactus.php">CONTACT US</a>
       </div>
     </div>  
 

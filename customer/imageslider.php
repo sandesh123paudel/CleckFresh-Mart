@@ -7,6 +7,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+    <!-- owl-crosal -->
+
+    <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
     <style>
         .image-slider{
             max-width: 100%;
@@ -88,5 +92,6 @@
         } 
 
     </script>
+
 </body>
 </html>
