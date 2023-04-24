@@ -13,7 +13,7 @@
       </div>
       <h5 class="title">Fresh Roma Tomato</h5>
       <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
+      <p class="price">$30.00</p>
 
       <a href=""><div class="btn">Add +</div></a>
     </div> 
