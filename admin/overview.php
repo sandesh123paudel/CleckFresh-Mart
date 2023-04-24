@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/over.css" />
+    <link rel="stylesheet" href="css/overview.css" />
 </head>
 <body>
     <div class="overview-container">
@@ -41,10 +41,9 @@
                 <div class="report-info">
                     <h3>
                         <?php
-                            $sql = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM PRODUCT WHERE PRODUCT_TYPE = :p_type ";
+                            $sql = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM PRODUCT";
                             $stid = oci_parse($connection,$sql);
-                            oci_bind_by_name($stid , ':p_type', $_SESSION['type']);
-
+                            
                             oci_define_by_name($stid , 'NUMBER_OF_ROWS', $totalproduct);
                             
                             oci_execute($stid);
@@ -70,12 +69,10 @@
                 <div class="report-info">
                     <h3>
                     <?php
-                            $sql1 = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM SHOP WHERE SHOP_TYPE = :p_type ";
+                            $sql1 = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM SHOP";
                             $stid1 = oci_parse($connection,$sql1);
-                            oci_bind_by_name($stid1 , ':p_type', $_SESSION['type']);
-
-                            oci_define_by_name($stid1 , 'NUMBER_OF_ROWS', $totalshop);
                             
+                            oci_define_by_name($stid1 , 'NUMBER_OF_ROWS', $totalshop);
                             oci_execute($stid1);
                             oci_fetch($stid1);
 
@@ -92,6 +89,7 @@
                 
             </div>
 
+            
             <a href="http://localhost:8080/apex/">
                 <!-- <div class="report"> -->
                     <div class="report-info">

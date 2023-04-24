@@ -294,89 +294,72 @@
 
   <div class="other-main">
 
-    <div class="other-container">
-      <!-- single container -->
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+      <div class="product-lists">
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+        <?php
+            $sql='SELECT * FROM PRODUCT';
+            $stid = oci_parse($connection,$sql);
+            oci_execute($stid);
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+            while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                $product_name=$row['PRODUCT_NAME'];
+                $product_id = $row['PRODUCT_ID'];
+                $product_category = $row['PRODUCT_TYPE'];
+                $product_quantity = $row['QUANTITY'];
+                $product_image = $row['PRODUCT_IMAGE'];
+                $product_price = $row['PRODUCT_PRICE'];
+                $product_stock = $row['STOCK_NUMBER'];
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+                if(!empty($row['OFFER_ID'])){
+                    $product_offer = $row['OFFER_ID'];
+                }
+                else{
+                    $product_offer='';
+                }
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+                
+                echo "<div class='single'>";
+                    echo "<div class='img'>";
+                        echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
+                        // echo "<div class='tag'>";
+                            if(!empty($product_offer)){
+                                echo "<div class='offer'>Offer</div>";
+                            }
+                            else{
+                                echo "";
+                            }
+                            if((int)$product_stock <= 0 ){
+                                echo "<div class='outofstock'>out of stock</div>";
+                            }
+                            else{
+                                echo "";
+                            }
+                        // echo "</div>";    
+                    echo "</div>";
+                    echo "<div class='content'>";
+                        echo "<h5>".$product_name."</h5>";
+                        echo "<span class='piece'>".$product_quantity." gm</span>";
+                        echo "<div class='price'>";
+                            if($product_offer){
+                                echo "<span class='cut'>$50.00</span>";
+                            }
+                            else{
+                                echo "<span class='main'>$ ".$product_price."</span>";
+                            }
+                        echo "</div>";
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
+                        if((int)$product_stock <= 0 ){
+                          echo "<a href='#'><div class='btn' id='outstock' >Add +</div></a>";
+                        }
+                        else{
+                            echo "<a href='productview.php?id=$product_id&cat=$product_category'><div class='btn'>Add +</div></a>";
+                        }
+                        echo "</div>";
+                echo "</div>";
+            }
 
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
+        ?>
       </div>
-
-      <div class="single-container">
-        <div class="image">
-          <img src="../assets/tomato.png" alt="" />
-        </div>
-        <h5 class="title">Fresh Roma Tomato</h5>
-        <span class="size">3 lb bag</span>
-        <p class="price">$20.00</p>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-
-    </div>
 
     <div class="center show-more">
       <a href="">Show More...</a> 

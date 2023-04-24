@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
@@ -16,13 +16,15 @@
         <div class="shop_header">
             <h3>Shops Lists</h3>
                 <div class="search-box">
-                    <div class="search">
-                        <input type="text" name='searchTerm' placeholder="Search..." >
-                        <span class="material-symbols-outlined">
-                            search
-                        </span>
-                     
-                    </div>
+                        <div class="search">
+                            <form action="">
+                                <input type="text" placeholder="Search...">
+                                
+                                <button type="submit" class='searchbtn'>
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </from>
+                        </div>
 
                     <select name="filter" id="">
                         <option value="">All</option>
@@ -51,7 +53,7 @@
                         echo "</div>";
                         echo "<div class='shop-info'>";
                         echo "<label>Shop ID: ".$row['SHOP_ID']."</label>";
-                        echo "<label>Shop Name: ".$row['SHOP_NAME']."</label>";
+                        echo "<label >Shop Name: ". substr($row['SHOP_NAME'],0,15)."</label>";
                         echo "</div>";
                         
                         echo "<div class='buttons'>";

@@ -22,7 +22,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/nave.css" />
+    <link rel="stylesheet" href="css/na.css" />
   </head>
 
   <body>
@@ -131,130 +131,23 @@
 
     <!-- Category -->
     <div class="category">
-      <!-- 1st category -->
-      <div class="category-link">
-        <div
-          class="dropdown"
-          onmouseover="onMouse('butcher')"
-          onmouseout="outMouse('butcher')"
-        >
-          <a href="#">Butcher</a>
-          <p>▼</p>
-        </div>
-        <!-- list shops -->
-        <div
-          class="dropdown-content"
-          id="butcher"
-          onmouseover="onMouse('butcher')"
-          onmouseout="outMouse('butcher')"
-        >
-          <div>
-            <a href="#">Shop 1</a>
-            <a href="#">Shop 2</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2nd category -->
-      <div class="category-link">
-        <!-- trader -->
-        <div
-          class="dropdown"
-          onmouseover="onMouse('green')"
-          onmouseout="outMouse('green')"
-        >
-          <a href="#">GreenGrocer</a>
-          <p>▼</p>
-        </div>
-        <!-- list shops -->
-        <div
-          class="dropdown-content"
-          id="green"
-          onmouseover="onMouse('green')"
-          onmouseout="outMouse('green')"
-        >
-          <div>
-            <a href="#">Shop 1</a>
-            <a href="#">Shop 2</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3rd category -->
-      <div class="category-link">
-        <!-- trader -->
-        <div
-          class="dropdown"
-          onmouseover="onMouse('fish')"
-          onmouseout="outMouse('fish')"
-        >
-          <a href="#">FishMonger</a>
-          <p>▼</p>
-        </div>
-        <!-- list shops -->
-        <div
-          class="dropdown-content"
-          id="fish"
-          onmouseover="onMouse('fish')"
-          onmouseout="outMouse('fish')"
-        >
-          <div>
-            <a href="#">Shop 1</a>
-            <a href="#">Shop 2</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4th category -->
-      <div class="category-link">
-        <!-- trader -->
-        <div
-          class="dropdown"
-          onmouseover="onMouse('backery')"
-          onmouseout="outMouse('backery')"
-        >
-          <a href="#">Bakery</a>
-          <p>▼</p>
-        </div>
-        <!-- list shops -->
-        <div
-          class="dropdown-content"
-          id="backery"
-          onmouseover="onMouse('backery')"
-          onmouseout="outMouse('backery')"
-        >
-          <div>
-            <a href="#">Shop 1</a>
-            <a href="#">Shop 2</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5th category -->
-      <div class="category-link">
-        <!-- trader -->
-        <div
-          class="dropdown"
-          onmouseover="onMouse('delicates')"
-          onmouseout="outMouse('delicates')"
-        >
-          <a href="#">Delicatessen</a>
-          <p>▼</p>
-        </div>
-        <!-- list shops -->
-        <div
-          class="dropdown-content"
-          id="delicates"
-          onmouseover="onMouse('delicates')"
-          onmouseout="outMouse('delicates')"
-        >
-          <div>
-            <a href="#">Shop 1</a>
-            <a href="#">Shop 2</a>
-          </div>
-        </div>
-      </div>
+        <!-- 1st category -->
+        <?php
+            $sql = "SELECT * FROM CATEGORY";
+            $stid = oci_parse($connection,$sql);
+            oci_execute($stid);
+            
+            while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                $c_id = $row['CATEGORY_ID'];
+                $c_name = $row['CATEGORY_NAME'];
+  
+               echo "<a href='products.php?cat_id=$c_id'>
+                        <label class='category-link'><p>".$c_name."</p><p>▼</p> </label> 
+                    </a>";
+            }
+        ?>
     </div>
+   
 
     <!-- off canvas -->
     <div
@@ -294,7 +187,7 @@
           </div>
 
         <div class='profile-links' id='link-show'>
-             <a class="dropdown-item" href="#">Profile</a>
+             <a class="dropdown-item" href="../profile.php">Profile</a>
               <a class="dropdown-item" href="#">Setting</a>
               <a class="dropdown-item" href="#">Logout</a>
             
@@ -308,26 +201,6 @@
         if (prop == "show") {
           document.getElementById("show").style.display = "block";
         }
-
-        if (prop == "butcher") {
-          document.getElementById("butcher").style.display = "block";
-        }
-
-        if (prop == "green") {
-          document.getElementById("green").style.display = "block";
-        }
-
-        if (prop == "fish") {
-          document.getElementById("fish").style.display = "block";
-        }
-
-        if (prop == "backery") {
-          document.getElementById("backery").style.display = "block";
-        }
-
-        if (prop == "delicates") {
-          document.getElementById("delicates").style.display = "block";
-        }
         if (prop == "profile") {
           document.getElementById("profile").style.display = "block";
         }
@@ -338,25 +211,6 @@
           document.getElementById("show").style.display = "none";
         }
 
-        if (prop == "butcher") {
-          document.getElementById("butcher").style.display = "none";
-        }
-
-        if (prop == "green") {
-          document.getElementById("green").style.display = "none";
-        }
-
-        if (prop == "fish") {
-          document.getElementById("fish").style.display = "none";
-        }
-
-        if (prop == "backery") {
-          document.getElementById("backery").style.display = "none";
-        }
-
-        if (prop == "delicates") {
-          document.getElementById("delicates").style.display = "none";
-        }
         if (prop == "profile") {
           document.getElementById("profile").style.display = "none";
         }

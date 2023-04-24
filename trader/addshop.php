@@ -128,6 +128,12 @@
                     <p>Upload Image <span class="error"> * <?php echo $errimage; ?> </p>
                     <input type="file" class='inputbox' name="shopimage" placeholder="UploadImage"/>
                 </div>
+
+                <!-- <div class="image-file">
+                    <label>Shop Logo</label>
+                    <p>Upload Logo <span class="error"> * <?php echo $errlogo; ?> </p>
+                    <input type="file" class='inputbox' name="shoplogo" placeholder="UploadLogo"/>
+                </div> -->
                 <!--  -->
                     <div class="info1">
                         <h3>Shop Information</h3>

@@ -137,7 +137,6 @@
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
                     $vcontact = (int)$row['CONTACT'];
-                    
                 }
 
                 if($vemail == $femail){
@@ -152,8 +151,12 @@
                 if($errcount == 0){
                     $fpassword = md5($password);
                     $role = 'customer';
+                    
+                    $verify ='pending';
 
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password)";
+                    $otp_number = rand(100000,999999);
+                    
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,VERIFIED) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:verify)";
                     
                     $stid = oci_parse($connection,$sql1);
                     
@@ -166,9 +169,19 @@
                     oci_bind_by_name($stid, ':dob', $dob);
                     oci_bind_by_name($stid, ':role', $role);
                     oci_bind_by_name($stid, ':password', $fpassword);
+                    oci_bind_by_name($stid, ':verify', $verify);
+                    
+                    // including php mailer to send email
+                    
+                    $fullname = $fname." ".$lname;
+                    $sub ="Please Verify Your Email address";
+                    $message="Dear $fullname, Your Verification Code is: $otp_number";
+                    
+                    include_once('sendmail.php');
 
-                    if(oci_execute($stid)){
-                        header("location:login.php");
+                    if(oci_execute($stid)){ 
+                        $_SESSION['otp'] = $otp_number;
+                        header("location:verifyotp.php?page=$role");
                     }
                 }
             }
@@ -176,7 +189,6 @@
                 $errCpassword = "Password doesnot match!";
             }
         }
-
     }
     
 ?>
@@ -188,7 +200,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='customer/css/register.css' />
+    <link rel='stylesheet' href='customer/css/registers.css' />
 </head>
 <body>
   
@@ -204,7 +216,6 @@
                 </div>
                 <p>Start buying products from us and support <br>local products</p>
             </div>
-
         </div>
         <!-- part 2 -->
         <div class='part2'>
@@ -266,7 +277,7 @@
                     <p><a href="#">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span></p>
                 </div>
 
-                <input type='submit' onclick='otpPass()' class='login-btn inputbox' name='subCustomer' value='Create a new account  >>' />
+                <input type='submit'  class='login-btn inputbox' name='subCustomer' value='Create a new account  >>' />
             </form>
 
             <p>Or Sign Up with</p>
@@ -284,51 +295,6 @@
             
         </div>
     </div>
-
-     <!-- otp verification for forget password -->
-        <div class="otp-container" id='show'>
-            <span class="closebtn" onclick="closeBtn()">&times;</span>
-            <h1>Verification code</h1>
-            <p>Please type the verification code sent to your registered email.</p>
-            
-            <form method="post">
-                <div class="numbers">
-                <input type="text" name="num1" maxlength="1" placeholder="-" />
-                <input type="text" name="num2" maxlength="1" placeholder="-" />
-                <input type="text" name="num3" maxlength="1" placeholder="-" />
-                <input type="text" name="num4" maxlength="1" placeholder="-" />
-                <input type="text" name="num5" maxlength="1" placeholder="-" />
-                <input type="text" name="num6" maxlength="1" placeholder="-" />
-                </div>
-                <p>
-                Don't receive the OTP?<input
-                    class="resend"
-                    type="submit"
-                    name="resendOTP"
-                    value="Resend OTP"
-                />
-                </p>
-                <input
-                class="verify-btn"
-                type="submit"
-                name="verify"
-                value="Verify  >>"
-                />
-            </form>
-
-        </div>
-    </div>
-    <script>
- function otpPass(){
-            document.getElementById('show').style.display="block";
-            document.getElementById('login-cont').style.opacity="0.5";
-        }
-        function closeBtn(){
-            document.getElementById('show').style.display='none';
-            document.getElementById('login-cont').style.opacity='1';   
-        }
-    </script>
-
 
 </body>
 </html>

@@ -16,8 +16,9 @@
     left: 0;
     width: 100%;
     z-index: 1;
-    padding-bottom:60px ;
     background-color: transparent;
+    box-shadow: 0px 0px 5px 2px lightgray;
+
 }
 .policy .nav-bar{
     overflow: hidden;
@@ -26,8 +27,9 @@
     left: 0;
     width: 100%;
     z-index: 1;
-    padding-bottom:60px ;
     background-color: transparent;
+    box-shadow: 0px 0px 5px 2px lightgray;
+
 }
 
 .banner{
