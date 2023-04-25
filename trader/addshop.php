@@ -69,7 +69,7 @@
               $errname="Product Name is Already exists";
             }
 
-            $contact = (int)$phone;
+            $contact = $phone;
 
             if($errcount == 0)
             {

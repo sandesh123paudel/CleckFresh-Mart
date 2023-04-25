@@ -131,7 +131,7 @@
                     $errpassword="Password should include at least one number.";
                 }
 
-                $contact = (int)$phone;
+                $contact = $phone;
                 $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory ";
 
                 $stid1 = oci_parse($connection, $sql);
@@ -144,7 +144,7 @@
 
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
-                    $vcontact = (int)$row['CONTACT'];
+                    $vcontact = $row['CONTACT'];
                     if($row['CATEGORY'] == true){
                         $vcategory = $row['CATEGORY'];
                     }  
