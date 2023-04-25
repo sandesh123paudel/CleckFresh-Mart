@@ -10,15 +10,17 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/prodve.css" />
+    <link rel="stylesheet" href="css/products.css" />
+
 </head>
 <body>
     
-<div class='navbar'>
+<div class='nav-bar'>
     <?php
         require("navbar.php");
     ?>
 </div>
+
     <div class="product-container">
         <div class="product-detail">
             <div class="product-part1">
@@ -111,7 +113,7 @@
             <h3>Product Review:</h3>
 
             <div class="display-review">
-                <h4>Karan Chaudhary: </h4>
+                <label>Karan Chaudhary: </label>
                 <p>
                     Lorem ipsum dolor sit amet, consectertur adipiscing elite. cras lacus metus, convallis ut leo nec, tincidunt elite justo, Ut felies
                     orci, hendrerit a pulvinar et, gravida ac lerom.Quickly Build a Website With Our Unified Platform. Grow Your Business With Shopify®. 
@@ -121,7 +123,7 @@
             </div>
 
             <div class="write-review">
-                <input type="textarea"  placeholder="Write Your reviews.."/>
+                <textarea name="reviews" id=""  Placeholder="Write your reviews....." ></textarea>
                 <button>Add Review</button>
             </div>
         </div>
@@ -133,23 +135,73 @@
                 <a href="#">See All >> </a>
             </div>
             
-            <div class="product-related">
-                <div class="product-info">
-                    <img src="../logo/apple2.webp" alt="product" />
-                    <h3>Red Apple</h3>
-                    <h4>500g</h4>
-                    <div class="product-pp">
-                        <h3> &#8356; 20.00</h3>
-                        <h3> &#8356; 20.00</h3>
-                        <!-- discount price -->
-                    </div>
-                    <button>ADD +</button>
+                <div class="product-lists">
 
-                    <div class="offer">
-                        <p>out of stock</p>
-                    </div>
+                    <?php
+                        $sql='SELECT * FROM PRODUCT';
+                        $stid = oci_parse($connection,$sql);
+                        oci_execute($stid);
 
-                </div>
+                        while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                            $product_name=$row['PRODUCT_NAME'];
+                            $product_id = $row['PRODUCT_ID'];
+                            $product_category = $row['PRODUCT_TYPE'];
+                            $product_quantity = $row['QUANTITY'];
+                            $product_image = $row['PRODUCT_IMAGE'];
+                            $product_price = $row['PRODUCT_PRICE'];
+                            $product_stock = $row['STOCK_NUMBER'];
+
+                            if(!empty($row['OFFER_ID'])){
+                                $product_offer = $row['OFFER_ID'];
+                            }
+                            else{
+                                $product_offer='';
+                            }
+
+                            
+                            echo "<div class='single'>";
+                                echo "<div class='img'>";
+                                    echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
+                                    // echo "<div class='tag'>";
+                                        if(!empty($product_offer)){
+                                            echo "<div class='offer'>Offer</div>";
+                                        }
+                                        else{
+                                            echo "";
+                                        }
+                                        if((int)$product_stock <= 0 ){
+                                            echo "<div class='outofstock'>out of stock</div>";
+                                        }
+                                        else{
+                                            echo "";
+                                        }
+                                    // echo "</div>";    
+                                echo "</div>";
+                                echo "<div class='content'>";
+                                    echo "<h5>".$product_name."</h5>";
+                                    echo "<span class='piece'>".$product_quantity." gm</span>";
+                                    echo "<div class='price'>";
+                                        if($product_offer){
+                                            echo "<span class='cut'>$50.00</span>";
+                                        }
+                                        else{
+                                            echo "<span class='main'>$ ".$product_price."</span>";
+                                        }
+                                    echo "</div>";
+
+                                    if((int)$product_stock <= 0 ){
+                                    echo "<a href='#'><div class='btn' id='outstock' >Add +</div></a>";
+                                    }
+                                    else{
+                                        echo "<a href='productview.php?id=$product_id&cat=$product_category'><div class='btn'>Add +</div></a>";
+                                    }
+                                    echo "</div>";
+                            echo "</div>";
+                        }
+
+                    ?>
+               </div>
+
             </div>
         </div>
     </div>

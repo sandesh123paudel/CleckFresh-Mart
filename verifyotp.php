@@ -39,9 +39,9 @@
                     oci_bind_by_name($stid, ':verify', $verify);
 
                     if(oci_execute($stid)){
+                        unset($_SESSION['otp']);
                         header('location:login.php');
                     }
-
                 }
 
                 if($role === 'trader'){
@@ -53,10 +53,12 @@
                     oci_bind_by_name($stid1, ':verify', $verified);
                     
                     if(oci_execute($stid1)){
+                        unset($_SESSION['otp']);
                         header("location:insertcategory.php");
                     }
                 }
                 if($role == 'login'){
+                    unset($_SESSION['otp']);
                     header("location:resetpassword.php?page=$role");
                 }
             
