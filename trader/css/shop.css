@@ -46,19 +46,33 @@
     justify-content: space-between;
 }
 
-.search{
+.search {
     display: flex;
     background-color: rgb(232, 232, 232);
     padding-inline: 10px;
     border-radius: 20px;
 }
-.search span{
-    padding-block: 5px;
+.searchbtn{
+    border: none;
+    outline: none;
+    padding: 5px;
+    background-color: transparent;
 }
+
+
+.searchbtn i{
+    font-size: 20px;
+}
+
+.searchbtn i:hover{
+    color:var(--yellow);
+    cursor: pointer;
+}
+
 .search input{
     padding-left: 10px;
     outline: none;
-    width: 300px;
+    width: 250px;
     border: none;
     background-color: transparent;
 }
@@ -204,7 +218,7 @@ option{
         margin-inline: 0.3rem;
     }
     .search input{
-        width: 200px;
+        width: 150px;
     }
     select ,option{
         padding-inline:0.3rem ;

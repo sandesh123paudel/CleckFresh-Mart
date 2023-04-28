@@ -131,7 +131,7 @@
                     $errpassword="Password should include at least one number.";
                 }
 
-                $contact = (int)$phone;
+                $contact = $phone;
                 $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory ";
 
                 $stid1 = oci_parse($connection, $sql);
@@ -144,7 +144,7 @@
 
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
-                    $vcontact = (int)$row['CONTACT'];
+                    $vcontact = $row['CONTACT'];
                     if($row['CATEGORY'] == true){
                         $vcategory = $row['CATEGORY'];
                     }  
@@ -164,10 +164,14 @@
                 }
                 if($errcount == 0){
                     $fpassword = md5($password);
+                    
                     $role = 'trader';
+                    $verify ='pending';
+
+                    $otp_number = rand(100000,999999);
                         
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD) 
-                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD,VERIFIED) 
+                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password,:verify)";
                         
                     $stid = oci_parse($connection,$sql1);
                     // bind_by_name to convert php variable to insert into database
@@ -182,10 +186,22 @@
                     oci_bind_by_name($stid, ':category', $category);
                     oci_bind_by_name($stid, ':password', $fpassword);
 
+                    oci_bind_by_name($stid, ':verify', $verify);
+
+                    // including php mailer to send email
+                    
+                    $fullname = $fname." ".$lname;
+                    $sub ="Please Verify Your Email address";
+                    $message="Dear $fullname, Your Verification Code is: $otp_number";
+                    
+                    include_once('sendmail.php');
+
                     if(oci_execute($stid))
-                    {
+                    {   
+                        $_SESSION['otp'] = $otp_number;
                         $_SESSION['category'] = $category;
-                        header("location:insertcategory.php");
+                        header("location:verifyotp.php?page=$role");
+                        
                     }
                 }
             }
@@ -203,7 +219,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='customer/css/register.css' />
+    <link rel='stylesheet' href='customer/css/registers.css' />
 </head>
 <body>
     <div class='login-container' id='login-cont'>
@@ -284,7 +300,7 @@
                     <p><a href="#">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span> </p>
                 </div>
 
-                <input type='submit' onclick='otpPass()' class='login-btn inputbox' name='subtrader' value='Create a new account  >>' />
+                <input type='submit' class='login-btn inputbox' name='subtrader' value='Create a new account  >>' />
             </form>
 
             <p>Or Sign Up with</p>
@@ -302,51 +318,6 @@
             
         </div>
     </div>
-
-      <!-- otp verification for forget password -->
-      <div class="otp-container" id='show'>
-      <span class="closebtn" onclick="closeBtn()">&times;</span>
-      <h1>Verification code</h1>
-      <p>Please type the verification code sent to your registered email.</p>
-      <form method="post">
-        <div class="numbers">
-          <input type="text" name="num1" maxlength="1" placeholder="-" />
-          <input type="text" name="num2" maxlength="1" placeholder="-" />
-          <input type="text" name="num3" maxlength="1" placeholder="-" />
-          <input type="text" name="num4" maxlength="1" placeholder="-" />
-          <input type="text" name="num5" maxlength="1" placeholder="-" />
-          <input type="text" name="num6" maxlength="1" placeholder="-" />
-        </div>
-        <p>
-          Don't receive the OTP?<input
-            class="resend"
-            type="submit"
-            name="resendOTP"
-            value="Resend OTP"
-          />
-        </p>
-        <input
-          class="verify-btn"
-          type="submit"
-          name="verify"
-          value="Verify  >>"
-        />
-      </form>
-    </div>
-    </div>
-    <script>
-
-        function otpPass(){
-            document.getElementById('show').style.display="block";
-            document.getElementById('login-cont').style.opacity="0.5";
-        }
-
-        function closeBtn(){
-            document.getElementById('show').style.display='none';
-            document.getElementById('login-cont').style.opacity='1';   
-        }
-
-    </script>
 
 </body>
 </html>

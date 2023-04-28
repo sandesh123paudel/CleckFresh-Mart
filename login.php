@@ -22,7 +22,7 @@
             $password = md5(trim($_POST['password']));
             $role = strtolower($_POST['role']);
             $remember = $_POST['remember'];
-            
+            $verify = "verified";
             $password = (string)$password;
             
             // setting the cookie if remember is clicked
@@ -33,6 +33,7 @@
             }
 
             // for user
+            // $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role AND VERIFIED = :verify ";
             $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role ";
 
             // query from the database
@@ -41,6 +42,7 @@
             oci_bind_by_name($stid , ':email' , $email);
             oci_bind_by_name($stid , ':pass' ,$password);
             oci_bind_by_name($stid , ':u_role' ,$role);
+            // oci_bind_by_name($stid , ':verfiy' , $verify);
 
             oci_execute($stid);
 
@@ -48,7 +50,6 @@
             {
                 $_SESSION['ID'] = $data; 
                 header("location:session.php");
-  
             }
             else{
                 $_SESSION['error']= 'User not recognised';
@@ -61,6 +62,30 @@
 
     if(isset($_SESSION['error'])){
         $err = $_SESSION['error'];
+    }
+
+    if(isset($_POST['sendemail'])){
+        $femail = $_POST['email'];
+        $_SESSION['email']=$femail;
+
+        $sql = "SELECT EMAIL FROM USER_I WHERE EMAIL = :email";
+        $stid = oci_parse($connection,$sql); 
+        oci_bind_by_name($stid,":email" ,$femail);
+
+        $page = 'login';
+
+        $otp_number = rand(100000,999999);
+        $sub ="Please Verify Your Email address ";
+        $message="Dear $fullname, Your Verification Code is: ".$otp_number ." to reset your password.";      
+        include_once('sendmail.php');
+
+        if(oci_execute($stid)){
+            $_SESSION['otp'] = $otp_number;
+            header("location:verifyotp.php?page=$page");
+        }
+        else{
+            $err = "Please type Registered Email to reset your password";
+        }
     }
 
 ?>
@@ -149,7 +174,7 @@
     <div class="otp-container" id='show'>
       <span class="closebtn" id='close-btn' onclick="closeBtn()">&times;</span>
       <h1>Get Your OTP</h1>
-      <p>Please type registered email to receive an otp.</p>
+      <p>Please type registered email to receive an OTP.</p>
       
       <form method="POST" action=''>
         <div class="numbers">
@@ -165,108 +190,15 @@
       </form>
     </div>
 
-    <?php
-        if(isset($_POST['sendemail']))
-        {
-            $email = $_POST['email'];
-            
-            $sql = "SELECT * from USER_I WHERE EMAIL = :email";
-            $stid = oci_parse($connection,$stid);
-            oci_execute($stid);
-            while($row = oci_fetch_array($stid,OCI_ASSOC))
-            {
-                $id = $row['USER_ID'];
-            }
-        
-        }
-    ?>
-
-    <!-- otp from email -->
-    <div class="otp-container" id='show-otp'>
-            <span class="closebtn" onclick="closeBtn()">&times;</span>
-            <h1>Verify Your OTP code</h1>
-            <p>Please type the OTP code sent to your registered email.</p>
-            
-            <form method="post">
-                <div class="numbers">
-                    <input type="text" name="num1" maxlength="1" placeholder="-" />
-                    <input type="text" name="num2" maxlength="1" placeholder="-" />
-                    <input type="text" name="num3" maxlength="1" placeholder="-" />
-                    <input type="text" name="num4" maxlength="1" placeholder="-" />
-                    <input type="text" name="num5" maxlength="1" placeholder="-" />
-                    <input type="text" name="num6" maxlength="1" placeholder="-" />
-                </div>
-                <p>
-                Don't receive the OTP?<input
-                    class="resend"
-                    type="submit"
-                    name="resendOTP"
-                    value="Resend OTP"
-                />
-                </p>
-                <input
-                    class="verify-btn"
-                    type="submit"
-                    name="verifyotp"
-                    value="Verify  >>"    
-                />
-            </form>
-        </div>
-
-        <!-- Set New password -->
-        <div class="otp-container" id='show-new'>
-            <span class="closebtn" id='close-btn' onclick="closeBtn()">&times;</span>
-            
-            <h1>Generate Password</h1>
-            <p>Please type New Password.</p>
-            
-            <form method="post">
-                <p>New Password</p>
-                <div class="numbers">
-                <input type="password" name="email"  placeholder="Enter New Password" />
-                </div>
-                
-                <p>Re Type Password</p>
-                <div class="numbers">
-                <input type="email" name="email"  placeholder="Enter Confirm Password" />
-                </div>
-
-                    <input
-                        class="verify-btn"
-                        type="submit"
-                        name="newpassword"
-                        value="Confirm  >>"
-                    />
-            </form>
-        </div>
-
     <script>
         function otpPass(){
-            document.getElementById('show-otp').style.display='none';
             document.getElementById('show').style.display="block";
-            document.getElementById('show-new').style.display="none";
             document.getElementById('login-cont').style.opacity='0.4';   
         }
         function closeBtn(){
             document.getElementById('show').style.display='none';
-            document.getElementById('show-otp').style.display='none';
-            document.getElementById('show-new').style.display="none";
             document.getElementById('login-cont').style.opacity='1';   
         }
-        function forgetemail(){
-            document.getElementById('show-otp').style.display='block';
-            document.getElementById('show').style.display="none";
-            document.getElementById('show-new').style.display="none";
-            document.getElementById('login-cont').style.opacity='0.4';   
-        }
-
-        function newpass(){
-            document.getElementById('show-otp').style.display='none';
-            document.getElementById('show').style.display="none";
-            document.getElementById('show-new').style.display="block";
-            document.getElementById('login-cont').style.opacity='0.4';   
-        }
-
     </script>
 </body>
 </html>

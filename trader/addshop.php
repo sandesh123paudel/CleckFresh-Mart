@@ -3,8 +3,9 @@
     // inculde database connection
     include('../db/connection.php');
 
-    $errname = $erremail = $errcategory = $errphone = $errimage='';
+    $errname =$errlogo = $erremail = $errcategory = $errphone = $errimage='';
     $errcount = 0;
+    
     if(isset($_POST['addshop']))
     {
         if(empty($_POST['shopname'])){
@@ -23,7 +24,10 @@
             $errphone ="Phone number is required";
         }
         if(empty($_FILES["shopimage"]["name"])){
-            $errimage ="Image is required";
+            $errimage ="Shop Image is required";
+        }
+        if(empty($_FILES["shoplogo"]["name"])){
+            $errlogo ="Shop Logo is required";
         }
 
         else{
@@ -32,11 +36,16 @@
             $email = $_POST['email'];
             $category = $_POST['shopcategory'];
             $image = $_FILES["shopimage"]["name"];
+            $logo = $_FILES['shoplogo']['name'];
 
             $utype = $_FILES['shopimage']['type'];
+
             $utmpname = $_FILES['shopimage']['tmp_name'];
+            $utmplogo = $_FILES['shoplogo']['tmp_name'];
+            
             $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
+            $ulocationlogo = "../db/uploads/shops/".$logo;
 
             $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
 
@@ -69,14 +78,14 @@
               $errname="Product Name is Already exists";
             }
 
-            $contact = (int)$phone;
+            $contact = $phone;
 
             if($errcount == 0)
             {
-                if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
-                {
-                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL) 
-                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email )";
+                // if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
+                // {
+                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO) 
+                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo )";
 
                     $stid = oci_parse($connection,$sql);
                     oci_bind_by_name($stid ,':shop_id',$shop_id);  
@@ -84,11 +93,13 @@
                     oci_bind_by_name($stid ,':name',$name);
                     oci_bind_by_name($stid ,':category',$category);
                     oci_bind_by_name($stid ,':image',$image);
+                    oci_bind_by_name($stid ,':logo',$logo);
                     oci_bind_by_name($stid ,':email',$femail);
                     oci_bind_by_name($stid ,':phone',$contact);
 
                     if(oci_execute($stid)){
-                        if(move_uploaded_file($utmpname,$ulocation)){
+
+                        if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo)  ){
                             echo "<script>window.alert('Data Inserted Successfully!')</script>";
                             // header("location:addshop.php");
                         } 
@@ -96,10 +107,10 @@
                             echo "Unable to insert file";
                         }     
                     }
-                }
-                else{
-                    $errimage ="Image type doesnot match";
-                }
+                // }
+                // else{
+                    // $errimage ="Image type doesnot match";
+                // }
             }
            
         }
@@ -127,6 +138,13 @@
                     <label>Shop Images</label>
                     <p>Upload Image <span class="error"> * <?php echo $errimage; ?> </p>
                     <input type="file" class='inputbox' name="shopimage" placeholder="UploadImage"/>
+                </div>
+
+                <!-- show logo -->
+                <div class="image-file">
+                    <label>Shop Logo</label>
+                    <p>Upload Logo <span class="error"> * <?php echo $errlogo; ?> </p>
+                    <input type="file" class='inputbox' name="shoplogo" placeholder="UploadLogo"/>
                 </div>
                 <!--  -->
                     <div class="info1">

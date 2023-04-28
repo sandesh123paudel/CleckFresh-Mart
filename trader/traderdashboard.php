@@ -16,6 +16,14 @@
     $_SESSION['username'] = $username;
   }
 }
+
+  if(empty($_SESSION['userID'])){
+    echo "<script>
+      alert('SESSION is EXPIRED Please Login!!!');
+      document.location.href='../login.php';
+      </script>";
+  }
+
  ?>
 
 <!DOCTYPE html>

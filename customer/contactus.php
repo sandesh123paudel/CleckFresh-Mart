@@ -1,3 +1,16 @@
+<?php
+
+if(isset($_POST['contact'])){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = "Welcome To CleckFresh Mart";
+    $description = $_POST['message'];
+    $message = "Thank You For Contacting US. Want to know more about us. Then visit our about us page of our website.<br> Do you have any query then mail us.";
+
+    
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/conta.css" />
+    <link rel="stylesheet" href="css/cont.css" />
     
 </head>
 <body>
@@ -61,15 +74,18 @@
                     </div>
                 </div>
 
-                <div class="contact-input">
-                    <h3>Drop us a line</h3>
-                    <div class="contact-input-info">
-                        <input type="text" placeholder="Your Name" />
-                        <input type="text" placeholder="Your Email"/>
+                <form action="" method='post'>
+                    <div class="contact-input">
+                        <h3>Drop us a line</h3>
+                        
+                        <div class="contact-input-info">
+                            <input type="text" name='name' placeholder="Your Name" />
+                            <input type="email" name="email" placeholder="Your Email"/>
+                        </div>
+                        <textarea name="message" class='message' cols="30" rows="5" placeholder='Your Message....'></textarea>
+                        <input  class='btn' type="submit" name="contact" value="Send"/>
                     </div>
-                    <input class='message' type="text" placeholder="Your Message...."/>
-                    <input  class='btn' type="submit" name="contact" value="Send"/>
-                </div>
+                </form>
 
                 <div class="contact-social">
                     <a href="#"><img src='../logo/google.png' alt="facebook"/></a>

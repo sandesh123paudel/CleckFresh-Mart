@@ -39,7 +39,23 @@
 
             <div class="report">
                 <div class="report-info">
-                    <h3>275</h3>
+                    <h3>
+                        <?php
+                            $sql = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM PRODUCT WHERE PRODUCT_TYPE = :p_type ";
+                            $stid = oci_parse($connection,$sql);
+                            oci_bind_by_name($stid , ':p_type', $_SESSION['type']);
+
+                            oci_define_by_name($stid , 'NUMBER_OF_ROWS', $totalproduct);
+                            
+                            oci_execute($stid);
+                            oci_fetch($stid);
+
+                            echo $totalproduct;
+                        ?>
+
+                    </h3>
+                    
+
                     <p>Total Products</p>
                 </div>
                 <div class="icon">
@@ -52,16 +68,43 @@
 
             <div class="report">
                 <div class="report-info">
-                    <h3>Report</h3>
-                    <p>View Report</p>
+                    <h3>
+                    <?php
+                            $sql1 = "SELECT COUNT(*) AS NUMBER_OF_ROWS FROM SHOP WHERE SHOP_TYPE = :p_type ";
+                            $stid1 = oci_parse($connection,$sql1);
+                            oci_bind_by_name($stid1 , ':p_type', $_SESSION['type']);
+
+                            oci_define_by_name($stid1 , 'NUMBER_OF_ROWS', $totalshop);
+                            
+                            oci_execute($stid1);
+                            oci_fetch($stid1);
+
+                            echo $totalshop;
+                        ?>
+                    </h3>
+                    <p>Total Shops</p>
                 </div>
                 <div class="icon">
                     <span class="material-symbols-outlined">
-                        analytics
+                        apartment
                     </span>
                 </div>
                 
             </div>
+
+            <a href="http://localhost:8080/apex/">
+                <!-- <div class="report"> -->
+                    <div class="report-info">
+                        <h3>Report</h3>
+                        <p>View Report</p>
+                    </div>
+                    <div class="icon">
+                        <span class="material-symbols-outlined">
+                            analytics
+                        </span>
+                    </div>
+                <!-- </div> -->
+            </a>
 
             <div class="report">
                 <div class="report-info">

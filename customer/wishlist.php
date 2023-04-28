@@ -12,9 +12,16 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/car.css" />
+    <link rel="stylesheet" href="css/carts.css" />
   </head>
   <body>
+
+    <div class='nav-bar'>
+        <?php
+            require('navbar.php');
+        ?>
+    </div> 
+
     <div class="cart-container">
         <div class="title">
             <span class="material-symbols-outlined">
@@ -26,26 +33,98 @@
           
           <div class="cart-info">
             <h4>My Wishlist (4 items)</h4>
-            <!-- <p>You have 3 items in your wishlist</p> -->
+            <p>You have 3 items in your wishlist</p>
           </div>
 
           <div class="wishlist-container">
                 <div class="wishlist-item">
-                    <img src="../logo//apple2.webp" alt="">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
                     <h3>CleckFreshMart</h3>
                     <h4>Apple 240g</h4>
                     <button>Add to basket</button>
-                    <button id="remove">Remove</button>
+                    <!-- <button id="remove">Remove</button> -->
                 </div>
 
                 <div class="wishlist-item">
-                    <img src="../logo//apple2.webp" alt="">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
                     <h3>CleckFreshMart</h3>
                     <h4>Apple 240g</h4>
                     <button>Add to basket</button>
-                    <button id="remove">Remove</button>
+                    <!-- <button id="remove">Remove</button> -->
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
+                    <h3>CleckFreshMart</h3>
+                    <h4>Apple 240g</h4>
+                    <button>Add to basket</button>
+                    <!-- <button id="remove">Remove</button> -->
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
+                    <h3>CleckFreshMart</h3>
+                    <h4>Apple 240g</h4>
+                    <button>Add to basket</button>
+                    <!-- <button id="remove">Remove</button> -->
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
+                    <h3>CleckFreshMart</h3>
+                    <h4>Apple 240g</h4>
+                    <button>Add to basket</button>
+                    <!-- <button id="remove">Remove</button> -->
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="img">
+                        <img src="../logo//apple2.webp" alt="">
+                        <a href='customerRegistration.php'> 
+                            <span class='closebtn'>&times;</span>
+                        </a>
+                    </div>
+                   
+                    <h3>CleckFreshMart</h3>
+                    <h4>Apple 240g</h4>
+                    <button>Add to basket</button>
+                    <!-- <button id="remove">Remove</button> -->
                 </div>
           </div>
     </div>
+    
+    <?php
+        require('footer.php');
+    ?>
   </body>
 </html>
