@@ -31,8 +31,14 @@
             $ecategory = $row['SHOP_TYPE'];
             $eemail = $row['EMAIL'];
             $ephone = $row['CONTACT'];
+<<<<<<< HEAD
             $eimage = $row['SHOP_LOGO'];
         
+=======
+            $eimage = $row['SHOP_IMAGE'];
+            $elogo = $row['SHOP_LOGO']; 
+        }           
+>>>>>>> 3ebfebc1b17016996e5267156e7edcae1456e37c
     ?>
 
     <div class='product-container'>
