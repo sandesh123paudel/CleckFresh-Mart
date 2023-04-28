@@ -8,15 +8,17 @@
   {
           $sid = $_POST['uid'];
           $name = $_POST['shopname'];
-          $phone = (int)$_POST['phone'];
+          $phone = $_POST['phone'];
           $email = $_POST['email'];
           $category = $_POST['shopcategory'];
 
-          $previous = $_POST['previous'];
-          $image = $_FILES["shopimage"]["name"];
-          $previouslogo = $_FILES['previouslogo'];
-          $logo = $_FILES['shoplogo']['name'];
+          $previousimage = $_POST['previousimage'];
 
+          $image = $_FILES["shopimage"]["name"];
+          
+          $previouslogo = $_POST['previouslogo'];
+          
+          $logo = $_FILES['shoplogo']["name"];
 
           $utype = $_FILES['shopimage']['type'];
 
@@ -26,25 +28,27 @@
           $usize = $_FILES['shopimage']['size'];
           $ulocation = "../db/uploads/shops/".$image;
           $ulocationlogo = "../db/uploads/shops/".$logo;
+
+          $ulocationimg = "../db/uploads/shops/".$image;
+          $ulocationlogo = "../db/uploads/shops/".$logo;
           
           // if both image field is not empty
           if(!empty($image) && !empty($logo)){
-            $sql = "UPDATE SHOP SET USER_ID =:user_id,SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO =:logo  WHERE SHOP_ID= :sid ";
+            $sql = "UPDATE SHOP SET SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO =:logo  WHERE SHOP_ID= :sid ";
             
             $stid = oci_parse($connection,$sql);
                                     
             oci_bind_by_name($stid ,':sid',$sid);  
-            oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
             oci_bind_by_name($stid ,':sname',$name);
             oci_bind_by_name($stid ,':stype',$category);
             oci_bind_by_name($stid ,':simage',$image);
-            oci_bind_by_name($stid ,':email',$femail);
-            oci_bind_by_name($stid ,':phone',$contact);
-            oci_bind_by_name($stid ,':phone',$contact);
+            oci_bind_by_name($stid ,':email',$email);
+            oci_bind_by_name($stid ,':phone',$phone);
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previous) && unlink("../db/uploads/shops/".$previouslogo)){
               if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo) ){
+              if(move_uploaded_file($utmpname,$ulocationimg) && move_uploaded_file($utmplogo,$ulocationlogo) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -52,23 +56,21 @@
             }
           }
           // if image filed is not empty
-          if(!empty($image)){
-            $sql = "UPDATE SHOP SET USER_ID =:user_id,SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO = :previouslogo WHERE SHOP_ID= :sid ";
+          else if(empty($logo) && !empty($image)){
+            $sql = "UPDATE SHOP SET SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO = :previouslogo WHERE SHOP_ID= :sid ";
             
             $stid = oci_parse($connection,$sql);
                                     
             oci_bind_by_name($stid ,':sid',$sid);  
-            oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
             oci_bind_by_name($stid ,':sname',$name);
             oci_bind_by_name($stid ,':stype',$category);
             oci_bind_by_name($stid ,':simage',$image);
-            oci_bind_by_name($stid ,':email',$femail);
-            oci_bind_by_name($stid ,':phone',$contact);
-            oci_bind_by_name($stid ,':phone',$contact);
-            oci_bind_by_name($stid , ':previouslogo' ,$previouslogo);
+            oci_bind_by_name($stid ,':email',$email);
+            oci_bind_by_name($stid ,':phone',$phone);
+            oci_bind_by_name($stid , ':previouslogo' ,  $previouslogo);
             
-            if(unlink("../db/uploads/shops/".$previous) ){
-              if(move_uploaded_file($utmpname,$ulocation) ){
+            if(unlink("../db/uploads/shops/".$previousimage) ){
+              if(move_uploaded_file($utmpname,$ulocationimg ) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -76,19 +78,17 @@
             }
           }
           // if logo field is not empty
-          if(!empty($logo)){
-              $sql = "UPDATE SHOP SET USER_ID =:user_id,SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO = :logo WHERE SHOP_ID= :sid ";
+          else if(empty($image) && !empty($logo)){
+              $sql = "UPDATE SHOP SET SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO = :logo WHERE SHOP_ID= :sid ";
             
             $stid = oci_parse($connection,$sql);
                                     
             oci_bind_by_name($stid ,':sid',$sid);  
-            oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
             oci_bind_by_name($stid ,':sname',$name);
             oci_bind_by_name($stid ,':stype',$category);
-            oci_bind_by_name($stid ,':simage',$previous);
-            oci_bind_by_name($stid ,':email',$femail);
-            oci_bind_by_name($stid ,':phone',$contact);
-            oci_bind_by_name($stid ,':phone',$contact);
+            oci_bind_by_name($stid ,':simage',$previousimage);
+            oci_bind_by_name($stid ,':email',$email);
+            oci_bind_by_name($stid ,':phone',$phone);
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previouslogo) ){
@@ -108,7 +108,7 @@
             oci_bind_by_name($stid1 ,':sid',$sid);
             oci_bind_by_name($stid1 ,':sname',$name);
             oci_bind_by_name($stid1 ,':category',$category);
-            oci_bind_by_name($stid1 ,':previous',$previous);
+            oci_bind_by_name($stid1 ,':previous',$previousimage);
             oci_bind_by_name($stid1 ,':email',$email);
             oci_bind_by_name($stid1 ,':phone',$phone);
             oci_bind_by_name($stid1 , ':logoprevious' ,$previouslogo);
@@ -118,5 +118,6 @@
             }
           }         
       }
+    }
 
 ?>
