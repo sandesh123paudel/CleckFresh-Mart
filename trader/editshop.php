@@ -1,5 +1,6 @@
 <?php
   include("../db/connection.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +34,16 @@
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
             $elogo = $row['SHOP_LOGO']; 
+<<<<<<< HEAD
            
             
             
         }          
         echo $elogo; 
+=======
+        }     
+
+>>>>>>> a44470d0a153f8459ab1029ad583282c8c6b8e18
     ?>
 
     <div class='product-container'>
@@ -49,7 +55,7 @@
                 <div class='image-file'>
                     <label>Shop Images</label>
                     <p>Upload Image</p>
-                    <input type='hidden' name='previous' value='<?php echo $eimage; ?>' />
+                    <input type='hidden' name='previousimage' value='<?php echo $eimage; ?>' />
                     <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='<?php echo $eimage; ?>'/>
                 </div>
 
