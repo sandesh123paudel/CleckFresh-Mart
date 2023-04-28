@@ -82,12 +82,14 @@
 
             if($errcount == 0)
             {
+               
                 // if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
                 // {
                     $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO) 
                         VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo )";
 
                     $stid = oci_parse($connection,$sql);
+                    
                     oci_bind_by_name($stid ,':shop_id',$shop_id);  
                     oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
                     oci_bind_by_name($stid ,':name',$name);
@@ -115,6 +117,7 @@
            
         }
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -181,5 +184,7 @@
             </div>
         </form>
     </div>
+
+
 </body>
 </html>
