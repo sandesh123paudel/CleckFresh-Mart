@@ -25,15 +25,12 @@
           $utmplogo = $_FILES['shoplogo']['tmp_name'];
 
           $usize = $_FILES['shopimage']['size'];
-<<<<<<< HEAD
           $ulocation = "../db/uploads/shops/".$image;
           $ulocationlogo = "../db/uploads/shops/".$logo;
 
-=======
           $ulocationimg = "../db/uploads/shops/".$image;
           $ulocationlogo = "../db/uploads/shops/".$logo;
           
->>>>>>> a44470d0a153f8459ab1029ad583282c8c6b8e18
           // if both image field is not empty
           if(!empty($image) && !empty($logo)){
             $sql = "UPDATE SHOP SET SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO =:logo  WHERE SHOP_ID= :sid ";
@@ -49,11 +46,8 @@
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previous) && unlink("../db/uploads/shops/".$previouslogo)){
-<<<<<<< HEAD
               if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo) ){
-=======
               if(move_uploaded_file($utmpname,$ulocationimg) && move_uploaded_file($utmplogo,$ulocationlogo) ){
->>>>>>> a44470d0a153f8459ab1029ad583282c8c6b8e18
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -116,16 +110,13 @@
             oci_bind_by_name($stid1 ,':previous',$previousimage);
             oci_bind_by_name($stid1 ,':email',$email);
             oci_bind_by_name($stid1 ,':phone',$phone);
-<<<<<<< HEAD
             oci_bind_by_name($stid1 , ':logoprevious' ,$previouslogo);
-=======
-            oci_bind_by_name($stid1 , ':logoprevious' ,  $previouslogo);
->>>>>>> a44470d0a153f8459ab1029ad583282c8c6b8e18
 
             if(oci_execute($stid1)){
                 header('location:traderdashboard.php?cat=Shoplist');
             }
           }         
       }
+    }
 
 ?>

@@ -34,16 +34,11 @@
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
             $elogo = $row['SHOP_LOGO']; 
-<<<<<<< HEAD
            
             
             
         }          
-        echo $elogo; 
-=======
-        }     
-
->>>>>>> a44470d0a153f8459ab1029ad583282c8c6b8e18
+    
     ?>
 
     <div class='product-container'>
