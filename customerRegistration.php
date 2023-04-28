@@ -156,7 +156,7 @@
 
                     $otp_number = rand(100000,999999);
                     
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,VERIFIED) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:verify)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,VERIFY) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:verify)";
                     
                     $stid = oci_parse($connection,$sql1);
                     
