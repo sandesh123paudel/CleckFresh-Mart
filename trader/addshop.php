@@ -45,6 +45,7 @@
             
             $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
+            $ulocationlogo = "../db/uploads/shops/".$logo;
 
             $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
 
@@ -98,7 +99,7 @@
 
                     if(oci_execute($stid)){
 
-                        if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocation)  ){
+                        if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo)  ){
                             echo "<script>window.alert('Data Inserted Successfully!')</script>";
                             // header("location:addshop.php");
                         } 
