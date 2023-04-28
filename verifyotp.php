@@ -42,7 +42,6 @@
                         unset($_SESSION['otp']);
                         header('location:login.php');
                     }
-
                 }
 
                 if($role === 'trader'){

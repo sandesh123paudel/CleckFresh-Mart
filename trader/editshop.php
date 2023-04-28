@@ -31,9 +31,15 @@
             $ecategory = $row['SHOP_TYPE'];
             $eemail = $row['EMAIL'];
             $ephone = $row['CONTACT'];
+<<<<<<< HEAD
             $eimage = $row['SHOP_LOGO'];
         }
         
+=======
+            $eimage = $row['SHOP_IMAGE'];
+            $elogo = $row['SHOP_LOGO'];
+        }
+>>>>>>> bf0ab103adb9a2ba5fe1c67ab38034877273c1b8
             
     ?>
 
@@ -48,6 +54,13 @@
                     <p>Upload Image</p>
                     <input type='hidden' name='previous' value='<?php echo $eimage; ?>' />
                     <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='<?php echo $eimage; ?>'/>
+                </div>
+
+                <div class='image-file'>
+                    <label>Shop Logo</label>
+                    <p>Upload Logo</p>
+                    <input type='hidden' name='previouslogo' value='<?php echo $elogo; ?>' />
+                    <input type='file' class='inputbox' name='shoplogo' placeholder='UploadImage' value='<?php echo $elogo; ?>'/>
                 </div>
               
                     <div class='info1'>
