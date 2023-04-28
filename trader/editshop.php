@@ -36,7 +36,8 @@
            
             
             
-        }           
+        }          
+        echo $elogo; 
     ?>
 
     <div class='product-container'>

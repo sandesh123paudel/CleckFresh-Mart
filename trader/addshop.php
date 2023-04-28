@@ -45,6 +45,7 @@
             
             $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
+            $ulocationlogo = "../db/uploads/shops/".$logo;
 
             $femail = filter_var($email,FILTER_SANITIZE_EMAIL);           
 
@@ -83,7 +84,7 @@
             {
                 if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
                 {
-                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOPLOGO) 
+                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO) 
                         VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo )";
 
                     $stid = oci_parse($connection,$sql);
@@ -98,7 +99,7 @@
 
                     if(oci_execute($stid)){
 
-                        if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocation)  ){
+                        if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo)  ){
                             echo "<script>window.alert('Data Inserted Successfully!')</script>";
                             // header("location:addshop.php");
                         } 

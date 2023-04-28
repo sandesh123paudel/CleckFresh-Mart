@@ -8,7 +8,7 @@
   {
           $sid = $_POST['uid'];
           $name = $_POST['shopname'];
-          $phone = (int)$_POST['phone'];
+          $phone = $_POST['phone'];
           $email = $_POST['email'];
           $category = $_POST['shopcategory'];
 
@@ -25,7 +25,8 @@
 
           $usize = $_FILES['shopimage']['size'];
           $ulocation = "../db/uploads/shops/".$image;
-          
+          $ulocationlogo = "../db/uploads/shops/".$logo;
+
           // if both image field is not empty
           if(!empty($image) && !empty($logo)){
             $sql = "UPDATE SHOP SET USER_ID =:user_id,SHOP_NAME= :sname,SHOP_TYPE= :stype,SHOP_IMAGE= :simage,EMAIL= :email,CONTACT= :phone,SHOP_LOGO =:logo  WHERE SHOP_ID= :sid ";
@@ -43,7 +44,7 @@
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previous) && unlink("../db/uploads/shops/".$previouslogo)){
-              if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocation) ){
+              if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -91,7 +92,7 @@
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previouslogo) ){
-              if(move_uploaded_file($utmplogo,$ulocation) ){
+              if(move_uploaded_file($utmplogo,$ulocationlogo) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
