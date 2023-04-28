@@ -1,5 +1,6 @@
 <?php
   include('../db/connection.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/products.css" />
+    <link rel="stylesheet" href="css/productsvi.css" />
 
 </head>
 <body>
@@ -21,40 +22,104 @@
     ?>
 </div>
 
+
+    <?php
+        
+        $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID= :p_id";
+        $stid = oci_parse($connection,$sql);
+        oci_bind_by_name($stid, ":p_id" ,$_GET['p_id']);
+        
+        oci_execute($stid);
+        while($row = oci_fetch_array($stid,OCI_ASSOC)){
+            $p_id = $row['PRODUCT_ID'];
+            $p_category = $row['CATEGORY_ID'];
+            $p_shop = $row['SHOP_ID'];
+            $p_offer = $row['OFFER_ID'];
+            $p_name = $row['PRODUCT_NAME'];
+            $p_price = $row['PRODUCT_PRICE'];
+            $p_type = $row['PRODUCT_TYPE'];
+            $p_description = $row['PRODUCT_DESCP'];
+            $p_quantity = $row['QUANTITY'];
+            $p_stock = $row['STOCK_NUMBER'];
+            $p_image = $row['PRODUCT_IMAGE'];
+        }
+
+    ?>
+
     <div class="product-container">
         <div class="product-detail">
             <div class="product-part1">
                 <div class="product-image">
-                    <img src="../logo/apple2.webp" alt="apple" />
+                    <?php
+                        echo "<img src=\"../db/uploads/products/".$p_image."\" alt='$p_name' /> ";
+                    ?>
                 </div>
                 <div class="product-samples">
-                    <img src="../logo/apple2.webp" alt="apple" />
-                    <img src="../logo/apple2.webp" alt="apple" />
-                    <img src="../logo/apple2.webp" alt="apple" />
-                    <img src="../logo/apple2.webp" alt="apple" />
+                    <?php
+                        echo "<img src=\"../db/uploads/products/".$p_image."\" alt='$p_name' /> ";
+                        echo "<img src=\"../db/uploads/products/".$p_image."\" alt='$p_name' /> ";
+                        echo "<img src=\"../db/uploads/products/".$p_image."\" alt='$p_name' /> ";
+                        echo "<img src=\"../db/uploads/products/".$p_image."\" alt='$p_name' /> ";
+
+                    ?>
                 </div>
             </div>
-            <!-- product ingo -->
+            <!-- product info -->
             <div class="product-part2">
                 <!-- shop details -->
                 <div class="product-shop">
                     <h5>Zappa</h5>
+                    <!-- <?php
+                    
+                        $sql = "SELECT * FROM SHOP WHERE SHOP_ID= :s_id";
+                        $stid = oci_parse($connection,$sql);
+                        oci_bind_by_name($stid, ":s_id" ,$p_shop);
+                        
+                        oci_execute($stid);
+                        while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                            $shop_logo = $row['SHOP_LOGO'];
+                            $shop_name = $row['SHOP_NAME'];
+                        }
+                        echo "<img src=\"../db/uploads/shops/".$shop_logo."\" alt='$shop_name' /> ";
+                    ?> -->
+
                     <div class="shop-info">
                         <h3>Zappa</h3>
                         <p>We sell green groceries</p>
                     </div>
                 </div>
                 <!-- product-name -->
-                <h2>Natural Greenery Apples</h2>
-                <span>500g</span>
+                <h2><?php  echo $p_name; ?></h2>
+                <span>
+                    <?php
+                        echo $p_quantity;
+                    ?>
+                    gm
+                </span>
                 <div class="product-price">
-                    <h3> &#8356; 20.00</h3>
+                    <h3> &#8356; 
+                        <?php
+                            echo $p_price;
+                        ?>
+                    </h3>
                 </div>
-                <span>Available Stocks : 20</span>
+                <span>Available Stocks : 
+                    <?php 
+                        if($p_stock <=0){
+                            echo "out of stock";
+                        }
+                        else{
+                            echo $p_stock . "KG";
+                        }
+                        
+                    ?>
+                </span>
                 <div class="product-quantity">
                     <h4>Quantity :</h4>
-                    <button>-</button>
-                    <h4>1</h4>
+                    <button >-</button>
+                    <h4>
+                        1
+                    </h4>
                     <button>+</button>
                 </div>
 
@@ -67,18 +132,11 @@
         </div>
         <!-- description -->
         <div class="product-desc">
-            <h3>Description :</h3>
+            <h3>Description :</h3>           
             <p>
-                Lorem ipsum dolor sit amet, consectertur adipiscing elite. cras lacus metus, convallis ut leo nec, tincidunt elite justo, Ut felies
-                orci, hendrerit a pulvinar et, gravida ac lerom.Quickly Build a Website With Our Unified Platform. Grow Your Business With Shopify®.
-                 Easily Create a Website With Our Unified Platform. Start a Free Trial Now! Drop Shipping Integration. Mobile Commerce Ready. Social 
-                 Media Integration. Fraud Prevention.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectertur adipiscing elite. cras lacus metus, convallis ut leo nec, tincidunt elite justo, Ut felies
-                orci, hendrerit a pulvinar et, gravida ac lerom.Quickly Build a Website With Our Unified Platform. Grow Your Business With Shopify®. 
-                Easily Create a Website With Our Unified Platform. Start a Free Trial Now! Drop Shipping Integration. Mobile Commerce Ready. Social
-                Media Integration. Fraud Prevention.
+                <?php
+                    echo $p_description;    
+                ?>
             </p>
         </div>
 
@@ -138,8 +196,9 @@
                 <div class="product-lists">
 
                     <?php
-                        $sql='SELECT * FROM PRODUCT';
+                        $sql='SELECT * FROM PRODUCT WHERE SHOP_ID = :s_id';
                         $stid = oci_parse($connection,$sql);
+                        oci_bind_by_name($stid ,':s_id' ,$p_shop);
                         oci_execute($stid);
 
                         while($row = oci_fetch_array($stid,OCI_ASSOC)){
@@ -159,7 +218,7 @@
                             }
 
                             
-                            echo "<div class='single'>";
+                            echo "<div class='single' onclick='viewproduct($product_id)' >";
                                 echo "<div class='img'>";
                                     echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
                                     // echo "<div class='tag'>";
@@ -201,7 +260,6 @@
 
                     ?>
                </div>
-
             </div>
         </div>
     </div>
@@ -209,5 +267,13 @@
     <?php
         require("footer.php");
     ?>
+
+
+
+<script>
+        function viewproduct(p_id){
+            window.location.href="productview.php?p_id="+p_id;
+        }
+  </script>
 </body>
 </html>

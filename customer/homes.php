@@ -2,7 +2,7 @@
 
   <div class="header-title">
     <h3>Trending Products</h3>
-    <span>See all >></span>
+    <a href="products.php?cat_name=trending"><span>See all >></span></a>
   </div>
 
   <div class="trending-container">
@@ -175,7 +175,7 @@
   <!-- Offer products -->
   <div class="header-title">
     <h3>Offer Products</h3>
-    <span>See all >></span>
+    <a href="products.php?cat_name=offer"><span>See all >></span></a>
   </div>
 
   <div class="offer-container">
@@ -289,7 +289,7 @@
 
   <div class="header-title">
     <h3>Other Products</h3>
-    <span class="see">See all >></span>
+    <a href="products.php?cat_name=ALL"><span>See all >></span></a>
   </div>
 
   <div class="other-main">
@@ -318,10 +318,9 @@
                 }
 
                 
-                echo "<div class='single'>";
+                echo "<div class='single' onclick='viewproduct($product_id)'>";
                     echo "<div class='img'>";
                         echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
-                        // echo "<div class='tag'>";
                             if(!empty($product_offer)){
                                 echo "<div class='offer'>Offer</div>";
                             }
@@ -334,7 +333,6 @@
                             else{
                                 echo "";
                             }
-                        // echo "</div>";    
                     echo "</div>";
                     echo "<div class='content'>";
                         echo "<h5>".$product_name."</h5>";
@@ -366,3 +364,10 @@
     </div>
   </div>
 </div>
+
+
+<script>
+        function viewproduct(p_id){
+            window.location.href="productview.php?p_id="+p_id;
+        }
+  </script>

@@ -1,10 +1,3 @@
-<!-- <?php
-
-    if(isset($_GET['p_id'])){
-        echo $_GET['p_id'];
-    }
-?> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/indeex.css" />
+    <link rel="stylesheet" href="css/indexs.css" />
 
 </head>
 <body>
@@ -24,16 +17,25 @@
     
     <div class="product-container">
         <div class="product-header">
-            <h3>Product Lists of <?php 
-                $sql='SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID= :c_id';
-                $stid = oci_parse($connection,$sql);
-                oci_bind_by_name($stid,':c_id' ,$_GET['cat_id']);
-                oci_execute($stid);
-                while($row = oci_fetch_array($stid,OCI_ASSOC)){
+            <h3> <?php 
+                if(isset($_GET['cat_id'])){
+                    $sql='SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID= :c_id';
+                    $stid = oci_parse($connection,$sql);
+                    oci_bind_by_name($stid,':c_id' ,$_GET['cat_id']);
+                    oci_execute($stid);
+                    while($row = oci_fetch_array($stid,OCI_ASSOC)){
                     $cat_name = $row['CATEGORY_NAME'];
+                    }
                 }
-                echo strtoupper($cat_name);
-            ?></h3>
+                if(isset($_GET['cat_name'])){
+                    $cat_name = $_GET['cat_name'];
+                }
+                
+                
+                
+                echo "<span>".strtoupper($cat_name)."</span>";
+
+            ?> Products Lists </h3>
         </div>
 
     <div class="product-lists">
@@ -120,11 +122,11 @@
         require('footer.php');
     ?>  
 
-    <!-- <script>
+    <script>
         function viewproduct(p_id){
-            var product_id = p_id;
-            window.location.href="products.php?p_id=product_id";
+            window.location.href="productview.php?p_id="+p_id;
         }
-    </script> -->
+    </script>
+
 </body>
 </html>
