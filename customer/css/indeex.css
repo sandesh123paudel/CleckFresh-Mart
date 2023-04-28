@@ -387,6 +387,7 @@ scrollbar-width: none;  /* Firefox */
 
 .product-lists  .single .img img:hover{
 transform: scale(1.2);
+transition: 0.5;
 }
 
 .product-lists  .single  .offer {

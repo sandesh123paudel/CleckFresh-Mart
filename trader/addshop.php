@@ -139,6 +139,7 @@
                     <input type="file" class='inputbox' name="shopimage" placeholder="UploadImage"/>
                 </div>
 
+                <!-- show logo -->
                 <div class="image-file">
                     <label>Shop Logo</label>
                     <p>Upload Logo <span class="error"> * <?php echo $errlogo; ?> </p>

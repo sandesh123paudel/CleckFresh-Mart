@@ -32,8 +32,8 @@
             $eemail = $row['EMAIL'];
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
+            $elogo = $row['SHOP_LOGO'];
         }
-        echo $eimage;
             
     ?>
 
@@ -48,6 +48,13 @@
                     <p>Upload Image</p>
                     <input type='hidden' name='previous' value='<?php echo $eimage; ?>' />
                     <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='<?php echo $eimage; ?>'/>
+                </div>
+
+                <div class='image-file'>
+                    <label>Shop Logo</label>
+                    <p>Upload Logo</p>
+                    <input type='hidden' name='previouslogo' value='<?php echo $elogo; ?>' />
+                    <input type='file' class='inputbox' name='shoplogo' placeholder='UploadImage' value='<?php echo $elogo; ?>'/>
                 </div>
               
                     <div class='info1'>

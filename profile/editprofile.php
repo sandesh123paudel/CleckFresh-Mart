@@ -23,7 +23,6 @@
       $dob = $row['DATE_OF_BIRTH'];
     }
   }
-
   
   if(isset($_POST['updateprofile'])){
     $fname = $_POST['fname'];
