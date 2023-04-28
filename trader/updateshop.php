@@ -25,6 +25,7 @@
 
           $usize = $_FILES['shopimage']['size'];
           $ulocation = "../db/uploads/shops/".$image;
+          $ulocationlogo = "../db/uploads/shops/".$logo;
           
           // if both image field is not empty
           if(!empty($image) && !empty($logo)){
@@ -43,7 +44,7 @@
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previous) && unlink("../db/uploads/shops/".$previouslogo)){
-              if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocation) ){
+              if(move_uploaded_file($utmpname,$ulocation) && move_uploaded_file($utmplogo,$ulocationlogo) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -91,7 +92,7 @@
             oci_bind_by_name($stid , ':logo' ,$logo);
             
             if(unlink("../db/uploads/shops/".$previouslogo) ){
-              if(move_uploaded_file($utmplogo,$ulocation) ){
+              if(move_uploaded_file($utmplogo,$ulocationlogo) ){
                 if(oci_execute($stid)){
                     header('location:traderdashboard.php?cat=Shoplist');
                 }
@@ -110,7 +111,7 @@
             oci_bind_by_name($stid1 ,':previous',$previous);
             oci_bind_by_name($stid1 ,':email',$email);
             oci_bind_by_name($stid1 ,':phone',$phone);
-            oci_bind_by_name($stid , ':logoprevious' ,$previouslogo);
+            oci_bind_by_name($stid1 , ':logoprevious' ,$previouslogo);
 
             if(oci_execute($stid1)){
                 header('location:traderdashboard.php?cat=Shoplist');
