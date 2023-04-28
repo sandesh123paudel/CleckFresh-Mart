@@ -110,7 +110,7 @@
             oci_bind_by_name($stid1 ,':previous',$previous);
             oci_bind_by_name($stid1 ,':email',$email);
             oci_bind_by_name($stid1 ,':phone',$phone);
-            oci_bind_by_name($stid , ':logoprevious' ,$previouslogo);
+            oci_bind_by_name($stid1 , ':logoprevious' ,$previouslogo);
 
             if(oci_execute($stid1)){
                 header('location:traderdashboard.php?cat=Shoplist');
