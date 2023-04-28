@@ -31,9 +31,9 @@
             $ecategory = $row['SHOP_TYPE'];
             $eemail = $row['EMAIL'];
             $ephone = $row['CONTACT'];
-            $eimage = $row['SHOP_IMAGE'];
+            $eimage = $row['SHOP_LOGO'];
         }
-        echo $eimage;
+        
             
     ?>
 
