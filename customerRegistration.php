@@ -7,9 +7,18 @@
     $errcount = 0;
     $sfname = $slname = $semail= $sDOB = $sgender = $sPhone = $scategory =null;
 
+    // removing the pending customer data from the database
+    $pending = 'pending';
+    $crole = 'customer';
+    $sqlqry = "DELETE  FROM USER_I WHERE VERIFY= :pending AND ROLE = :crole";
+    $stmt = oci_parse($connection,$sqlqry);
+    oci_bind_by_name($stmt, ':pending' ,$pending);
+    oci_bind_by_name($stmt, ':crole' ,$crole);
+    oci_execute($stmt);
 
     if(isset($_POST['subCustomer'])){
         // verifying the errors if inbox is empty
+        unset($_SESSION['otp']);
 
         if(empty($_POST['fname'])){
             $errfname='First Name is required';
@@ -56,7 +65,7 @@
             $lowercase = preg_match('@[a-z]@',$password);
             $number = preg_match('@[0-9]@',$password);
             $specialChars = preg_match('@[^\w]@',$password);
-
+            
             // error validation
             if(strlen(trim($fname)) != strlen($fname)){
                 $errcount+=1;
@@ -123,8 +132,8 @@
                     $errpassword="Password should include at least one number.";
                 }
                 
+                // extract email and contact from database to compare it is exist or not
                 $contact = $phone;
-
                 $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact";
                 $stid1 = oci_parse($connection, $sql);
 
@@ -153,9 +162,8 @@
                     $role = 'customer';
                     
                     $verify ='pending';
-
-                    $otp_number = rand(100000,999999);
                     
+                    $otp_number = rand(100000,999999);
                     $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,VERIFY) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:verify)";
                     
                     $stid = oci_parse($connection,$sql1);
@@ -174,12 +182,13 @@
                     // including php mailer to send email
                     
                     $fullname = $fname." ".$lname;
-                    $sub ="Please Verify Your Email address";
+                    $sub ="Verify Your Email address";
                     $message="Dear $fullname, Your Verification Code is: $otp_number";
                     
                     include_once('sendmail.php');
 
                     if(oci_execute($stid)){ 
+                        $_SESSION['email']=$femail;
                         $_SESSION['otp'] = $otp_number;
                         header("location:verifyotp.php?page=$role");
                     }

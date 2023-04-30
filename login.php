@@ -4,6 +4,7 @@
     session_start();
     include('db/connection.php');       
 
+    // echo $_SESSION['otp'];
     // for login purpose
     $err = $erremail= $errpassword = $errrole ='';
 
@@ -33,7 +34,7 @@
             }
 
             // for user
-            // $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role AND VERIFIED = :verify ";
+            // $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role AND VERIFY = :verify ";
             $sql = "SELECT * FROM USER_I WHERE EMAIL = :email AND PASSWORD = :pass AND ROLE = :u_role ";
 
             // query from the database
@@ -82,8 +83,8 @@
         $otp_number = rand(100000,999999);
 
 
-        $sub ="Please Verify Your Email address ";
-        $message="Dear $fullname, Your Verification Code is: ".$otp_number ." to reset your password.";      
+        $sub ="Verify Your Email address ";
+        $message="Dear User, Your Verification Code is: ".$otp_number ." to reset your password.";      
         include_once('sendmail.php');
 
         if(oci_execute($stid)){

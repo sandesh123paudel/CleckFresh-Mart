@@ -6,9 +6,10 @@
     $errcount = 0;
     
     $sfname = $slname = $semail= $sDOB = $sgender = $sPhone = $scategory ='';
-
+  
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty
+        unset($_SESSION['otp']);
 
         if(empty($_POST['fname'])){
             $errfname='First Name is required';
@@ -166,12 +167,11 @@
                     $fpassword = md5($password);
                     
                     $role = 'trader';
-                    $verify ='pending';
 
                     $otp_number = rand(100000,999999);
                         
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD,VERIFIED) 
-                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password,:verify)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD) 
+                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password)";
                         
                     $stid = oci_parse($connection,$sql1);
                     // bind_by_name to convert php variable to insert into database
@@ -186,22 +186,23 @@
                     oci_bind_by_name($stid, ':category', $category);
                     oci_bind_by_name($stid, ':password', $fpassword);
 
-                    oci_bind_by_name($stid, ':verify', $verify);
+                    // oci_bind_by_name($stid, ':verify', $verify);
 
                     // including php mailer to send email
                     
                     $fullname = $fname." ".$lname;
-                    $sub ="Please Verify Your Email address";
-                    $message="Dear $fullname, Your Verification Code is: $otp_number";
+                    $sub ="Verify Your Email address";
+                    $message="Dear $fullname, Your Verification Code is: $otp_number .After inserting your OTP Code. 
+                    Your account will go on the process. You will be notified through email after you will successfully verified as trader.";
                     
                     include_once('sendmail.php');
 
                     if(oci_execute($stid))
                     {   
+                        $_SESSION['email']=$femail;
                         $_SESSION['otp'] = $otp_number;
                         $_SESSION['category'] = $category;
-                        header("location:verifyotp.php?page=$role");
-                        
+                        header("location:verifyotp.php?page=$role");  
                     }
                 }
             }
