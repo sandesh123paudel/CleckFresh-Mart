@@ -15,7 +15,19 @@
     <div class="overview-container">
         <div class="trader">
             <div class="trader-info">
-                <h2>Greeting, <label><?php echo $_SESSION['username']; ?></label></h2>
+                <h2>Greeting, <label>
+                    <?php 
+                        $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
+                        $stid = oci_parse($connection,$sql);
+                        oci_bind_by_name($stid,':id',$_SESSION['userID']);
+                        oci_execute($stid);
+                        $username='';
+                        while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                          $username = $row['FIRST_NAME'];
+                        }
+                      echo $username;
+                    
+                    ?></label></h2>
                 <p>Here's what's happening with your store today.</p>
             </div>
             <a href="traderdashboard.php?cat=Addproduct&name=Products">Add Product +</a>

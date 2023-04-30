@@ -304,6 +304,7 @@
             while($row = oci_fetch_array($stid,OCI_ASSOC)){
                 $product_name=$row['PRODUCT_NAME'];
                 $product_id = $row['PRODUCT_ID'];
+                $category_id = $row['CATEGORY_ID'];
                 $product_category = $row['PRODUCT_TYPE'];
                 $product_quantity = $row['QUANTITY'];
                 $product_image = $row['PRODUCT_IMAGE'];
@@ -318,8 +319,8 @@
                 }
 
                 
-                echo "<div class='single' onclick='viewproduct($product_id)'>";
-                    echo "<div class='img'>";
+                echo "<div class='single' >";
+                    echo "<div class='img' onclick='viewproduct($product_id)'>";
                         echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
                             if(!empty($product_offer)){
                                 echo "<div class='offer'>Offer</div>";
@@ -347,10 +348,11 @@
                         echo "</div>";
 
                         if((int)$product_stock <= 0 ){
-                          echo "<a href='#'><div class='btn' id='outstock' >Add +</div></a>";
+                          echo "<div class='btn' id='outstock' >Add +</div>";
                         }
                         else{
-                            echo "<a href='productview.php?id=$product_id&cat=$product_category'><div class='btn'>Add +</div></a>";
+                          echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
+                          // echo "<a href='products.php?cat_id=$category_id'><div class='btn' onclick='addtocart($product_id)'>Add +</div></a>";
                         }
                         echo "</div>";
                 echo "</div>";

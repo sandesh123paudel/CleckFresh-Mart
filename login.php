@@ -2,7 +2,7 @@
 <?php
     // include connection
     session_start();
-    include('db/connection.php');
+    include('db/connection.php');       
 
     // for login purpose
     $err = $erremail= $errpassword = $errrole ='';
@@ -45,10 +45,15 @@
             // oci_bind_by_name($stid , ':verfiy' , $verify);
 
             oci_execute($stid);
+            
+            // generate token
+            $token_length = 32;
+            $token = base64_encode(random_bytes($token_length));
 
             if($data = oci_fetch_array($stid, OCI_ASSOC)) 
             {
                 $_SESSION['ID'] = $data; 
+                $_SESSION['token'] = $token;
                 header("location:session.php");
             }
             else{
@@ -75,6 +80,8 @@
         $page = 'login';
 
         $otp_number = rand(100000,999999);
+
+
         $sub ="Please Verify Your Email address ";
         $message="Dear $fullname, Your Verification Code is: ".$otp_number ." to reset your password.";      
         include_once('sendmail.php');

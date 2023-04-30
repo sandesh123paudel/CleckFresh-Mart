@@ -102,8 +102,8 @@
         <div class="line"></div>
 
           <div class="total">
-            <h3>Total Item (3 Items)</h3>
-            <h3>&#163; 200</h3>
+            <h3 id='totalitems'>Total Item (3 Items)</h3>
+            <h3 id='totalprice'>&#163; 200</h3>
           </div>
 
           <div class="process">

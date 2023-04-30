@@ -486,16 +486,13 @@ body{
     .write-review{
         width: 100%;
         flex-direction: column;
+        padding-top: -2rem;
+        padding-block-end: 6rem;
+        overflow-y: hidden;
     }
     .write-review textarea{
         width: 100%;
-        padding:15px;
-        height: 120px;
-        outline: none;
-        border:1px solid lightgray ;
-        border-radius: 5px;
-        margin-block: 30px;  
-        background-color: rgb(248, 246, 246);
+        margin-block-end: -6rem;
     }
     
     .write-review button{

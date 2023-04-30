@@ -3,7 +3,7 @@
   // session_start();
   include('../db/connection.php');
   
-  if(isset($_SESSION['userID'])){
+  if(isset($_SESSION['token'])){
     $firstname =  $lastname =  $role= $gender =  $contact =  $email =$dob=''; 
 
     $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";
@@ -24,31 +24,6 @@
     }
   }
   
-  if(isset($_POST['updateprofile'])){
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $uemail = $_POST['email'];
-    $birth = $_POST['dob'];
-    $ugender = $_POST['gender'];
-    $contact = $_POST['phone'];
-
-    $sql = "UPDATE USER_I SET FIRST_NAME= :fname,LAST_NAME= :lname,GENDER= :gender,CONTACT= :contact,EMAIL = :email,DATE_OF_BIRTH= :dob WHERE USER_ID= :id ";
-    $stid= oci_parse($connection,$sql);
-
-    oci_bind_by_name($stid, ':id' , $_SESSION['userID']);
-    oci_bind_by_name($stid, ':fname', $fname);
-    oci_bind_by_name($stid, ':lname', $lname);
-    oci_bind_by_name($stid, ':gender', $gender);
-    oci_bind_by_name($stid, ':contact', $contact);
-    oci_bind_by_name($stid, ':email', $uemail);
-    oci_bind_by_name($stid, ':dob', $birth);
-
-    if(oci_execute($stid)){
-      if($_SESSION['role'] == 'trader'){
-        header("location:../trader/traderdashboard.php?cat=Profile&name=Home");      
-      }
-  }
-}
 
 ?>
 <!DOCTYPE html>
@@ -105,11 +80,12 @@
           flex-direction:column;
       }
 
-      .profile-info .info2 input{
+      .profile-info .info2 .inputbox{
         padding-left:10px;
         padding:5px;
         border-radius:5px;
-
+        border: 1px solid lightgray;
+        outline:none;
       }
 
       .profile-info .info2 label{
@@ -152,7 +128,7 @@
 
       <div class="profile-info">
         
-        <form action="" methot='POST'>
+        <form  method='POST' action="../profile/updateprofile.php">
 
           <div class="info2">
             <label>First Name</label>
@@ -182,7 +158,11 @@
 
           <div class="info2">
             <label>Gender</label>
-            <input type="text" class="inputbox"  name="gender"  placeholder="Gender" value='<?php echo $gender; ?>' />
+            <!-- <input type="text" class="inputbox"  name="gender"  placeholder="Gender" value='<?php echo $gender; ?>' /> -->
+            <!-- <label>Shop Category</label> -->
+              <select class='inputbox selectbox' name='gender'>
+                <option value="<?php echo $gender; ?>"><?php echo $gender; ?></option>
+              </select>
           </div>
 
           <div class="line"></div>
@@ -194,5 +174,5 @@
       </div>   
     </div>
  
-  </body>
+ </body>
 </html>

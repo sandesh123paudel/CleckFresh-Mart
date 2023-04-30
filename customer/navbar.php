@@ -71,33 +71,41 @@
 
         <div class="content">
           <!-- Cart -->
-          <a href="cartpage.php">
-            <div>
-              <b class="number">
-                <?php
-                              $number =0;
-                              echo $number;
-                          ?>
+          <!-- <a href="cartpage.php"> -->
+            <div onclick='cartfunction()'>
+              <b class="number" id='countcart'>
+                <!-- <?php
+
+                  $number =0;
+                  echo $number;
+                ?> -->
+                0
+                <script>
+                  document.getElementById("countcart").innerHTML = localStorage.getItem("cartcount");
+                </script>
               </b>
               <span class="material-symbols-outlined"> shopping_cart </span>
               <p class="icon">Cart</p>
             </div>
-          </a>
+          <!-- </a> -->
 
           <!-- Wishlist -->
-          <a href="wishlist.php">
-            <div>
-              <b class="number">
-                <?php
-                              $number =12;
-                              echo $number;
-                          ?>
+          <!-- <a href="wishlist.php"> -->
+            <div onclick='wishlistfunction()'>
+              <b class="number" id='countwishlist'>
+                <!-- <?php
+                  echo $number;
+                ?> -->
+                0
+                <script>
+                  document.getElementById("countwishlist").innerHTML =localStorage.getItem("wishlistcount");
+                </script>
               </b>
               <span class="material-symbols-outlined"> favorite </span>
 
               <p class="icon">Wishlist</p>
             </div>
-          </a>
+          <!-- </a> -->
 
           <div>
             <img
@@ -227,5 +235,23 @@
       integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
       crossorigin="anonymous"
     ></script>
+
+    <!-- cart -->
+    <script src="addtocart.js"></script>
+
+    <script>
+
+      function cartfunction(){
+        var carts= [];
+        carts =localStorage.getItem("cartItem");
+        document.location.href='cartpage.php';
+      }
+
+      function wishlistfunction(){
+        var wishlists= [];
+        wishlists = localStorage.getItem("wishlistItem");
+        document.location.href='wishlist.php';
+      }
+    </script>
   </body>
 </html>

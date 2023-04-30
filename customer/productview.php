@@ -11,7 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/productsvi.css" />
+    <link rel="stylesheet" href="css/productsvie.css" />
 
 </head>
 <body>
@@ -124,8 +124,11 @@
                 </div>
 
                 <div class="buttons">
-                    <button>Add to basket</button>
-                    <button>Add to List &#9825; </button>
+                    <?php
+                    echo "<button onclick='addtocart($p_id)'>Add to basket</button>";
+                    echo "<button onclick='addtowhishlist($p_id)'>Add to List &#9825; </button>";
+
+                    ?>
                 </div>
                 
             </div>
@@ -204,6 +207,7 @@
                         while($row = oci_fetch_array($stid,OCI_ASSOC)){
                             $product_name=$row['PRODUCT_NAME'];
                             $product_id = $row['PRODUCT_ID'];
+                            $category_id = $row['CATEGORY_ID'];
                             $product_category = $row['PRODUCT_TYPE'];
                             $product_quantity = $row['QUANTITY'];
                             $product_image = $row['PRODUCT_IMAGE'];
@@ -218,8 +222,8 @@
                             }
 
                             
-                            echo "<div class='single' onclick='viewproduct($product_id)' >";
-                                echo "<div class='img'>";
+                            echo "<div class='single'  >";
+                                echo "<div class='img' onclick='viewproduct($product_id)'>";
                                     echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
                                     // echo "<div class='tag'>";
                                         if(!empty($product_offer)){
@@ -249,10 +253,10 @@
                                     echo "</div>";
 
                                     if((int)$product_stock <= 0 ){
-                                    echo "<a href='#'><div class='btn' id='outstock' >Add +</div></a>";
+                                    echo "<div class='btn' id='outstock' >Add +</div>";
                                     }
                                     else{
-                                        echo "<a href='productview.php?id=$product_id&cat=$product_category'><div class='btn'>Add +</div></a>";
+                                        echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
                                     }
                                     echo "</div>";
                             echo "</div>";
@@ -274,6 +278,10 @@
         function viewproduct(p_id){
             window.location.href="productview.php?p_id="+p_id;
         }
-  </script>
+</script>
+
+
+<script src="addtocart.js"></script>
+
 </body>
 </html>

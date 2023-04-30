@@ -13,11 +13,10 @@
   $username='';
   while($row = oci_fetch_array($stid,OCI_ASSOC)){
     $username = $row['FIRST_NAME'];
-    $_SESSION['username'] = $username;
   }
 }
 
-  if(empty($_SESSION['userID'])){
+  if(empty($_SESSION['token'])){
     echo "<script>
       alert('SESSION is EXPIRED Please Login!!!');
       document.location.href='../login.php';
@@ -179,9 +178,7 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <?php  
-
-                  echo $_SESSION['username']; 
-                
+                   echo $username; 
                 ?> </h3>              
             <div>
               <ul class="dropdown-menu setting">
