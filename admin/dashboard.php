@@ -17,12 +17,12 @@
 //   }
 // }
 
-//   if(empty($_SESSION['userID'])){
-//     echo "<script>
-//       alert('SESSION is EXPIRED Please Login!!!');
-//       document.location.href='../login.php';
-//       </script>";
-//   }
+  // if(empty($_SESSION['userID'])){
+  //   echo "<script>
+  //     alert('SESSION is EXPIRED Please Login!!!');
+  //     document.location.href='../login.php';
+  //     </script>";
+  // }
 
  ?>
 
@@ -37,7 +37,9 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/dash.css" />
+    <link rel="stylesheet" href="css/dashb.css" />
+    <link rel="stylesheet" href="css/overview.css" />
+    
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -59,12 +61,12 @@
 
                 <div class="home-link">
                     <span class="material-symbols-outlined">home</span>
-                    <a href="traderdashboard.php">Dashboard</a>
+                    <a href="dashboard.php">Dashboard</a>
                 </div>
 
                 <div class="home-link">
                     <span class="material-symbols-outlined">person</span>
-                    <a href="traderdashboard.php">Traders</a>
+                    <a href="dashboard.php?cat=Traders">Traders</a>
                 </div>
 
                 <div class="category-link">
@@ -87,25 +89,25 @@
                         onmouseout="outMouse('user')"
                         >
                         <div>
-                            <a href="#">Customers Lists</a>
-                            <a href="#">Traders Lists</a>
+                            <a href="dashboard.php?name=Users&cat=Customers List">Customers Lists</a>
+                            <a href="dashboard.php?name=Users&cat=Traders Lists">Traders Lists</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="home-link">
                     <span class="material-symbols-outlined">shopping_bag</span>
-                    <a href="traderdashboard.php">Product Lists</a>
+                    <a href="dashboard.php?cat=Product Lists">Product Lists</a>
                 </div>
 
                 <div class="home-link">
                 <span class="material-symbols-outlined">shopping_basket</span>
-                    <a href="traderdashboard.php">Cart List</a>
+                    <a href="dashboard.php?cat=Cart Lists">Cart List</a>
                 </div>
 
                 <div class="home-link">
                     <span class="material-symbols-outlined">favorite</span>
-                    <a href="traderdashboard.php">Wish List</a>
+                    <a href="dashboard.php?cat=Wish Lists">Wish List</a>
                 </div>
 
                 <div class="logout">
@@ -118,6 +120,7 @@
         <!-- headers -->
         <div class="header">
           <div class="header1">
+            
             <span
               class="material-symbols-outlined menu"
               type="button"
@@ -127,12 +130,12 @@
             >
               menu
             </span>
+
             <h5 id="link">
               <?php
-                if(isset($_GET['cat']) && isset($_GET['name'])){
+                if(isset($_GET['cat'])){
                   $links = $_GET['cat'];
-                  $name = strtoupper($_GET['name']);
-                  echo "<p>".$name." > </p>".$links;
+                  echo  $links;                  
                 }
                 else{
                   echo "<p>Home ></p>
@@ -182,24 +185,25 @@
             if(isset($_GET['cat'])){
               $links = $_GET['cat'];
               
-              if($links == "Addproduct"){
-                require('addproduct.php');
+              if($links == "Traders"){
+                require('traders.php');
               }
-              if($links == "Productlist"){
-                require('productlist.php');
+              if($links == "Customers List"){
+                require('customerlist.php');
               }
-              if($links == "Addshop"){
-                require('addshop.php');
+              if($links == "Traders Lists"){
+                require('traderlist.php');
               }
-              if($links == "Shoplist"){
-                require('shoplist.php');
+              if($links == "Product Lists"){
+                require('productslist.php');
               }
-              if($links == "Orderlist"){
-                require('orderlisting.php');
+              if($links == "Cart List"){
+                require('cartlists.php');
               }
-              if($links == "Orderhistory"){
-                require('orderhistory.php');
+              if($links == "Wish List"){
+                require('wishlist.php');
               }
+
               if($links == "EditProduct"){
                 $id = $_GET['id'];
                 $action = $_GET['action'];
@@ -248,61 +252,61 @@
       <div class="offcanvas-body">
         <div class="side-links">
 
-                <div class="home-link">
-                    <span class="material-symbols-outlined">home</span>
-                    <a href="traderdashboard.php">Dashboard</a>
-                </div>
-
-                <div class="home-link">
-                    <span class="material-symbols-outlined">person</span>
-                    <a href="traderdashboard.php">Traders</a>
-                </div>
-
-                <div class="category-link">
-                    <div
-                    class="dropdown"
-                    onmouseover="onMouse('user')"
-                    onmouseout="outMouse('user')"
-                    >
-                        <div class="dropdown-link">
-                            <span class="material-symbols-outlined">group</span>
-                            <h4>Users</h4>
-                        </div>
-                        <p>▼</p>
-                        </div>
-                        <!-- list shops -->
-                        <div
-                        class="dropdown-content"
-                        id="user"
-                        onmouseover="onMouse('user')"
-                        onmouseout="outMouse('user')"
-                        >
-                        <div>
-                            <a href="#">Customers Lists</a>
-                            <a href="#">Traders Lists</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="home-link">
-                    <span class="material-symbols-outlined">shopping_bag</span>
-                    <a href="traderdashboard.php">Cart List</a>
-                </div>
-                
-                <div class="home-link">
-                <span class="material-symbols-outlined">shopping_basket</span>
-                    <a href="traderdashboard.php">Cart List</a>
-                </div>
-
-                <div class="home-link">
-                    <span class="material-symbols-outlined">favorite</span>
-                    <a href="traderdashboard.php">Wish List</a>
-                </div>
-
-                <div class="logout">
-                    <a href="../db/logout.php">LOGOUT</a>
-                </div>
+          <div class="home-link">
+              <span class="material-symbols-outlined">home</span>
+              <a href="dashboard.php">Dashboard</a>
           </div>
+
+          <div class="home-link">
+              <span class="material-symbols-outlined">person</span>
+              <a href="dashboard.php?cat=Traders">Traders</a>
+          </div>
+
+            <div class="category-link">
+              <div
+                class="dropdown"
+                onmouseover="onMouse('users')"
+                onmouseout="outMouse('users')"
+              >
+                  <div class="dropdown-link">
+                      <span class="material-symbols-outlined">group</span>
+                      <h4>Users</h4>
+                  </div>
+                    <p>▼</p>
+              </div>
+                  <!-- list shops -->
+                  <div
+                    class="dropdown-content"
+                    id="users"
+                    onmouseover="onMouse('users')"
+                    onmouseout="outMouse('users')"
+                    >
+                    <div>
+                        <a href="dashboard.php?name=Users&cat=Customers List">Customers Lists</a>
+                        <a href="dashboard.php?name=Users&cat=Traders Lists">Traders Lists</a>
+                    </div>
+              </div>
+            </div>
+
+          <div class="home-link">
+              <span class="material-symbols-outlined">shopping_bag</span>
+              <a href="dashboard.php?cat=Product Lists">Product Lists</a>
+          </div>
+
+          <div class="home-link">
+          <span class="material-symbols-outlined">shopping_basket</span>
+              <a href="dashboard.php?cat=Cart Lists">Cart List</a>
+          </div>
+
+          <div class="home-link">
+              <span class="material-symbols-outlined">favorite</span>
+              <a href="dashboard.php?cat=Wish Lists">Wish List</a>
+          </div>
+
+          <div class="logout">
+              <a href="../db/logout.php">LOGOUT</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -310,6 +314,9 @@
       function onMouse(prop) {
         if (prop == "user") {
           document.getElementById("user").style.display = "block";
+        }
+        if (prop == "users") {
+          document.getElementById("users").style.display = "block";
         }
         if (prop == "Profile") {
           document.getElementById("setting").style.display = "block";
@@ -319,6 +326,9 @@
       function outMouse(prop) {
         if (prop == "user") {
           document.getElementById("user").style.display = "none";
+        }
+        if (prop == "users") {
+          document.getElementById("users").style.display = "none";
         }
         if (prop == "Profile") {
           document.getElementById("setting").style.display = "block";

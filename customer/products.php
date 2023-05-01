@@ -95,7 +95,7 @@
                                 echo "<span class='cut'>$50.00</span>";
                             }
                             else{
-                                echo "<span class='main'>$ ".$product_price."</span>";
+                                echo "<span class='main'>&pound; ".$product_price."</span>";
                             }
 
                         echo "</div>";

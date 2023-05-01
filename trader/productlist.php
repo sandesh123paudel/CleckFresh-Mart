@@ -88,11 +88,11 @@ if(isset($_POST['filter'])){
                             echo "<div class='card-info'>";
                                 echo "<div class='card-details'>";
                                     echo "<label>P_ID :  ".$row['PRODUCT_ID']."</label>";
-                                    echo "<label>Name:  ".substr($row['PRODUCT_NAME'],0,20)."</label>";
+                                    echo "<label>Name:  ".substr($row['PRODUCT_NAME'],0,25)."</label>";
                                     
-                                    echo "<label>Shop Name:  ". substr($shopname,0,15)."</label>";
+                                    echo "<label>Shop Name:  ". substr($shopname,0,25)."</label>";
 
-                                    echo "<label>Price:  <span>".$row['PRODUCT_PRICE'] ."<span></label>";
+                                    echo "<label>Price: &pound; <span> ; ".$row['PRODUCT_PRICE'] ."<span></label>";
                                 echo "</div>";
                                 
                                 echo "<div class='image'>";

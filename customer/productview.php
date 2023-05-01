@@ -11,7 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/productsvie.css" />
+    <link rel="stylesheet" href="css/productsviews.css" />
 
 </head>
 <body>
@@ -68,8 +68,8 @@
             <div class="product-part2">
                 <!-- shop details -->
                 <div class="product-shop">
-                    <h5>Zappa</h5>
-                    <!-- <?php
+                    <!-- <h5>Zappa</h5> -->
+                    <?php
                     
                         $sql = "SELECT * FROM SHOP WHERE SHOP_ID= :s_id";
                         $stid = oci_parse($connection,$sql);
@@ -80,11 +80,11 @@
                             $shop_logo = $row['SHOP_LOGO'];
                             $shop_name = $row['SHOP_NAME'];
                         }
-                        echo "<img src=\"../db/uploads/shops/".$shop_logo."\" alt='$shop_name' /> ";
-                    ?> -->
+                        echo "<img class='shop-logo' src=\"../db/uploads/shops/".$shop_logo."\" alt='$shop_name'  /> ";
+                    ?>
 
                     <div class="shop-info">
-                        <h3>Zappa</h3>
+                        <?php echo "<h3>$shop_name</h3>"; ?>
                         <p>We sell green groceries</p>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                                             echo "<span class='cut'>$50.00</span>";
                                         }
                                         else{
-                                            echo "<span class='main'>$ ".$product_price."</span>";
+                                            echo "<span class='main'>&pound; ".$product_price."</span>";
                                         }
                                     echo "</div>";
 

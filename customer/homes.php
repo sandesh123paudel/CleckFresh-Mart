@@ -224,8 +224,8 @@
         <span class="piece">24 PieceS</span>
 
         <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
+          <span class="cut">&pound; 50.00</span>
+          <span class="main">&pound; 20.00</span>
         </div>
         <a href=""><div class="btn">Add +</div></a>
       </div>
@@ -241,8 +241,8 @@
         <span class="piece">24 PieceS</span>
 
         <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
+          <span class="cut">&pound; 50.00</span>
+          <span class="main">&pound; 20.00</span>
         </div>
         <a href=""><div class="btn">Add +</div></a>
       </div>
@@ -258,8 +258,8 @@
         <span class="piece">24 PieceS</span>
 
         <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
+          <span class="cut">&pound; 50.00</span>
+          <span class="main">&pound; 20.00</span>
         </div>
         <a href=""><div class="btn">Add +</div></a>
       </div>
@@ -275,8 +275,8 @@
         <span class="piece">24 PieceS</span>
 
         <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
+          <span class="cut">&pound; 50.00</span>
+          <span class="main">&pound; 20.00</span>
         </div>
         <a href=""><div class="btn">Add +</div></a>
       </div>
@@ -343,7 +343,7 @@
                                 echo "<span class='cut'>$50.00</span>";
                             }
                             else{
-                                echo "<span class='main'>$ ".$product_price."</span>";
+                                echo "<span class='main'>&pound; ".$product_price."</span>";
                             }
                         echo "</div>";
 
