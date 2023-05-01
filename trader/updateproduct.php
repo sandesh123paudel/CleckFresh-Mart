@@ -7,27 +7,16 @@ session_start();
   if(isset($_POST['updateProduct']))
   {
           $uid = $_POST['uid'];
-          echo "UID: $uid <br>";
           $name = $_POST['productname'];
-          echo "Name : $name";
           $category_id =  $_POST['productcategory'];
-          echo "Category_ID: $category_id <br>";
           $category = $_SESSION['type'];
-          echo "Category $category <br>";
           $description = $_POST['description'];
-          echo "Description: $description <br>";
           $shop_id =  $_POST['shopname'];
-          echo "Shop ID : $shop_id <br>";
           $price = $_POST['productprice'];
-          echo "price: $price <br>";
           $offer_id =  $_POST['offer'];
-          echo "offer_id: $offer_id <br>";
           $quantity =  $_POST['quantity'];
-          echo "Quantity: $quantity <br>";
           $stock =   $_POST['productstock'];
-          echo "Stock : $stock <br>";
           $previous = $_POST['previousimage'];
-          echo "Image : $previous <br>";
 
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];

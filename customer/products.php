@@ -1,10 +1,3 @@
-<!-- <?php
-
-    if(isset($_GET['p_id'])){
-        echo $_GET['p_id'];
-    }
-?> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/indexs.css" />
 
 </head>
 <body>
@@ -24,16 +17,23 @@
     
     <div class="product-container">
         <div class="product-header">
-            <h3>Product Lists of <?php 
-                $sql='SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID= :c_id';
-                $stid = oci_parse($connection,$sql);
-                oci_bind_by_name($stid,':c_id' ,$_GET['cat_id']);
-                oci_execute($stid);
-                while($row = oci_fetch_array($stid,OCI_ASSOC)){
-                    $cat_name = $row['CATEGORY_NAME'];
+            <h3> <?php 
+                if(isset($_GET['cat_id'])){
+                    $sql='SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_ID= :c_id';
+                    $stid = oci_parse($connection,$sql);
+                    oci_bind_by_name($stid,':c_id' ,$_GET['cat_id']);
+                    oci_execute($stid);
+                    while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                        $cat_name = $row['CATEGORY_NAME'];
+                    }
                 }
-                echo strtoupper($cat_name);
-            ?></h3>
+                if(isset($_GET['cat_name'])){
+                    $cat_name = $_GET['cat_name'];
+                }
+                
+                echo "<span>".strtoupper($cat_name)."</span>";
+
+            ?> Products Lists </h3>
         </div>
 
     <div class="product-lists">
@@ -54,6 +54,7 @@
             while($row = oci_fetch_array($stid,OCI_ASSOC)){
                 $product_name=$row['PRODUCT_NAME'];
                 $product_id = $row['PRODUCT_ID'];
+                $category_id =$row['CATEGORY_ID'];
                 $product_category = $row['PRODUCT_TYPE'];
                 $product_quantity = $row['QUANTITY'];
                 $product_image = $row['PRODUCT_IMAGE'];
@@ -67,8 +68,8 @@
                 $product_stock = $row['STOCK_NUMBER'];
 
 
-                echo "<div class='single' onclick='viewproduct($product_id)'>";
-                    echo "<div class='img'>";
+                echo "<div class='single' >";
+                    echo "<div class='img' onclick='viewproduct($product_id)'>";
                         echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
                         //    echo "<div class='tag'>";
                             if(!empty($product_offer)){
@@ -94,22 +95,22 @@
                                 echo "<span class='cut'>$50.00</span>";
                             }
                             else{
-                                echo "<span class='main'>$ ".$product_price."</span>";
+                                echo "<span class='main'>&pound; ".$product_price."</span>";
                             }
 
                         echo "</div>";
 
                         if((int)$product_stock <= 0 ){
-                            echo "<a href='#'><div class='btn' id='outstock' >Add +</div></a>";
+                            echo "<div class='btn' id='outstock' >Add +</div>";
                         }
                         else{
-                            echo "<a href='productview.php?id=$product_id&cat=$product_category'><div class='btn'>Add +</div></a>";
+
+                            echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
                         }
 
                     echo "</div>";
                 echo "</div>";
             }
-
         ?>
 
     </div>
@@ -120,11 +121,13 @@
         require('footer.php');
     ?>  
 
-    <!-- <script>
+    <script>
         function viewproduct(p_id){
-            var product_id = p_id;
-            window.location.href="products.php?p_id=product_id";
+            window.location.href="productview.php?p_id="+p_id;
         }
-    </script> -->
+    </script>
+
+<script src="addtocart.js"></script>
+
 </body>
 </html>

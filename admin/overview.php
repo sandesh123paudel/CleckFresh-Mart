@@ -9,16 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/overview.css" />
+    <!-- <link rel="stylesheet" href="css/overview.css" /> -->
 </head>
 <body>
     <div class="overview-container">
         <div class="trader">
             <div class="trader-info">
-                <h2>Greeting, <label><?php echo $_SESSION['username']; ?></label></h2>
+                <h2>Greeting, Admin</h2>
+                <!-- <h2>Greeting, <label><?php echo $_SESSION['username']; ?></label></h2> -->
                 <p>Here's what's happening with your store today.</p>
             </div>
-            <a href="traderdashboard.php?cat=Addproduct&name=Products">Add Product +</a>
         </div>
         
 
@@ -86,7 +86,6 @@
                         apartment
                     </span>
                 </div>
-                
             </div>
 
             

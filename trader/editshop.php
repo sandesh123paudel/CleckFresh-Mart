@@ -1,5 +1,6 @@
 <?php
   include("../db/connection.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +33,10 @@
             $eemail = $row['EMAIL'];
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
-        }
-        echo $eimage;
-            
+            $elogo = $row['SHOP_LOGO']; 
+                  
+        }          
+    
     ?>
 
     <div class='product-container'>
@@ -46,8 +48,15 @@
                 <div class='image-file'>
                     <label>Shop Images</label>
                     <p>Upload Image</p>
-                    <input type='hidden' name='previous' value='<?php echo $eimage; ?>' />
+                    <input type='hidden' name='previousimage' value='<?php echo $eimage; ?>' />
                     <input type='file' class='inputbox' name='shopimage' placeholder='UploadImage' value='<?php echo $eimage; ?>'/>
+                </div>
+
+                <div class='image-file'>
+                    <label>Shop Logo</label>
+                    <p>Upload Logo</p>
+                    <input type='hidden' name='previouslogo' value='<?php echo $elogo; ?>' />
+                    <input type='file' class='inputbox' name='shoplogo' placeholder='UploadImage' value='<?php echo $elogo; ?>'/>
                 </div>
               
                     <div class='info1'>

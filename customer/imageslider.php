@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
     <style>
         .image-slider{
+            margin-top:9%;
             max-width: 100%;
         }
         .image-slider img{
@@ -32,7 +33,7 @@
             padding-inline: 10%;
         }
         .image-header h2{
-            margin-top:4rem;
+            margin-top:6rem;
             padding-block:10px;
             font-size: 40px;
             font-weight: 800;
@@ -61,11 +62,12 @@
 <body>
 
     <div class="image-slider">
-        <img class='mySlides w3-animate-opacity' src="../logo/imgeslider.png"  alt="image" />
-        <img class='mySlides w3-animate-opacity' src="../logo/mac.jpg"  alt="image" />
-        <img class='mySlides w3-animate-opacity' src="../logo/salmon.jpg"  alt="image"/>
-        <img class='mySlides w3-animate-opacity' src="../logo/veg.jpg"  alt="image"/>
-        <img class='mySlides w3-animate-opacity' src="../logo/wine.png"  alt="image"/>
+        <img class='mySlides w3-animate-opacity' src="../logo/image3.jpeg"  alt="image" />
+        <img class='mySlides w3-animate-opacity' src="../logo/image2.jpeg"  alt="image" />
+        <img class='mySlides w3-animate-opacity' src="../logo/image4.jpeg"  alt="image"/>
+        <img class='mySlides w3-animate-opacity' src="../logo/image6.jpg"  alt="image"/>
+        <img class='mySlides w3-animate-opacity' src="../logo/image5.jpeg"  alt="image"/>
+        <img class='mySlides w3-animate-opacity' src="../logo/image7.png"  alt="image"/>
     </div>
     
     <div class="image-header">

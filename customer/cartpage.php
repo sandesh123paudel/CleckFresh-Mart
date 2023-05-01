@@ -12,7 +12,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/cars.css" />
+    <link rel="stylesheet" href="css/carts.css" />
   </head>
   <body>
 
@@ -102,8 +102,8 @@
         <div class="line"></div>
 
           <div class="total">
-            <h3>Total Item (3 Items)</h3>
-            <h3>&#163; 200</h3>
+            <h3 id='totalitems'>Total Item (3 Items)</h3>
+            <h3 id='totalprice'>&#163; 200</h3>
           </div>
 
           <div class="process">
