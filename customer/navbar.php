@@ -1,4 +1,5 @@
 <?php
+  session_start();
   include('../db/connection.php');
 ?>
 
@@ -22,7 +23,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="css/na.css" />
+    <link rel="stylesheet" href="css/nav.css" />
   </head>
 
   <body>
@@ -59,15 +60,31 @@
       </form>
 
       <div class="links-container">
-        <div class="links-btn">
-          <a href="../login.php">Login</a>
-          <label
-            onmouseover="onMouse('show')"
-            onmouseout="outMouse('show')"
-            id="signup-link"
-            >Signup</label
-          >
-        </div>
+        <?php
+           if(empty($_SESSION['token'])){
+            $par = 'show';
+            ?>
+            <div class='links-btn'>
+              <a href='../login.php'>Login</a>
+              <!-- Use htmlentities() to escape the label text and prevent XSS attacks -->
+              <label
+                onmouseover='onMouse("<?php echo htmlentities($par); ?>")'
+                onmouseout='outMouse("<?php echo htmlentities($par); ?>")'
+                id='signup-link'
+                >Signup</label
+              >
+            </div>
+            <?php
+          }
+          else{
+            // Use a log-out button instead of an empty string to improve UX
+            echo "";
+            ?>
+            
+            <?php
+          }
+        ?>
+       
 
         <div class="content">
           <!-- Cart -->
@@ -107,21 +124,29 @@
             </div>
           <!-- </a> -->
 
-          <div>
-            <img
-              src="../logo/avtar.png"
-              class="profile dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              alt=""
-            />
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Setting</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-          </div>
+          <?php
+            if(isset($_SESSION['token'])){
+              echo "
+              <div>
+                  <img
+                    src='../logo/avtar.png'
+                    class='profile dropdown-toggle'
+                    type='button'
+                    data-bs-toggle='dropdown'
+                    aria-expanded='false'
+                    alt=''
+                  />
+                  <ul class='dropdown-menu'>
+                    <li><a class='dropdown-item' href='#'>Profile</a></li>
+                    <li><a class='dropdown-item' href='../db/logout.php'>Logout</a></li>
+                    </ul>
+          </div> ";
+            }
+            else{
+              echo "";
+            }
+          ?>
+          
         </div>
       </div>
     <div
@@ -179,27 +204,45 @@
       <div class="line"></div>
       <div class="offcanvas-body">
     <!-- Off canvas part -->
-        <div class='create'>
-            <a href="../login.php">Login</a>
-            <label
-              class="dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              >Signup</label
-            >
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../customerRegistration.php">Customer</a></li>
-              <li><a class="dropdown-item" href="../traderRegistration.php">Trader</a></li>
-            </ul>
-          </div>
+        <?php
+          if(empty($_SESSION['token'])){
+            echo "
+            <div class='create'>
+              <a href='../login.php'>Login</a>
+              <label
+                class='dropdown-toggle'
+                type='button'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'
+                >Signup</label
+              >
+              <ul class='dropdown-menu'>
+                <li><a class='dropdown-item' href='../customerRegistration.php'>Customer</a></li>
+                <li><a class='dropdown-item' href='../traderRegistration.php'>Trader</a></li>
+              </ul>
+            </div>";
+          }
+          else{
+            echo "";
+          }
+        ?>
+        
 
-        <div class='profile-links' id='link-show'>
-             <a class="dropdown-item" href="../profile.php">Profile</a>
-              <a class="dropdown-item" href="#">Setting</a>
-              <a class="dropdown-item" href="#">Logout</a>
-            
-          </div>
+        <?php
+          if(isset($_SESSION['token'])){
+            echo "
+            <div class='create'>
+              <a href='../profile.php'>Profile</a>
+              <a href='#'>Setting</a>
+              <a href='../db/logout.php'>Logout</a> 
+            </div> ";
+          }
+          else{
+            echo "";
+          }
+        ?>
+          
+
       </div>
     </div>
 

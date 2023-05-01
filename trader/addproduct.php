@@ -45,7 +45,6 @@
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];
           $utmpname = $_FILES['productimage']['tmp_name'];
-          $usize = $_FILES['productimage']['size'];
           $ulocation = "../db/uploads/products/".$image;
 
           $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME= :p_name";
@@ -112,7 +111,8 @@
     <div class="product-container">
       <h2>ADD NEW PRODUCT</h2>
       <!-- form to add products -->
-      <form method="POST" enctype="multipart/form-data" action="">
+      <form method="POST" 
+       action="">
         <!-- Part 1 -->
         <div class="product-part1">
           <!-- Image upload -->

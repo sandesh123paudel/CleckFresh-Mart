@@ -2,7 +2,7 @@
  session_start();
  include("../db/connection.php");
  
- if($_SESSION['userID']){
+ if($_SESSION['token']){
   $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
   $stid = oci_parse($connection,$sql);
 
@@ -56,7 +56,7 @@
         <div class="side-links">
           <div class="home-link">
             <span class="material-symbols-outlined">home</span>
-            <a href="traderdashboard.php">HOME</a>
+            <a href="traderdashboard.php">DASHBOARD</a>
           </div>
 
           <!-- Product dropdown -->

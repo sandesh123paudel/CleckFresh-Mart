@@ -45,8 +45,7 @@
                     <span class="material-symbols-outlined" >
                         local_mall
                     </span>
-                </div>
-                
+                </div>  
             </div>
 
             <div class="report">
@@ -128,7 +127,6 @@
                     paid
                     </span>
                 </div>
-                
             </div>
 
         </div>

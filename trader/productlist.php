@@ -4,6 +4,7 @@
 if(isset($_POST['filter'])){
     echo $_POST['filter'];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,8 +82,6 @@ if(isset($_POST['filter'])){
                             oci_define_by_name($stid1 , 'SHOPNAME', $shopname);
                             oci_execute($stid1);
                             
-                            // echo $shopname;
-
                     if(oci_fetch($stid1)){
                         echo "<div class='card'>";
                             echo "<div class='card-info'>";
@@ -92,7 +91,7 @@ if(isset($_POST['filter'])){
                                     
                                     echo "<label>Shop Name:  ". substr($shopname,0,25)."</label>";
 
-                                    echo "<label>Price: &pound; <span> ; ".$row['PRODUCT_PRICE'] ."<span></label>";
+                                    echo "<label>Price:  <span> &pound; ".$row['PRODUCT_PRICE'] ."<span></label>";
                                 echo "</div>";
                                 
                                 echo "<div class='image'>";

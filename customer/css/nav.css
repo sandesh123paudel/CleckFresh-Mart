@@ -234,10 +234,9 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .profile{
-  display: none;
-  width: 50px;
+  width: 40px;
   border-radius: 50%;
-  border: 5px solid var(--yellow);
+  border: 3px solid var(--yellow);
 }
 
 #lgsearch{
@@ -261,6 +260,9 @@ scrollbar-width: none;  /* Firefox */
     padding-block:10px ;
   } 
   .logo{
+    display: none;
+  }
+  .profile{
     display: none;
   }
   .nav{

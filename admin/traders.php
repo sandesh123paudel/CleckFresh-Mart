@@ -13,7 +13,7 @@
     oci_fetch($stid);
     
 
-    echo "<div class='trader-report'>";
+    echo "<div class='trader-report-info'>";
     
     while($row=oci_fetch_array($stid,OCI_ASSOC)){
         $fname = $row['FIRST_NAME'];
@@ -21,7 +21,7 @@
         $category = strtoupper($row['CATEGORY']);
 
         echo "
-            <div class='report'>
+            <div class='report-trader'>
             <div class='report-info'>
                 <h3>"
                 .$fname." ".$lname."

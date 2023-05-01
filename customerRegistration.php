@@ -160,11 +160,11 @@
                 if($errcount == 0){
                     $fpassword = md5($password);
                     $role = 'customer';
-                    
+                    $status ='off';
                     $verify ='pending';
                     
                     $otp_number = rand(100000,999999);
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,VERIFY) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:verify)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,STATUS,VERIFY) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:status,:verify)";
                     
                     $stid = oci_parse($connection,$sql1);
                     
@@ -178,7 +178,7 @@
                     oci_bind_by_name($stid, ':role', $role);
                     oci_bind_by_name($stid, ':password', $fpassword);
                     oci_bind_by_name($stid, ':verify', $verify);
-                    
+                    oci_bind_by_name($stid, ':status', $status);
                     // including php mailer to send email
                     
                     $fullname = $fname." ".$lname;

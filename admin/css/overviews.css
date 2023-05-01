@@ -49,6 +49,16 @@
     overflow-y: scroll;
 }
 
+.trader-report-info{
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 600px;
+    margin-inline-start: 1rem;
+    overflow-y: scroll;
+}
+
 
 .trader-info{
     color: rgb(160, 160, 160);   
@@ -81,6 +91,19 @@
     display: flex;
     justify-content: space-around;
     width: 350px;
+    margin: 2%;
+    padding: 2%;
+    background-color: white;
+    box-shadow: 1px 2px 5px 2px lightgray;
+    border-radius: 10px;
+}
+
+
+.report-trader{
+    display: flex;
+    justify-content: space-around;
+    width: 350px;
+    height: 180px;
     margin: 2%;
     padding: 2%;
     background-color: white;

@@ -77,10 +77,13 @@
         
         $otp_number = rand(100000,999999);
         $femail = $_SESSION['email'];
+
         $sub ="Please Verify Your Email address";
         $message="Dear User, Your Verification Code is: $otp_number";            
         include_once('sendmail.php');
+
         $_SESSION['otp'] =$otp_number;
+        
     }
 ?>
 

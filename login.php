@@ -58,7 +58,7 @@
                 header("location:session.php");
             }
             else{
-                $_SESSION['error']= 'User not recognised';
+                $_SESSION['error']= 'Email, Password and Role is Invalid!!';
                 header("location:login.php");
             }
             oci_free_statement($stid);
@@ -98,7 +98,7 @@
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">

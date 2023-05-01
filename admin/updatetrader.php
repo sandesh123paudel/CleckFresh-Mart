@@ -11,6 +11,7 @@
         oci_bind_by_name($stid, ':id' ,$id);
         
         $femail = $_SESSION['email'];
+        
         if($_GET['action'] == 'verified'){
             $sub ="Notification from Cleckfreshmart";
             $message="Dear ".$_SESSION['username'].",You are successfully registered as Trader in our Ecommerce Patform. Now You can login And Do your business.";

@@ -43,7 +43,6 @@
             $utmpname = $_FILES['shopimage']['tmp_name'];
             $utmplogo = $_FILES['shoplogo']['tmp_name'];
             
-            $usize = $_FILES['shopimage']['size'];
             $ulocation = "../db/uploads/shops/".$image;
             $ulocationlogo = "../db/uploads/shops/".$logo;
 
@@ -115,7 +114,7 @@
                 // }
             }
            
-        }
+        } 
     }
     
 ?>

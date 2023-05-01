@@ -220,6 +220,9 @@ body{
     display: none;
     columns: var(--white);
 }
+#get-link{
+    padding-block: 5px;
+}
 
 #link p{
     font-size: 16px;
@@ -247,10 +250,10 @@ body{
 
 #red{
     color: red;
-   
 }  
+
 #green{
-    color: greenyellow;
+    color: rgb(31, 175, 70);
 }
 
 #decline{

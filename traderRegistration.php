@@ -165,13 +165,13 @@
                 }
                 if($errcount == 0){
                     $fpassword = md5($password);
-                    
                     $role = 'trader';
+                    $status ='off';
 
                     $otp_number = rand(100000,999999);
                         
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD) 
-                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD,STATUS) 
+                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password,:status)";
                         
                     $stid = oci_parse($connection,$sql1);
                     // bind_by_name to convert php variable to insert into database
@@ -185,8 +185,7 @@
                     oci_bind_by_name($stid, ':role', $role);
                     oci_bind_by_name($stid, ':category', $category);
                     oci_bind_by_name($stid, ':password', $fpassword);
-
-                    // oci_bind_by_name($stid, ':verify', $verify);
+                    oci_bind_by_name($stid, ':status', $status);
 
                     // including php mailer to send email
                     

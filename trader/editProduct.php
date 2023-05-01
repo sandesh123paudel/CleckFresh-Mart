@@ -18,8 +18,6 @@
     if(isset($_GET['id']) && isset($_GET['action'])){
       $eid = $_GET['id'];
       
-      //  $eid;
-
       $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = :eid";
 
       $stid = oci_parse($connection,$sql);

@@ -37,11 +37,11 @@
             echo "<td>".$row['CATEGORY'] ."</td>";
             echo "<td>".$row['VERIFY'] ."</td>";
             
-            if(empty($row['STATUS'])){
-                echo "<td id='red'>active</td>";
+            if($row['STATUS'] == 'off'){
+                echo "<td id='red'>offline</td>";
             }
-            else{
-                echo "<td id='green'>active</td>";
+            else if($row['STATUS'] == 'on'){
+                echo "<td id='green'>online</td>";
             }
             if($verify == 'pending'){
             echo "<td> <div class='action'>".
