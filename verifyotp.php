@@ -55,6 +55,7 @@
                     else if($role == 'trader'){
                         $verified='pending';
     
+                        
                         $sql1 = "UPDATE USER_I SET VERIFY = :verify WHERE EMAIL = :uemail";
                         $stid1 = oci_parse($connection,$sql1);
                         oci_bind_by_name($stid1, ':uemail',$_SESSION['email']);
