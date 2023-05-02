@@ -137,7 +137,7 @@
                     alt=''
                   />
                   <ul class='dropdown-menu'>
-                    <li><a class='dropdown-item' href='#'>Profile</a></li>
+                    <li><a class='dropdown-item' href='profile.php'>Profile</a></li>
                     <li><a class='dropdown-item' href='../db/logout.php'>Logout</a></li>
                     </ul>
           </div> ";
@@ -232,7 +232,7 @@
           if(isset($_SESSION['token'])){
             echo "
             <div class='create'>
-              <a href='../profile.php'>Profile</a>
+              <a href='profile.php'>Profile</a>
               <a href='#'>Setting</a>
               <a href='../db/logout.php'>Logout</a> 
             </div> ";

@@ -24,9 +24,15 @@ if(isset($_POST['updateprofile'])){
     oci_bind_by_name($stid, ':dob', $birth);
 
     if(oci_execute($stid)){
+      
+      if($_SESSION['role'] == 'customer'){
+        header("location:../customer/profile.php?cat=profile");      
+      }
+
       if($_SESSION['role'] == 'trader'){
         header("location:../trader/traderdashboard.php?cat=Profile&name=Home");      
       }
+
   }
 }
 

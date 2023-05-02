@@ -7,6 +7,15 @@
     
     $sfname = $slname = $semail= $sDOB = $sgender = $sPhone = $scategory ='';
   
+
+    $pending = "-";
+    $crole = 'trader';
+    $sqlqry = "DELETE  FROM USER_I WHERE VERIFY= :pending AND ROLE = :crole";
+    $stmt = oci_parse($connection,$sqlqry);
+    oci_bind_by_name($stmt, ':pending' ,$pending);
+    oci_bind_by_name($stmt, ':crole' ,$crole);
+    oci_execute($stmt);
+
     if(isset($_POST['subtrader'])){
         // verifying the errors if inbox is empty
         unset($_SESSION['otp']);
@@ -146,7 +155,7 @@
                 while($row = oci_fetch_array($stid1,OCI_ASSOC)){
                     $vemail = $row['EMAIL'];
                     $vcontact = $row['CONTACT'];
-                    if($row['CATEGORY'] == true){
+                    if(!empty($row['CATEGORY'])){
                         $vcategory = $row['CATEGORY'];
                     }  
                 }
@@ -167,11 +176,12 @@
                     $fpassword = md5($password);
                     $role = 'trader';
                     $status ='off';
+                    $verify="-";
 
                     $otp_number = rand(100000,999999);
                         
-                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD,STATUS) 
-                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password,:status)";
+                    $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,CATEGORY,PASSWORD,STATUS,VERIFY) 
+                    VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:category,:password,:status,:verify)";
                         
                     $stid = oci_parse($connection,$sql1);
                     // bind_by_name to convert php variable to insert into database
@@ -186,13 +196,13 @@
                     oci_bind_by_name($stid, ':category', $category);
                     oci_bind_by_name($stid, ':password', $fpassword);
                     oci_bind_by_name($stid, ':status', $status);
-
+                    oci_bind_by_name($stid, ':verify', $verify);
                     // including php mailer to send email
                     
                     $fullname = $fname." ".$lname;
                     $sub ="Verify Your Email address";
-                    $message="Dear $fullname, Your Verification Code is: $otp_number .After inserting your OTP Code. 
-                    Your account will go on the process. You will be notified through email after you will successfully verified as trader.";
+                    $message="Dear $fullname, \nYour Verification Code is: $otp_number .\nAfter inserting your OTP Code. 
+                    \nYour account will go on the process. You will be notified through email after you will successfully verified as trader.";
                     
                     include_once('sendmail.php');
 

@@ -1,6 +1,6 @@
 <?php
-//  session_start();
-//  include("../db/connection.php");
+ session_start();
+ include("../db/connection.php");
  
 //  if($_SESSION['token']){
 //   $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';

@@ -3,6 +3,8 @@
     include('db/connection.php');        
     $errotp ='';
 
+    $_SESSION['page'] =$_GET['page'];
+
     if(isset($_POST['verifyotp'])){
         $errotp='';
         $errcount=0;
@@ -42,7 +44,7 @@
                         $stid = oci_parse($connection,$sql);
                         oci_bind_by_name($stid, ':uemail', $_SESSION['email']);
                         oci_bind_by_name($stid, ':verify', $verified);
-                        oci_bind_by_name($stid, ':urole', $role);
+                        // oci_bind_by_name($stid, ':urole', $role);
                         
                         unset($_SESSION['otp']);
                         if(oci_execute($stid)){
@@ -57,7 +59,7 @@
                         $stid1 = oci_parse($connection,$sql1);
                         oci_bind_by_name($stid1, ':uemail',$_SESSION['email']);
                         oci_bind_by_name($stid1, ':verify', $verified);
-                        oci_bind_by_name($stid1, ':urole', $role);
+                        // oci_bind_by_name($stid1, ':urole', $role);
     
                         unset($_SESSION['otp']);
     
@@ -77,12 +79,14 @@
         
         $otp_number = rand(100000,999999);
         $femail = $_SESSION['email'];
-
         $sub ="Please Verify Your Email address";
-        $message="Dear User, Your Verification Code is: $otp_number";            
+        $message="Dear User, \nYour Verification Code is: $otp_number";            
         include_once('sendmail.php');
 
         $_SESSION['otp'] =$otp_number;
+        $role = $_SESSION['page'];
+
+        header("location:verifyotp.php?page=$role");
         
     }
 ?>
@@ -109,6 +113,9 @@
             border:1px solid lightgray;
             outline:none;
             border-radius:5px;
+        }
+        .resend{
+            cursor: pointer;
         }
 
 </style>

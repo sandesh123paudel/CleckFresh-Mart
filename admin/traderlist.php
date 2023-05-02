@@ -21,21 +21,29 @@
         <th>Status</th>
         <th>Action</th>
         </tr>";
+
+        $verify ='';
         while($row = oci_fetch_array($stid,OCI_ASSOC)){
             $id = $row['USER_ID'];
             $verify=$row['VERIFY']; 
             $fname = $row['FIRST_NAME'];
             $lname = $row['LAST_NAME'];
-            $_SESSION['email'] = $row['EMAIL'];
-            $_SESSION['username'] = $fname." ".$lname;
             
+            $_SESSION['username'] = $fname." ".$lname;
+            if(!empty($row['VERIFY'])){
+                $verify = $row['VERIFY'];
+            }
+            else{
+                $verify ='';
+            }
+
             echo "<tr>";
             echo "<td>".$row['USER_ID']."</td>";
             echo "<td>".$_SESSION['username']."</td>";
             echo "<td>".$row['EMAIL'] ."</td>";
             echo "<td>".$row['CONTACT'] ."</td>";
             echo "<td>".$row['CATEGORY'] ."</td>";
-            echo "<td>".$row['VERIFY'] ."</td>";
+            echo "<td>".$verify ."</td>";
             
             if($row['STATUS'] == 'off'){
                 echo "<td id='red'>offline</td>";

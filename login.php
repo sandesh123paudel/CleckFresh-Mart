@@ -71,6 +71,7 @@
     }
 
     if(isset($_POST['sendemail'])){
+        
         $femail = $_POST['email'];
         $_SESSION['email']=$femail;
 
@@ -160,7 +161,7 @@
                     <label  onclick='otpPass()'>Forget Password?</label>
                 </div>
 
-                <input type='submit'  class='login-btn inputbox' name='sublogin' value='Login   >>' />
+                <input type='submit' id='logbtn' class='login-btn inputbox' name='sublogin' value='Login   >>' />
             </form>
 
             <p>Or Log in with</p>
@@ -201,11 +202,13 @@
     <script>
         function otpPass(){
             document.getElementById('show').style.display="block";
-            document.getElementById('login-cont').style.opacity='0.4';   
+            document.getElementById('login-cont').style.opacity='0.4'; 
+            document.getElementById('logbtn').disabled=true; 
         }
         function closeBtn(){
             document.getElementById('show').style.display='none';
             document.getElementById('login-cont').style.opacity='1';   
+            document.getElementById('logbtn').disabled=false; 
         }
     </script>
 </body>

@@ -183,7 +183,7 @@
                     
                     $fullname = $fname." ".$lname;
                     $sub ="Verify Your Email address";
-                    $message="Dear $fullname, Your Verification Code is: $otp_number";
+                    $message="Dear $fullname,\n Your Verification Code is: $otp_number";
                     
                     include_once('sendmail.php');
 

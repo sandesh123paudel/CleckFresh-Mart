@@ -105,7 +105,6 @@
         $err = "Password you entered do not match.";
       }
     }
-    
   }
 
 ?>
@@ -202,20 +201,37 @@
 
     <div class="profile-container">
       <header>
-        <h3><?php 
+      <?php  
+      echo "<h3>";
+
           if($role == 'customer'){
             echo "Customer";
           }
           if($role == 'trader'){
             echo 'Trader';
           }
-          else{
+          if($role == 'admin'){
             echo 'Admin';
           }
-          ?> Information</h3>
-          <a href="../trader/traderdashboard.php?cat=UpdateProfile&name=Home"> <span class="material-symbols-outlined">
-            edit
-            </span></a>
+      echo  " Information</h3>";
+
+
+      if($role == 'customer'){
+        echo "<a href='../customer/profile.php?cat=update'><span class='material-symbols-outlined'>
+          edit
+        </span></a>";
+      }
+      if($role == 'trader'){
+        echo "<a href='../trader/traderdashboard.php?cat=UpdateProfile&name=Home'> <span class='material-symbols-outlined'>
+          edit
+        </span></a>";
+      }
+      if($role == 'admin'){
+        echo 'Admin';
+      }
+      
+
+          ?>
       </header>    
 
       <div class="line"></div>

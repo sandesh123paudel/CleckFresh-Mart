@@ -1,0 +1,72 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    /* overflow-x: hidden; */
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-container{
+    margin-top: 5rem;
+}
+.order-container{
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.order-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .order-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
+
+
+.main-container h3{
+font-size: 25px;
+padding-block: 5px;
+}
+
+.order-container table{
+    color: black;
+    border: none;
+    min-width: 100%;
+}
+
+.order-container table tr th{
+    background-color: rgb(20, 114, 114);
+    color: white;
+    min-width: 150px;
+    padding-inline:50px;
+    padding-block: 10px;
+}
+.order-container table tr td{
+    text-align: center;
+    padding-inline:20px;
+    padding-block: 20px;
+    font-size: 15px;
+    border-bottom: 5px solid  rgb(20, 114, 114);
+}
+.order-container table tr td .action {
+    display: flex;
+    gap: 1rem;
+    padding-inline: 5px;
+}
+.order-container table tr td .action a{
+    text-decoration: none;
+    padding-inline:20px ;
+    padding-block: 8px;
+    border-radius: 5px;
+    background-color: rgb(20, 114, 114);
+    color:white;
+}
+
+.order-container table tr td .action a:hover{
+    background-color: rgb(66, 255, 255);
+    color:rgb(0, 0, 0);
+}

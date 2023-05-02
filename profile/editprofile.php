@@ -102,6 +102,7 @@
           border-radius:5px;
           border:none;
           outline:none;
+          margin-top:1rem;
       }
   </style>
   </head>
@@ -117,7 +118,7 @@
           if($role == 'trader'){
             echo 'Trader';
           }
-          else{
+          if($role == 'admin'){
             echo 'Admin';
           }
           ?> Information

@@ -3,11 +3,11 @@
 if(isset($_POST['contact'])){
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $subject = "Welcome To CleckFresh Mart";
-    $description = $_POST['message'];
-    $message = "Thank You For Contacting US. Want to know more about us. Then visit our about us page of our website.<br> Do you have any query then mail us.";
 
-    
+    $femail = $email;
+    $sub ="Notification from Cleckfreshmart";
+    $message="Thanks for Your query!!.\n Dear ".$name.",\n.If you have more query then reply then further conversation will be followed in this mail.";
+    include_once("../sendmail.php");
 }
 
 ?>

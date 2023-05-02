@@ -11,6 +11,7 @@
 
 .checkout-container{
     display:flex;
+    margin-top: 3%;
     flex-direction: column;
     padding-block: 2%;
     padding-inline: 2%;
@@ -21,8 +22,9 @@
     row-gap: 15px;
 }
 .checkout-part1 h3{
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
+    padding-block: 6px;
 }
 
 .checkout-part1 form{
@@ -37,8 +39,9 @@
 }
 
 .collection-slot label{
-    font-size: 20px;
+    font-size: 15px;
     width: 80px;
+    padding-block: 5px;
 }
 .collection-slot select{
     width: 200px;
@@ -49,31 +52,66 @@
     background-color: transparent;
 }
 
-.checkout-part2{
-    width: 100%;
+h6{
+    padding-block: 5px;
 }
-.checkout-part2 table{
+.order-container{
     width: 100%;
-    font-size: 18px;
-    font-weight: 500;
+    overflow-x: scroll;
 }
 
-.checkout-part2 table,td{
-    margin-top:3%;
+.order-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .order-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
+
+.order-container table{
+    color: black;
+    border: none;
+    min-width: 100%;
+}
+
+.order-container table tr th{
+    background-color: rgb(20, 114, 114);
+    color: white;
+    min-width: 150px;
+    padding-inline:50px;
     padding-block: 10px;
 }
-.head{
-    font-size: 22px;
-    font-weight: 500;
+.order-container table tr td{
+    text-align: center;
+    padding-inline:20px;
+    padding-block: 20px;
+    font-size: 15px;
+    border-bottom: 5px solid  rgb(20, 114, 114);
 }
-.checkout-part2 td{
-    padding-inline:50px;
+.order-container table tr td .action {
+    display: flex;
+    gap: 1rem;
+    padding-inline: 5px;
+}
+.order-container table tr td .action a{
+    text-decoration: none;
+    padding-inline:20px ;
+    padding-block: 8px;
+    border-radius: 5px;
+    background-color: rgb(20, 114, 114);
+    color:white;
 }
 
-.item td img{
-    width: 100px;
+.order-container table tr td .action a:hover{
+    background-color: rgb(66, 255, 255);
+    color:rgb(0, 0, 0);
 }
 
+.img img{
+    width: 60px;
+}
 .order-summary{
     width: 100%;
     margin-block:2%;
@@ -84,7 +122,6 @@
 }
 
 .total-items{
-    width:82%;
     display: flex;
     justify-content: space-between;
 }
