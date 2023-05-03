@@ -125,8 +125,8 @@
 
                 <div class="buttons">
                     <?php
-                    echo "<button >Add to basket</button>";
-                    echo "<button >Add to List &#9825; </button>";
+                    echo "<button onclick='addtocart($p_id)'>Add to basket</button>";
+                    echo "<button onclick='addtowhishlist($p_id)'>Add to List &#9825; </button>";
 
                     ?>
                 </div>
@@ -256,7 +256,7 @@
                                     echo "<div class='btn' id='outstock' >Add +</div>";
                                     }
                                     else{
-                                        echo "<div class='btn' >Add +</div>";
+                                        echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
                                     }
                                     echo "</div>";
                             echo "</div>";
@@ -280,6 +280,8 @@
         }
 </script>
 
+
+<script src="addtocart.js"></script>
 
 </body>
 </html>

@@ -59,7 +59,7 @@
                             oci_define_by_name($stid , 'NUMBER_OF_ROWS', $totalproduct);
                             
                             oci_execute($stid);
-                            oci_fetch($stid);
+                            oci_fetch($stid); 
 
                             echo $totalproduct;
                         ?>

@@ -350,14 +350,14 @@
                         if((int)$product_stock <= 0 ){
                           echo "<div class='btn' id='outstock' >Add +</div>";
                         }
-                        else{ 
-                          
+                        else{
                           echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
-                        
+                          // echo "<a href='products.php?cat_id=$category_id'><div class='btn' onclick='addtocart($product_id)'>Add +</div></a>";
                         }
                         echo "</div>";
                 echo "</div>";
             }
+
         ?>
       </div>
 
@@ -372,5 +372,4 @@
         function viewproduct(p_id){
             window.location.href="productview.php?p_id="+p_id;
         }
-
-</script>
+  </script>

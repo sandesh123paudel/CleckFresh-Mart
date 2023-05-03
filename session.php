@@ -4,16 +4,13 @@ include("db/connection.php");
 
 if(isset($_SESSION['token'])){
     $user = $_SESSION['ID'];
-    $user_id = $user['USER_ID'];
-
     $role = $user['ROLE'];
 
     $status = 'on';    
-
-    $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id ";
+    $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id";
     $stid = oci_parse($connection,$sql);
     oci_bind_by_name($stid,':active' ,$status);
-    oci_bind_by_name($stid,':id' ,$user_id);
+    oci_bind_by_name($stid,':id' ,$_SESSION['userID']);
     oci_execute($stid);
 
     if($role === 'customer'){
@@ -29,6 +26,7 @@ if(isset($_SESSION['token'])){
     }
     if($role === 'admin'){
         $_SESSION['userID'] = $user['USER_ID'];
+        $_SESSION['pname']=$user['FIRST_NAME'];
         echo "successfully connected to admin";
     }
 }
