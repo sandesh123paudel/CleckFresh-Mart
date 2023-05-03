@@ -165,8 +165,6 @@
                 <div>
                   <ul class="dropdown-menu" id='setting'>
                     <li><a class="dropdown-item" href="#">Update Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                    <li><a class="dropdown-item" href="#">Activate</a></li>
                   </ul>
                 </div>
               </li>

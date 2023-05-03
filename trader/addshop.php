@@ -39,9 +39,11 @@
             $logo = $_FILES['shoplogo']['name'];
 
             $utype = $_FILES['shopimage']['type'];
+            $usize = $_FILES['shopimage']['size'];
 
             $utmpname = $_FILES['shopimage']['tmp_name'];
             $utmplogo = $_FILES['shoplogo']['tmp_name'];
+            $usizelogo = $_FILES['shoplogo']['size'];
             
             $ulocation = "../db/uploads/shops/".$image;
             $ulocationlogo = "../db/uploads/shops/".$logo;
@@ -132,7 +134,7 @@
     <div class="product-container">
         <h2>ADD SHOP</h2>
         <!-- form to add products -->
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action=''>
             <!-- Part 1 -->
             <div class="product-part1">
                 <!-- Image upload -->

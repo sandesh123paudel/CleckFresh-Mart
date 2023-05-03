@@ -193,7 +193,6 @@
                   <ul class="dropdown-menu" id='setting'>
                     <li><a class="dropdown-item" href="traderdashboard.php?cat=UpdateProfile&name=Home">Update Profile</a></li>
                     <li><a class="dropdown-item" href="../profile/deactivate/php">Deactivate</a></li>
-                    <li><a class="dropdown-item" href="../profile/activate.php">Activate</a></li>
                   </ul>
                 </div>
               </li>

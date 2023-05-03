@@ -10,9 +10,7 @@
     oci_bind_by_name($stid, ':verify' ,$verify);
 
     oci_execute($stid);
-    oci_fetch($stid);
     
-
     echo "<div class='trader-report-info'>";
     
     while($row=oci_fetch_array($stid,OCI_ASSOC)){

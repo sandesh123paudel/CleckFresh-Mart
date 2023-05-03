@@ -4,25 +4,31 @@ include("db/connection.php");
 
 if(isset($_SESSION['token'])){
     $user = $_SESSION['ID'];
-    $_SESSION['userID'] = $user['USER_ID'];
-    $_SESSION['pname']=$user['FIRST_NAME'];
-    $_SESSION['role'] = $user['ROLE'];
-    $_SESSION['type'] = $user['CATEGORY'];
+    $user_id = $user['USER_ID'];
+
+    $role = $user['ROLE'];
 
     $status = 'on';    
-    $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id";
+
+    $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id ";
     $stid = oci_parse($connection,$sql);
     oci_bind_by_name($stid,':active' ,$status);
-    oci_bind_by_name($stid,':id' ,$_SESSION['userID']);
+    oci_bind_by_name($stid,':id' ,$user_id);
     oci_execute($stid);
 
-    if($_SESSION['role'] === 'customer'){
+    if($role === 'customer'){
+        $_SESSION['userID'] = $user['USER_ID'];
+        $_SESSION['pname']=$user['FIRST_NAME'];
         header('location:customer/homepage.php');
     }
-    if($_SESSION['role'] === 'trader'){
+    if($role === 'trader'){
+        $_SESSION['userID'] = $user['USER_ID'];
+        $_SESSION['pname']=$user['FIRST_NAME'];
+        $_SESSION['type'] = $user['CATEGORY'];
         header('location:trader/traderdashboard.php');
     }
-    if($_SESSION['role'] === 'admin'){
+    if($role === 'admin'){
+        $_SESSION['userID'] = $user['USER_ID'];
         echo "successfully connected to admin";
     }
 }

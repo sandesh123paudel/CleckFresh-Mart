@@ -44,6 +44,7 @@
           // image uploads
           $image = $_FILES["productimage"]["name"];
           $utype = $_FILES['productimage']['type'];
+          $usize = $_FILES['productimage']['size'];
           $utmpname = $_FILES['productimage']['tmp_name'];
           $ulocation = "../db/uploads/products/".$image;
 
@@ -111,8 +112,8 @@
     <div class="product-container">
       <h2>ADD NEW PRODUCT</h2>
       <!-- form to add products -->
-      <form method="POST" 
-       action="">
+      <form method="POST" enctype="multipart/form-data" action=''>
+
         <!-- Part 1 -->
         <div class="product-part1">
           <!-- Image upload -->
@@ -125,12 +126,8 @@
                 <?php echo $errimage; ?>
               </span>
             </p>
-            <input
-              type="file"
-              class="inputbox"
-              name="productimage"
-              placeholder="UploadImage"
-            />
+            <input type="file" class='inputbox' name="productimage" placeholder="UploadImage"/>
+
           </div>
           <!--  -->
           <div class="info1">
@@ -146,12 +143,7 @@
                 <?php echo $errname; ?>
               </span>
             </label>
-            <input
-              type="text"
-              class="inputbox"
-              name="productname"
-              placeholder="Product Name"
-            />
+            <input type="text" class="inputbox"  name="productname"  placeholder="Product Name"/>
           </div>
 
           <div class="info2">
@@ -162,13 +154,6 @@
               </span>
             </label>
             
-            <!-- <input
-              type="text"
-              class="inputbox"
-              name=""
-              placeholder="Product Category"
-              value="<?php echo $_SESSION['type']; ?>";
-            /> -->
             
             <select class="inputbox" name="productcategory">
               <!-- <option value="<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['type']; ?></option> -->

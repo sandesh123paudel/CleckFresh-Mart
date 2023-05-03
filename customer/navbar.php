@@ -24,6 +24,8 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    
   </head>
 
   <body>
@@ -89,17 +91,13 @@
         <div class="content">
           <!-- Cart -->
           <!-- <a href="cartpage.php"> -->
-            <div onclick='cartfunction()'>
+            <div >
               <b class="number" id='countcart'>
                 <!-- <?php
-
-                  $number =0;
-                  echo $number;
+                  // $number =0;
+                  echo sizeof($_SESSION['cartlist']);
                 ?> -->
-                0
-                <script>
-                  document.getElementById("countcart").innerHTML = localStorage.getItem("cartcount");
-                </script>
+              0
               </b>
               <span class="material-symbols-outlined"> shopping_cart </span>
               <p class="icon">Cart</p>
@@ -108,15 +106,12 @@
 
           <!-- Wishlist -->
           <!-- <a href="wishlist.php"> -->
-            <div onclick='wishlistfunction()'>
+            <div>
               <b class="number" id='countwishlist'>
                 <!-- <?php
-                  echo $number;
+                  echo sizeof($_SESSION['wishlist']);
                 ?> -->
                 0
-                <script>
-                  document.getElementById("countwishlist").innerHTML =localStorage.getItem("wishlistcount");
-                </script>
               </b>
               <span class="material-symbols-outlined"> favorite </span>
 
@@ -279,22 +274,5 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- cart -->
-    <script src="addtocart.js"></script>
-
-    <script>
-
-      function cartfunction(){
-        var carts= [];
-        carts =localStorage.getItem("cartItem");
-        document.location.href='cartpage.php';
-      }
-
-      function wishlistfunction(){
-        var wishlists= [];
-        wishlists = localStorage.getItem("wishlistItem");
-        document.location.href='wishlist.php';
-      }
-    </script>
   </body>
 </html>

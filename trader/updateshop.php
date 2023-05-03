@@ -25,6 +25,7 @@
           $utmplogo = $_FILES['shoplogo']['tmp_name'];
 
           $usize = $_FILES['shopimage']['size'];
+          $usizelogo = $_FILES['shoplogo']['size'];
           $ulocationimg = "../db/uploads/shops/".$image;
           $ulocationlogo = "../db/uploads/shops/".$logo;
           
