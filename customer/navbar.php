@@ -132,7 +132,7 @@
                   />
                   <ul class='dropdown-menu'>
                     <li><a class='dropdown-item' href='profile.php?role=customer'>Profile</a></li>
-                    <li><a class='dropdown-item' href='../db/logout.php'>Logout</a></li>
+                    <li><a class='dropdown-item' href='../db/logout.php?role=customer'>Logout</a></li>
                     </ul>
           </div> ";
             }
@@ -228,7 +228,7 @@
             <div class='create'>
               <a href='profile.php?role=customer'>Profile</a>
               <a href='#'>Setting</a>
-              <a href='../db/logout.php'>Logout</a> 
+              <a href='../db/logout.php?role=customer'>Logout</a> 
             </div> ";
           }
           else{

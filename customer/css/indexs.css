@@ -481,6 +481,7 @@ transform: scale(1.2);
 
 .product-lists  .single .content .price .cut {
   text-decoration: line-through;
+  opacity: 0.6;
 }
 
 .product-lists  .single .content .btn {

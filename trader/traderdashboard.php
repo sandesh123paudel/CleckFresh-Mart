@@ -139,7 +139,7 @@
           </div>
 
           <div class="logout">
-            <a href="../db/logout.php">LOGOUT</a>
+            <a href="../db/logout.php?role=trader">LOGOUT</a>
           </div>
         </div>
       </div>
@@ -357,7 +357,7 @@
           </div>
 
           <div class="logout">
-            <a href="../db/logout.php">LOGOUT</a>
+            <a href="../db/logout.php?role=trader">LOGOUT</a>
           </div>
           <div id='result'></div>
         </div>

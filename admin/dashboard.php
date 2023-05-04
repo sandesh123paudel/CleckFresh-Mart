@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="logout">
-                    <a href="../db/logout.php">LOGOUT</a>
+                    <a href="../db/logout.php?role=admin">LOGOUT</a>
                 </div>
           </div>
         </div>
@@ -300,7 +300,7 @@
           </div>
 
           <div class="logout">
-              <a href="../db/logout.php">LOGOUT</a>
+              <a href="../db/logout.php?role=admin">LOGOUT</a>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@
     $status = 'off';    
     $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id";
     $stid = oci_parse($connection,$sql);
+
     oci_bind_by_name($stid,':active' ,$status);
 
     if(isset($_SESSION['userID'])){
@@ -19,16 +20,16 @@
       
     oci_execute($stid);
 
-    if(isset($_SESSION['userID'] )){
-        unset($_SESSION['userID']);
-        unset($_SESSION['token']);
+    if($_GET['role']== 'customer'){
+      unset($_SESSION['userID']);
+      unset($_SESSION['token']);
     }
-    if(isset( $_SESSION['traderID'])){
-        unset($_SESSION['traderID']);
-      }
-    if(isset($_SESSION['adminID'] )){
-        unset($_SESSION['adminID']);
-      }
-    header('location:../login.php');
+    if($_GET['role']== 'trader'){
+      unset($_SESSION['traderID']);
+    }
+    if($_GET['role']== 'admin'){
+      unset($_SESSION['adminID']);
+    }
 
+    header('location:../login.php');
 ?>

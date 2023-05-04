@@ -27,11 +27,11 @@
           echo "<h5 class='title'>$product_name</h5>";
           echo "<span class='size'>$product_quantity gm</span>";
           echo "<p class='price'>&pound; $product_price</p>";
-          echo "<a href=''><div class='btn'>Add +</div></a>";
+          // echo "<a href=''><div class='btn'>Add +</div></a>";
+          echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
           echo "</div>";
             }
         ?>
-
   </div>
 
   <!-- shops -->
@@ -93,6 +93,7 @@
             $product_id = $row['PRODUCT_ID'];
             $product_image = $row['PRODUCT_IMAGE'];
             $product_price = $row['PRODUCT_PRICE'];
+            $product_offer = $row['OFFER_ID'];
 
             echo "<div class='single'>";
               echo "<div class='img' onclick='viewproduct($product_id)'>";
@@ -104,10 +105,21 @@
               echo "<span class='piece'>24 PieceS</span>";
       
               echo "<div class='price'>";
-                echo "<span class='cut'>$50.00</span>";
-                echo "<span class='main'>$20.00</span>";
+
+                $sqlp = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                $stmts = oci_parse($connection, $sqlp);
+                oci_bind_by_name($stmts, ":offer_id" ,$product_offer);
+                oci_execute($stmts);
+                $dis =oci_fetch_array($stmts,OCI_ASSOC);
+
+                $discount = (int)$dis['OFFER_PERCENTAGE'];
+                $total_price = $product_price - $product_price*($discount/100);
+                echo "<span class='cut'>&pound;".$product_price."</span>";
+                echo "<span class='main'>&pound; ".$total_price."</span>";
+
               echo "</div>";
-              echo "<a href=''><div class='btn'>Add +</div></a>";
+              // echo "<a href=''><div class='btn'>Add +</div></a>";
+              echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
             echo "</div>";
           echo "</div>";
         }
@@ -174,7 +186,16 @@
                         echo "<span class='piece'>".$product_quantity." gm</span>";
                         echo "<div class='price'>";
                             if($product_offer){
-                                echo "<span class='cut'>$50.00</span>";
+                              $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                              $stmt = oci_parse($connection, $sql);
+                              oci_bind_by_name($stmt, ":offer_id" ,$product_offer);
+                              oci_execute($stmt);
+                              $row =oci_fetch_array($stmt,OCI_ASSOC);
+                              $discount = (int)$row['OFFER_PERCENTAGE'];
+                              $total_price = $product_price - $product_price*($discount/100);
+                              echo "<span class='cut'>&pound;".$product_price."</span>";
+                              echo "<span class='main'>&pound; ".$total_price."</span>";
+                               
                             }
                             else{
                                 echo "<span class='main'>&pound; ".$product_price."</span>";
@@ -185,8 +206,8 @@
                           echo "<div class='btn' id='outstock' >Add +</div>";
                         }
                         else{
-                          echo "<div class='btn'>Add +</div>";
-                          // echo "<a href='products.php?cat_id=$category_id'><div class='btn' onclick='addtocart($product_id)'>Add +</div></a>";
+                          // echo "<a href=''><div class='btn'>Add +</div></a>";
+                          echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
                         }
                         echo "</div>";
                 echo "</div>";
@@ -196,7 +217,7 @@
       </div>
 
     <div class="center show-more">
-      <a href="">Show More...</a> 
+      <a href="products.php?cat_name=all">Show More...</a> 
     </div>
   </div>
 </div>

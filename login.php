@@ -59,7 +59,7 @@
                 header("location:session.php");
             }
             else{
-                $_SESSION['error']= 'Email, Password and Role is Invalid!!';
+                $_SESSION['error']= 'Email and Password is Invalid!!';
                 header("location:login.php");
             }
             oci_free_statement($stid);
@@ -87,7 +87,6 @@
 
         $otp_number = rand(100000,999999);
 
-
         $sub ="Verify Your Email address ";
         $message="Dear User, Your Verification Code is: ".$otp_number ." to reset your password.";      
         include_once('sendmail.php');
@@ -100,7 +99,6 @@
             $err = "Please type Registered Email to reset your password";
         }
     }
-
 ?>
 
 <!DOCTYPE html> 
