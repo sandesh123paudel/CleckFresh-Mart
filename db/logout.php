@@ -6,10 +6,29 @@
     $sql = "UPDATE USER_I SET STATUS = :active WHERE USER_ID= :id";
     $stid = oci_parse($connection,$sql);
     oci_bind_by_name($stid,':active' ,$status);
-    oci_bind_by_name($stid,':id' ,$_SESSION['userID']);
+
+    if(isset($_SESSION['userID'])){
+        oci_bind_by_name($stid, ':id' , $_SESSION['userID']);
+      }
+    if(isset( $_SESSION['traderID'])){
+        oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+      }
+    if(isset($_SESSION['adminID'] )){
+        oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+      }
+      
     oci_execute($stid);
 
-    session_unset();
-    session_destroy();
-    header('location:../login.php')
+    if(isset($_SESSION['userID'] )){
+        unset($_SESSION['userID']);
+        unset($_SESSION['token']);
+    }
+    if(isset( $_SESSION['traderID'])){
+        unset($_SESSION['traderID']);
+      }
+    if(isset($_SESSION['adminID'] )){
+        unset($_SESSION['adminID']);
+      }
+    header('location:../login.php');
+
 ?>

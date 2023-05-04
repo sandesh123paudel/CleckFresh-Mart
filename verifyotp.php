@@ -3,6 +3,8 @@
     include('db/connection.php');        
     $errotp ='';
 
+    unset($_SESSION['page']);
+
     $_SESSION['page'] =$_GET['page'];
 
     if(isset($_POST['verifyotp'])){

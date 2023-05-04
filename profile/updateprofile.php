@@ -14,8 +14,16 @@ if(isset($_POST['updateprofile'])){
 
     $sql = "UPDATE USER_I SET FIRST_NAME= :fname,LAST_NAME= :lname,GENDER= :gender,CONTACT= :contact,EMAIL = :email,DATE_OF_BIRTH= :dob WHERE USER_ID= :id ";
     $stid= oci_parse($connection,$sql);
-
-    oci_bind_by_name($stid, ':id' , $_SESSION['userID']);
+    
+    if($_SESSION['profile'] == 'customer'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+    }
+    if($_SESSION['profile'] == 'trader'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+    }
+    if($_SESSION['profile'] == 'admin'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+    }
     oci_bind_by_name($stid, ':fname', $fname);
     oci_bind_by_name($stid, ':lname', $lname);
     oci_bind_by_name($stid, ':gender', $gender);
@@ -25,12 +33,12 @@ if(isset($_POST['updateprofile'])){
 
     if(oci_execute($stid)){
       
-      if($_SESSION['role'] == 'customer'){
-        header("location:../customer/profile.php?cat=profile");      
+      if($_SESSION['profile'] == 'customer'){
+        header("location:../customer/profile.php?cat=profile&role=customer");      
       }
 
-      if($_SESSION['role'] == 'trader'){
-        header("location:../trader/traderdashboard.php?cat=Profile&name=Home");      
+      if($_SESSION['profile'] == 'trader'){
+        header("location:../trader/traderdashboard.php?cat=Profile&name=Home&role=trader");      
       }
 
   }

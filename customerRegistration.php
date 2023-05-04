@@ -187,6 +187,9 @@
                     
                     include_once('sendmail.php');
 
+                    unset($_SESSION['email']);
+                    unset($_SESSION['otp']);
+                    
                     if(oci_execute($stid)){ 
                         $_SESSION['email']=$femail;
                         $_SESSION['otp'] = $otp_number;

@@ -351,7 +351,7 @@
                           echo "<div class='btn' id='outstock' >Add +</div>";
                         }
                         else{
-                          echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
+                          echo "<div class='btn'>Add +</div>";
                           // echo "<a href='products.php?cat_id=$category_id'><div class='btn' onclick='addtocart($product_id)'>Add +</div></a>";
                         }
                         echo "</div>";

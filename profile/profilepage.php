@@ -2,14 +2,24 @@
   // session_start();
 
   include('../db/connection.php');
+  unset($_SESSION['profile']);
+
+  $_SESSION['profile'] = $_GET['role'];
   
   $firstname =  $lastname =   $gender =  $contact = $role= $email =$dob=''; 
-
   $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";
   $stid= oci_parse($connection,$sql);
 
-  oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
-  
+  if($_SESSION['profile'] == 'customer'){
+    oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+  }
+  if($_SESSION['profile'] == 'trader'){
+    oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+  }
+  if($_SESSION['profile'] == 'admin'){
+    oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+  }
+
   oci_execute($stid);
 
   while($row = oci_fetch_array($stid,OCI_ASSOC)){
@@ -70,7 +80,17 @@
 
           $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";
           $stid= oci_parse($connection,$sql);
-          oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+
+          if($_SESSION['profile'] == 'customer'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+          }
+          if($_SESSION['profile'] == 'trader'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+          }
+          if($_SESSION['profile'] == 'admin'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+          }
+
           oci_execute($stid);
 
           $dbpassword='';
@@ -89,7 +109,15 @@
           $newpassword = md5($newpass);
           $sql = "UPDATE USER_I SET PASSWORD= :upassword WHERE USER_ID = :id";
           $stid = oci_parse($connection,$sql);
-          oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+          if($_SESSION['profile'] == 'customer'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+          }
+          if($_SESSION['profile'] == 'trader'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+          }
+          if($_SESSION['profile'] == 'admin'){
+            oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+          }
           oci_bind_by_name($stid , ":upassword" ,$newpassword );
 
           // oci_execute($stid);
@@ -217,12 +245,12 @@
 
 
       if($role == 'customer'){
-        echo "<a href='../customer/profile.php?cat=update'><span class='material-symbols-outlined'>
+        echo "<a href='../customer/profile.php?cat=update&role=customer'><span class='material-symbols-outlined'>
           edit
         </span></a>";
       }
       if($role == 'trader'){
-        echo "<a href='../trader/traderdashboard.php?cat=UpdateProfile&name=Home'> <span class='material-symbols-outlined'>
+        echo "<a href='../trader/traderdashboard.php?cat=UpdateProfile&name=Home&role=trader'> <span class='material-symbols-outlined'>
           edit
         </span></a>";
       }

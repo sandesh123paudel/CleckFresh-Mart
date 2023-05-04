@@ -41,6 +41,9 @@ if(isset($_POST['filter'])){
                                 oci_bind_by_name($stid,':s_cat' ,$_SESSION['type']);
                                 oci_execute($stid);
                                 while($row = oci_fetch_array($stid,OCI_ASSOC)){
+                                    // session unset
+                                    unset($_SESSION['shopid']);
+
                                     $s_id = $row['SHOP_ID'];
                                     $s_name = $row['SHOP_NAME'];
                                     $_SESSION['shopid']=$s_id;

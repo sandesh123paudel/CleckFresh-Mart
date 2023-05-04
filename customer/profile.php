@@ -31,13 +31,13 @@
             if(isset($_GET['cat'])){
               $links = $_GET['cat'];
               if($links == "profile"){
-                require('../profile/profilepage.php'); 
+                require('profilepage.php'); 
               }
               if($links == 'update'){
-                require('../profile/editprofile.php'); 
+                require('editprofile.php'); 
               }
               if($links == 'deactivate'){
-                require('../profile/deactivate.php');
+                require('deactivate.php');
               }
               if($links == 'history'){
                 require('orderviewpage.php');
@@ -47,7 +47,7 @@
               }
             }
             else{
-              require('../profile/profilepage.php'); 
+              require('profilepage.php'); 
             }         
           ?>
 

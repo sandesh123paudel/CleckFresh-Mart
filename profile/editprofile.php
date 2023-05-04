@@ -3,13 +3,22 @@
   // session_start();
   include('../db/connection.php');
   
+
   if(isset($_SESSION['token'])){
     $firstname =  $lastname =  $role= $gender =  $contact =  $email =$dob=''; 
 
     $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";
     $stid= oci_parse($connection,$sql);
 
-    oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+    if($_SESSION['profile'] == 'customer'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['userID'] );
+    }
+    if($_SESSION['profile'] == 'trader'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
+    }
+    if($_SESSION['profile'] == 'admin'){
+      oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+    }
     
     oci_execute($stid);
 
@@ -129,7 +138,7 @@
 
       <div class="profile-info">
         
-        <form  method='POST' action="../profile/updateprofile.php">
+        <form  method='POST' action='../profile/updateprofile.php'>
 
           <div class="info2">
             <label>First Name</label>

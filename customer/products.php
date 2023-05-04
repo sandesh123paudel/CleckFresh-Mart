@@ -105,7 +105,7 @@
                         }
                         else{
 
-                            echo "<div class='btn' onclick='addtocart($product_id)'>Add +</div>";
+                            echo "<div class='btn'>Add +</div>";
                         }
 
                     echo "</div>";
@@ -127,7 +127,6 @@
         }
     </script>
 
-<script src="addtocart.js"></script>
 
 </body>
 </html>

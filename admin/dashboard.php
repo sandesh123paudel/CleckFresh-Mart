@@ -1,12 +1,13 @@
 <?php
  session_start();
  include("../db/connection.php");
- 
+    unset($_SESSION['username']);
+    
 //  if($_SESSION['token']){
 //   $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
 //   $stid = oci_parse($connection,$sql);
 
-//   oci_bind_by_name($stid,':id',$_SESSION['userID']);
+//   oci_bind_by_name($stid,':id',$_SESSION['adminID']);
 
 //   oci_execute($stid);
   

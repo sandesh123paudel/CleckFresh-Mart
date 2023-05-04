@@ -62,8 +62,8 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .trending-container {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .home-container  .trending-container .single-container{

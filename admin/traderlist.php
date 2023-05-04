@@ -29,7 +29,9 @@
             $fname = $row['FIRST_NAME'];
             $lname = $row['LAST_NAME'];
             
-            $_SESSION['username'] = $fname." ".$lname;
+            unset($_SESSION['fullname']);
+            
+            $_SESSION['fullname'] = $fname." ".$lname;
             if(!empty($row['VERIFY'])){
                 $verify = $row['VERIFY'];
             }
@@ -39,7 +41,7 @@
 
             echo "<tr>";
             echo "<td>".$row['USER_ID']."</td>";
-            echo "<td>".$_SESSION['username']."</td>";
+            echo "<td>".$_SESSION['fullname']."</td>";
             echo "<td>".$row['EMAIL'] ."</td>";
             echo "<td>".$row['CONTACT'] ."</td>";
             echo "<td>".$row['CATEGORY'] ."</td>";

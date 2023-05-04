@@ -1,9 +1,9 @@
 <?php
   include('../db/connection.php');
 
-if(isset($_POST['filter'])){
-    echo $_POST['filter'];
-}
+    if(isset($_POST['filter'])){
+        echo $_POST['filter'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +35,9 @@ if(isset($_POST['filter'])){
                         <select name="filter" >
                             <option value="" >All</option>
                             <?php
+                                //unset shop_id 
+                                unset($_SESSION['shopid']);
+                                
                                 $sql = "SELECT * FROM SHOP WHERE SHOP_TYPE = :s_cat";
                                 $stid = oci_parse($connection,$sql);
                                 oci_bind_by_name($stid,':s_cat' ,$_SESSION['type']);

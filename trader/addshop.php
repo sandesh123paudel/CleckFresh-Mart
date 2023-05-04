@@ -92,7 +92,7 @@
                     $stid = oci_parse($connection,$sql);
                     
                     oci_bind_by_name($stid ,':shop_id',$shop_id);  
-                    oci_bind_by_name($stid, ':user_id', $_SESSION['userID']);            
+                    oci_bind_by_name($stid, ':user_id', $_SESSION['traderID']);            
                     oci_bind_by_name($stid ,':name',$name);
                     oci_bind_by_name($stid ,':category',$category);
                     oci_bind_by_name($stid ,':image',$image);

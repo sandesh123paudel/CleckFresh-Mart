@@ -19,7 +19,7 @@
                     <?php 
                         $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
                         $stid = oci_parse($connection,$sql);
-                        oci_bind_by_name($stid,':id',$_SESSION['userID']);
+                        oci_bind_by_name($stid,':id',$_SESSION['traderID']);
                         oci_execute($stid);
                         $username='';
                         while($row = oci_fetch_array($stid,OCI_ASSOC)){

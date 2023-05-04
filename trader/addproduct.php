@@ -194,7 +194,7 @@
               <?php
                 $sql = "SELECT * FROM SHOP WHERE USER_ID = :user_id";
                 $stid = oci_parse($connection,$sql);
-                oci_bind_by_name($stid, ':user_id', $_SESSION['userID']); 
+                oci_bind_by_name($stid, ':user_id', $_SESSION['traderID']); 
                 oci_execute($stid);
 
                 while($row = oci_fetch_array($stid,OCI_ASSOC)){

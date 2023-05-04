@@ -206,6 +206,10 @@
                     
                     include_once('sendmail.php');
 
+                    unset($_SESSION['email']);
+                    unset($_SESSION['otp']);
+                    unset($_SESSION['category']);
+
                     if(oci_execute($stid))
                     {   
                         $_SESSION['email']=$femail;
