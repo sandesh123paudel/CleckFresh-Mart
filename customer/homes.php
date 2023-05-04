@@ -73,61 +73,48 @@
   <!-- Offer products -->
   <div class="header-title">
     <h3>Offer Products</h3>
-    <a href="products.php?cat_name=offer"><span>See all >></span></a>
+    <a href="products.php?offer_name=offer&cat_name=offer"><span>See all >></span></a>
   </div>
 
   <div class="offer-container">
+    <?php
+      $offerSql = "SELECT * FROM OFFER";
+      $stmt = oci_parse($connection,$offerSql);
+      oci_execute($stmt);
+      while($row=oci_fetch_array($stmt,OCI_ASSOC)){
+        $offer_id = $row['OFFER_ID'];
+        $sql='SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 8';
+        $stid = oci_parse($connection,$sql);
+        oci_bind_by_name($stid, ':off_id', $offer_id);
+        oci_execute($stid);
+
+        while($row = oci_fetch_array($stid,OCI_ASSOC)){
+            $product_name=$row['PRODUCT_NAME'];
+            $product_id = $row['PRODUCT_ID'];
+            $product_image = $row['PRODUCT_IMAGE'];
+            $product_price = $row['PRODUCT_PRICE'];
+
+            echo "<div class='single'>";
+              echo "<div class='img' onclick='viewproduct($product_id)'>";
+                echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
+              echo "<div class='offer'>Offer</div>";
+            echo "</div>";
+            echo "<div class='content'>";
+              echo "<h5>Fresh Blackberries</h5>";
+              echo "<span class='piece'>24 PieceS</span>";
+      
+              echo "<div class='price'>";
+                echo "<span class='cut'>$50.00</span>";
+                echo "<span class='main'>$20.00</span>";
+              echo "</div>";
+              echo "<a href=''><div class='btn'>Add +</div></a>";
+            echo "</div>";
+          echo "</div>";
+        }
+      }      
+    ?>
+      
     
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
-
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">$50.00</span>
-          <span class="main">$20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
-
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">&pound; 50.00</span>
-          <span class="main">&pound; 20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
 
   </div>
 
@@ -135,7 +122,7 @@
 
   <div class="header-title">
     <h3>Other Products</h3>
-    <a href="products.php?cat_name=ALL"><span>See all >></span></a>
+    <a href="products.php?cat_name=all"><span>See all >></span></a>
   </div>
 
   <div class="other-main">
@@ -143,7 +130,8 @@
       <div class="product-lists">
 
         <?php
-            $sql='SELECT * FROM PRODUCT';
+            
+            $sql='SELECT * FROM PRODUCT WHERE ROWNUM <= 25';
             $stid = oci_parse($connection,$sql);
             oci_execute($stid);
 

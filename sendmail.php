@@ -9,6 +9,5 @@
  
     if(!$mail_sent){
         echo "mail send failed";
-    }
-    
+    }  
 ?>

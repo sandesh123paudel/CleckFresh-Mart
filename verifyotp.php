@@ -23,7 +23,6 @@
         // $otpnumber= (int)$otpnum;
         $otpnumber= (int)$otpnum;
         
-        
         // if(empty($_POST['num1']) || empty($_POST['num2']) || empty($_POST['num3']) || empty($_POST['num4']) || empty($_POST['num5']) || empty($_POST['num6'])){
         //     $errcount+=1;
         //     $errotp ="OTP input field should not be empty";
