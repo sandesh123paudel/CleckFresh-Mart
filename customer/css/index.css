@@ -136,10 +136,19 @@ scrollbar-width: none;  /* Firefox */
 
 .shop-container  .single .img {
   background: #eee;
+  width: 200px;
+  height: 200px;
+}
+.shop-container  .single .img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .shop-container  .single {
   min-width:200px;
+  width: 200px;
+  text-decoration: none;
 }
 
 .shop-container  .single:hover {
@@ -151,8 +160,8 @@ scrollbar-width: none;  /* Firefox */
   border: 1px solid #eee;
   width: fit-content;
   width: -moz-fit-content;
-  padding: 25px;
   width: 6rem;
+  height: 6rem;
   aspect-ratio: 1/1;
   overflow: hidden;
   transform: translateY(-3rem);
@@ -164,9 +173,8 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .shop-container  .logo img {
-  object-fit: contain;
-  /* width: 100%; */
-  object-position: center;
+  object-fit: cover;
+  
 }
 
 .shop-container  .single .summary {
@@ -270,6 +278,7 @@ scrollbar-width: none;  /* Firefox */
 
 .offer-container  .single .content .price .cut {
   text-decoration: line-through;
+  opacity: 0.6;
 }
 
 .offer-container  .single .content .btn {

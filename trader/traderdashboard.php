@@ -16,7 +16,7 @@
   }
 }
 
-  if(empty($_SESSION['token'])){
+  if(empty($_SESSION['traderID'])){
     echo "<script>
       alert('SESSION is EXPIRED Please Login!!!');
       document.location.href='../login.php';

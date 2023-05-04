@@ -4,7 +4,7 @@
   include('../db/connection.php');
   
 
-  if(isset($_SESSION['token'])){
+  if(isset($_SESSION['traderID'])){
     $firstname =  $lastname =  $role= $gender =  $contact =  $email =$dob=''; 
 
     $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";

@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/indexs.css" />
-
+    <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
     <div class="nav-bar">
@@ -28,12 +27,21 @@
                     }
                 }
                 if(isset($_GET['cat_name'])){
-                    $cat_name = $_GET['cat_name'];
+                    $cat_name = $_GET['cat_name'];   
                 }
-                
+                if(isset($_GET['s_name'])){
+                    $cat_name = $_GET['s_name'];
+                }
                 echo "<span>".strtoupper($cat_name)."</span>";
-
+                
             ?> Products Lists </h3>
+            <!-- <form action=""> -->
+            <select name="filter" id="" onchange='clickOnchange()'>
+                <option value="all">ALL</option>
+                <option value="asce">ALL</option>
+                <option value="desc">ALL</option>
+            </select>
+            <!-- </form> -->
         </div>
 
     <div class="product-lists">
@@ -44,11 +52,22 @@
                 $stid = oci_parse($connection,$sql);
                 oci_bind_by_name($stid, ':c_id' ,$_GET['cat_id']);
             }
-            else{
-                $sql='SELECT * FROM PRODUCT';
-                $stid = oci_parse($connection,$sql);
+            if(isset($_GET['cat_name'])){
+                if($_GET['cat_name'] == 'trending'){
+                    $sql="SELECT * FROM PRODUCT WHERE ROWNUM <= 20";
+                    $stid = oci_parse($connection,$sql);
+                }
             }
-           
+            if(isset($_GET['s_id'])){
+                $sql='SELECT * FROM PRODUCT WHERE SHOP_ID= :s_id';
+                $stid = oci_parse($connection,$sql);
+                oci_bind_by_name($stid, ':s_id' ,$_GET['s_id']);
+            }
+            // else{
+            //     $sql='SELECT * FROM PRODUCT';
+            //     $stid = oci_parse($connection,$sql);
+            // }
+
             oci_execute($stid);
             
             while($row = oci_fetch_array($stid,OCI_ASSOC)){
@@ -92,7 +111,17 @@
                         echo "<span class='piece'>".$product_quantity." gm </span>";
                         echo "<div class='price'>";
                             if($product_offer){
-                                echo "<span class='cut'>$50.00</span>";
+                                // echo $product_offer;
+                                $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                                $stmt = oci_parse($connection, $sql);
+                                oci_bind_by_name($stmt, ":offer_id" ,$product_offer);
+                                oci_execute($stmt);
+                                $row =oci_fetch_array($stmt,OCI_ASSOC);
+                                $discount = (int)$row['OFFER_PERCENTAGE'];
+                                $total_price = $product_price - $product_price*($discount/100);
+
+                                echo "<span class='cut'>&pound;".$product_price."</span>";
+                                echo "<span class='main'>&pound;".$total_price."</span>";
                             }
                             else{
                                 echo "<span class='main'>&pound; ".$product_price."</span>";

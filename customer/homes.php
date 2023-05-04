@@ -7,82 +7,31 @@
 
   <div class="trending-container">
     <!-- single container -->
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
+      <?php
+        $sql="SELECT * FROM PRODUCT WHERE ROWNUM <= 8";
+        $stmt = oci_parse($connection,$sql);
+        oci_execute($stmt);
 
-      <a href=""><div class="btn">Add +</div></a>
-    </div> 
-    
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
+        while($row = oci_fetch_array($stmt,OCI_ASSOC)){
+          $product_name=$row['PRODUCT_NAME'];
+                $product_id = $row['PRODUCT_ID'];
+                $product_category = $row['PRODUCT_TYPE'];
+                $product_quantity = $row['QUANTITY'];
+                $product_image = $row['PRODUCT_IMAGE'];
+                $product_price = $row['PRODUCT_PRICE'];              
+       
+        echo "<div class='single-container'>";
+          echo "<div class='image' onclick='viewproduct($product_id)'>";
+          echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$product_name' /> ";
+          echo "</div>";
+          echo "<h5 class='title'>$product_name</h5>";
+          echo "<span class='size'>$product_quantity gm</span>";
+          echo "<p class='price'>&pound; $product_price</p>";
+          echo "<a href=''><div class='btn'>Add +</div></a>";
+          echo "</div>";
+            }
+        ?>
 
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
-
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
-
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
-
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
-
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
-
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
-
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
-
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
-
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
-    
-    <div class="single-container">
-      <div class="image">
-        <img src="../assets/tomato.png" alt="" />
-      </div>
-      <h5 class="title">Fresh Roma Tomato</h5>
-      <span class="size">3 lb bag</span>
-      <p class="price">$20.00</p>
-
-      <a href=""><div class="btn">Add +</div></a>
-    </div>
   </div>
 
   <!-- shops -->
@@ -91,85 +40,34 @@
   </div>
 
   <div class="shop-container">
-      <div class="single">
-            <div class="img">
-                <img src="../assets/f1.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/B.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Zaapp</h2>
-                <p>We sell green groceries</p>
-            </div>
-        </div>
+    <?php
+      $sql = "SELECT * FROM SHOP ";
+      $stmt = oci_parse($connection,$sql);
+      oci_execute($stmt);
+      
+      while($row = oci_fetch_array($stmt,OCI_ASSOC)){
+        $shop_id = $row['SHOP_ID'];
+        $shop_image = $row['SHOP_IMAGE'];
+        $shop_logo = $row['SHOP_LOGO'];
+        $shop_name = $row['SHOP_NAME'];
+        $shop_desc = $row['SHOP_DESC'];
 
-
-        <div class="single">
-            <div class="img">
-                <img src="../assets/f2.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/fish.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Salt water</h2>
-                <p>We sell fishes</p>
-            </div>
-        </div>
-
-
-        <div class="single">
-            <div class="img">
-                <img src="../assets/f3.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/B.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Butchery</h2>
-                <p>We sell meat</p>
-            </div>
-        </div>
-
-        <div class="single">
-            <div class="img">
-                <img src="../assets/f2.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/fish.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Salt water</h2>
-                <p>We sell fishes</p>
-            </div>
-        </div>
-        <div class="single">
-            <div class="img">
-                <img src="../assets/f1.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/B.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Zaapp</h2>
-                <p>We sell green groceries</p>
-            </div>
-        </div>
-
-
-        <div class="single">
-            <div class="img">
-                <img src="../assets/f3.png" alt="">
-            </div>
-            <div class="logo">
-                <img src="../assets/B.png" class="logo-img" alt="">
-            </div>
-            <div class="summary">
-                <h2>Butchery</h2>
-                <p>We sell meat</p>
-            </div>
-        </div>
+        echo "<a href='products.php?s_name=$shop_name&s_id=$shop_id' class='single'>";
+        echo "<div>";
+            echo "<div class='img'>";
+              echo "<img src=\"../db/uploads/shops/".$shop_image."\" alt='$shop_name' /> ";
+            echo "</div>";
+            echo "<div class='logo'>";
+              echo "<img src=\"../db/uploads/shops/".$shop_logo."\" class='logo-img' alt='$shop_name' /> ";
+            echo "</div>";
+            echo "<div class='summary'>";
+                echo "<h2>".$shop_name."</h2>";
+                echo "<p>$shop_desc</p>";
+            echo "</div>";
+        echo "</div>";
+        echo "</a>";
+      }
+    ?>
   </div>
 
   <!-- Offer products -->
@@ -230,58 +128,6 @@
         <a href=""><div class="btn">Add +</div></a>
       </div>
     </div>
-
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">&pound; 50.00</span>
-          <span class="main">&pound; 20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
-
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">&pound; 50.00</span>
-          <span class="main">&pound; 20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
-
-    <div class="single">
-      <div class="img">
-        <img src="../assets/blac.png" alt="" />
-        <div class="offer">Offer</div>
-      </div>
-      <div class="content">
-        <h5>Fresh Blackberries</h5>
-        <span class="piece">24 PieceS</span>
-
-        <div class="price">
-          <span class="cut">&pound; 50.00</span>
-          <span class="main">&pound; 20.00</span>
-        </div>
-        <a href=""><div class="btn">Add +</div></a>
-      </div>
-    </div>
-
 
   </div>
 

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/ordersl.css">
+    <link rel="stylesheet" href="css/ordersli.css">
 </head>
 <body>
 
@@ -32,49 +32,53 @@
             </div>
         </div>
         <div class="line"></div>
-        <div class="order-container">
-
-            <table>
-                <!-- table heading -->
-                <th>
-                  <tr class="head">
-                    <td>ORDER ID</td>
-                    <td>CUSTOMER</td>
-                    <td>PRODUCT</td>
-                    <td>QTY</td>
-                    <td>PRICE(&#163;)</td>
-                    <td>DATE</td>
-                    <td>STATUS</td>
-                    <td>ACTION</td>
-                  </tr>
-                </th>
-        
-                <tr class="item">
-                  <td>3333</td>
-                  <td>kARAN CHADUAHRY</td>
-                  <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
-                  <td>200g</td>
-                  <td>200.00</td>
-                  <td>3/16/2023</td>
-                  <td id="status">Pending...</td>
-                  <td class="links-btn"><button>Delivered</button><button>Not Delivered</button></td>
-                </tr>
-
-                <tr class="item">
-                    <td>3333</td>
-                    <td>kARAN CHADUAHRY</td>
-                    <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
-                    <td>200g</td>
-                    <td>200.00</td>
-                    <td>3/16/2023</td>
-                    <td id="status">Pending...</td>
-                    <td class="links-btn"><button>Delivered</button><button>Not Delivered</button></td>
-                  </tr>
-
-              </table>
-        </div>
-
     </div>
+    <div class="user-container">
+
+    <table>
+    <!-- table heading -->
+  
+      <tr>
+        <th>ORDER ID</th>
+        <th>CUSTOMER</th>
+        <th>PRODUCT</th>
+        <th>QTY</th>
+        <th>PRICE(&#163;)</th>
+        <th>DATE</th>
+        <th>STATUS</th>
+        <th>ACTION</th>
+      </tr>
+
+    <tr >
+      <td>3333</td>
+      <td>kARAN CHADUAHRY</td>
+      <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
+      <td>200g</td>
+      <td>200.00</td>
+      <td>3/16/2023</td>
+      <td id="status">Pending...</td>
+      <td> <div class='action'>
+                <a id='approve' href=updatetrader.php?id=$id&action=verified>Delivered</a>
+                
+                <a id='decline' href=deletetrader.php?id=$id&action=decline>Cancelled</a>
+                
+                </div>    </tr>
+
+    <tr>
+        <td>3333</td>
+        <td>kARAN CHADUAHRY</td>
+        <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
+        <td>200g</td>
+        <td>200.00</td>
+        <td>3/16/2023</td>
+        <td id="status">Pending...</td>
+        <td> <div class='action'>
+            <a id='approve' href=updatetrader.php?id=$id&action=verified>Delivered</a>   
+            <a id='decline' href=deletetrader.php?id=$id&action=decline>Cancelled</a>        
+        </div></tr>
+
+  </table>
+</div>
     
 </body>
 </html>

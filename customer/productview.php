@@ -11,7 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/productsviews.css" />
+    <link rel="stylesheet" href="css/productsvi.css" />
 
 </head>
 <body>
@@ -79,13 +79,15 @@
                         while($row = oci_fetch_array($stid,OCI_ASSOC)){
                             $shop_logo = $row['SHOP_LOGO'];
                             $shop_name = $row['SHOP_NAME'];
+                            $shop_desc = $row['SHOP_DESC'];
+                            
                         }
                         echo "<img class='shop-logo' src=\"../db/uploads/shops/".$shop_logo."\" alt='$shop_name'  /> ";
                     ?>
 
                     <div class="shop-info">
                         <?php echo "<h3>$shop_name</h3>"; ?>
-                        <p>We sell green groceries</p>
+                        <p><?php echo "$shop_desc"; ?></p>
                     </div>
                 </div>
                 <!-- product-name -->
@@ -97,11 +99,26 @@
                     gm
                 </span>
                 <div class="product-price">
-                    <h3> &#8356; 
-                        <?php
-                            echo $p_price;
-                        ?>
-                    </h3>
+                    <?php
+                        if($p_offer){
+                                // echo $product_offer;
+                            $sql = "SELECT OFFER_PERCENTAGE , OFFER_NAME FROM OFFER WHERE OFFER_ID = :offer_id";
+                            $stmt = oci_parse($connection, $sql);
+                            oci_bind_by_name($stmt, ":offer_id" ,$p_offer);
+                            oci_execute($stmt);
+                            $row =oci_fetch_array($stmt,OCI_ASSOC);
+                            $discount = (int)$row['OFFER_PERCENTAGE'];
+                            $total_price =  $p_price -  $p_price*($discount/100);
+
+                            echo "<span class='cut'>&pound;". $p_price."</span>";
+                            echo "<span class='main'>&pound;".$total_price."</span>";
+                            echo "<span class='offer_name'>".$row['OFFER_NAME']." (".$discount."%)</span>";
+                        }
+                        else{
+                            echo "<span class='main'>&pound; ". $p_price."</span>";
+                        }
+                    ?>
+
                 </div>
                 <span>Available Stocks : 
                     <?php 
@@ -244,13 +261,24 @@
                                     echo "<h5>".$product_name."</h5>";
                                     echo "<span class='piece'>".$product_quantity." gm</span>";
                                     echo "<div class='price'>";
-                                        if($product_offer){
-                                            echo "<span class='cut'>$50.00</span>";
-                                        }
-                                        else{
-                                            echo "<span class='main'>&pound; ".$product_price."</span>";
-                                        }
-                                    echo "</div>";
+                                    if($product_offer){
+                                        // echo $product_offer;
+                                        $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                                        $stmt = oci_parse($connection, $sql);
+                                        oci_bind_by_name($stmt, ":offer_id" ,$product_offer);
+                                        oci_execute($stmt);
+                                        $row =oci_fetch_array($stmt,OCI_ASSOC);
+                                        $discount = (int)$row['OFFER_PERCENTAGE'];
+                                        $total_price = $product_price - $product_price*($discount/100);
+        
+                                        echo "<span class='cut'>&pound;".$product_price."</span>";
+                                        echo "<span class='main'>&pound;".$total_price."</span>";
+                                    }
+                                    else{
+                                        echo "<span class='main'>&pound; ".$product_price."</span>";
+                                    }
+        
+                                echo "</div>";
 
                                     if((int)$product_stock <= 0 ){
                                     echo "<div class='btn' id='outstock' >Add +</div>";

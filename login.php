@@ -144,8 +144,7 @@
                     <label>Password <span class='error'> * <?php echo $errpassword; ?> </span></label>
                     <input type='password' class='inputbox' placeholder='Password' name='password' />
                 
-                </div> 
-                
+                </div>  
                 
                 <!-- <div class='form-data'>
                     <label>User Type <span class='error'> * <?php echo $errrole; ?> </span></label>

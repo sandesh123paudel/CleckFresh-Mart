@@ -409,7 +409,21 @@ body{
   
   .product-lists  .single .content .price .cut {
     text-decoration: line-through;
+    opacity: 0.6;
   }
+
+  .product-price .cut{
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-inline-end: 3rem;
+  }
+
+  .product-price .offer_name{
+    color: var(--pink);
+    margin-left: 1rem;
+    font-size: 12px;
+  }
+  
   
   .product-lists  .single .content .btn {
     width: 100%;

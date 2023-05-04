@@ -34,7 +34,8 @@
             $ephone = $row['CONTACT'];
             $eimage = $row['SHOP_IMAGE'];
             $elogo = $row['SHOP_LOGO']; 
-                  
+            $shop_desc = $row['SHOP_DESC'];
+               
         }          
     
     ?>
@@ -86,6 +87,11 @@
                     <div class='info2'>
                         <label>Phone Number</label>
                         <input type='number' class='inputbox' name='phone' maxlength='10' placeholder='Phone Number' value='<?php echo $ephone; ?>' />
+                    </div> 
+
+                    <div class='info2'>
+                        <label>Shop Description</label>
+                        <input type='text' class='inputbox' name='shopdesc'  placeholder='Shop Description' value='<?php echo $shop_desc; ?>' />
                     </div> 
             </div>
             <div class='add-product'>

@@ -1,3 +1,6 @@
+<?php
+    include_once("../db/connection.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,22 +30,35 @@
             <div class="foot-container">
                 <h3>Available Shops</h3>
                 <div class="footer-links">
-                    <a href="#">Zaapp</a>
-                    <a href="#">Butchery</a>
-                    <a href="#">Salt Water</a>
-                    <a href="#">Chefs Bakery</a>
-                    <a href="#">King Deli</a>
+                    <?php
+                        $sql = "SELECT * FROM SHOP WHERE ROWNUM <= 5";
+                        $stmt = oci_parse($connection,$sql);
+                        oci_execute($stmt);
+                        while($row=oci_fetch_array($stmt,OCI_ASSOC)){
+                            $shop_name=$row['SHOP_NAME'];
+                            $shop_id = $row['SHOP_ID'];
+                            echo "<a href='products.php?s_name=$shop_name&s_id=$shop_id'>$shop_name</a>";
+                        }
+                    ?>
+                    
+
                 </div>
             </div>       
             
             <div class="foot-container" id="fot">
                 <h3>Shop by Category</h3>
                 <div class="footer-links">
-                    <a href="#">Butcher</a>
-                    <a href="#">GreenGrocer</a>
-                    <a href="#">FishMonger</a>
-                    <a href="#">Bakery</a>
-                    <a href="#">Delicateous</a>
+                <?php
+                        $sql = "SELECT * FROM CATEGORY WHERE ROWNUM <= 5";
+                        $stmt = oci_parse($connection,$sql);
+                        oci_execute($stmt);
+                        while($row=oci_fetch_array($stmt,OCI_ASSOC)){
+                            $cat_name=$row['CATEGORY_NAME'];
+                            $cat_id = $row['CATEGORY_ID'];
+                            echo "<a href='products.php?cat_id=$cat_id'>$cat_name</a>";
+                        }
+                    ?>
+                    
                 </div>
             </div>
 

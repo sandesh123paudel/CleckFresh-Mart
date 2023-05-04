@@ -78,71 +78,85 @@ option{
     border: none;
 }
 
-.order-containe{
+
+.user-container{
     display: flex;
-    flex-direction: column;
-    row-gap: 20px;
+    justify-content: left;
+    margin-top: 1%;
+    overflow-x: scroll;
+    margin-inline: 1rem;
 }
 
+.user-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .user-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
 
-.order-container table{
-    width: 100%;
+#red{
+    color: red;
+}  
+
+#green{
+    color: rgb(31, 175, 70);
 }
 
-.head{
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.order-container tr,td{
-    text-align: center;
-    padding-block: 10px;
-    font-size: 18px;
-}
-
-.links-btn{
-    display: flex;
-    column-gap: 15px;
-    justify-content: center;
-    margin-top: 35px;
-}
-
-.links-btn button{
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-.links-btn button:nth-child(1){
+#decline{
+    background-color: var(--yellow);
+    border-radius: 5px;
+}  
+#approve{
     background-color: var(--green);
-    padding-inline: 1rem;
-    padding-block: 0.3rem;
     border-radius: 5px;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
-.links-btn button:nth-child(2){
-    background-color: var(--pink);
-    padding-inline: 1rem;
-    padding-block: 0.3rem;
-    border-radius: 5px;
-    color: white;
+.user-container table{
+    color: black;
+    border: none;
+    margin-left: 1rem;
 }
+.user-container table tr th{
+    background-color: rgb(20, 114, 114);
+    color: white;
+    padding-inline:50px;
+    padding-block: 10px;
+}
+.user-container table tr td{
+    text-align: center;
+    padding-inline:20px;
+    padding-block: 20px;
+    font-size: 15px;
+    border-bottom: 5px solid  rgb(20, 114, 114);
+}
+.user-container table tr td .action {
+    display: flex;
+    gap: 1rem;
+    padding-inline: 5px;
+}
+.user-container table tr td .action a{
+    text-decoration: none;
+    padding-inline:20px ;
+    padding-block: 8px;
+    border-radius: 5px;
+    background-color: rgb(20, 114, 114);
+    color:white;
+}
+
+.user-container table tr td .action a:hover{
+    background-color: rgb(66, 255, 255);
+    color:rgb(0, 0, 0);
+}
+
 #status{
     color: var(--yellow);
 }
 
-.links-btn p:nth-child(1){
-    color: var(--green);
-}
-
-
-.links-btn p:nth-child(2){
-    color: var(--pink);
-}
-
 #image{
-    width: 80px;
+    width: 40px;
 }
 
 

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/ordersl.css">
+    <link rel="stylesheet" href="css/ordersli.css">
 </head>
 <body>
 
@@ -32,46 +32,57 @@
             </div>
         </div>
         <div class="line"></div>
-        <div class="order-container">
+    </div>
+    <div class="user-container">
 
             <table>
                 <!-- table heading -->
-                <th>
-                  <tr class="head">
-                    <td>ORDER ID</td>
-                    <td>CUSTOMER</td>
-                    <td>PRODUCT</td>
-                    <td>QTY</td>
-                    <td>PRICE(&#163;)</td>
-                    <td>DATE</td>
-                    <td>STATUS</td>
+                  <tr>
+                    <th>ORDER ID</th>
+                    <th>CUSTOMER</th>
+                    <th>PRODUCT</th>
+                    <th>QTY</th>
+                    <th>PRICE(&#163;)</th>
+                    <th>DATE</th>
+                    <th>STATUS</th>
                   </tr>
-                </th>
-        
-                <tr class="item">
+                
+                <tr >
                   <td>3333</td>
                   <td>kARAN CHADUAHRY</td>
                   <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
                   <td>200g</td>
                   <td>200.00</td>
                   <td>3/16/2023</td>
-                  <td class="links-btn"><p>Delivered</p><p>Cancelled</p></td>
+                 
+                  <td> <div class='action'>
+                        <p id='green' >Delivered</p>
+                        
+                        <p id='red'>Cancelled</p>
+                        
+                        </div>
+                    </td>  
+            
                 </tr>
 
-                <tr class="item">
+                <tr >
                     <td>3333</td>
                     <td>kARAN CHADUAHRY</td>
                     <td><img id='image' src="../logo/apple2.webp" alt="" /></td>
                     <td>200g</td>
                     <td>200.00</td>
                     <td>3/16/2023</td>
-                    <td class="links-btn"><p>Delivered</p><p>Cancelled</p></td>
+                    <td> <div class='action'>
+                        <p id='green' >Delivered</p>
+                        
+                        <p id='red'>Cancelled</p>
+                        
+                        </div>
+                    </td>    
                   </tr>
 
               </table>
         </div>
-
-    </div>
     
 </body>
 </html>

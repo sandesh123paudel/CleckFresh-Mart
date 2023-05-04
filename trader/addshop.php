@@ -3,9 +3,9 @@
     // inculde database connection
     include('../db/connection.php');
 
-    $errname =$errlogo = $erremail = $errcategory = $errphone = $errimage='';
+    $errname =$errlogo = $erremail = $errcategory = $errphone = $errimage=$errdesc='';
     $errcount = 0;
-    
+   
     if(isset($_POST['addshop']))
     {
         if(empty($_POST['shopname'])){
@@ -29,12 +29,17 @@
         if(empty($_FILES["shoplogo"]["name"])){
             $errlogo ="Shop Logo is required";
         }
+        if(empty($_POST['shopdesc'])){
+            $errdesc ="Shop Description is required";
+        }
 
         else{
+            
             $name = $_POST['shopname'];
             $phone = $_POST['phone'];
             $email = $_POST['email'];
             $category = $_POST['shopcategory'];
+            $desc = $_POST['shopdesc'];
             $image = $_FILES["shopimage"]["name"];
             $logo = $_FILES['shoplogo']['name'];
 
@@ -86,8 +91,8 @@
                
                 // if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
                 // {
-                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO) 
-                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo )";
+                    $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO,SHOP_DESC) 
+                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo,:descr )";
 
                     $stid = oci_parse($connection,$sql);
                     
@@ -99,6 +104,7 @@
                     oci_bind_by_name($stid ,':logo',$logo);
                     oci_bind_by_name($stid ,':email',$femail);
                     oci_bind_by_name($stid ,':phone',$contact);
+                    oci_bind_by_name($stid ,':descr',$desc);
 
                     if(oci_execute($stid)){
 
@@ -179,6 +185,11 @@
                         <label>Phone Number <span class="error"> * <?php echo $errphone; ?> </label>
                         <input type="number" class='inputbox' name="phone" maxlength="10" placeholder="Phone Number" />
                     </div> 
+
+                    <div class="info2">
+                        <label>Shop Description <span class="error"> * <?php echo $errdesc; ?></label>
+                        <input type="text" class='inputbox' name="shopdesc" placeholder="Shop Description" />
+                    </div>
             </div>
             <div class="add-product">
                 <input type="submit" name="addshop" value="Add Shop +" class="addbtn" />
