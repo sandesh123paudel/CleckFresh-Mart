@@ -120,7 +120,7 @@ option{
     margin-left: 1rem;
 }
 .user-container table tr th{
-    background-color: rgb(20, 114, 114);
+    background-color: rgb(0, 137, 64);
     color: white;
     padding-inline:50px;
     padding-block: 10px;
@@ -130,7 +130,7 @@ option{
     padding-inline:20px;
     padding-block: 20px;
     font-size: 15px;
-    border-bottom: 5px solid  rgb(20, 114, 114);
+    border-bottom: 5px solid  rgb(0, 137, 64);
 }
 .user-container table tr td .action {
     display: flex;
@@ -142,7 +142,7 @@ option{
     padding-inline:20px ;
     padding-block: 8px;
     border-radius: 5px;
-    background-color: rgb(20, 114, 114);
+    background-color: rgb(0, 137, 64);
     color:white;
 }
 

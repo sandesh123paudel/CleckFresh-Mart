@@ -49,7 +49,14 @@
     overflow-y: scroll;
 }
 
-
+.trader-report::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .trader-report {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
 .trader-info{
     color: rgb(160, 160, 160);   
 }

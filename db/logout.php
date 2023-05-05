@@ -11,7 +11,7 @@
     if(isset($_SESSION['userID'])){
         oci_bind_by_name($stid, ':id' , $_SESSION['userID']);
       }
-    if(isset( $_SESSION['traderID'])){
+    if(isset($_SESSION['traderID'])){
         oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
       }
     if(isset($_SESSION['adminID'] )){

@@ -7,7 +7,7 @@ session_start();
   if(isset($_POST['updateProduct']))
   {
           $uid = $_POST['uid'];
-          $name = $_POST['productname'];
+          $name = strtolower($_POST['productname']);
           $category_id =  $_POST['productcategory'];
           $category = $_SESSION['type'];
           $description = $_POST['description'];

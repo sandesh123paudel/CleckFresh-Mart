@@ -7,7 +7,7 @@
   if(isset($_POST['updateshop']))
   {
           $sid = $_POST['uid'];
-          $name = $_POST['shopname'];
+          $name = strtolower($_POST['shopname']);
           $phone = $_POST['phone'];
           $email = $_POST['email'];
           $category = $_POST['shopcategory'];

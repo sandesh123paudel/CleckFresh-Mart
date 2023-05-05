@@ -213,7 +213,7 @@ body{
 }
 .header2 .setting{
     padding-block: 10px;
-    height: 190px;
+    height: 150px;
 }
 
 .menu{
@@ -228,6 +228,20 @@ body{
     font-size: 16px;
     padding: 3px;
 }
+
+/* content */
+.content{
+    height: 85vh;
+    overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
 
 /* user css */
 
@@ -271,7 +285,7 @@ body{
     border: none;
 }
 .user-container table tr th{
-    background-color: rgb(20, 114, 114);
+    background-color: rgb(39, 35, 52);
     color: white;
     padding-inline:50px;
     padding-block: 10px;
@@ -281,7 +295,9 @@ body{
     padding-inline:20px;
     padding-block: 20px;
     font-size: 15px;
-    border-bottom: 5px solid  rgb(20, 114, 114);
+    /* border-bottom: 5px solid  rgb(20, 114, 114); */
+    border-bottom: 5px solid rgb(39, 35, 52);
+
 }
 .user-container table tr td .action {
     display: flex;
@@ -293,7 +309,8 @@ body{
     padding-inline:20px ;
     padding-block: 8px;
     border-radius: 5px;
-    background-color: rgb(20, 114, 114);
+    /* background-color: rgb(20, 114, 114); */
+    background-color:rgb(39, 35, 52);
     color:white;
 }
 
@@ -302,7 +319,13 @@ body{
     color:rgb(0, 0, 0);
 }
 
-
+/* user css */
+.imgs{
+    width: 70px;
+}
+.imgs img{
+    width: 70px;
+}
 
 @media screen and (max-width:420px) {
     .part1{

@@ -51,17 +51,24 @@
     background-color: rgb(232, 232, 232);
     padding-inline: 10px;
     border-radius: 20px;
+    /* padding-block: 10px; */
+    /* height: 20px; */
+
 }
 .searchbtn{
     border: none;
     outline: none;
     padding: 5px;
+    padding-block: 5px;
     background-color: transparent;
 }
 
 
 .searchbtn i{
     font-size: 20px;
+    position: relative;
+    top: 4px;
+    /* padding-block: 5px; */
 }
 
 .searchbtn i:hover{
@@ -74,6 +81,7 @@
     outline: none;
     width: 250px;
     border: none;
+    padding-block: 5px;
     background-color: transparent;
 }
 
