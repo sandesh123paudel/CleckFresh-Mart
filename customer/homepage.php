@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,25 +8,26 @@
     <title>Document</title>
     <link rel='stylesheet' href="css/indexs.css" />
 </head>
+
 <body>
     <div class='nav-bar'>
         <?php
-            require('navbar.php');
+        require('navbar.php');
         ?>
-    </div> 
+    </div>
     <!-- including the image slider -->
     <?php
-        require('imageslider.php');
-        
+    require('imageslider.php');
+
     ?>
     <?php
-        require('homes.php');
+    require('homes.php');
     ?>
-    
+
     <?php
-        require('footer.php');
+    require('footer.php');
     ?>
 
 </body>
-</html>
 
+</html>

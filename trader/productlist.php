@@ -16,13 +16,6 @@ include('../db/connection.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script>
-        //  $(document).ready(function() {
-        //     $("#searchproduct").click(function() {
-        //         var product_name = $("#lgsearch").val();
-        //         document.location.href = "traderdashboard.php?cat=Productlist&name=Products&p_name=" + product_name.toLowerCase();
-        //     });
-
-
         $(document).ready(function() {
             $("#filter").change(function() {
                 var shop_id = $("#filter").val();
@@ -82,9 +75,7 @@ include('../db/connection.php');
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':p_name', $_GET['product_name']);
                 oci_bind_by_name($stid, ':product_cat', $_SESSION['type']);
-            }
-
-            if (isset($_GET['s_id'])) {
+            } else if (isset($_GET['s_id'])) {
                 $sql = "SELECT * FROM PRODUCT WHERE SHOP_ID = :s_id AND PRODUCT_TYPE = :product_cat";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':s_id', $_GET['s_id']);
@@ -144,7 +135,6 @@ include('../db/connection.php');
     <script>
         function searchItem() {
             var product_name = document.getElementById('searchproduct').value;
-            alert('your product name is :' + product_name);
             var url = "traderdashboard.php?cat=Productlist&name=Products&product_name=" + encodeURIComponent(product_name); // Use encodeURIComponent to properly encode the URL parameter
             document.location.href = url;
         }

@@ -22,9 +22,7 @@
     ?>
 </div>
 
-
     <?php
-        
         $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID= :p_id";
         $stid = oci_parse($connection,$sql);
         oci_bind_by_name($stid, ":p_id" ,$_GET['p_id']);

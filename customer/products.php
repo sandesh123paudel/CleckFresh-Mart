@@ -1,3 +1,7 @@
+<?php
+include("../db/connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/indexs.css" />
+    <!--jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#filter").change(function() {
+                var shop_id = $("#filter").val();
+                var shop_name = $("#shop_name").val();
+                // alert("YOur filter id is : " + shop_id);
+                document.location.href = "products.php?s_id=" + shop_id;
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -28,6 +45,9 @@
                             $cat_name = $row['CATEGORY_NAME'];
                         }
                     }
+                    if(!isset($_GET['cat_name'])){
+                        $cat_name = "Filters Shop ";
+                    }
                     if (isset($_GET['cat_name'])) {
                         $cat_name = $_GET['cat_name'];
                     }
@@ -37,16 +57,32 @@
                     if (isset($_GET['search'])) {
                         $cat_name = $_GET['search'];
                     }
+
                     echo "<span>" . strtoupper($cat_name) . "</span>";
 
                     ?> Products Lists </h3>
-            <!-- <form action=""> -->
-            <!-- <select name="filter" id="" onchange='clickOnchange()'>
-                <option value="all">ALL</option>
-                <option value="asce">ALL</option>
-                <option value="desc">ALL</option>
-            </select> -->
-            <!-- </form> -->
+
+            
+                <select id='filter' name='filter'>
+                    <option value="all">Filter by Shop</option>
+                    <?php
+                    $sql = "SELECT * FROM SHOP ";
+                    $stid = oci_parse($connection, $sql);
+                    oci_execute($stid);
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                        // session unset
+                        unset($_SESSION['shopid']);
+
+                        $s_id = $row['SHOP_ID'];
+                        $s_name = $row['SHOP_NAME'];
+                        $_SESSION['shopid'] = $s_id;
+                        // echo "<option type='hidden' id='shop_name' value='$s_name'>";
+                        echo "<option value='$s_id'  >" . $s_name . "</option>";
+                    }
+                    ?>
+                </select>
+            
+
         </div>
 
         <div class="product-lists">
