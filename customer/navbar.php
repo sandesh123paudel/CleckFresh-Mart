@@ -78,12 +78,11 @@ include('../db/connection.php');
         <!-- <a href="cartpage.php"> -->
         <div onclick='cartfunction()'>
           <b class="number">
-            <!-- <?php
-
-                  $number = 0;
-                  echo $number;
-                  ?> -->
-            0
+          <?php
+          if (isset($_SESSION['cart'])) {
+            echo count($_SESSION['cart']);
+          }
+          ?>
           </b>
           <span class="material-symbols-outlined"> shopping_cart </span>
           <p class="icon">Cart</p>
@@ -94,10 +93,11 @@ include('../db/connection.php');
         <!-- <a href="wishlist.php"> -->
         <div onclick='wishlistfunction()'>
           <b class="number">
-            <!-- <?php
-                  echo $number;
-                  ?> -->
-            0
+          <?php
+          if (isset($_SESSION['wishlist'])) {
+            echo count($_SESSION['wishlist']);
+          }
+          ?>
           </b>
           <span class="material-symbols-outlined"> favorite </span>
 

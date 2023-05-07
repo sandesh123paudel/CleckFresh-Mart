@@ -28,6 +28,8 @@
     require('footer.php');
     ?>
 
+<script src="addremove.js"></script>
+
 </body>
 
 </html>

@@ -28,7 +28,13 @@
       echo "<span class='size'>$product_quantity gm</span>";
       echo "<p class='price'>&pound; $product_price</p>";
       // echo "<a href=''><div class='btn'>Add +</div></a>";
-      echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+      echo "<input type='hidden' data-quantity='1' >";
+
+      if (isset($_SESSION['userID'])) {
+        echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+      } else {
+        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+      }
       echo "</div>";
     }
     ?>
@@ -94,6 +100,7 @@
         $product_image = $row['PRODUCT_IMAGE'];
         $product_price = $row['PRODUCT_PRICE'];
         $product_offer = $row['OFFER_ID'];
+        $product_quantity = $row['QUANTITY'];
 
         echo "<div class='single'>";
         echo "<div class='img' onclick='viewproduct($product_id)'>";
@@ -101,8 +108,8 @@
         echo "<div class='offer'>Offer</div>";
         echo "</div>";
         echo "<div class='content'>";
-        echo "<h5>Fresh Blackberries</h5>";
-        echo "<span class='piece'>24 PieceS</span>";
+        echo "<h5>$product_name</h5>";
+        echo "<span class='piece'> $product_quantity gm</span>";
 
         echo "<div class='price'>";
 
@@ -118,8 +125,15 @@
         echo "<span class='main'>&pound; " . $total_price . "</span>";
 
         echo "</div>";
+        echo "<input type='hidden' data-quantity='1' >";
+
         // echo "<a href=''><div class='btn'>Add +</div></a>";
-        echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+        if (isset($_SESSION['userID'])) {
+          echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+        } else {
+          echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+        }
+
         echo "</div>";
         echo "</div>";
       }
@@ -196,12 +210,16 @@
           echo "<span class='main'>&pound; " . $product_price . "</span>";
         }
         echo "</div>";
-
+        echo "<input type='hidden' data-quantity='1' >";
         if ((int)$product_stock <= 0) {
           echo "<div class='btn' id='outstock' >Add +</div>";
         } else {
           // echo "<a href=''><div class='btn'>Add +</div></a>";
-          echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+          if (isset($_SESSION['userID'])) {
+            echo "<button class='btn' id='add' >Add +</button>";
+          } else {
+            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+          }
         }
         echo "</div>";
         echo "</div>";
@@ -220,5 +238,18 @@
 <script>
   function viewproduct(p_id) {
     window.location.href = "productview.php?p_id=" + p_id;
+  }
+
+  function addtocart(p_id, quantity) {
+    var product_id = p_id;
+    var quantity = quantity;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+      }
+    };
+    xmlhttp.open("GET", "insertremove.php?action=addcart&quantity=" + quantity + "&id=" + product_id, true);
+    xmlhttp.send();
   }
 </script>

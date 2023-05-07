@@ -24,6 +24,7 @@ include("../db/connection.php");
             });
         });
     </script>
+
 </head>
 
 <body>
@@ -45,7 +46,7 @@ include("../db/connection.php");
                             $cat_name = $row['CATEGORY_NAME'];
                         }
                     }
-                    if(!isset($_GET['cat_name'])){
+                    if (!isset($_GET['cat_name'])) {
                         $cat_name = "Filters Shop ";
                     }
                     if (isset($_GET['cat_name'])) {
@@ -62,26 +63,26 @@ include("../db/connection.php");
 
                     ?> Products Lists </h3>
 
-            
-                <select id='filter' name='filter'>
-                    <option value="all">Filter by Shop</option>
-                    <?php
-                    $sql = "SELECT * FROM SHOP ";
-                    $stid = oci_parse($connection, $sql);
-                    oci_execute($stid);
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        // session unset
-                        unset($_SESSION['shopid']);
 
-                        $s_id = $row['SHOP_ID'];
-                        $s_name = $row['SHOP_NAME'];
-                        $_SESSION['shopid'] = $s_id;
-                        // echo "<option type='hidden' id='shop_name' value='$s_name'>";
-                        echo "<option value='$s_id'  >" . $s_name . "</option>";
-                    }
-                    ?>
-                </select>
-            
+            <select id='filter' name='filter'>
+                <option value="all">Filter by Shop</option>
+                <?php
+                $sql = "SELECT * FROM SHOP ";
+                $stid = oci_parse($connection, $sql);
+                oci_execute($stid);
+                while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                    // session unset
+                    unset($_SESSION['shopid']);
+
+                    $s_id = $row['SHOP_ID'];
+                    $s_name = $row['SHOP_NAME'];
+                    $_SESSION['shopid'] = $s_id;
+                    // echo "<option type='hidden' id='shop_name' value='$s_name'>";
+                    echo "<option value='$s_id'  >" . $s_name . "</option>";
+                }
+                ?>
+            </select>
+
 
         </div>
 
@@ -114,11 +115,20 @@ include("../db/connection.php");
                         echo "<h5>Fresh Blackberries</h5>";
                         echo "<span class='piece'>24 PieceS</span>";
 
+                        echo "<input type='hidden' data-quantity='1' >";
+
                         echo "<div class='price'>";
                         echo "<span class='cut'>$50.00</span>";
                         echo "<span class='main'>$20.00</span>";
                         echo "</div>";
-                        echo "<a href=''><div class='btn'>Add +</div></a>";
+
+                        // echo "<a href=''><div class='btn'>Add +</div></a>";
+                        if (isset($_SESSION['userID'])) {
+                            echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+                        } else {
+                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+                        }
+
                         echo "</div>";
                         echo "</div>";
                     }
@@ -205,12 +215,17 @@ include("../db/connection.php");
                     }
 
                     echo "</div>";
+                    echo "<input type='hidden' data-quantity='1' >";
 
                     if ((int)$product_stock <= 0) {
                         echo "<div class='btn' id='outstock' >Add +</div>";
                     } else {
 
-                        echo "<div class='btn'>Add +</div>";
+                        if (isset($_SESSION['userID'])) {
+                            echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+                        } else {
+                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+                        }
                     }
 
                     echo "</div>";
@@ -232,8 +247,20 @@ include("../db/connection.php");
         function viewproduct(p_id) {
             window.location.href = "productview.php?p_id=" + p_id;
         }
-    </script>
 
+        function addcart(p_id, quantity) {
+            var product_id = p_id;
+            var quantity = quantity;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+                }
+            };
+            xmlhttp.open("GET", "insertremove.php?action=addcart&quantity=" + quantity + "&id=" + product_id, true);
+            xmlhttp.send();
+        }
+    </script>
 
 </body>
 
