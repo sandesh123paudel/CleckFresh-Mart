@@ -34,7 +34,7 @@
             
 
             <tr>
-              <td class='img'><img src="../logo/apple2.webp" alt="image" /></td>
+              <td class='img'><img src="../assets/apple2.webp" alt="image" /></td>
               <td>Apple</td>
               <td>1kg</td>
               <td>&#163; 100</td>

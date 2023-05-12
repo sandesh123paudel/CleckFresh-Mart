@@ -12,7 +12,7 @@ include('../db/connection.php');
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link rel="stylesheet" href="css/productsvi.css" />
+    <!-- <link rel="stylesheet" href="css/productsvi.css" /> -->
 
 </head>
 
@@ -46,7 +46,7 @@ include('../db/connection.php');
 
     ?>
 
-    <div class="product-container">
+    <div class="productview-container">
         <div class="product-detail">
             <div class="product-part1">
                 <div class="product-image">
@@ -142,7 +142,7 @@ include('../db/connection.php');
                     // echo "<button>Add to basket</button>";
                     // add to cart
                     if (isset($_SESSION['userID'])) {
-                        echo "<button  id='add' data-id='$p_id'>Add to Basket</button>";
+                        echo "<button  id='add' onclick='addtocart($p_id,1)'>Add to Basket</button>";
                     } else {
                         echo "<button  id='addcart' onclick='addcart($p_id,1)'>Add to Basket</button>";
                     }
@@ -150,7 +150,7 @@ include('../db/connection.php');
                     //add to wishlist
                     // echo "<button >Add to List &#9825; </button>";
                     if (isset($_SESSION['userID'])) {
-                        echo "<button  id='add' data-id='$p_id'>Add to List &#9825; </button>";
+                        echo "<button  id='add' onclick='addtowishlist($p_id)'>Add to List &#9825; </button>";
                     } else {
                         echo "<button  id='addwishlist' onclick='addwishlist($p_id)'>Add to List &#9825;</button>";
                     }
@@ -223,7 +223,7 @@ include('../db/connection.php');
                 <a href="#">See All >> </a>
             </div>
 
-            <div class="product-lists">
+            <div class="productview-lists">
 
                 <?php
                 $sql = 'SELECT * FROM PRODUCT WHERE SHOP_ID = :s_id';
@@ -290,7 +290,7 @@ include('../db/connection.php');
                         echo "<div class='btn' id='outstock' >Add +</div>";
                     } else {
                         if (isset($_SESSION['userID'])) {
-                            echo "<button class='btn' id='add' data-id='$product_id'>Add +</button>";
+                            echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
                         } else {
                             echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
                         }
@@ -309,44 +309,28 @@ include('../db/connection.php');
     require("footer.php");
     ?>
 
-
-
     <script>
         function viewproduct(p_id) {
             window.location.href = "productview.php?p_id=" + p_id;
         }
 
-        function addquantity() {
-            // var count = 0;
-            var count = document.getElementById('quantity-data').value;
-            alert(count);
-        }
-
-        function addcart(p_id, quantity) {
-            var product_id = p_id;
-            var quantity = quantity;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
-                }
-            };
-            xmlhttp.open("GET", "insertremove.php?action=addcart&quantity=" + quantity + "&id=" + product_id, true);
-            xmlhttp.send();
-        }
-
-        function addwishlist(p_id) {
-            var product_id = p_id;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
-                }
-            };
-            xmlhttp.open("GET", "insertremove.php?action=addwishlist&id=" + product_id, true);
-            xmlhttp.send();
-        }
+        // function addwishlist(p_id) {
+        //     var product_id = p_id;
+        //     var xmlhttp = new XMLHttpRequest();
+        //     xmlhttp.onreadystatechange = function() {
+        //         if (this.readyState == 4 && this.status == 200) {
+        //             alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+        //         }
+        //     };
+        //     xmlhttp.open(
+        //         "GET",
+        //         "insertremove.php?action=addwishlist&id=" + product_id,
+        //         true
+        //     );
+        //     xmlhttp.send();
+        // }
     </script>
+    <script src="addremove.js"></script>
 </body>
 
 </html>

@@ -41,7 +41,6 @@
 
             oci_bind_by_name($stid , ':email' , $email);
             oci_bind_by_name($stid , ':pass' ,$password);
-            // oci_bind_by_name($stid , ':u_role' ,$role);
             // oci_bind_by_name($stid , ':verfiy' , $verify);
 
             oci_execute($stid);
@@ -117,7 +116,7 @@
         <!-- part 1 -->
         <div class='part1'>
             <div class='logo'>
-                <a href='customer/homepage.php'><img src='logo/logo.png' alt='CheckFreshMart' /></a>
+                <a href='customer/homepage.php'><img src='assets/logo.png' alt='CheckFreshMart' /></a>
             </div>
             <div class='login-text'>
                 <div>

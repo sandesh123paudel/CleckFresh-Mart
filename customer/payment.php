@@ -14,7 +14,7 @@
     <form method="post" class="payment">
       <h3>Payment</h3>
       <h4>Payment Type</h4>
-      <img src="../logo/paypal.png" alt="" />
+      <img src="../assets/paypal.png" alt="" />
 
       <div class="input-box">
         <label>Email</label>

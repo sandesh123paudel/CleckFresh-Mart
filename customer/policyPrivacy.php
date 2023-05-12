@@ -17,9 +17,9 @@
     </div>
 
     <div class="banner">
-      <img src="../logo/basket.png" alt="basket" />
+      <img src="../assets/basket.png" alt="basket" />
       <h1>Privacy Policy</h1>
-      <img src="../logo/basket.png" alt="basket" />
+      <img src="../assets/basket.png" alt="basket" />
     </div>
 
     <div class="policy-condition">

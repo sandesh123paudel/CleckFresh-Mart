@@ -72,9 +72,9 @@
 
                 <h3>Social</h3>
                 <div class="social-links">
-                    <a href="#"><img src="../logo/facebook.png" alt="facebook"/></a>
-                    <a href="#"><img src="../logo/instagram.png" alt="facebook"/></a>
-                    <a href="#"><img src="../logo/twitter.png" id="twiter" alt="facebook"/></a>
+                    <a href="#"><img src="../assets/facebook.png" alt="facebook"/></a>
+                    <a href="#"><img src="../assets/instagram.png" alt="facebook"/></a>
+                    <a href="#"><img src="../assets/twitter.png" id="twiter" alt="facebook"/></a>
                 </div>
             </div>
         </div>

@@ -23,9 +23,9 @@
 
     <div class="faq-container">
       <div class="banner">
-        <img src="../logo/basket.png" alt="basket" />
+        <img src="../assets/basket.png" alt="basket" />
         <h1>FAQ</h1>
-        <img src="../logo/basket.png" alt="basket" />
+        <img src="../assets/basket.png" alt="basket" />
       </div>
 
       <div class="title">

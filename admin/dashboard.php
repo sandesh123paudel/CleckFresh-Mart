@@ -37,8 +37,8 @@
     <title>Document</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/dashboard.css" />
-    <link rel="stylesheet" href="css/overviews.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <!-- <link rel="stylesheet" href="css/overviews.css" /> -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
@@ -51,7 +51,7 @@
         <div class="part1">
             <!-- logo -->
             <div class="logo">
-                <a href="dashboard.php"><img src="../logo/logo.png" alt="logo" /></a>
+                <a href="dashboard.php"><img src="../assets/logo.png" alt="logo" /></a>
             </div>
             <!-- side-links -->
             <div class="side-links">
@@ -135,14 +135,14 @@
                 ?> </h3>
                     <div>
                         <ul class="dropdown-menu setting">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="dashboard.php?cat=Profile">Profile</a></li>
                             <li>
                                 <label class="dropdown-item dropdown-toggle" onmouseover="onMouse('Profile')"
                                     onmouseout="outMouse('Profile')" data-bs-toggle="dropdown"
                                     aria-expanded="false">Setting</label>
                                 <div>
                                     <ul class="dropdown-menu" id='setting'>
-                                        <li><a class="dropdown-item" href="#">Update Profile</a></li>
+                                        <li><a class="dropdown-item" href="dashboard.php?cat=UpdateProfile">Update Profile</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -188,10 +188,10 @@
                 require_once('editshop.php');
               }
               if($links == "Profile"){
-                require_once('../profile/profilepage.php');
+                require_once('profilepage.php');
               }
               if($links == "UpdateProfile"){
-                require_once('../profile/editprofile.php');
+                require_once('editprofile.php');
               } 
             }
             else{
@@ -207,7 +207,7 @@
         id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
             <div class="logo">
-                <a href="traderdashboard.php"><img src="../logo/logo.png" alt="logo" /></a>
+                <a href="traderdashboard.php"><img src="../assets/logo.png" alt="logo" /></a>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>

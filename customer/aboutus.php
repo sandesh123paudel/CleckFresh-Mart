@@ -19,9 +19,9 @@
     </div>
 
         <div class="banner">
-            <img src="../logo/basket.png" alt="basket" />
+            <img src="../assets/basket.png" alt="basket" />
             <h1>About Us</h1>
-            <img src="../logo/basket.png" alt="basket" />
+            <img src="../assets/basket.png" alt="basket" />
         </div>
         
         <div class="about-container">
@@ -42,10 +42,10 @@
                     Media Integration. Fraud Prevention.
                 </p>
                 <div class="social-links">
-                    <a href="#"><img src='../logo/facebook.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/google.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/instagram.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/twitter.png'id='twiter' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/facebook.png' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/google.png' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/instagram.png' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/twitter.png'id='twiter' alt="facebook"/></a>
                 </div>
                 <div class="line"></div>
                 <h3>Our Experties</h3>
@@ -53,20 +53,20 @@
                 <div class="members">
                     
                     <div class="member-info">
-                        <img src="../logo/avtar.png" alt="admin" />
+                        <img src="../assets/avtar.png" alt="admin" />
                         <div class="member-def">
                             <h3>Partner</h3>
                         </div>
                     </div>
                     <!-- optional -->
                     <div class="member-info">
-                        <img src="../logo/avtar.png" alt="admin" />
+                        <img src="../assets/avtar.png" alt="admin" />
                         <div class="member-def">
                             <h3>Partner</h3>
                         </div>
                     </div>
                     <div class="member-info">
-                        <img src="../logo/avtar.png" alt="admin" />
+                        <img src="../assets/avtar.png" alt="admin" />
                         <div class="member-def">
                             <h3>Partner</h3>
                         </div>
@@ -80,7 +80,7 @@
 
             <div class="members">
                 <div class="member-info">
-                    <img src="../logo/avtar.png" alt="admin" />
+                    <img src="../assets/avtar.png" alt="admin" />
                     <div class="member-def">
                         <h3>Partner</h3>
                     </div>
@@ -88,14 +88,14 @@
                 
                 <!-- optional -->
                 <div class="member-info">
-                    <img src="../logo/avtar.png" alt="admin" />
+                    <img src="../assets/avtar.png" alt="admin" />
                     <div class="member-def">
                         <h3>Partner</h3>
                     </div>
                 </div>
     
                 <div class="member-info">
-                    <img src="../logo/avtar.png" alt="admin" />
+                    <img src="../assets/avtar.png" alt="admin" />
                     <div class="member-def">
                         <h3>Partner</h3>
                     </div>

@@ -90,16 +90,20 @@
     justify-content: space-between;
     border-radius: 25px;
     padding-inline: 20px;
-    padding-block: 20px;
+    padding-block: 10px;
     margin-block: 1rem;
     box-shadow: 1px 0px 5px 3px lightgrey;
+    min-height:180px ;
 }
 .image{
-    width: 150px;
+    width: 165px;
+    height: 155px;
 }
 .image img{
-    padding-left: 20px;
+    /* padding-left: 20px;
+    padding-top: 1rem; */
     width: 100%;
+    height: 100%;
 }
 .qty{
     display: flex;
@@ -142,6 +146,7 @@
     padding-block: 5px;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 .price, .remove{
     font-size: 25px;
@@ -151,6 +156,8 @@
 .remove span{
     font-size: 50px;
     padding-block: 5px;
+    cursor: pointer;
+    padding-right: 1rem;
 }
 
 .total , .process{
@@ -228,15 +235,16 @@
     height: 200px;
   }
 
-  .wishlist-item .img a {
+  .wishlist-item .img .closebtn {
     /* display: none;   */
     position: absolute;
     padding: 4px;
-    margin-left: -3rem;
-    margin-top: -1rem;  
+    margin-left: 9.5rem;
+    margin-top: -13.7rem;  
     font-size: 1.5rem;
     font-family: "Nunito";
     font-weight: bold;
+    cursor: pointer;
     width: 6rem;
     color: rgb(116, 116, 116);
     text-decoration: none;
@@ -332,6 +340,4 @@
   .wishlist-item .img a { 
     margin-left:-4rem;
   }
-  
-    
 }

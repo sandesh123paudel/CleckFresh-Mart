@@ -12,6 +12,8 @@ include('../db/connection.php');
   <title>Document</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/carts.css" />
+  
+  <script src="addremove.js"></script>
 </head>
 
 <body>
@@ -41,6 +43,25 @@ include('../db/connection.php');
           if (isset($_SESSION['cart'])) {
             echo count($_SESSION['cart']);
           }
+          else if(isset($_SESSION['userID'])){
+              $stmt = "SELECT * FROM CART WHERE USER_ID = :id";
+              $stid = oci_parse($connection,$stmt);
+              oci_bind_by_name($stid, ":id", $_SESSION['userID']);
+              oci_execute($stid);
+              $row = oci_fetch_array($stid,OCI_ASSOC);
+              $_SESSION['cart_id'] = $row['CART_ID'];
+              // echo $_SESSION['cart_id'];
+
+              $sql = "SELECT COUNT(*) AS NUM_OF_ROWS FROM CART_PRODUCT WHERE CART_ID = :cart_id";
+              $stmts = oci_parse($connection,$sql);
+              oci_bind_by_name($stmts,":cart_id" , $_SESSION['cart_id']);
+
+              oci_define_by_name($stmts,"NUM_OF_ROWS", $cart_num);
+              oci_execute($stmts);
+              oci_fetch($stmts);
+              echo $cart_num;
+              $_SESSION['cart_num'] = $cart_num;
+          }
           else{
             echo "0";
           }
@@ -52,6 +73,7 @@ include('../db/connection.php');
 
       $productprice = 0;
       $totalprice = 0;
+      // If user is not login 
       if (isset($_SESSION['cart'])) {
 
         foreach ($_SESSION['cart'] as $key => $value) {
@@ -77,20 +99,11 @@ include('../db/connection.php');
             <label>" . $productname . " " . (int)$row['QUANTITY'] * $quantity . "</label>
           </div>
           <div class='qty'>
-            <h3 >1</h3>
-            <!-- icon -->
+          <h3 >1</h3>
             <div class='qty-icon'>
-    
-                <a href='#'>
-                  <span class='material-symbols-outlined'> arrow_drop_up </span>
-                </a>
-           
-                <a href='#'>
-                  <span class='material-symbols-outlined'> arrow_drop_down </span>
-             
-                </a>
-             
+              <span class='material-symbols-outlined' onclick='addquantity()'> arrow_drop_up </span>
                 
+              <span class='material-symbols-outlined' onclick='subquantity()'> arrow_drop_down </span>        
             </div>
           </div>
           <div class='price'>&#163; $productprice</div>
@@ -104,7 +117,59 @@ include('../db/connection.php');
           }
         }
       }
+
+
+      if(isset($_SESSION['userID'])){
+        $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
+        $stmts = oci_parse($connection,$sql);
+        oci_bind_by_name($stmts, ":cart_id" , $_SESSION['cart_id']);
+        oci_execute($stmts);
+        while($row = oci_fetch_array($stmts,OCI_ASSOC)){
+          $pid = $row['PRODUCT_ID'];
+          $quantity = $row['QUANTITY'];
+          // query for product table 
+          $sqlpr = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = :pid";
+          $stmt = oci_parse($connection,$sqlpr);
+          oci_bind_by_name($stmt, ":pid" , $pid);
+          oci_execute($stmt);
+          while($data = oci_fetch_array($stmt,OCI_ASSOC)){
+            $productprice =  $quantity * $data['PRODUCT_PRICE'];
+            $totalprice += $quantity * $data['PRODUCT_PRICE'];
+            $productname = $data['PRODUCT_NAME'];
+
+            echo "
+        <div class='item-container'>
+          <div class='image'>";
+            echo "<img src=\"../db/uploads/products/" . $data['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+
+            echo " </div>
+          <div class='item-info'>
+            <h3>" . $productname . "</h3>
+            <label>CleckFreshMart Chicken</label>
+            <label>" . $productname . " " . (int)$data['QUANTITY'] * $quantity . "</label>
+          </div>
+          <div class='qty'>
+          <h3 >1</h3>
+            <div class='qty-icon'>
+              <span class='material-symbols-outlined' onclick='addquantity()'> arrow_drop_up </span>
+                
+              <span class='material-symbols-outlined' onclick='subquantity()'> arrow_drop_down </span>        
+            </div>
+          </div>
+          <div class='price'>&#163; $productprice</div>
+
+          <div class='remove'>
+            <span class='material-symbols-outlined' onclick='removecartdb(" . $data['PRODUCT_ID'] . ")'> delete </span>
+          </div>
+        </div>
+
+        ";
+          }
+        }
+      }
       ?>
+
+
       <div class="line"></div>
 
       <div class="total">
@@ -112,6 +177,9 @@ include('../db/connection.php');
           <?php
           if (isset($_SESSION['cart'])) {
             echo count($_SESSION['cart']);
+          }
+          else if(isset($_SESSION['userID'])){
+            echo $cart_num;
           }
           else{
             echo "0";
@@ -124,12 +192,11 @@ include('../db/connection.php');
         <h4>Process Payment</h4>
         <?php
         if (isset($_SESSION['userID'])) {
-          echo "<button>Process to Checkout</button>";
+          echo "<button onclick='checkout()'>Process to Checkout</button>";
         } else {
           echo "<button onclick='cartlogin()'>Process to Checkout</button>";
         }
         ?>
-
       </div>
     </div>
   </div>
@@ -137,23 +204,17 @@ include('../db/connection.php');
   require('footer.php');
   ?>
 
-  <script>
-    function cartlogin() {
-      document.location.href = '../login.php';
-    }
+<script>
+  function checkout(){
+    document.location.href='checkoutpage.php';
+  }
 
-    function removecart(p_id) {
-            var product_id = p_id;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
-                }
-            };
-            xmlhttp.open("GET", "insertremove.php?action=removecart&&id=" + product_id, true);
-            xmlhttp.send();
-        }
-  </script>
+  function cartlogin(){
+    document.location.href='../login.php';
+  }
+
+  
+</script>
 </body>
 
 </html>

@@ -76,7 +76,7 @@
                 if(isset($_GET['page'])){
                     $role = $_GET['page'];
                     if($role == 'login'){  
-                        echo "<img src='logo/login.png'  alt='login'>";
+                        echo "<img src='assets/login.png'  alt='login'>";
                     }
                 }
             ?>

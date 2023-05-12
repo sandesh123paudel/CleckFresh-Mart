@@ -23,6 +23,7 @@
     if($_GET['role']== 'customer'){
       unset($_SESSION['userID']);
       unset($_SESSION['token']);
+      unset($_SESSION['cart_id']);
     }
     if($_GET['role']== 'trader'){
       unset($_SESSION['traderID']);

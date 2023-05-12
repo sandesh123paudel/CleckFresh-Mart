@@ -240,7 +240,7 @@
         <!-- part 1 -->
         <div class='part1'>
             <div class='logo'>
-                <a href='customer/homepage.php'><img src='logo/logo.png' alt='CheckFreshMart' /></a>
+                <a href='customer/homepage.php'><img src='assets/logo.png' alt='CheckFreshMart' /></a>
             </div>
             <div class='login-text'>
                 <div>

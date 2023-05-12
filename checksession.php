@@ -14,4 +14,8 @@ session_start();
     echo "\nusername :".$_SESSION['username'];
     echo "\n shop id: ". $_SESSION['shop_id'];
 
+    unset($_SESSION['wishlist']);
+    unset($_SESSION['cart']);
+    echo empty($_SESSION['cart']) ? "cart is Empty" : "cart is not empty";
+    echo empty($_SESSION['wishlist']) ? "wishlist is empty" : "wishlist is not empty";
 ?>

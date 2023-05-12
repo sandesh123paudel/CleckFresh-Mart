@@ -33,9 +33,9 @@ if(isset($_POST['contact'])){
 
     <div class="contact-container">
         <div class="banner">
-            <img src="../logo/basket.png" alt="basket" />
+            <img src="../assets/basket.png" alt="basket" />
             <h1>Contact Us</h1>
-            <img src="../logo/basket.png" alt="basket" />
+            <img src="../assets/basket.png" alt="basket" />
         </div>
 
         <div class="contact-info">
@@ -88,10 +88,10 @@ if(isset($_POST['contact'])){
                 </form>
 
                 <div class="contact-social">
-                    <a href="#"><img src='../logo/google.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/facebook.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/instagram.png' alt="facebook"/></a>
-                    <a href="#"><img src='../logo/twitter.png' id="twitter" alt="facebook"/></a>
+                    <a href="#"><img src='../assets/google.png' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/facebook.png' alt="facebook"/></a>
+                    <a href="#"><img src='../assets/instagram.png' alt="facebook"/></a>
+                    <a href="#"><img src='../asssets/twitter.png' id="twitter" alt="facebook"/></a>
                 </div>
             </div>
             <!-- Google Map -->

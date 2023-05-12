@@ -1,13 +1,156 @@
+
+// working with sessions
+function addquantity() {
+  // var count = 0;
+  var count = document.getElementById("quantity-data").value;
+  alert(count);
+}
+
+// this function for storing data in session for temporart
 function addcart(p_id, quantity) {
   var product_id = p_id;
   var quantity = quantity;
   var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
-      }
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
   };
-  xmlhttp.open("GET", "insertremove.php?action=addcart&quantity="+quantity+"&id=" + product_id, true);
+  xmlhttp.open(
+    "GET",
+    "insertremove.php?action=addcart&quantity=" +
+      quantity +
+      "&id=" +
+      product_id,
+    true
+  );
+  xmlhttp.send();
+}
+// remove from cart
+function removecart(p_id) {
+  var product_id = p_id;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
+  };
+  xmlhttp.open(
+    "GET",
+    "insertremove.php?action=removecart&&id=" + product_id,
+    true
+  );
   xmlhttp.send();
 }
 
+// working with wishlist
+function addwishlist(p_id) {
+  var product_id = p_id;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
+  };
+  xmlhttp.open(
+    "GET",
+    "insertremove.php?action=addwishlist&id=" + product_id,
+    true
+  );
+  xmlhttp.send();
+}
+
+ // remove from session
+ function removewishlist(p_id) {
+  var product_id = p_id;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
+  };
+  xmlhttp.open(
+    "GET",
+    "insertremove.php?action=removewishlist&id=" + product_id,
+    true
+  );
+  xmlhttp.send();
+}
+
+
+
+// working with database
+// this function is used for storing in database
+// worked successfully
+function addtocart(p_id, quantity) {
+  var product_id = p_id;
+  var quantity = quantity;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
+  };
+  xmlhttp.open(
+    "GET",
+    "dbaddremove.php?action=addcart&quantity=" +
+      quantity +
+      "&id=" +
+      product_id,
+    true
+  );
+  xmlhttp.send();
+}
+
+// worked successfully
+function addtowishlist(p_id) {
+  var product_id = p_id;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+    }
+  };
+  xmlhttp.open(
+    "GET",
+    "dbaddremove.php?action=addwishlist&id=" + product_id,
+    true
+  );
+  xmlhttp.send();
+}
+
+
+   
+    
+    // remove from database worked successfully
+    function removewishlistdb(p_id) {
+      var product_id = p_id;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+        }
+      };
+      xmlhttp.open(
+        "GET",
+        "dbaddremove.php?action=removewishlist&id=" + product_id,
+        true
+      );
+      xmlhttp.send();
+    }
+
+    function removecartdb(p_id) {
+      var product_id = p_id;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+        }
+      };
+      xmlhttp.open(
+        "GET",
+        "dbaddremove.php?action=removecart&id=" + product_id,
+        true
+      );
+      xmlhttp.send();
+    }

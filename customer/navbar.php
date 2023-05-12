@@ -1,6 +1,11 @@
 <?php
 session_start();
 include('../db/connection.php');
+if (isset($_SESSION['userID'])) {
+  unset($_SESSION['cart']);
+  unset($_SESSION['wishlist']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +21,11 @@ include('../db/connection.php');
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
   <!-- fonts icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="css/nav.css" />
+  <!-- <link rel="stylesheet" href="css/nav.css" /> -->
+  <link rel="stylesheet" href="css/indexs.css" />
   <!--jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="addremove.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -27,7 +34,6 @@ include('../db/connection.php');
         document.location.href = "products.php?p_name=" + product_name.toLowerCase() + "&search=search";
       })
     })
-    
   </script>
 </head>
 
@@ -35,7 +41,7 @@ include('../db/connection.php');
   <nav class="nav">
     <!-- logo -->
     <div class="logo">
-      <a href="homepage.php"><img src="../logo/logo.png" alt="logo" class="logo-img" /></a>
+      <a href="homepage.php"><img src="../assets/logo.png" alt="logo" class="logo-img" /></a>
     </div>
 
     <!-- Menu -->
@@ -77,13 +83,13 @@ include('../db/connection.php');
         <!-- Cart -->
         <!-- <a href="cartpage.php"> -->
         <div onclick='cartfunction()'>
-          <b class="number">
-          <?php
-          if (isset($_SESSION['cart'])) {
-            echo count($_SESSION['cart']);
-          }
-          ?>
-          </b>
+          <!-- <b class="number">
+            <?php
+            if (isset($_SESSION['cart'])) {
+              echo count($_SESSION['cart']);
+            }
+            ?>
+          </b> -->
           <span class="material-symbols-outlined"> shopping_cart </span>
           <p class="icon">Cart</p>
         </div>
@@ -92,13 +98,13 @@ include('../db/connection.php');
         <!-- Wishlist -->
         <!-- <a href="wishlist.php"> -->
         <div onclick='wishlistfunction()'>
-          <b class="number">
-          <?php
-          if (isset($_SESSION['wishlist'])) {
-            echo count($_SESSION['wishlist']);
-          }
-          ?>
-          </b>
+          <!-- <b class="number">
+            <?php
+            if (isset($_SESSION['wishlist'])) {
+              echo count($_SESSION['wishlist']);
+            }
+            ?>
+          </b> -->
           <span class="material-symbols-outlined"> favorite </span>
 
           <p class="icon">Wishlist</p>
@@ -110,8 +116,8 @@ include('../db/connection.php');
           echo "
               <div>
                   <img
-                    src='../logo/avtar.png'
-                    class='profile dropdown-toggle'
+                    src='../assets/avtar.png'
+                    class='avtar dropdown-toggle'
                     type='button'
                     data-bs-toggle='dropdown'
                     aria-expanded='false'
@@ -160,7 +166,7 @@ include('../db/connection.php');
     <!-- off canvas -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
       <div class="offcanvas-header">
-        <a href="homepage.php"><img src="../logo/logo.png" alt="logo" class="logo-img" /></a>
+        <a href="homepage.php"><img src="../assets/logo.png" alt="logo" class="logo-img" /></a>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="line"></div>
@@ -224,14 +230,8 @@ include('../db/connection.php');
           document.getElementById("profile").style.display = "none";
         }
       }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
 
-    <!-- cart -->
-    <script src="addtocart.js"></script>
 
-    <script>
       function cartfunction() {
         document.location.href = 'cartpage.php';
       }
@@ -240,6 +240,10 @@ include('../db/connection.php');
         document.location.href = 'wishlist.php';
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

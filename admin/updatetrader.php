@@ -41,5 +41,3 @@
             header('location:dashboard.php?name=Users&cat=Traders Lists');
         }
     }
-
-?>

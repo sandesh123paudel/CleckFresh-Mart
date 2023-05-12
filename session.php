@@ -21,6 +21,8 @@ if(isset($_SESSION['ID'])){
     if($role === 'customer'){
         $_SESSION['userID'] = $user['USER_ID'];
         $_SESSION['token'] = $token;
+        include('customer/addremove.php');
+
         header('location:customer/homepage.php');
     }
     if($role === 'trader'){
@@ -33,5 +35,3 @@ if(isset($_SESSION['ID'])){
         header('location:admin/dashboard.php');
     }
 }
-
-?>
