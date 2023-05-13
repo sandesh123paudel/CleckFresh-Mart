@@ -112,7 +112,7 @@
 .qty h3{
     font-size: 25px;
     position: relative;
-    margin-top: 35px;
+    margin-top: 30px;
     padding-inline: 20px;
     padding-block: 5px;
 }
@@ -122,6 +122,7 @@
     margin-block: 15px;
     flex-direction: column;
     row-gap: 0.5rem;
+    width: 35%;
   
 }
 .item-info h3{
@@ -158,6 +159,29 @@
     padding-block: 5px;
     cursor: pointer;
     padding-right: 1rem;
+}
+
+.bttns{
+    margin-top: 1rem;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+}
+.bttns button{
+    border: none;
+    cursor: pointer;
+    outline: none;
+    width: 70px;
+    border-radius: 5px;
+    padding-block: 2px;
+    color: white;
+}
+.bttns button:nth-child(1){
+    background-color: var(--green);
+}
+
+.bttns button:nth-child(2){
+    background-color: var(--pink);
 }
 
 .total , .process{

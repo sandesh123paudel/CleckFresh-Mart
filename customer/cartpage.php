@@ -12,8 +12,29 @@ include('../db/connection.php');
   <title>Document</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/carts.css" />
-  
+
+  <style>
+    .qty #quantity {
+      border: none;
+      outline: none;
+      width: 30px;
+      font-weight: 600;
+      background: transparent;
+
+    }
+  </style>
   <script src="addremove.js"></script>
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.cart-item-quantity').on("keyup", function() {
+        const itemId = $(this).data('item-id');
+        const newQuantity = $(this).val();
+
+      });
+    });
+  </script> -->
 </head>
 
 <body>
@@ -42,27 +63,25 @@ include('../db/connection.php');
           <?php
           if (isset($_SESSION['cart'])) {
             echo count($_SESSION['cart']);
-          }
-          else if(isset($_SESSION['userID'])){
-              $stmt = "SELECT * FROM CART WHERE USER_ID = :id";
-              $stid = oci_parse($connection,$stmt);
-              oci_bind_by_name($stid, ":id", $_SESSION['userID']);
-              oci_execute($stid);
-              $row = oci_fetch_array($stid,OCI_ASSOC);
-              $_SESSION['cart_id'] = $row['CART_ID'];
-              // echo $_SESSION['cart_id'];
+          } else if (isset($_SESSION['userID'])) {
+            $stmt = "SELECT * FROM CART WHERE USER_ID = :id";
+            $stid = oci_parse($connection, $stmt);
+            oci_bind_by_name($stid, ":id", $_SESSION['userID']);
+            oci_execute($stid);
+            $row = oci_fetch_array($stid, OCI_ASSOC);
+            $_SESSION['cart_id'] = $row['CART_ID'];
+            // echo $_SESSION['cart_id'];
 
-              $sql = "SELECT COUNT(*) AS NUM_OF_ROWS FROM CART_PRODUCT WHERE CART_ID = :cart_id";
-              $stmts = oci_parse($connection,$sql);
-              oci_bind_by_name($stmts,":cart_id" , $_SESSION['cart_id']);
+            $sql = "SELECT COUNT(*) AS NUM_OF_ROWS FROM CART_PRODUCT WHERE CART_ID = :cart_id";
+            $stmts = oci_parse($connection, $sql);
+            oci_bind_by_name($stmts, ":cart_id", $_SESSION['cart_id']);
 
-              oci_define_by_name($stmts,"NUM_OF_ROWS", $cart_num);
-              oci_execute($stmts);
-              oci_fetch($stmts);
-              echo $cart_num;
-              $_SESSION['cart_num'] = $cart_num;
-          }
-          else{
+            oci_define_by_name($stmts, "NUM_OF_ROWS", $cart_num);
+            oci_execute($stmts);
+            oci_fetch($stmts);
+            echo $cart_num;
+            $_SESSION['cart_num'] = $cart_num;
+          } else {
             echo "0";
           }
           ?>
@@ -95,17 +114,16 @@ include('../db/connection.php');
             echo " </div>
           <div class='item-info'>
             <h3>" . $productname . "</h3>
-            <label>CleckFreshMart Chicken</label>
-            <label>" . $productname . " " . (int)$row['QUANTITY'] * $quantity . "</label>
+            <label>CleckFreshMart </label>
           </div>
+          <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
+
           <div class='qty'>
-          <h3 >1</h3>
-            <div class='qty-icon'>
-              <span class='material-symbols-outlined' onclick='addquantity()'> arrow_drop_up </span>
-                
-              <span class='material-symbols-outlined' onclick='subquantity()'> arrow_drop_down </span>        
-            </div>
+          <h3> 
+            <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $row['PRODUCT_ID'] . "' class='cart-item-quantity' disabled>
+          </h3>
           </div>
+
           <div class='price'>&#163; $productprice</div>
 
           <div class='remove'>
@@ -119,20 +137,20 @@ include('../db/connection.php');
       }
 
 
-      if(isset($_SESSION['userID'])){
+      if (isset($_SESSION['userID'])) {
         $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
-        $stmts = oci_parse($connection,$sql);
-        oci_bind_by_name($stmts, ":cart_id" , $_SESSION['cart_id']);
+        $stmts = oci_parse($connection, $sql);
+        oci_bind_by_name($stmts, ":cart_id", $_SESSION['cart_id']);
         oci_execute($stmts);
-        while($row = oci_fetch_array($stmts,OCI_ASSOC)){
+        while ($row = oci_fetch_array($stmts, OCI_ASSOC)) {
           $pid = $row['PRODUCT_ID'];
           $quantity = $row['QUANTITY'];
           // query for product table 
           $sqlpr = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = :pid";
-          $stmt = oci_parse($connection,$sqlpr);
-          oci_bind_by_name($stmt, ":pid" , $pid);
+          $stmt = oci_parse($connection, $sqlpr);
+          oci_bind_by_name($stmt, ":pid", $pid);
           oci_execute($stmt);
-          while($data = oci_fetch_array($stmt,OCI_ASSOC)){
+          while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
             $productprice =  $quantity * $data['PRODUCT_PRICE'];
             $totalprice += $quantity * $data['PRODUCT_PRICE'];
             $productname = $data['PRODUCT_NAME'];
@@ -145,18 +163,19 @@ include('../db/connection.php');
             echo " </div>
           <div class='item-info'>
             <h3>" . $productname . "</h3>
-            <label>CleckFreshMart Chicken</label>
-            <label>" . $productname . " " . (int)$data['QUANTITY'] * $quantity . "</label>
+            <label>CleckFreshMart</label>
           </div>
+          <div class='price'>&#163; " . $data['PRODUCT_PRICE'] . "</div>
+
           <div class='qty'>
-          <h3 >1</h3>
-            <div class='qty-icon'>
-              <span class='material-symbols-outlined' onclick='addquantity()'> arrow_drop_up </span>
-                
-              <span class='material-symbols-outlined' onclick='subquantity()'> arrow_drop_down </span>        
-            </div>
+          <h3>
+            <input type='hidden' value='" . $data['PRODUCT_PRICE'] . "' id='product_id'>
+            <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' disabled>
+          </h3>
+            
           </div>
           <div class='price'>&#163; $productprice</div>
+
 
           <div class='remove'>
             <span class='material-symbols-outlined' onclick='removecartdb(" . $data['PRODUCT_ID'] . ")'> delete </span>
@@ -167,9 +186,13 @@ include('../db/connection.php');
           }
         }
       }
+
       ?>
-
-
+      <!-- <div class='qty-icon'>
+              <span class='material-symbols-outlined' onclick='addedquantity()'> arrow_drop_up </span>
+                
+              <span class='material-symbols-outlined' onclick='removequantity()'> arrow_drop_down </span>        
+            </div> -->
       <div class="line"></div>
 
       <div class="total">
@@ -177,11 +200,9 @@ include('../db/connection.php');
           <?php
           if (isset($_SESSION['cart'])) {
             echo count($_SESSION['cart']);
-          }
-          else if(isset($_SESSION['userID'])){
+          } else if (isset($_SESSION['userID'])) {
             echo $cart_num;
-          }
-          else{
+          } else {
             echo "0";
           }
           ?> Items)</h3>
@@ -204,17 +225,33 @@ include('../db/connection.php');
   require('footer.php');
   ?>
 
-<script>
-  function checkout(){
-    document.location.href='checkoutpage.php';
-  }
 
-  function cartlogin(){
-    document.location.href='../login.php';
-  }
+  <script>
+    function checkout() {
+      document.location.href = 'checkoutpage.php';
+    }
 
-  
-</script>
+    function cartlogin() {
+      document.location.href = '../login.php';
+    }
+
+    function removequantity() {
+      const quantity = document.getElementById('quantity').value;
+      if (quantity > 1) {
+        const subtract = parseInt(quantity) - 1;
+        document.getElementById('quantity').value = subtract;
+      }
+    }
+
+    function addedquantity() {
+      const quantity = document.getElementById('quantity').value;
+      if (quantity < 20) {
+        const addition = parseInt(quantity) + 1;
+        document.getElementById('quantity').value = addition;
+      }
+
+    }
+  </script>
 </body>
 
 </html>

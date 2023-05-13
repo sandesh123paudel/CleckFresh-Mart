@@ -155,9 +155,9 @@ include("../db/connection.php");
                     oci_bind_by_name($stid, ':s_id', $_GET['s_id']);
                 }
                 if (isset($_GET['p_name'])) {
-                    $sql = 'SELECT * FROM PRODUCT WHERE PRODUCT_NAME= :p_name';
+                    $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME LIKE '%' || :product_name || '%'";
                     $stid = oci_parse($connection, $sql);
-                    oci_bind_by_name($stid, ':p_name', $_GET['p_name']);
+                    oci_bind_by_name($stid, ':product_name', $_GET['p_name']);
                 }
 
                 oci_execute($stid);
@@ -243,12 +243,12 @@ include("../db/connection.php");
     require('footer.php');
     ?>
 
-<script src="addremove.js"></script>
-<script>
-  function viewproduct(p_id) {
-  window.location.href = "productview.php?p_id=" + p_id;
-}
-</script>
+    <script src="addremove.js"></script>
+    <script>
+        function viewproduct(p_id) {
+            window.location.href = "productview.php?p_id=" + p_id;
+        }
+    </script>
 </body>
 
 </html>

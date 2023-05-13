@@ -14,6 +14,21 @@ include('../db/connection.php');
 
     <!-- <link rel="stylesheet" href="css/productsvi.css" /> -->
 
+    <style>
+        .product-quantity h3 {
+            margin-top: -3px;
+            margin-left: 5px;
+        }
+
+        .product-quantity #quantity {
+            border: none;
+            outline: none;
+            width: 30px;
+            font-weight: 600;
+            background: transparent;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -131,10 +146,11 @@ include('../db/connection.php');
                 <div class="product-quantity">
                     <h4>Quantity :</h4>
                     <button onclick="removequantity()">-</button>
-                    <h4 id='quantity-data'>
-                        1
-                    </h4>
-                    <button onclick="addquantity()">+</button>
+                    <h3>
+                        <input type="hidden" value='<?php echo $p_id; ?>' id='product_id'>
+                        <input type="text" min="1" max="20" value='1' id='quantity' disabled>
+                    </h3>
+                    <button onclick="addedquantity()">+</button>
                 </div>
 
                 <div class="buttons">
@@ -142,9 +158,9 @@ include('../db/connection.php');
                     // echo "<button>Add to basket</button>";
                     // add to cart
                     if (isset($_SESSION['userID'])) {
-                        echo "<button  id='add' onclick='addtocart($p_id,1)'>Add to Basket</button>";
+                        echo "<button  id='add' onclick='add_database()'>Add to Basket</button>";
                     } else {
-                        echo "<button  id='addcart' onclick='addcart($p_id,1)'>Add to Basket</button>";
+                        echo "<button  id='addcart' onclick='add_session()'>Add to Basket</button>";
                     }
 
                     //add to wishlist
@@ -314,21 +330,34 @@ include('../db/connection.php');
             window.location.href = "productview.php?p_id=" + p_id;
         }
 
-        // function addwishlist(p_id) {
-        //     var product_id = p_id;
-        //     var xmlhttp = new XMLHttpRequest();
-        //     xmlhttp.onreadystatechange = function() {
-        //         if (this.readyState == 4 && this.status == 200) {
-        //             alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
-        //         }
-        //     };
-        //     xmlhttp.open(
-        //         "GET",
-        //         "insertremove.php?action=addwishlist&id=" + product_id,
-        //         true
-        //     );
-        //     xmlhttp.send();
-        // }
+        function removequantity() {
+            const quantity = document.getElementById('quantity').value;
+            if (quantity > 1) {
+                const subtract = parseInt(quantity) - 1;
+                document.getElementById('quantity').value = subtract;
+            }
+        }
+
+        function addedquantity() {
+            const quantity = document.getElementById('quantity').value;
+            if(quantity < 20){
+                const addition = parseInt(quantity) + 1;
+                document.getElementById('quantity').value = addition;
+            }
+        }
+
+        function add_session(){
+            const product_id = document.getElementById('product_id').value;
+            const quantity = document.getElementById('quantity').value;
+            addcart(product_id,quantity);
+        }
+
+        function add_database(){
+            const product_id = document.getElementById('product_id').value;
+            const quantity = document.getElementById('quantity').value;
+            addtocart(product_id,quantity);
+        }
+
     </script>
     <script src="addremove.js"></script>
 </body>

@@ -295,6 +295,18 @@
 
                 <div class='form-data'>
                     <label>Category <span class='error'> * <?php echo $errcategory; ?> </span></label>
+                    <!-- <select class="inputbox" name="productcategory">
+                        <option value="">Select Category</option>
+                        <?php
+                        $sql = "SELECT * FROM CATEGORY";
+                        $stid = oci_parse($connection, $sql);
+                        oci_execute($stid);
+                        while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                            echo "<option value=". $row['CATEGORY_ID'].">" . $row['CATEGORY_NAME'] . "</option>";
+                        }
+                        ?>
+                    </select> -->
+
                     <input type='text' class='inputbox' placeholder='Category'  name='category' value='<?php echo $scategory; ?>' />
                 </div> 
                 

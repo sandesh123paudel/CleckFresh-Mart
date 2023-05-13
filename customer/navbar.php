@@ -22,7 +22,7 @@ if (isset($_SESSION['userID'])) {
   <!-- fonts icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- <link rel="stylesheet" href="css/nav.css" /> -->
-  <link rel="stylesheet" href="css/indexs.css" />
+  <link rel="stylesheet" href="css/index.css" />
   <!--jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="addremove.js"></script>
