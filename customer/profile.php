@@ -21,7 +21,7 @@
             <a href="profile.php?cat=profile">Profile Information</a>
             <a href="profile.php?cat=update">Update Profile</a>
             <a href="profile.php?cat=deactivate">Deactivate</a>
-            <a href="profile.php?cat=history">View Orders</a>    
+            <!-- <a href="profile.php?cat=history">View Orders</a>     -->
             <a href="profile.php?cat=orderlist">Orders List</a>   
             <a href="../db/logout.php">Logout</a>     
         </div>

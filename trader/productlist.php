@@ -109,6 +109,7 @@ include('../db/connection.php');
                     echo "<label>Shop Name:  " . substr($shopname, 0, 25) . "</label>";
 
                     echo "<label>Price:  <span> &pound; " . $row['PRODUCT_PRICE'] . "<span></label>";
+                    echo "<label>Stock : " . $row['STOCK_NUMBER'] . "</label>";
                     echo "</div>";
 
                     echo "<div class='image'>";

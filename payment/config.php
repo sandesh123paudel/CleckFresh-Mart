@@ -11,6 +11,7 @@ define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE
 
 define('PAYPAL_RETURN_URL', 'http://localhost/learning/karan/payment/success.php');
 define('PAYPAL_CANCEL_URL', 'http://localhost/learning/karan/customer/homepage.php');
+
 define('PAYPAL_CURRENCY', 'USD');
 
 // Change not required 

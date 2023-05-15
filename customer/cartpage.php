@@ -11,7 +11,7 @@ include('../db/connection.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="css/carts.css" />
+  <link rel="stylesheet" href="css/cartpage.css" />
 
   <style>
     .qty #quantity {
@@ -24,17 +24,6 @@ include('../db/connection.php');
     }
   </style>
   <script src="addremove.js"></script>
-
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('.cart-item-quantity').on("keyup", function() {
-        const itemId = $(this).data('item-id');
-        const newQuantity = $(this).val();
-
-      });
-    });
-  </script> -->
 </head>
 
 <body>
@@ -61,9 +50,13 @@ include('../db/connection.php');
         <h4>Shopping Cart</h4>
         <p>You have
           <?php
+
           if (isset($_SESSION['cart'])) {
             echo count($_SESSION['cart']);
           } else if (isset($_SESSION['userID'])) {
+            unset($_SESSION['cart_num']);
+            unset($_SESSION['cart_id']);
+
             $stmt = "SELECT * FROM CART WHERE USER_ID = :id";
             $stid = oci_parse($connection, $stmt);
             oci_bind_by_name($stid, ":id", $_SESSION['userID']);
@@ -92,6 +85,7 @@ include('../db/connection.php');
 
       $productprice = 0;
       $totalprice = 0;
+
       // If user is not login 
       if (isset($_SESSION['cart'])) {
 
@@ -103,9 +97,11 @@ include('../db/connection.php');
           $quantity = $value['product_quantity'];
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+
             $productprice =  $quantity * $row['PRODUCT_PRICE'];
             $totalprice += $quantity * $row['PRODUCT_PRICE'];
             $productname = $row['PRODUCT_NAME'];
+
             echo "
         <div class='item-container'>
           <div class='image'>";
@@ -138,6 +134,7 @@ include('../db/connection.php');
 
 
       if (isset($_SESSION['userID'])) {
+
         $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
         $stmts = oci_parse($connection, $sql);
         oci_bind_by_name($stmts, ":cart_id", $_SESSION['cart_id']);
