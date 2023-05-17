@@ -7,74 +7,74 @@
   <!-- Trending container -->
   <div class="trending-container">
 
-    <!-- <?php
-    // $sql = "SELECT * FROM PRODUCT WHERE ROWNUM <= 8";
-    // $stmt = oci_parse($connection, $sql);
-    // oci_execute($stmt);
+    <?php
+    $sql = "SELECT * FROM PRODUCT WHERE ROWNUM <= 8";
+    $stmt = oci_parse($connection, $sql);
+    oci_execute($stmt);
 
-    // while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-    //   $product_name = $row['PRODUCT_NAME'];
-    //   $product_id = $row['PRODUCT_ID'];
-    //   $product_category = $row['PRODUCT_TYPE'];
-    //   $product_quantity = $row['QUANTITY'];
-    //   $product_image = $row['PRODUCT_IMAGE'];
-    //   $product_price = $row['PRODUCT_PRICE'];
+    while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+      $product_name = $row['PRODUCT_NAME'];
+      $product_id = $row['PRODUCT_ID'];
+      $product_category = $row['PRODUCT_TYPE'];
+      $product_quantity = $row['QUANTITY'];
+      $product_image = $row['PRODUCT_IMAGE'];
+      $product_price = $row['PRODUCT_PRICE'];
 
-    //   echo "<div class='single-container'>";
-    //   echo "<div class='image' onclick='viewproduct($product_id)'>";
-    //   echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
-    //   echo "</div>";
-    //   echo "<h5 class='title'>$product_name</h5>";
-    //   echo "<span class='size'>$product_quantity gm</span>";
-    //   echo "<p class='price'>&pound; $product_price</p>";
-    //   // echo "<a href=''><div class='btn'>Add +</div></a>";
-    //   echo "<input type='hidden' data-quantity='1' >";
-
-    //   if (isset($_SESSION['userID'])) {
-    //     echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
-    //   } else {
-    //     echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
-    //   }
-    //   echo "</div>";
-    // }
-    ?> -->
-<!-- fetching data using api -->
-
-<?php
-    $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_all.php';
-    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
-
-    // Reads the JSON file.
-    $json_data = file_get_contents($rest_api_url);
-
-    // Decodes the JSON data into a PHP array.
-    $response_data = json_decode($json_data);
-
-    // All the users data exists in 'data' object
-    $products = $response_data;
-
-    // It cuts the long data into small & select only the first 5 records.
-    $products=array_slice($products,0,7);
-
-    foreach ($products as $product) {
       echo "<div class='single-container'>";
-      echo "<div class='image' onclick='viewproduct($product->PRODUCT_ID)'>";
-      echo "<img src=\"../db/uploads/products/" . $product->PRODUCT_IMAGE . "\" alt='$product->PRODUCT_NAME' /> ";
+      echo "<div class='image' onclick='viewproduct($product_id)'>";
+      echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
       echo "</div>";
-      echo "<h5 class='title'>$product->PRODUCT_NAME</h5>";
-      echo "<span class='size'>$product->QUANTITY gm</span>";
-      echo "<p class='price'>&pound; $product->PRODUCT_PRICE</p>";
+      echo "<h5 class='title'>$product_name</h5>";
+      echo "<span class='size'>$product_quantity gm</span>";
+      echo "<p class='price'>&pound; $product_price</p>";
       // echo "<a href=''><div class='btn'>Add +</div></a>";
       echo "<input type='hidden' data-quantity='1' >";
 
       if (isset($_SESSION['userID'])) {
-        echo "<button class='btn' id='add' onclick='addtocart($product->PRODUCT_ID,1)'>Add +</button>";
+        echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
       } else {
-        echo "<button class='btn' id='addcart' onclick='addcart($product->PRODUCT_ID,1)'>Add +</button>";
+        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
       }
       echo "</div>";
     }
-?>
+    ?>
+    <!-- fetching data using api -->
+
+    <?php
+    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_all.php';
+    // // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
+
+    // // Reads the JSON file.
+    // $json_data = file_get_contents($rest_api_url);
+
+    // // Decodes the JSON data into a PHP array.
+    // $response_data = json_decode($json_data);
+
+    // // All the users data exists in 'data' object
+    // $products = $response_data;
+
+    // // It cuts the long data into small & select only the first 5 records.
+    // $products=array_slice($products,0,7);
+
+    // foreach ($products as $product) {
+    //   echo "<div class='single-container'>";
+    //   echo "<div class='image' onclick='viewproduct($product->PRODUCT_ID)'>";
+    //   echo "<img src=\"../db/uploads/products/" . $product->PRODUCT_IMAGE . "\" alt='$product->PRODUCT_NAME' /> ";
+    //   echo "</div>";
+    //   echo "<h5 class='title'>$product->PRODUCT_NAME</h5>";
+    //   echo "<span class='size'>$product->QUANTITY gm</span>";
+    //   echo "<p class='price'>&pound; $product->PRODUCT_PRICE</p>";
+    //   // echo "<a href=''><div class='btn'>Add +</div></a>";
+    //   echo "<input type='hidden' data-quantity='1' >";
+
+    //   if (isset($_SESSION['userID'])) {
+    //     echo "<button class='btn' id='add' onclick='addtocart($product->PRODUCT_ID,1)'>Add +</button>";
+    //   } else {
+    //     echo "<button class='btn' id='addcart' onclick='addcart($product->PRODUCT_ID,1)'>Add +</button>";
+    //   }
+    //   echo "</div>";
+    // }
+    ?>
 
 
 
@@ -87,62 +87,62 @@
 
   <div class="shop-container">
     <?php
-    // $sql = "SELECT * FROM SHOP ";
-    // $stmt = oci_parse($connection, $sql);
-    // oci_execute($stmt);
+    $sql = "SELECT * FROM SHOP WHERE ROWNUM <= 7 ";
+    $stmt = oci_parse($connection, $sql);
+    oci_execute($stmt);
 
-    // while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-    //   $shop_id = $row['SHOP_ID'];
-    //   $shop_image = $row['SHOP_IMAGE'];
-    //   $shop_logo = $row['SHOP_LOGO'];
-    //   $shop_name = $row['SHOP_NAME'];
-    //   $shop_desc = $row['SHOP_DESC'];
+    while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+      $shop_id = $row['SHOP_ID'];
+      $shop_image = $row['SHOP_IMAGE'];
+      $shop_logo = $row['SHOP_LOGO'];
+      $shop_name = $row['SHOP_NAME'];
+      $shop_desc = $row['SHOP_DESC'];
 
-    //   echo "<a href='products.php?s_name=$shop_name&s_id=$shop_id' class='single'>";
-    //   echo "<div>";
-    //   echo "<div class='img'>";
-    //   echo "<img src=\"../db/uploads/shops/" . $shop_image . "\" alt='$shop_name' /> ";
-    //   echo "</div>";
-    //   echo "<div class='logo'>";
-    //   echo "<img src=\"../db/uploads/shops/" . $shop_logo . "\" class='logo-img' alt='$shop_name' /> ";
-    //   echo "</div>";
-    //   echo "<div class='summary'>";
-    //   echo "<h2>" . $shop_name . "</h2>";
-    //   echo "<p>$shop_desc</p>";
-    //   echo "</div>";
-    //   echo "</div>";
-    //   echo "</a>";
-    // }
-
-    // fetching using shops
-    $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_shop.php';
-    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
-
-    // Reads the JSON file.
-    $json_data = file_get_contents($rest_api_url);
-
-    // Decodes the JSON data into a PHP array.
-    $response_data = json_decode($json_data);
-
-    // All the users data exists in 'data' object
-    $shops = $response_data;
-    $shops=array_slice($shops,0,7);
-    foreach($shops as $shop){
-      echo "<a href='products.php?s_name=$shop->SHOP_NAME&s_id=$shop->SHOP_ID' class='single'>";
-        echo "<div>";
-        echo "<div class='img'>";
-        echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_IMAGE . "\" alt='$shop->SHOP_NAME' /> ";
-        echo "</div>";
-        echo "<div class='logo'>";
-        echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_LOGO . "\" class='logo-img' alt='$shop->SHOP_LOGO' /> ";
-        echo "</div>";
-        echo "<div class='summary'>";
-        echo "<h2>" . $shop->SHOP_NAME . "</h2>";
-        echo "<p>$shop->SHOP_DESC</p>";
-        echo "</div>";
-        echo "</div>";
-        echo "</a>";
+      echo "<a href='products.php?s_name=$shop_name&s_id=$shop_id' class='single'>";
+      echo "<div>";
+      echo "<div class='img'>";
+      echo "<img src=\"../db/uploads/shops/" . $shop_image . "\" alt='$shop_name' /> ";
+      echo "</div>";
+      echo "<div class='logo'>";
+      echo "<img src=\"../db/uploads/shops/" . $shop_logo . "\" class='logo-img' alt='$shop_name' /> ";
+      echo "</div>";
+      echo "<div class='summary'>";
+      echo "<h2>" . $shop_name . "</h2>";
+      echo "<p>$shop_desc</p>";
+      echo "</div>";
+      echo "</div>";
+      echo "</a>";
     }
+
+    // // fetching using shops
+    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_shop.php';
+    // // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
+
+    // // Reads the JSON file.
+    // $json_data = file_get_contents($rest_api_url);
+
+    // // Decodes the JSON data into a PHP array.
+    // $response_data = json_decode($json_data);
+
+    // // All the users data exists in 'data' object
+    // $shops = $response_data;
+    // $shops=array_slice($shops,0,7);
+    // foreach($shops as $shop){
+    //   echo "<a href='products.php?s_name=$shop->SHOP_NAME&s_id=$shop->SHOP_ID' class='single'>";
+    //     echo "<div>";
+    //     echo "<div class='img'>";
+    //     echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_IMAGE . "\" alt='$shop->SHOP_NAME' /> ";
+    //     echo "</div>";
+    //     echo "<div class='logo'>";
+    //     echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_LOGO . "\" class='logo-img' alt='$shop->SHOP_LOGO' /> ";
+    //     echo "</div>";
+    //     echo "<div class='summary'>";
+    //     echo "<h2>" . $shop->SHOP_NAME . "</h2>";
+    //     echo "<p>$shop->SHOP_DESC</p>";
+    //     echo "</div>";
+    //     echo "</div>";
+    //     echo "</a>";
+    // }
 
     ?>
   </div>
@@ -160,7 +160,7 @@
     oci_execute($stmt);
     while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
       $offer_id = $row['OFFER_ID'];
-      $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 8';
+      $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 7';
       $stid = oci_parse($connection, $sql);
       oci_bind_by_name($stid, ':off_id', $offer_id);
       oci_execute($stid);
@@ -309,6 +309,6 @@
 <script src="addremove.js"></script>
 <script>
   function viewproduct(p_id) {
-  window.location.href = "productview.php?p_id=" + p_id;
-}
+    window.location.href = "productview.php?p_id=" + p_id;
+  }
 </script>
