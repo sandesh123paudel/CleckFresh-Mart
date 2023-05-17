@@ -1,8 +1,6 @@
 <?php
 
 include('../db/connection.php');
-
-
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +11,7 @@ include('../db/connection.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="css/orders.css" />
+  <link rel="stylesheet" href="css/order.css" />
 </head>
 
 <body>
@@ -35,10 +33,8 @@ include('../db/connection.php');
         </tr>
 
         <?php
-        // sql query to extract all the order details
-        unset($_SESSION['order_id']);
-        unset($_SESSION['order_date']);
 
+        // sql query to extract all the order details
         $sql = "SELECT cs.*, ot.*
         FROM COLLECTION_SLOT cs
         JOIN ORDER_I ot ON cs.COLLECTION_SLOT_ID = ot.COLLECTION_SLOT_ID
@@ -61,7 +57,16 @@ include('../db/connection.php');
               <td>&#163; " . $row['TOTAL_PRICE'] . "</td>
 
               <td>" . $row['STATUS'] . "</td>
-              <td class='links-btn'><a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>Payment</a></td>
+              
+              <td class='links-btn'>";
+          if ($row['STATUS'] == 'pending') {
+
+            echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>Payment</a><a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>View</a>";
+
+          } else {
+            echo "<a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>View</a>";
+          }
+          echo "</td>
             </tr>
           ";
         }

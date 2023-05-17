@@ -12,7 +12,7 @@ if (isset($_POST['placeorder'])) {
     unset($_SESSION['order_date']);
 
     $currentDate = new DateTime();
-    $formattedDate = $currentDate->format('d/m/y h.i A');
+    $formattedDate = $currentDate->format('d/m/y h:i A');
     $_SESSION['order_date'] = $formattedDate;
 
     $collectionslot = $_POST['selectslot'];

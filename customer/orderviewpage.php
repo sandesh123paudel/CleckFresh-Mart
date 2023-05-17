@@ -19,10 +19,9 @@ include('../db/connection.php');
       <h3>Order Lists</h3>
       <div class="order-slot">
         <div class="order-data">
-          <h6>Order Id : <?php echo $_SESSION['order_id']; ?></h6>
-          <h6>Order Date : <?php echo  $_SESSION['order_data']; ?></h6>
+          <h6>Order Id : <?php echo $_GET['order_id']; ?></h6>
+          <h6>Order Date : <?php echo  $_GET['order_date']; ?></h6>
         </div>
-        <button>Invoice</button>
       </div>
 
       <div class="order-container">
@@ -32,6 +31,7 @@ include('../db/connection.php');
             <th>Product Image</th>
             <th>Product Name</th>
             <th>Quantity</th>
+            <th>&#163; Per Price</th>
             <th>&#163; Price</th>
           </tr>
 
@@ -46,19 +46,22 @@ include('../db/connection.php');
             WHERE opt.ORDER_ID = :order_id";
           $stid = oci_parse($connection, $sql);
 
-          oci_bind_by_name($stid, ":order_id", $_SESSION['order_id']);
+          oci_bind_by_name($stid, ":order_id", $_GET['order_id']);
           oci_execute($stid);
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             $product_image = $row['PRODUCT_IMAGE'];
+            $productprice =  $row['ORDER_QUANTITY'] * $row['PRODUCT_PRICE'];
+            $totalprice += $row['ORDER_QUANTITY'] * $row['PRODUCT_PRICE'];
 
             echo "
               <tr>";
-              echo "<td class='img'>";
-              echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='' /> </td>";
-              echo "<td>Apple</td>
-                <td>1kg</td>
-                <td>&#163; 100</td>
+            echo "<td class='img'>";
+            echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='' /> </td>";
+            echo "<td>" . $row['PRODUCT_NAME'] . "</td>
+                <td>" . $row['ORDER_QUANTITY'] . "</td>
+                <td>&#163; " . $row['PRODUCT_PRICE'] . "</td>
+                <td>&#163; " . $productprice . "</td>
               </tr>
               ";
           }
@@ -70,14 +73,10 @@ include('../db/connection.php');
 
         <div class="order-summary">
           <h3>Order Summary</h3>
-          <div class="total-items">
-            <h6>Total Items</h6>
-            <h6>3(Items)</h6>
-          </div>
 
           <div class="total-items">
             <h6>Total Payment</h6>
-            <h6>&#163; 100</h6>
+            <h6><b>&#163; <?php echo $totalprice; ?></b></h6>
           </div>
         </div>
 

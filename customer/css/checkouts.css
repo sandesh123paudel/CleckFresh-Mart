@@ -9,6 +9,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.error{
+    color: red;
+}
 .checkout-container{
     display:flex;
     margin-top: 3%;

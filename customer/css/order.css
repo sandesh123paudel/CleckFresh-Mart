@@ -31,7 +31,9 @@
 font-size: 25px;
 padding-block: 5px;
 }
-
+.links-btn a{
+    margin-block: 3px;
+}
 .order-container table{
     color: black;
     border: none;

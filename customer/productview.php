@@ -138,7 +138,7 @@ include('../db/connection.php');
                     if ($p_stock <= 0) {
                         echo "out of stock";
                     } else {
-                        echo $p_stock . "KG";
+                        echo $p_stock;
                     }
 
                     ?>
@@ -191,19 +191,19 @@ include('../db/connection.php');
             <h3>Add Rating</h3>
             <div class="product-stars">
                 <div class="stars">
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" onclick='rating(1)'>
                         star
                     </span>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" onclick='rating(1)'>
                         star
                     </span>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" onclick='rating(1)'>
                         star
                     </span>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" onclick='rating(1)'>
                         star
                     </span>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" onclick='rating(1)'>
                         star
                     </span>
                 </div>
@@ -227,8 +227,8 @@ include('../db/connection.php');
             </div>
 
             <div class="write-review">
-                <textarea name="reviews" id="" Placeholder="Write your reviews....."></textarea>
-                <button>Add Review</button>
+                <textarea name="reviews" id="user_review" Placeholder="Write your reviews....."></textarea>
+                <button onclick='product_review()'>Add Review</button>
             </div>
         </div>
 
@@ -340,24 +340,23 @@ include('../db/connection.php');
 
         function addedquantity() {
             const quantity = document.getElementById('quantity').value;
-            if(quantity < 20){
+            if (quantity < 20) {
                 const addition = parseInt(quantity) + 1;
                 document.getElementById('quantity').value = addition;
             }
         }
 
-        function add_session(){
+        function add_session() {
             const product_id = document.getElementById('product_id').value;
             const quantity = document.getElementById('quantity').value;
-            addcart(product_id,quantity);
+            addcart(product_id, quantity);
         }
 
-        function add_database(){
+        function add_database() {
             const product_id = document.getElementById('product_id').value;
             const quantity = document.getElementById('quantity').value;
-            addtocart(product_id,quantity);
+            addtocart(product_id, quantity);
         }
-
     </script>
     <script src="addremove.js"></script>
 </body>

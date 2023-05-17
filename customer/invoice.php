@@ -2,11 +2,7 @@
 session_start();
 include("../db/connection.php");
 
-//   current date formate
-// $currentDate = new DateTime();
-// $formattedDate = $currentDate->format('d-M-y h.i A');
-// echo $formattedDate;
-
+unset($_SESSION['order_id']);
 
 $sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate";
 $stmt = oci_parse($connection, $sql);
@@ -22,6 +18,8 @@ while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
     $payment_to = $row['PAYMENT_TO'];
     $totalprice = $row['TOTAL_AMOUNT'];
 }
+
+$_SESSION['order_id'] = $order_id;
 
 $usersql = "SELECT * FROM USER_I WHERE USER_ID = :user_id";
 $userstmt = oci_parse($connection, $usersql);
@@ -95,7 +93,7 @@ include('../payment/config.php');
             oci_execute($stmts);
             while ($row = oci_fetch_array($stmts, OCI_ASSOC)) {
                 $pid = $row['PRODUCT_ID'];
-                $quantity = $row['QUANTITY'];
+                $quantity = $row['ORDER_QUANTITY'];
                 // query for product table 
                 $sqlpr = "SELECT * FROM PRODUCT WHERE PRODUCT_ID = :pid";
                 $stmt = oci_parse($connection, $sqlpr);

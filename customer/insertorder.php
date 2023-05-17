@@ -2,7 +2,6 @@
 session_start();
 include("../db/connection.php");
 
-unset($_SESSION['order_id']);
 
 // $currentDate = new DateTime();
 // $formattedDate = $currentDate->format('d-M-y h.i A');
@@ -21,7 +20,6 @@ while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
     $order_date = $data['ORDER_DATE'];
 }
 
-$_SESSION['order_id'] = $order_id;
 
 $sqlt = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
 $stms = oci_parse($connection, $sqlt);
@@ -35,7 +33,7 @@ while ($data = oci_fetch_array($stms, OCI_ASSOC)) {
     // echo "PRODUCT_ID". $product_id ."  \n";
     // echo "ORDER _ID ".$order_id . "\n";
 
-    $sql = "INSERT INTO ORDER_PRODUCT(ORDER_ID,PRODUCT_ID,QUANTITY) VALUES (:order_id,:pid,:qty)";
+    $sql = "INSERT INTO ORDER_PRODUCT(ORDER_ID,PRODUCT_ID,ORDER_QUANTITY) VALUES (:order_id,:pid,:qty)";
     $stid = oci_parse($connection, $sql);
     oci_bind_by_name($stid, ":order_id", $order_id);
     oci_bind_by_name($stid, ":pid", $product_id);
