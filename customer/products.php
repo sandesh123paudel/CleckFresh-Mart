@@ -61,7 +61,7 @@ include("../db/connection.php");
 
                     echo "<span>" . strtoupper($cat_name) . "</span>";
 
-                    ?> Products Lists </h3>
+                    ?> Products List </h3>
 
 
             <select id='filter' name='filter'>

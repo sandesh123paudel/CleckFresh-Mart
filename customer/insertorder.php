@@ -76,21 +76,21 @@ oci_bind_by_name($delstmt, ":cart_id", $_SESSION['cart_id']);
 oci_execute($delstmt);
 
 // update collection slot
-$sqls = "SELECT * FROM COLLECTION_SLOT WHERE COLLECTION_SLOT_ID = :slot_id";
-$stid = oci_parse($connection, $sqls);
-oci_bind_by_name($stid, ":slot_id", $_SESSION['collectionslot_id']);
-oci_execute($stid);
-$data = oci_fetch_array($stid);
-$orderscount = $data['NUMBER_OF_ORDER'];
-if ($orderscount == 0) {
-    // update the number of order in collectionslot 
-    $status = 'deactive';
-    $stql = "UPDATE COLLECTION_SLOT SET COLLECTION_STATUS= :ustatus WHERE COLLECTION_SLOT_ID = :slot_id";
-    $stmt = oci_parse($connection, $stql);
-    oci_bind_by_name($stmt, ":slot_id", $_SESSION['collectionslot_id']);
-    oci_bind_by_name($stmt, ":ustatus", $status);
-    oci_execute($stmt);
-}
+// $sqls = "SELECT * FROM COLLECTION_SLOT WHERE COLLECTION_SLOT_ID = :slot_id";
+// $stid = oci_parse($connection, $sqls);
+// oci_bind_by_name($stid, ":slot_id", $_SESSION['collectionslot_id']);
+// oci_execute($stid);
+// $data = oci_fetch_array($stid);
+// $orderscount = $data['NUMBER_OF_ORDER'];
+// if ($orderscount == 0) {
+//     // update the number of order in collectionslot 
+//     $status = 'deactive';
+//     $stql = "UPDATE COLLECTION_SLOT SET COLLECTION_STATUS= :ustatus WHERE COLLECTION_SLOT_ID = :slot_id";
+//     $stmt = oci_parse($connection, $stql);
+//     oci_bind_by_name($stmt, ":slot_id", $_SESSION['collectionslot_id']);
+//     oci_bind_by_name($stmt, ":ustatus", $status);
+//     oci_execute($stmt);
+// }
 
 // echo "success";
 header("location:invoice.php?order_id=$order_id&order_date=$order_date");
