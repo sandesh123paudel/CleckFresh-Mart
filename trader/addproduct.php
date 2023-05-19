@@ -181,9 +181,11 @@ if (isset($_POST['addProduct'])) {
           <select class="inputbox" name="shopname">
             <option value="">Please Select Shop</option>
             <?php
-            $sql = "SELECT * FROM SHOP WHERE USER_ID = :user_id";
+            $status = 'verified';
+            $sql = "SELECT * FROM SHOP WHERE USER_ID = :user_id AND STATUS = :verify";
             $stid = oci_parse($connection, $sql);
             oci_bind_by_name($stid, ':user_id', $_SESSION['traderID']);
+            oci_bind_by_name($stid, ':verify',$status);
             oci_execute($stid);
 
             while ($row = oci_fetch_array($stid, OCI_ASSOC)) {

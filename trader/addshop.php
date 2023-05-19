@@ -87,8 +87,9 @@ if (isset($_POST['addshop'])) {
 
             // if($utype=="image/jpeg" || $utype=="image/jpg" || $utype=="image/png" || $utype=="image/gif" || $utype=="image/webp")
             // {
-            $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO,SHOP_DESC) 
-                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo,:descr )";
+            $status = "pending";
+            $sql = "INSERT INTO SHOP (SHOP_ID,USER_ID,SHOP_NAME,SHOP_TYPE,SHOP_IMAGE,CONTACT,EMAIL,SHOP_LOGO,SHOP_DESC,STATUS) 
+                        VALUES (:shop_id,:user_id,:name, :category, :image,:phone,:email,:logo,:descr,:status )";
 
             $stid = oci_parse($connection, $sql);
 
@@ -101,6 +102,7 @@ if (isset($_POST['addshop'])) {
             oci_bind_by_name($stid, ':email', $femail);
             oci_bind_by_name($stid, ':phone', $contact);
             oci_bind_by_name($stid, ':descr', $desc);
+            oci_bind_by_name($stid, ':status', $status);
 
             if (oci_execute($stid)) {
 

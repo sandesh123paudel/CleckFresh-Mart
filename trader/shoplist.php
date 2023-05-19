@@ -47,17 +47,20 @@ include('../db/connection.php');
 
         <div class="shopitems">
             <?php
-
+            
+            $status = 'verified';
             // selecting all items from shops
             if (isset($_GET['s_name'])) {
-                $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :sname AND SHOP_TYPE = :shop_cat";
+                $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :sname AND SHOP_TYPE = :shop_cat AND STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':sname', $_GET['s_name']);
                 oci_bind_by_name($stid, ':shop_cat', $_SESSION['type']);
+                oci_bind_by_name($stid, ':verify', $status);
             } else {
-                $sql = "SELECT * FROM SHOP WHERE SHOP_TYPE = :shop_cat";
+                $sql = "SELECT * FROM SHOP WHERE SHOP_TYPE = :shop_cat AND STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':shop_cat', $_SESSION['type']);
+                oci_bind_by_name($stid, ':verify', $status);
             }
             oci_execute($stid);
 

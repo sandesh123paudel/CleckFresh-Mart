@@ -31,7 +31,7 @@ if (isset($_SESSION['userID'])) {
     $(document).ready(function() {
       $("#searchproduct").click(function() {
         var product_name = $("#lgsearch").val();
-        document.location.href = "products.php?p_name=" + product_name.toLowerCase() + "&search=search";
+        document.location.href = "products.php?p_name=" + product_name.toLowerCase() + "&search="+product_name;
       })
     })
   </script>

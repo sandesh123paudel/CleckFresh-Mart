@@ -27,7 +27,6 @@
       echo "<h5 class='title'>$product_name</h5>";
       echo "<span class='size'>$product_quantity gm</span>";
       echo "<p class='price'>&pound; $product_price</p>";
-      // echo "<a href=''><div class='btn'>Add +</div></a>";
       echo "<input type='hidden' data-quantity='1' >";
 
       if (isset($_SESSION['userID'])) {
@@ -38,46 +37,6 @@
       echo "</div>";
     }
     ?>
-    <!-- fetching data using api -->
-
-    <?php
-    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_all.php';
-    // // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
-
-    // // Reads the JSON file.
-    // $json_data = file_get_contents($rest_api_url);
-
-    // // Decodes the JSON data into a PHP array.
-    // $response_data = json_decode($json_data);
-
-    // // All the users data exists in 'data' object
-    // $products = $response_data;
-
-    // // It cuts the long data into small & select only the first 5 records.
-    // $products=array_slice($products,0,7);
-
-    // foreach ($products as $product) {
-    //   echo "<div class='single-container'>";
-    //   echo "<div class='image' onclick='viewproduct($product->PRODUCT_ID)'>";
-    //   echo "<img src=\"../db/uploads/products/" . $product->PRODUCT_IMAGE . "\" alt='$product->PRODUCT_NAME' /> ";
-    //   echo "</div>";
-    //   echo "<h5 class='title'>$product->PRODUCT_NAME</h5>";
-    //   echo "<span class='size'>$product->QUANTITY gm</span>";
-    //   echo "<p class='price'>&pound; $product->PRODUCT_PRICE</p>";
-    //   // echo "<a href=''><div class='btn'>Add +</div></a>";
-    //   echo "<input type='hidden' data-quantity='1' >";
-
-    //   if (isset($_SESSION['userID'])) {
-    //     echo "<button class='btn' id='add' onclick='addtocart($product->PRODUCT_ID,1)'>Add +</button>";
-    //   } else {
-    //     echo "<button class='btn' id='addcart' onclick='addcart($product->PRODUCT_ID,1)'>Add +</button>";
-    //   }
-    //   echo "</div>";
-    // }
-    ?>
-
-
-
   </div>
 
   <!-- shops -->
@@ -87,8 +46,10 @@
 
   <div class="shop-container">
     <?php
-    $sql = "SELECT * FROM SHOP WHERE ROWNUM <= 7 ";
+    $status = 'verified';
+    $sql = "SELECT * FROM SHOP WHERE ROWNUM <= 7 AND STATUS = :verify";
     $stmt = oci_parse($connection, $sql);
+    oci_bind_by_name($stmt , ":verify" , $status);
     oci_execute($stmt);
 
     while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
@@ -113,36 +74,6 @@
       echo "</div>";
       echo "</a>";
     }
-
-    // // fetching using shops
-    // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_shop.php';
-    // // $rest_api_url = 'http://localhost/learning/karan/api/api_fetch_single.php';
-
-    // // Reads the JSON file.
-    // $json_data = file_get_contents($rest_api_url);
-
-    // // Decodes the JSON data into a PHP array.
-    // $response_data = json_decode($json_data);
-
-    // // All the users data exists in 'data' object
-    // $shops = $response_data;
-    // $shops=array_slice($shops,0,7);
-    // foreach($shops as $shop){
-    //   echo "<a href='products.php?s_name=$shop->SHOP_NAME&s_id=$shop->SHOP_ID' class='single'>";
-    //     echo "<div>";
-    //     echo "<div class='img'>";
-    //     echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_IMAGE . "\" alt='$shop->SHOP_NAME' /> ";
-    //     echo "</div>";
-    //     echo "<div class='logo'>";
-    //     echo "<img src=\"../db/uploads/shops/" . $shop->SHOP_LOGO . "\" class='logo-img' alt='$shop->SHOP_LOGO' /> ";
-    //     echo "</div>";
-    //     echo "<div class='summary'>";
-    //     echo "<h2>" . $shop->SHOP_NAME . "</h2>";
-    //     echo "<p>$shop->SHOP_DESC</p>";
-    //     echo "</div>";
-    //     echo "</div>";
-    //     echo "</a>";
-    // }
 
     ?>
   </div>
@@ -198,7 +129,6 @@
         echo "</div>";
         echo "<input type='hidden' data-quantity='1' >";
 
-        // echo "<a href=''><div class='btn'>Add +</div></a>";
         if (isset($_SESSION['userID'])) {
           echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
         } else {
@@ -247,7 +177,6 @@
         } else {
           $product_offer = '';
         }
-
 
         echo "<div class='single' >";
         echo "<div class='img' onclick='viewproduct($product_id)'>";
