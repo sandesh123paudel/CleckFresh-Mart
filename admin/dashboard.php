@@ -178,17 +178,6 @@ unset($_SESSION['username']);
                     if ($links == "Wish List") {
                         require('wishlist.php');
                     }
-
-                    // if ($links == "EditProduct") {
-                    //     $id = $_GET['id'];
-                    //     $action = $_GET['action'];
-                    //     require_once('editProduct.php');
-                    // }
-                    // if ($links == "EditShop") {
-                    //     $id = $_GET['id'];
-                    //     $action = $_GET['action'];
-                    //     require_once('editshop.php');
-                    // }
                     if ($links == "Profile") {
                         require_once('profilepage.php');
                     }
