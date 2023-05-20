@@ -27,7 +27,7 @@ if (isset($_GET['action'])) {
                 oci_bind_by_name($stid, ":review_id", $review_id);
                 oci_bind_by_name($stid, ":rating", $rate);
                 if (oci_execute($stid)) {
-                    echo "Your Rating is successfully recorded!! $user_id, $product_id, $rate";
+                    echo "Your Rating is successfully recorded!!";
                 }
             } else {
                 $sql = "INSERT INTO REVIEW (USER_ID, PRODUCT_ID, RATING) VALUES (:user_id, :product_id, :rating)";
@@ -37,7 +37,7 @@ if (isset($_GET['action'])) {
                 oci_bind_by_name($stid, ":rating", $rate);
 
                 if (oci_execute($stid)) {
-                    echo "Your Rating is successfully recorded!! $user_id, $product_id, $rate";
+                    echo "Your Rating is successfully recorded!!";
                 }
             }
         }
@@ -63,7 +63,7 @@ if (isset($_GET['action'])) {
                 oci_bind_by_name($stid, ":review", $review);
 
                 if (oci_execute($stid)) {
-                    echo "Your Review is successfully recorded!! $user_id, $product_id, $review";
+                    echo "Your Review is successfully recorded!!";
                 }
             } else {
 
@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
                 oci_bind_by_name($stid, ":review", $review);
 
                 if (oci_execute($stid)) {
-                    echo "Your Review is successfully recorded!! $user_id, $product_id, $review";
+                    echo "Your Review is successfully recorded!!";
                 }
             }
         }

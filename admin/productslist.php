@@ -25,7 +25,7 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
     echo "<tr>";
     echo "<td>" . $row['PRODUCT_ID'] . "</td>";
     echo "<td class='imgs'><img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt=" . $row['PRODUCT_NAME'] . " ></td>";
-    echo "<td>" . $row['PRODUCT_NAME'] . "</td>";
+    echo "<td>" . ucfirst($row['PRODUCT_NAME']) . "</td>";
     echo "<td>" . $row['CATEGORY_ID'] . "</td>";
     echo "<td>" . $row['SHOP_ID'] . "</td>";
     echo "<td>" . $row['STOCK_NUMBER'] . "</td>";

@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-echo $_SESSION['userID'] . "\n";
-echo $_SESSION['order_id'] . "\n";
-echo $_SESSION['totalprice'] . "\n";
+// echo $_SESSION['userID'] . "\n";
+// echo $_SESSION['order_id'] . "\n";
+// echo $_SESSION['totalprice'] . "\n";
 
 include("../db/connection.php");
 include_once 'config.php';
@@ -17,6 +17,23 @@ if (isset($_GET['PayerID'])) {
     oci_bind_by_name($sitd, ":order_id", $_SESSION['order_id']);
     oci_bind_by_name($sitd, ":ustatus", $status);
     oci_execute($sitd);
+
+    $sqlq = "SELECT * FROM USER_I WHERE USER_ID = :id"; // selecting the all data from the user
+    $stmt = oci_parse($connection, $sqlq);
+    oci_bind_by_name($stmt, ":id", $_SESSION['userID']);
+    // exeucuting the query
+    oci_execute($stmt);
+    while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+        $fname = $row['FIRST_NAME'];
+        $lname = $row['LAST_NAME'];
+        $email = $row['EMAIL'];
+    }
+    $username = $fname . " " . $lname;
+    $femail = $email;
+
+    $sub = "Successful Payment";
+    $message = "Dear " . $username . ",\nYou You have successfully paid your total amount : £ " . $_SESSION['totalprice'] . " \nNow You can pick your order from your collection place.\n Your Order ID : " . $_SESSION['order_id'] . "\n Thank You for shopping. ";
+    include_once('../sendmail.php');
 
     $sql = "INSERT INTO PAYMENT (USER_ID,ORDER_ID,TOTAL_AMOUNT,PAYMENT_DETAILS) VALUES (:user_id,:order_id,:total_amount,:payment_detail)";
     $stmt = oci_parse($connection, $sql);

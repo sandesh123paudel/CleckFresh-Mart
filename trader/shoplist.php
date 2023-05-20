@@ -73,7 +73,7 @@ include('../db/connection.php');
                 echo "</div>";
                 echo "<div class='shop-info'>";
                 echo "<label>Shop ID: " . $row['SHOP_ID'] . "</label>";
-                echo "<label >Shop Name: " . substr($row['SHOP_NAME'], 0, 25) . "</label>";
+                echo "<label >Shop Name: " . ucfirst(substr($row['SHOP_NAME'], 0, 25)) . "</label>";
                 echo "</div>";
 
                 echo "<div class='buttons'>";

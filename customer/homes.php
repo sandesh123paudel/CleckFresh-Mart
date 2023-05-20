@@ -24,7 +24,7 @@
       echo "<div class='image' onclick='viewproduct($product_id)'>";
       echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
       echo "</div>";
-      echo "<h5 class='title'>$product_name</h5>";
+      echo "<h5 class='title'>".ucfirst($product_name)."</h5>";
       echo "<span class='size'>$product_quantity gm</span>";
       echo "<p class='price'>&pound; $product_price</p>";
       echo "<input type='hidden' data-quantity='1' >";
@@ -68,7 +68,7 @@
       echo "<img src=\"../db/uploads/shops/" . $shop_logo . "\" class='logo-img' alt='$shop_name' /> ";
       echo "</div>";
       echo "<div class='summary'>";
-      echo "<h2>" . $shop_name . "</h2>";
+      echo "<h2>" . ucfirst($shop_name) . "</h2>";
       echo "<p>$shop_desc</p>";
       echo "</div>";
       echo "</div>";
@@ -110,7 +110,7 @@
         echo "<div class='offer'>Offer</div>";
         echo "</div>";
         echo "<div class='content'>";
-        echo "<h5>$product_name</h5>";
+        echo "<h5>".ucfirst($product_name)."</h5>";
         echo "<span class='piece'> $product_quantity gm</span>";
 
         echo "<div class='price'>";
@@ -193,7 +193,7 @@
         }
         echo "</div>";
         echo "<div class='content'>";
-        echo "<h5>" . $product_name . "</h5>";
+        echo "<h5>".ucfirst($product_name)."</h5>";
         echo "<span class='piece'>" . $product_quantity . " gm</span>";
         echo "<div class='price'>";
         if ($product_offer) {

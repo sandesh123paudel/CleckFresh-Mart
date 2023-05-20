@@ -104,9 +104,9 @@ include('../db/connection.php');
                     echo "<div class='card-info'>";
                     echo "<div class='card-details'>";
                     echo "<label>P_ID :  " . $row['PRODUCT_ID'] . "</label>";
-                    echo "<label>Name:  " . substr($row['PRODUCT_NAME'], 0, 25) . "</label>";
+                    echo "<label>Name:  " . ucfirst(substr($row['PRODUCT_NAME'], 0, 25)) . "</label>";
 
-                    echo "<label>Shop Name:  " . substr($shopname, 0, 25) . "</label>";
+                    echo "<label>Shop Name:  " . ucfirst(substr($shopname, 0, 25)) . "</label>";
 
                     echo "<label>Price:  <span> &pound; " . $row['PRODUCT_PRICE'] . "<span></label>";
                     echo "<label>Stock : " . $row['STOCK_NUMBER'] . "</label>";

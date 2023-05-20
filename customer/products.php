@@ -122,6 +122,7 @@ include("../db/connection.php");
                         $product_id = $row['PRODUCT_ID'];
                         $product_image = $row['PRODUCT_IMAGE'];
                         $product_price = $row['PRODUCT_PRICE'];
+                        $product_offer = $row['OFFER_ID'];
 
                         echo "<div class='single'>";
                         echo "<div class='img' onclick='viewproduct($product_id)'>";
@@ -129,14 +130,25 @@ include("../db/connection.php");
                         echo "<div class='offer'>Offer</div>";
                         echo "</div>";
                         echo "<div class='content'>";
-                        echo "<h5>Fresh Blackberries</h5>";
-                        echo "<span class='piece'>24 PieceS</span>";
+                        echo "<h5>".ucfirst($product_name)."</h5>";
+                        echo "<span class='piece'>".$row['QUANTITY']." gm</span>";
 
                         echo "<input type='hidden' data-quantity='1' >";
 
                         echo "<div class='price'>";
-                        echo "<span class='cut'>$50.00</span>";
-                        echo "<span class='main'>$20.00</span>";
+
+                        $sqlp = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                        $stmts = oci_parse($connection, $sqlp);
+                        oci_bind_by_name($stmts, ":offer_id", $product_offer);
+                        oci_execute($stmts);
+                        $dis = oci_fetch_array($stmts, OCI_ASSOC);
+                
+                        $discount = (int)$dis['OFFER_PERCENTAGE'];
+                        $total_price = $product_price - $product_price * ($discount / 100);
+
+                        echo "<span class='cut'>&pound;" . $product_price . "</span>";
+                        echo "<span class='main'>&pound; " . $total_price . "</span>";
+
                         echo "</div>";
 
                         // echo "<a href=''><div class='btn'>Add +</div></a>";

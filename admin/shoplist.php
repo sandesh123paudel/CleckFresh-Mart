@@ -31,7 +31,7 @@
 
             echo "<tr>";
             echo "<td>".$id."</td>";
-            echo "<td>".$shop_name."</td>";
+            echo "<td>".ucfirst($shop_name)."</td>";
             echo "<td>".$category."</td>";
             echo "<td class='imgs'><img src=\"../db/uploads/shops/" . $row['SHOP_LOGO'] . "\" alt=" . $shop_name . " ></td>";
             echo "<td>".$email."</td>";

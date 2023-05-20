@@ -101,16 +101,34 @@ include('../payment/config.php');
                 oci_execute($stmt);
                 while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
                     $count += 1;
-                    $productprice =  $quantity * $data['PRODUCT_PRICE'];
-                    $totalprice += $quantity * $data['PRODUCT_PRICE'];
+                    $product_price = $data['PRODUCT_PRICE'];
                     $productname = $data['PRODUCT_NAME'];
+
+                    if (!empty($data['OFFER_ID'])) {
+                        $offer_id = $data['OFFER_ID'];
+
+                        $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                        $stmt = oci_parse($connection, $sql);
+                        oci_bind_by_name($stmt, ":offer_id", $offer_id);
+                        oci_execute($stmt);
+                        while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+                            $discount = (int)$row['OFFER_PERCENTAGE'];
+                            $discount_price = $product_price - $product_price * ($discount / 100);
+                            $productprice =  $quantity * $discount_price;
+                            $totalprice += $quantity * $discount_price;
+                        }
+                    } else {
+                        $discount_price = $product_price;
+                        $productprice =  $quantity * $discount_price;
+                        $totalprice += $quantity * $discount_price;
+                    }
 
                     echo "
                         <tr>
                             <td>" . $count . "</td>
-                            <td>" . $productname . "</td>
+                            <td>" . ucfirst($productname) . "</td>
                             <td>" . $quantity . "</td>
-                            <td>&#163;" . $data['PRODUCT_PRICE'] . "</td>
+                            <td>&#163;" . $discount_price . "</td>
                             <td>&#163; " . $productprice . "</td>
                         </tr>";
                 }
@@ -130,8 +148,25 @@ include('../payment/config.php');
                 <td></td>
                 <td></td>
                 <td></td>
+                <td><b>Tax (15%)</b></td>
+                <td><b>&#163;
+                        <?php $taxamount = $totalprice * 0.15;
+                        echo $taxamount;
+                        ?>
+                    </b></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td><b>Total Amount</b></td>
-                <td><b>&#163; <?php echo $totalprice ?> </b></td>
+                <td><b>&#163;
+                        <?php
+                        $finalamount = $taxamount + $totalprice;
+                        echo $finalamount;
+                        ?>
+                    </b></td>
             </tr>
         </table>
 
@@ -140,7 +175,7 @@ include('../payment/config.php');
 
                 <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
 
-                <input type="hidden" name="amount" value="<?php echo $totalprice; ?>">
+                <input type="hidden" name="amount" value="<?php echo $finalamount; ?>">
 
                 <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
                 <!-- Specify a Buy Now button. -->
