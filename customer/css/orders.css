@@ -14,6 +14,7 @@
 .order-container{
     width: 100%;
     overflow-x: scroll;
+    height: 450px;
 }
 
 .order-container::-webkit-scrollbar {

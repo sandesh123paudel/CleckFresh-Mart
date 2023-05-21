@@ -98,13 +98,24 @@ option{
 }
 
 .shopitems{
+    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
     height: 450px;
-    padding-block: 1rem;
+    padding-block-end: 1rem;
     padding-inline: 1rem;
 }
+
+.shopitems::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .shopitems {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  }
 
 .shop-item{
     display: flex;

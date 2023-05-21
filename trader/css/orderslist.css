@@ -85,6 +85,7 @@ option{
     margin-top: 1%;
     overflow-x: scroll;
     margin-inline: 1rem;
+    height: 450px;
 }
 
 .user-container::-webkit-scrollbar {

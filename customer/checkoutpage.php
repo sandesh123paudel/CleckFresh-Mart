@@ -19,7 +19,7 @@ if (isset($_POST['placeorder'])) {
     $_SESSION['collectionslot_id'] = $collectionslot;
 
     $status = 'pending';
-    $sql = "INSERT INTO ORDER_I (CART_ID,COLLECTION_SLOT_ID,ORDER_DATE,STATUS,NO_OF_ITEM,TOTAL_PRICE) VALUES(:cart_id,:slot_id,:order_date,:statu,:item,:price)";
+    $sql = "INSERT INTO ORDER_I (CART_ID,COLLECTION_SLOT_ID,ORDER_DATE,ORDER_STATUS,NO_OF_ITEM,TOTAL_PRICE) VALUES(:cart_id,:slot_id,:order_date,:statu,:item,:price)";
     $stids = oci_parse($connection, $sql);
     oci_bind_by_name($stids, ":cart_id", $_SESSION['cart_id']);
     oci_bind_by_name($stids, ":slot_id", $_SESSION['collectionslot_id']);

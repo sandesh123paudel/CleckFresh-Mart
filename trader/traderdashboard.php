@@ -74,7 +74,7 @@ if (empty($_SESSION['traderID'])) {
         <div class="category-link">
           <div class="dropdown" onmouseover="onMouse('shop')" onmouseout="outMouse('shop')">
             <div class="dropdown-link">
-              <span class="material-symbols-outlined">store</span>
+              <span class="material-symbols-outlined">storefront</span>
               <h4>SHOPS</h4>
             </div>
             <p>▼</p>

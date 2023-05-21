@@ -101,6 +101,11 @@ unset($_SESSION['username']);
                     <a href="dashboard.php?cat=Wish Lists">Wish List</a>
                 </div>
 
+                <div class="home-link">
+                    <span class="material-symbols-outlined">local_mall</span>
+                    <a href="dashboard.php?cat=Order Lists">Order List</a>
+                </div>
+
                 <div class="logout">
                     <a href="../db/logout.php?role=admin">LOGOUT</a>
                 </div>
@@ -172,11 +177,14 @@ unset($_SESSION['username']);
                     if ($links == "Shop Lists") {
                         require('shoplist.php');
                     }
-                    if ($links == "Cart List") {
-                        require('cartlists.php');
+                    if ($links == "Cart Lists") {
+                        require('cartlist.php');
                     }
-                    if ($links == "Wish List") {
+                    if ($links == "Wish Lists") {
                         require('wishlist.php');
+                    }
+                    if ($links == "Order Lists") {
+                        require('orderlists.php');
                     }
                     if ($links == "Profile") {
                         require_once('profilepage.php');

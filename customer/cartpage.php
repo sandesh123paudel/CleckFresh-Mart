@@ -121,29 +121,29 @@ include('../db/connection.php');
             }
 
             echo "
-        <div class='item-container'>
-          <div class='image'>";
-            echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+          <div class='item-container'>
+            <div class='image'>";
+              echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
 
-            echo " </div>
-          <div class='item-info'>
-            <h3>".ucfirst($productname)."</h3>
-            <label>CleckFreshMart </label>
+              echo " </div>
+            <div class='item-info'>
+              <h3>".ucfirst($productname)."</h3>
+              <label>CleckFreshMart </label>
+            </div>
+            <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
+
+            <div class='qty'>
+            <h3> 
+              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $row['PRODUCT_ID'] . "' class='cart-item-quantity' disabled>
+            </h3>
+            </div>
+
+            <div class='price'>&#163; $productprice</div>
+
+            <div class='remove'>
+              <span class='material-symbols-outlined' onclick='removecart(" . $row['PRODUCT_ID'] . ")'> delete </span>
+            </div>
           </div>
-          <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
-
-          <div class='qty'>
-          <h3> 
-            <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $row['PRODUCT_ID'] . "' class='cart-item-quantity' disabled>
-          </h3>
-          </div>
-
-          <div class='price'>&#163; $productprice</div>
-
-          <div class='remove'>
-            <span class='material-symbols-outlined' onclick='removecart(" . $row['PRODUCT_ID'] . ")'> delete </span>
-          </div>
-        </div>
 
         ";
           }

@@ -11,7 +11,7 @@ include('../db/connection.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="css/order.css" />
+  <link rel="stylesheet" href="css/orders.css" />
 </head>
 
 <body>
@@ -56,10 +56,10 @@ include('../db/connection.php');
               <td>" . $row['NO_OF_ITEM'] . "</td>
               <td>&#163; " . $row['TOTAL_PRICE'] . "</td>
 
-              <td>" . $row['STATUS'] . "</td>
+              <td>" . $row['ORDER_STATUS'] . "</td>
               
               <td class='links-btn '>";
-          if ($row['STATUS'] == 'pending') {
+          if ($row['ORDER_STATUS'] == 'pending') {
 
             echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date'>
             <span class='material-symbols-outlined p-1'>

@@ -28,10 +28,10 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
 
     if ($_GET['action'] == 'verified') {
         $sub = "Notification from Cleckfreshmart";
-        $message = "Dear " . $username . ",\nYour Shop is successfully approved in our Ecommerce Patform.\n Now You are able Do your business.";
+        $message = "Dear " . $username . ",\n\tYour Shop is successfully approved in our Ecommerce Patform.\n\t Now You are able Do your business.";
     } else if ($_GET['action'] == 'pending') {
         $sub = "Notification form Cleckfreshmart";
-        $message = "Dear " . $username . ",\nYour Shop is deactivate because of non activation. \nTo activate your shop you can reply this mail with your proper information.";
+        $message = "Dear " . $username . ",\n\tYour Shop is deactivate because of non activation. \n\tTo activate your shop you can reply this mail with your proper information.";
     }
 
     include_once('../sendmail.php');
