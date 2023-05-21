@@ -26,7 +26,7 @@ if (isset($_GET['PayerID'])) {
     oci_bind_by_name($stmt, ":payment_detail", $payment_detail);
 
     if (oci_execute($stmt)) {
-        header('location:http://localhost/learning/karan/customer/homepage.php');
+        header('location:http://localhost/CleckFreshMart/customer/homepage.php');
     }
 
     echo "<script>alert('Payment has been Successfull')</script>";

@@ -6,11 +6,11 @@
  */
 
 // PayPal configuration 
-define('PAYPAL_ID', 'sb-zyvay25739447@business.example.com');
+define('PAYPAL_ID', 'sb-a8g47b24751837@business.example.com');
 define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE 
 
-define('PAYPAL_RETURN_URL', 'http://localhost/learning/karan/payment/success.php');
-define('PAYPAL_CANCEL_URL', 'http://localhost/learning/karan/customer/homepage.php');
+define('PAYPAL_RETURN_URL', 'http://localhost/CleckFreshMart/payment/success.php');
+define('PAYPAL_CANCEL_URL', 'http://localhost/CleckFreshMart/customer/homepage.php');
 
 define('PAYPAL_CURRENCY', 'USD');
 
