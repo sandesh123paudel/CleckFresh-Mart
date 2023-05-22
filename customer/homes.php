@@ -24,7 +24,7 @@
       echo "<div class='image' onclick='viewproduct($product_id)'>";
       echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
       echo "</div>";
-      echo "<h5 class='title'>".ucfirst($product_name)."</h5>";
+      echo "<h5 class='title'>" . ucfirst($product_name) . "</h5>";
       echo "<span class='size'>$product_quantity gm</span>";
       echo "<p class='price'>&pound; $product_price</p>";
       echo "<input type='hidden' data-quantity='1' >";
@@ -47,9 +47,9 @@
   <div class="shop-container">
     <?php
     $status = 'verified';
-    $sql = "SELECT * FROM SHOP WHERE ROWNUM <= 7 AND STATUS = :verify";
+    $sql = "SELECT * FROM SHOP WHERE  STATUS = :verify";
     $stmt = oci_parse($connection, $sql);
-    oci_bind_by_name($stmt , ":verify" , $status);
+    oci_bind_by_name($stmt, ":verify", $status);
     oci_execute($stmt);
 
     while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
@@ -110,7 +110,7 @@
         echo "<div class='offer'>Offer</div>";
         echo "</div>";
         echo "<div class='content'>";
-        echo "<h5>".ucfirst($product_name)."</h5>";
+        echo "<h5>" . ucfirst($product_name) . "</h5>";
         echo "<span class='piece'> $product_quantity gm</span>";
 
         echo "<div class='price'>";
@@ -193,7 +193,7 @@
         }
         echo "</div>";
         echo "<div class='content'>";
-        echo "<h5>".ucfirst($product_name)."</h5>";
+        echo "<h5>" . ucfirst($product_name) . "</h5>";
         echo "<span class='piece'>" . $product_quantity . " gm</span>";
         echo "<div class='price'>";
         if ($product_offer) {

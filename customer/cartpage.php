@@ -98,11 +98,11 @@ include('../db/connection.php');
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
-            $product_price = $data['PRODUCT_PRICE'];
-            $productname = $data['PRODUCT_NAME'];
+            $product_price = $row['PRODUCT_PRICE'];
+            $productname = $row['PRODUCT_NAME'];
 
-            if (!empty($data['OFFER_ID'])) {
-              $offer_id = $data['OFFER_ID'];
+            if (!empty($row['OFFER_ID'])) {
+              $offer_id = $row['OFFER_ID'];
 
               $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
               $stmt = oci_parse($connection, $sql);
@@ -123,11 +123,11 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-              echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
 
-              echo " </div>
+            echo " </div>
             <div class='item-info'>
-              <h3>".ucfirst($productname)."</h3>
+              <h3>" . ucfirst($productname) . "</h3>
               <label>CleckFreshMart </label>
             </div>
             <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
