@@ -97,9 +97,10 @@ include('../db/connection.php');
           $quantity = $value['product_quantity'];
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-
-            $product_price = $row['PRODUCT_PRICE'];
+            $product_image = $row['PRODUCT_IMAGE'];
+            $prouct_id=$row['PRODUCT_ID'];
             $productname = $row['PRODUCT_NAME'];
+            $product_price =$row['PRODUCT_PRICE'];
 
             if (!empty($row['OFFER_ID'])) {
               $offer_id = $row['OFFER_ID'];
@@ -123,25 +124,25 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\". ./db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+            echo "<img src=\". ./db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
               <h3>" . ucfirst($productname) . "</h3>
               <label>CleckFreshMart </label>
             </div>
-            <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
+            <div class='price'>&#163; " . $discount_price. "</div>
 
             <div class='qty'>
             <h3> 
-              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $row['PRODUCT_ID'] . "' class='cart-item-quantity' disabled>
+              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" .$prouct_id . "' class='cart-item-quantity' disabled>
             </h3>
             </div>
 
             <div class='price'>&#163; $productprice</div>
 
             <div class='remove'>
-              <span class='material-symbols-outlined' onclick='removecart(" . $row['PRODUCT_ID'] . ")'> delete </span>
+              <span class='material-symbols-outlined' onclick='removecart(" . $prouct_id . ")'> delete </span>
             </div>
           </div>
 
@@ -191,7 +192,7 @@ include('../db/connection.php');
             echo "
         <div class='item-container'>
           <div class='image'>";
-            echo "<img src=\"../db/uploads/products/" . $data['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
 
             echo " </div>
           <div class='item-info'>
@@ -211,7 +212,7 @@ include('../db/connection.php');
 
 
           <div class='remove'>
-            <span class='material-symbols-outlined' onclick='removecartdb(" . $data['PRODUCT_ID'] . ")'> delete </span>
+            <span class='material-symbols-outlined' onclick='removecartdb(" . $prouct_id. ")'> delete </span>
           </div>
         </div>
 

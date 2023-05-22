@@ -78,7 +78,7 @@ if (isset($_GET['PayerID'])) {
     //     }
     // }
 
-    header('location:http://localhost/learning/karan/customer/homepage.php');
+    header('location:http://localhost/mart/customer/homepage.php');
 
     // echo "<script>alert('Payment has been Successfull')</script>";
 
