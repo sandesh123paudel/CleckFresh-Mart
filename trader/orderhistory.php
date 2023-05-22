@@ -82,7 +82,7 @@ include("../db/connection.php");
                         <div class='action'>";
                 if ($order_status == 'completed') {
                     echo "<p id='green' >Delivered</p>";
-                } else if ($order_status == 'remove') {
+                } else if ($order_status == 'removed') {
                     echo "<p id='red'>Cancelled</p>";
                 } else {
                     echo "<p id='red'>Pending...</p>";

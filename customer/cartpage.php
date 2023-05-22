@@ -151,7 +151,7 @@ include('../db/connection.php');
         }
       }
 
-
+    // with login
       if (isset($_SESSION['userID'])) {
 
         $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";

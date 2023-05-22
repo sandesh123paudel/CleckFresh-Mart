@@ -61,7 +61,7 @@ include("../db/connection.php");
                     echo "<h3>" . $order_count . "</h3>";
                     ?>
 
-                    <p>New orders today</p>
+                    <p>Total orders</p>
                 </div>
                 <div class="icon">
                     <span class="material-symbols-outlined">
@@ -158,8 +158,8 @@ include("../db/connection.php");
                         $product_price = (float)$row['PRODUCT_PRICE'] * $row['ORDER_QUANTITY'];
                         $total_amount += $product_price;
                     }
-                    
-                    echo "<h3>&pound; " . number_format($total_amount,2) . "</h3>";
+
+                    echo "<h3>&pound; " . number_format($total_amount, 2) . "</h3>";
                     ?>
 
                     <p>Total Earnings</p>

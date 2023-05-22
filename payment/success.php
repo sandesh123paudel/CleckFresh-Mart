@@ -28,7 +28,7 @@ if (isset($_GET['PayerID'])) {
     $femail = $email;
 
     $sub = "Successful Payment";
-    $message = "Dear " . $username . ",\n\nYou have successfully paid your total amount : £ " . $_SESSION['totalprice'] . " \n\n\t\tNow You can pick your order from your collection place.\n Your Order ID : " . $_SESSION['order_id'] . "\n\t Thank You for shopping. ";
+    $message = "Dear " . $username . ",\n\nYou have successfully paid your total amount : £ " . $_SESSION['totalprice'] . "\n\n\t\tNow You can pick your order from your collection place.\n\t Your Order ID : " . $_SESSION['order_id'] . "\n\tYour collection time is " . $_SESSION['collection_date'] . "\n\tBe there on time.\n\t Thank You for shopping. ";
     include_once('../sendmail.php');
 
     $sql = "INSERT INTO PAYMENT (USER_ID,ORDER_ID,TOTAL_AMOUNT,PAYMENT_DETAILS) VALUES (:user_id,:order_id,:total_amount,:payment_detail)";
@@ -40,43 +40,31 @@ if (isset($_GET['PayerID'])) {
 
     oci_execute($stmt);
 
-    include("sendemailtotrader.php");
+    $sqlpayment = "SELECT u.*,op.*
+        FROM PAYMENT p
+        JOIN ORDER_PRODUCT op ON p.ORDER_ID = op.ORDER_ID
+        JOIN PRODUCT pr ON op.PRODUCT_ID = pr.PRODUCT_ID
+        JOIN SHOP s ON pr.SHOP_ID = s.SHOP_ID
+        JOIN USER_I u ON s.USER_ID = u.USER_ID
+        WHERE p.ORDER_ID = :order_id";
 
-    // $sqlpayment = "SELECT u.*,op.*
-    // FROM PAYMENT p
-    // JOIN ORDER_PRODUCT op ON p.ORDER_ID = op.ORDER_ID
-    // JOIN PRODUCT pr ON op.PRODUCT_ID = pr.PRODUCT_ID
-    // JOIN SHOP s ON pr.SHOP_ID = s.SHOP_ID
-    // JOIN USER_I u ON s.USER_ID = u.USER_ID
-    // WHERE p.ORDER_ID = :order_id";
+    $stmtpayment = oci_parse($connection, $sqlpayment);
+    oci_bind_by_name($stmtpayment, ":order_id", $_SESSION['order_id']);
+    oci_execute($stmtpayment);
 
-    // $stmtpayment = oci_parse($connection, $sqlpayment);
-    // oci_bind_by_name($stmtpayment, ":order_id", $_SESSION['order_id']);
-    // oci_execute($stmtpayment);
+    while ($row = oci_fetch_array($stmtpayment)) {
 
-    // while ($row = oci_fetch_array($stmtpayment)) {
+        $trader_id = $row['USER_ID'];
+        $product_id = $row['PRODUCT_ID'];
 
-    //     $email = $row['EMAIL'];
-    //     $user_name = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
-    //     $trader_id = $row['USER_ID'];
-    //     $product_id = $row['PRODUCT_ID'];
-
-    //     // inserting in report of payment details
-    //     $insertsql = "INSERT INTO REPORT (PRODUCT_ID,TRADER_ID,ORDER_ID) VALUES (:product_id,:trader_id,:order_id)";
-    //     $stmtinsert = oci_parse($connection, $insertsql);
-    //     oci_bind_by_name($stmtinsert, ":product_id", $product_id);
-    //     oci_bind_by_name($stmtinsert, ":trader_id", $trader_id);
-    //     oci_bind_by_name($stmtinsert, ":order_id",  $_SESSION['order_id']);
-
-    //     if (oci_execute($stmtinsert)) {
-    //         $username = $user_name;
-    //         $femail = $email;
-
-    //         $sub = "Notification from CleckFreshMart";
-    //         $message = "Dear " . $username . ",\n\n\tYour product is successfully sold and your receive your payment.";
-    //         include('sendmail.php');
-    //     }
-    // }
+        // inserting in report of payment details
+        $insertsql = "INSERT INTO REPORT (PRODUCT_ID,TRADER_ID,ORDER_ID) VALUES (:product_id,:trader_id,:order_id)";
+        $stmtinsert = oci_parse($connection, $insertsql);
+        oci_bind_by_name($stmtinsert, ":product_id", $product_id);
+        oci_bind_by_name($stmtinsert, ":trader_id", $trader_id);
+        oci_bind_by_name($stmtinsert, ":order_id",  $_SESSION['order_id']);
+        oci_execute($stmtinsert);
+    }
 
     header('location:http://localhost/learning/karan/customer/homepage.php');
 
