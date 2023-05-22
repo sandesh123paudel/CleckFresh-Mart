@@ -123,7 +123,7 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
+            echo "<img src=\". ./db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
