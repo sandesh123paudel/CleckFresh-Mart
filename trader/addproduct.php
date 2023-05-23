@@ -62,8 +62,9 @@ if (isset($_POST['addProduct'])) {
 
     if ($errcount == 0) {
       if ($utype == "image/jpeg" || $utype == "image/jpg" || $utype == "image/png" || $utype == "image/gif" || $utype == "image/webp") {
-        $sql1 = "INSERT INTO PRODUCT (CATEGORY_ID, SHOP_ID, OFFER_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPE, PRODUCT_DESCP, QUANTITY, STOCK_NUMBER, PRODUCT_IMAGE) 
-                  VALUES(:category_id, :shop_id,:offer_id, :name, :price, :category, :description, :quantity, :stock, :image )";
+        $status = 'pending';
+        $sql1 = "INSERT INTO PRODUCT (CATEGORY_ID, SHOP_ID, OFFER_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPE, PRODUCT_DESCP, QUANTITY, STOCK_NUMBER, PRODUCT_IMAGE,PRODUCT_STATUS) 
+                  VALUES(:category_id, :shop_id,:offer_id, :name, :price, :category, :description, :quantity, :stock, :image,:status )";
 
         $stid = oci_parse($connection, $sql1);
 
@@ -77,6 +78,8 @@ if (isset($_POST['addProduct'])) {
         oci_bind_by_name($stid, ':quantity', $quantity);
         oci_bind_by_name($stid, ':stock', $stock);
         oci_bind_by_name($stid, ':image', $image);
+        oci_bind_by_name($stid, ':status', $status);
+
 
         if (oci_execute($stid)) {
           if (move_uploaded_file($utmpname, $ulocation)) {

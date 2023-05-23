@@ -170,21 +170,22 @@ if (isset($_POST['subtrader'])) {
 
             if ($vemail === $femail) {
                 $errcount += 1;
-                $erremail = "Email is already Exists";
+                $erremail = "Email already Exist";
             }
             if ($vcontact === $contact) {
                 $errcount += 1;
-                $errPhone = "Phone number is already Exists";
+                $errPhone = "Phone number already Exists";
             }
             if ($vcategory === $category) {
                 $errcount += 1;
-                $errcategory = "Trader Category is already Exists";
+                $errcategory = "Trader Category  already Exists";
             }
             if ($errcount == 0) {
                 $fpassword = md5($password);
                 $role = 'trader';
                 $status = 'off';
                 $verify = "-";
+                $dateFormatted = date('m/d/Y', strtotime($dob));
 
                 $otp_number = rand(100000, 999999);
 
@@ -199,7 +200,7 @@ if (isset($_POST['subtrader'])) {
                 oci_bind_by_name($stid, ':gender', $gender);
                 oci_bind_by_name($stid, ':contact', $contact);
                 oci_bind_by_name($stid, ':email', $femail);
-                oci_bind_by_name($stid, ':dob', $dob);
+                oci_bind_by_name($stid, ':dob', $dateFormatted);
                 oci_bind_by_name($stid, ':role', $role);
                 oci_bind_by_name($stid, ':category', $category);
                 oci_bind_by_name($stid, ':password', $fpassword);
@@ -332,7 +333,7 @@ if (isset($_POST['subtrader'])) {
 
                 <div class="terms-condition">
                     <input type='checkbox' name='remember' />
-                    <p><a href="#">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span> </p>
+                    <p><a href="customer/terms&condition.php">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span> </p>
                 </div>
 
                 <input type='submit' class='login-btn inputbox' name='subtrader' value='Create a new account  >>' />

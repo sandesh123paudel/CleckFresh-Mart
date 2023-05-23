@@ -68,11 +68,11 @@ if (isset($_POST['subCustomer'])) {
         // error validation
         if (strlen(trim($fname)) != strlen($fname)) {
             $errcount += 1;
-            $errfname = "You cannot input space as a first name";
+            $errfname = "You cannot input space in a first name";
         }
         if (strlen(trim($lname)) != strlen($lname)) {
             $errcount += 1;
-            $errlname = "You cannot input space as a first name";
+            $errlname = "You cannot input space in a first name";
         }
         if (strlen(trim($phone)) != strlen($phone)) {
             $errcount += 1;
@@ -110,7 +110,7 @@ if (isset($_POST['subCustomer'])) {
         if ($age < 16) {
             $errcount += 1;
             $errDOB = "Age should be more than 16";
-        }
+        } 
 
         // password confirmation and validation
         if ($password == $cpassword) {
@@ -149,11 +149,11 @@ if (isset($_POST['subCustomer'])) {
 
             if ($vemail == $femail) {
                 $errcount += 1;
-                $erremail = "Email is already Exists";
+                $erremail = "Email already Exists";
             }
             if ($vcontact == $contact) {
                 $errcount += 1;
-                $errPhone = "Phone number is already Exists";
+                $errPhone = "Phone number already Exists";
             }
 
             if ($errcount == 0) {
@@ -161,6 +161,7 @@ if (isset($_POST['subCustomer'])) {
                 $role = 'customer';
                 $status = 'off';
                 $verify = 'pending';
+                $dateFormatted = date('m/d/Y', strtotime($dob));
 
                 $otp_number = rand(100000, 999999);
                 $sql1 = "INSERT INTO USER_I (USER_ID,FIRST_NAME,LAST_NAME,GENDER,CONTACT,EMAIL,DATE_OF_BIRTH,ROLE,PASSWORD,STATUS,VERIFY) VALUES(:user_id,:fname,:lname,:gender,:contact,:email,:dob,:role,:password,:status,:verify)";
@@ -173,7 +174,7 @@ if (isset($_POST['subCustomer'])) {
                 oci_bind_by_name($stid, ':gender', $gender);
                 oci_bind_by_name($stid, ':contact', $contact);
                 oci_bind_by_name($stid, ':email', $femail);
-                oci_bind_by_name($stid, ':dob', $dob);
+                oci_bind_by_name($stid, ':dob', $dateFormatted );
                 oci_bind_by_name($stid, ':role', $role);
                 oci_bind_by_name($stid, ':password', $fpassword);
                 oci_bind_by_name($stid, ':verify', $verify);
@@ -287,7 +288,7 @@ if (isset($_POST['subCustomer'])) {
 
                 <div class="terms-condition">
                     <input type='checkbox' name='remember' />
-                    <p><a href="#">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span></p>
+                    <p><a href="customer/terms&condition.php">Terms and Conditions</a> <span class='error'> * <?php echo $errremember; ?> </span></p>
                 </div>
 
                 <input type='submit' class='login-btn inputbox' name='subCustomer' value='Create a new account  >>' />

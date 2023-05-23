@@ -108,7 +108,7 @@ include('../db/connection.php');
                 </div>
                 <!-- product-name -->
                 <?php
-                $count = $ratecount = 1;
+                $count = $ratecount = $rating = 1;
                 $sql = "SELECT r.*
                             FROM REVIEW r
                             JOIN USER_I u ON r.USER_ID = u.USER_ID
