@@ -39,11 +39,8 @@
             
             if($status == 'pending'){
             echo "<td> <div class='action'>".
-                "<a id='approve' href=updateshop.php?id=$id&action=verified&email=$email>Approve</a>"
-                .
-                "<a id='decline' href=deleteshop.php?id=$id&action=decline&email=$email>Remove</a>".
-                
-                "</div>
+                "<a id='approve' href=updateshop.php?id=$id&action=verified&email=$email>Approve</a>
+                </div>
                 </td>";
             }
             else{
@@ -57,4 +54,3 @@
         echo "</table>";
 
         echo "</div>";
-    ?>
