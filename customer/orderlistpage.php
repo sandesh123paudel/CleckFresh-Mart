@@ -23,7 +23,7 @@ include('../db/connection.php');
       <table>
         <!-- table heading -->
         <tr>
-          <th>Order Id</th>
+          <th>Id</th>
           <th>Date</th>
           <th>Collection Slot</th>
           <th>Total Items</th>
@@ -58,13 +58,20 @@ include('../db/connection.php');
 
               <td>" . $row['STATUS'] . "</td>
               
-              <td class='links-btn'>";
+              <td class='links-btn '>";
           if ($row['STATUS'] == 'pending') {
 
-            echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>Payment</a><a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>View</a>";
-
+            echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date'>
+            <span class='material-symbols-outlined p-1'>
+            payments
+            </span></a><a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' ><span class='material-symbols-outlined p-1 ' >
+            visibility
+            </span></a>";
           } else {
-            echo "<a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' class='btn btn-warning'>View</a>";
+            echo "<a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' >
+            <span class='material-symbols-outlined p-1'>
+            visibility
+            </span></a>";
           }
           echo "</td>
             </tr>
@@ -72,14 +79,10 @@ include('../db/connection.php');
         }
         ?>
 
-
-
       </table>
     </div>
 
   </div>
-
-
 
 </body>
 

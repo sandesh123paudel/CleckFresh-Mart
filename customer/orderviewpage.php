@@ -51,16 +51,36 @@ include('../db/connection.php');
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             $product_image = $row['PRODUCT_IMAGE'];
-            $productprice =  $row['ORDER_QUANTITY'] * $row['PRODUCT_PRICE'];
-            $totalprice += $row['ORDER_QUANTITY'] * $row['PRODUCT_PRICE'];
+            $product_price = $row['PRODUCT_PRICE'];
+            $quantity =  $row['ORDER_QUANTITY'];
+            $product_name = $row['PRODUCT_NAME'];
+
+            if (!empty($row['OFFER_ID'])) {
+              $offer_id = $row['OFFER_ID'];
+
+              $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+              $stmt = oci_parse($connection, $sql);
+              oci_bind_by_name($stmt, ":offer_id", $offer_id);
+              oci_execute($stmt);
+              while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
+                $discount = (int)$data['OFFER_PERCENTAGE'];
+                $discount_price = $product_price - $product_price * ($discount / 100);
+                $productprice =  $quantity * $discount_price;
+                $totalprice += $quantity * $discount_price;
+              }
+            } else {
+              $discount_price = $product_price;
+              $productprice =  $quantity * $discount_price;
+              $totalprice += $quantity * $discount_price;
+            }
 
             echo "
               <tr>";
             echo "<td class='img'>";
-            echo "<img src=\"../db/uploads/products/" . $row['PRODUCT_IMAGE'] . "\" alt='' /> </td>";
-            echo "<td>" . $row['PRODUCT_NAME'] . "</td>
-                <td>" . $row['ORDER_QUANTITY'] . "</td>
-                <td>&#163; " . $row['PRODUCT_PRICE'] . "</td>
+            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='' /> </td>";
+            echo "<td>" . ucfirst($product_name) . "</td>
+                <td>" . $quantity . "</td>
+                <td>&#163; " . $discount_price . "</td>
                 <td>&#163; " . $productprice . "</td>
               </tr>
               ";
@@ -75,8 +95,23 @@ include('../db/connection.php');
           <h3>Order Summary</h3>
 
           <div class="total-items">
-            <h6>Total Payment</h6>
+            <h6>Sub Total</h6>
             <h6><b>&#163; <?php echo $totalprice; ?></b></h6>
+          </div>
+
+          <div class="total-items">
+            <h6>Tax (15%)</h6>
+            <h6><b>&#163; <?php $taxamount = $totalprice * 0.15;
+                          echo $taxamount;
+                          ?></b></h6>
+          </div>
+
+          <div class="total-items">
+            <h6>Total Payment</h6>
+            <h6><b>&#163; <?php
+                          $finalamount = $taxamount + $totalprice;
+                          echo $finalamount;
+                          ?></b></h6>
           </div>
         </div>
 

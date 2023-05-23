@@ -10,7 +10,7 @@ include("../db/connection.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/indexs.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <!--jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -19,10 +19,17 @@ include("../db/connection.php");
             $("#filter").change(function() {
                 var shop_id = $("#filter").val();
                 var shop_name = $("#shop_name").val();
-                // alert("YOur filter id is : " + shop_id);
                 document.location.href = "products.php?s_id=" + shop_id;
             });
+
+            $(".price_sort").change(function() {
+                var sortprice = $(".price_sort").val();
+                // alert("YOur choose is : " + sortprice);
+                document.location.href = "products.php?sort=" + sortprice;
+
+            });
         });
+
     </script>
 
 </head>
@@ -63,27 +70,37 @@ include("../db/connection.php");
 
                     ?> Products List </h3>
 
+            <div class='d-flex px-5'>
 
-            <select id='filter' name='filter'>
-                <option value="all">Filter by Shop</option>
-                <?php
-                $sql = "SELECT * FROM SHOP ";
-                $stid = oci_parse($connection, $sql);
-                oci_execute($stid);
-                while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                    // session unset
-                    unset($_SESSION['shopid']);
+                <select name='sort' class='price_sort'>
+                    <option value="">Sort By Price</option>
+                    <option value="l_h">Low to High</option>
+                    <option value="h_l">High to Low</option>
+                </select>
 
-                    $s_id = $row['SHOP_ID'];
-                    $s_name = $row['SHOP_NAME'];
-                    $_SESSION['shopid'] = $s_id;
-                    // echo "<option type='hidden' id='shop_name' value='$s_name'>";
-                    echo "<option value='$s_id'  >" . $s_name . "</option>";
-                }
-                ?>
-            </select>
+                <select id='filter' name='filter'>
+                    <option value="all">Filter by Shop</option>
+                    <?php
+                    $status = 'verified';
+                    $sql = "SELECT * FROM SHOP WHERE STATUS = :verify";
+                    $stid = oci_parse($connection, $sql);
+                    oci_bind_by_name($stid, ":verify", $status);
+                    oci_execute($stid);
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                        // session unset
+                        unset($_SESSION['shopid']);
 
+                        $s_id = $row['SHOP_ID'];
+                        $s_name = $row['SHOP_NAME'];
+                        $_SESSION['shopid'] = $s_id;
+                        // echo "<option type='hidden' id='shop_name' value='$s_name'>";
+                        echo "<option value='$s_id'  >" . $s_name . "</option>";
+                    }
 
+                    ?>
+                </select>
+
+            </div>
         </div>
 
         <div class="product-lists">
@@ -105,6 +122,7 @@ include("../db/connection.php");
                         $product_id = $row['PRODUCT_ID'];
                         $product_image = $row['PRODUCT_IMAGE'];
                         $product_price = $row['PRODUCT_PRICE'];
+                        $product_offer = $row['OFFER_ID'];
 
                         echo "<div class='single'>";
                         echo "<div class='img' onclick='viewproduct($product_id)'>";
@@ -112,14 +130,25 @@ include("../db/connection.php");
                         echo "<div class='offer'>Offer</div>";
                         echo "</div>";
                         echo "<div class='content'>";
-                        echo "<h5>Fresh Blackberries</h5>";
-                        echo "<span class='piece'>24 PieceS</span>";
+                        echo "<h5>".ucfirst($product_name)."</h5>";
+                        echo "<span class='piece'>".$row['QUANTITY']." gm</span>";
 
                         echo "<input type='hidden' data-quantity='1' >";
 
                         echo "<div class='price'>";
-                        echo "<span class='cut'>$50.00</span>";
-                        echo "<span class='main'>$20.00</span>";
+
+                        $sqlp = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                        $stmts = oci_parse($connection, $sqlp);
+                        oci_bind_by_name($stmts, ":offer_id", $product_offer);
+                        oci_execute($stmts);
+                        $dis = oci_fetch_array($stmts, OCI_ASSOC);
+                
+                        $discount = (int)$dis['OFFER_PERCENTAGE'];
+                        $total_price = $product_price - $product_price * ($discount / 100);
+
+                        echo "<span class='cut'>&pound;" . $product_price . "</span>";
+                        echo "<span class='main'>&pound; " . $total_price . "</span>";
+
                         echo "</div>";
 
                         // echo "<a href=''><div class='btn'>Add +</div></a>";
@@ -146,6 +175,16 @@ include("../db/connection.php");
                     }
                     if ($_GET['cat_name'] == 'all') {
                         $sql = 'SELECT * FROM PRODUCT';
+                        $stid = oci_parse($connection, $sql);
+                    }
+                }
+                if(isset($_GET['sort'])){
+                    if($_GET['sort'] == 'l_h'){
+                        $sql = 'SELECT * FROM PRODUCT ORDER BY PRODUCT_PRICE ASC';
+                        $stid = oci_parse($connection, $sql);
+                    }
+                    else if($_GET['sort'] == 'h_l'){
+                        $sql = 'SELECT * FROM PRODUCT ORDER BY PRODUCT_PRICE DESC';
                         $stid = oci_parse($connection, $sql);
                     }
                 }

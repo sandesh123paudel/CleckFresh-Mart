@@ -98,9 +98,27 @@ include('../db/connection.php');
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 
-            $productprice =  $quantity * $row['PRODUCT_PRICE'];
-            $totalprice += $quantity * $row['PRODUCT_PRICE'];
-            $productname = $row['PRODUCT_NAME'];
+            $product_price = $data['PRODUCT_PRICE'];
+            $productname = $data['PRODUCT_NAME'];
+
+            if (!empty($data['OFFER_ID'])) {
+              $offer_id = $data['OFFER_ID'];
+
+              $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+              $stmt = oci_parse($connection, $sql);
+              oci_bind_by_name($stmt, ":offer_id", $offer_id);
+              oci_execute($stmt);
+              while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+                $discount = (int)$row['OFFER_PERCENTAGE'];
+                $discount_price = $product_price - $product_price * ($discount / 100);
+                $productprice =  $quantity * $discount_price;
+                $totalprice += $quantity * $discount_price;
+              }
+            } else {
+              $discount_price = $product_price;
+              $productprice =  $quantity * $discount_price;
+              $totalprice += $quantity * $discount_price;
+            }
 
             echo "
         <div class='item-container'>
@@ -109,7 +127,7 @@ include('../db/connection.php');
 
             echo " </div>
           <div class='item-info'>
-            <h3>" . $productname . "</h3>
+            <h3>".ucfirst($productname)."</h3>
             <label>CleckFreshMart </label>
           </div>
           <div class='price'>&#163; " . $row['PRODUCT_PRICE'] . "</div>
@@ -148,9 +166,27 @@ include('../db/connection.php');
           oci_bind_by_name($stmt, ":pid", $pid);
           oci_execute($stmt);
           while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
-            $productprice =  $quantity * $data['PRODUCT_PRICE'];
-            $totalprice += $quantity * $data['PRODUCT_PRICE'];
+            $product_price = $data['PRODUCT_PRICE'];
             $productname = $data['PRODUCT_NAME'];
+
+            if (!empty($data['OFFER_ID'])) {
+              $offer_id = $data['OFFER_ID'];
+
+              $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+              $stmt = oci_parse($connection, $sql);
+              oci_bind_by_name($stmt, ":offer_id", $offer_id);
+              oci_execute($stmt);
+              while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
+                $discount = (int)$row['OFFER_PERCENTAGE'];
+                $discount_price = $product_price - $product_price * ($discount / 100);
+                $productprice =  $quantity * $discount_price;
+                $totalprice += $quantity * $discount_price;
+              }
+            } else {
+              $discount_price = $product_price;
+              $productprice =  $quantity * $discount_price;
+              $totalprice += $quantity * $discount_price;
+            }
 
             echo "
         <div class='item-container'>
@@ -159,14 +195,14 @@ include('../db/connection.php');
 
             echo " </div>
           <div class='item-info'>
-            <h3>" . $productname . "</h3>
+            <h3>" . ucfirst($productname) . "</h3>
             <label>CleckFreshMart</label>
           </div>
-          <div class='price'>&#163; " . $data['PRODUCT_PRICE'] . "</div>
+          <div class='price'>&#163; " . $discount_price . "</div>
 
           <div class='qty'>
           <h3>
-            <input type='hidden' value='" . $data['PRODUCT_PRICE'] . "' id='product_id'>
+            <input type='hidden' value='" . $discount_price . "' id='product_id'>
             <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' disabled>
           </h3>
             
@@ -185,11 +221,7 @@ include('../db/connection.php');
       }
 
       ?>
-      <!-- <div class='qty-icon'>
-              <span class='material-symbols-outlined' onclick='addedquantity()'> arrow_drop_up </span>
-                
-              <span class='material-symbols-outlined' onclick='removequantity()'> arrow_drop_down </span>        
-            </div> -->
+
       <div class="line"></div>
 
       <div class="total">

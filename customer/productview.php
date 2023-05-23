@@ -12,8 +12,6 @@ include('../db/connection.php');
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <!-- <link rel="stylesheet" href="css/productsvi.css" /> -->
-
     <style>
         .product-quantity h3 {
             margin-top: -3px;
@@ -100,12 +98,12 @@ include('../db/connection.php');
                     ?>
 
                     <div class="shop-info">
-                        <?php echo "<h3>$shop_name</h3>"; ?>
+                        <?php echo "<h3>".ucfirst($shop_name)."</h3>"; ?>
                         <p><?php echo "$shop_desc"; ?></p>
                     </div>
                 </div>
                 <!-- product-name -->
-                <h2><?php echo $p_name; ?></h2>
+                <h2><?php echo ucfirst($p_name); ?></h2>
                 <span>
                     <?php
                     echo $p_quantity;
@@ -143,14 +141,17 @@ include('../db/connection.php');
 
                     ?>
                 </span>
+
                 <div class="product-quantity">
                     <h4>Quantity :</h4>
                     <button onclick="removequantity()">-</button>
                     <h3>
-                        <input type="hidden" value='<?php echo $p_id; ?>' id='product_id'>
-                        <input type="text" min="1" max="20" value='1' id='quantity' disabled>
+                        <input type='hidden' value='<?php echo $p_id; ?>' id='product_id'>
+                        <input type="text" min="1" value='1' id='quantity' disabled>
                     </h3>
-                    <button onclick="addedquantity()">+</button>
+                    <?php
+                    echo "<button onclick='addedquantity($p_stock)'>+</button>";
+                    ?>
                 </div>
 
                 <div class="buttons">
@@ -190,45 +191,75 @@ include('../db/connection.php');
         <div class="product-rating">
             <h3>Add Rating</h3>
             <div class="product-stars">
-                <div class="stars">
-                    <span class="material-symbols-outlined" onclick='rating(1)'>
-                        star
-                    </span>
-                    <span class="material-symbols-outlined" onclick='rating(1)'>
-                        star
-                    </span>
-                    <span class="material-symbols-outlined" onclick='rating(1)'>
-                        star
-                    </span>
-                    <span class="material-symbols-outlined" onclick='rating(1)'>
-                        star
-                    </span>
-                    <span class="material-symbols-outlined" onclick='rating(1)'>
-                        star
-                    </span>
-                </div>
-                <button>Add Stars</button>
-            </div>
+                <?php
+                if (isset($_SESSION['userID'])) {
+                    $user_id = $_SESSION['userID'];
+                } else {
+                    $user_id = '-';
+                }
 
+                echo "
+                <div class='stars'>
+                    <span class='material-symbols-outlined' onclick='rating(1,$p_id,$user_id)'>
+                        star
+                    </span>
+                    <span class='material-symbols-outlined' onclick='rating(2,$p_id,$user_id)'>
+                        star
+                    </span>
+                    <span class='material-symbols-outlined' onclick='rating(3,$p_id,$user_id)'>
+                        star
+                    </span>
+                    <span class='material-symbols-outlined' onclick='rating(4,$p_id,$user_id)'>
+                        star
+                    </span>
+                    <span class='material-symbols-outlined' onclick='rating(5,$p_id,$user_id)'>
+                        star
+                    </span>
+                </div>";
+
+                if (isset($_SESSION['userID'])) {
+                    echo "<button onclick='addrating()'>Add Stars</button>";
+                } else {
+                    echo "<button onclick='login()'>Add Stars</button>";
+                }
+                ?>
+            </div>
         </div>
 
         <!-- reviews -->
-        <div class="product-reviews">
+        <div class='product-reviews'>
             <h3>Product Review:</h3>
 
-            <div class="display-review">
-                <label>Karan Chaudhary: </label>
-                <p>
-                    Lorem ipsum dolor sit amet, consectertur adipiscing elite. cras lacus metus, convallis ut leo nec, tincidunt elite justo, Ut felies
-                    orci, hendrerit a pulvinar et, gravida ac lerom.Quickly Build a Website With Our Unified Platform. Grow Your Business With Shopify®.
-                    Easily Create a Website With Our Unified Platform. Start a Free Trial Now! Drop Shipping Integration. Mobile Commerce Ready. Social
-                    Media Integration. Fraud Prevention.
-                </p>
-            </div>
+            <?php
+            $sql = "SELECT R.*, U.*
+                    FROM REVIEW R
+                    JOIN USER_I U ON R.USER_ID = U.USER_ID
+                    WHERE R.PRODUCT_ID = :product_id";
+            $stid = oci_parse($connection, $sql);
+            oci_bind_by_name($stid, ":product_id", $p_id);
+            oci_execute($stid);
+            while ($row = oci_fetch_array($stid)) {
+                $username = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+                $review = $row['REVIEW_DESCRIPTION'];
+                echo "<div class='display-review'>";
+                echo " <label>$username: </label>";
+                echo " <p>$review</p>";
+                echo " </div>";
+            }
+            ?>
 
             <div class="write-review">
                 <textarea name="reviews" id="user_review" Placeholder="Write your reviews....."></textarea>
-                <button onclick='product_review()'>Add Review</button>
+
+                <?php
+
+                if (isset($_SESSION['userID'])) {
+                    echo "<button onclick='product_review($p_id,$user_id)'>Add Review</button>";
+                } else {
+                    echo "<button onclick='login()'>Add Review</button>";
+                }
+
+                ?>
             </div>
         </div>
 
@@ -264,54 +295,54 @@ include('../db/connection.php');
                     }
 
 
-                    echo "<div class='single'  >";
-                    echo "<div class='img' onclick='viewproduct($product_id)'>";
-                    echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
-                    // echo "<div class='tag'>";
-                    if (!empty($product_offer)) {
-                        echo "<div class='offer'>Offer</div>";
-                    } else {
-                        echo "";
-                    }
-                    if ((int)$product_stock <= 0) {
-                        echo "<div class='outofstock'>out of stock</div>";
-                    } else {
-                        echo "";
-                    }
-                    // echo "</div>";    
-                    echo "</div>";
-                    echo "<div class='content'>";
-                    echo "<h5>" . $product_name . "</h5>";
-                    echo "<span class='piece'>" . $product_quantity . " gm</span>";
-                    echo "<div class='price'>";
-                    if ($product_offer) {
-                        // echo $product_offer;
-                        $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
-                        $stmt = oci_parse($connection, $sql);
-                        oci_bind_by_name($stmt, ":offer_id", $product_offer);
-                        oci_execute($stmt);
-                        $row = oci_fetch_array($stmt, OCI_ASSOC);
-                        $discount = (int)$row['OFFER_PERCENTAGE'];
-                        $total_price = $product_price - $product_price * ($discount / 100);
+                    echo "<div class='single' >";
+                        echo "<div class='img' onclick='viewproduct($product_id)'>";
+                            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
+                            // echo "<div class='tag'>";
+                            if (!empty($product_offer)) {
+                                echo "<div class='offer'>Offer</div>";
+                            } else {
+                                echo "";
+                            }
+                            if ((int)$product_stock <= 0) {
+                                echo "<div class='outofstock'>out of stock</div>";
+                            } else {
+                                echo "";
+                            }
+                            // echo "</div>";    
+                        echo "</div>";
+                        echo "<div class='content'>";
+                            echo "<h5>" . ucfirst($product_name) . "</h5>";
+                            echo "<span class='piece'>" . $product_quantity . " gm</span>";
+                            echo "<div class='price'>";
+                                if ($product_offer) {
+                                    // echo $product_offer;
+                                    $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                                    $stmt = oci_parse($connection, $sql);
+                                    oci_bind_by_name($stmt, ":offer_id", $product_offer);
+                                    oci_execute($stmt);
+                                    $row = oci_fetch_array($stmt, OCI_ASSOC);
+                                    $discount = (int)$row['OFFER_PERCENTAGE'];
+                                    $total_price = $product_price - $product_price * ($discount / 100);
 
-                        echo "<span class='cut'>&pound;" . $product_price . "</span>";
-                        echo "<span class='main'>&pound;" . $total_price . "</span>";
-                    } else {
-                        echo "<span class='main'>&pound; " . $product_price . "</span>";
-                    }
+                                    echo "<span class='cut'>&pound;" . $product_price . "</span>";
+                                    echo "<span class='main'>&pound;" . $total_price . "</span>";
+                                } else {
+                                    echo "<span class='main'>&pound; " . $product_price . "</span>";
+                                }
 
-                    echo "</div>";
+                            echo "</div>";
 
-                    if ((int)$product_stock <= 0) {
-                        echo "<div class='btn' id='outstock' >Add +</div>";
-                    } else {
-                        if (isset($_SESSION['userID'])) {
-                            echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
-                        } else {
-                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
-                        }
-                    }
-                    echo "</div>";
+                            if ((int)$product_stock <= 0) {
+                            echo "<div class='btn' id='outstock' >Add +</div>";
+                            } else {
+                                if (isset($_SESSION['userID'])) {
+                                    echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+                                } else {
+                                    echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+                                }
+                            }
+                        echo "</div>";
                     echo "</div>";
                 }
 
@@ -330,6 +361,66 @@ include('../db/connection.php');
             window.location.href = "productview.php?p_id=" + p_id;
         }
 
+        sessionStorage.clear();
+
+        function rating(rate, product_id, user_id) {
+            sessionStorage.setItem("star", rate);
+            sessionStorage.setItem("p_id", product_id);
+            sessionStorage.setItem("u_id", user_id);
+
+            var starSpans = document.querySelectorAll('.stars span');
+
+            // Iterate through each span and add the yellow color
+            for (var i = 0; i < starSpans.length; i++) {
+                if (i < rate) {
+                    starSpans[i].style.color = 'orange';
+                } else {
+                    starSpans[i].style.color = 'gray'; // Set the remaining stars to black
+                }
+            }
+        }
+
+        // review 
+        function product_review(product_id, user_id) {
+            const review = document.getElementById('user_review').value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+                }
+            };
+            xmlhttp.open(
+                "GET",
+                "addrating.php?action=review&pid=" + product_id + "&uid=" + user_id + "&review=" + review,
+                true
+            );
+            xmlhttp.send();
+        }
+
+
+        // add rating
+        function addrating() {
+            const rate = sessionStorage.getItem('star');
+            const product_id = sessionStorage.getItem('p_id');
+            const user_id = sessionStorage.getItem('u_id');
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText); // replace 'this.responseText' with the actual response text from the server
+                }
+            };
+            xmlhttp.open(
+                "GET",
+                "addrating.php?action=rating&pid=" + product_id + "&uid=" + user_id + "&rate=" + rate,
+                true
+            );
+            xmlhttp.send();
+        }
+
+        function login() {
+            window.location.href = "../login.php";
+        }
+
         function removequantity() {
             const quantity = document.getElementById('quantity').value;
             if (quantity > 1) {
@@ -338,9 +429,11 @@ include('../db/connection.php');
             }
         }
 
-        function addedquantity() {
+        function addedquantity(stocklevel) {
             const quantity = document.getElementById('quantity').value;
-            if (quantity < 20) {
+            // const stocklevel = document.getElementById('stocklevel').value;
+
+            if (quantity < stocklevel) {
                 const addition = parseInt(quantity) + 1;
                 document.getElementById('quantity').value = addition;
             }

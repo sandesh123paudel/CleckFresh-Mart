@@ -79,26 +79,3 @@ else if ($_GET['action'] == 'updatecart') {
         }
     }
 }
-
-
-
-
-//extracting the cart in cart product
-    // $price = 0;
-    // $total = 0;
-    // if (isset($_SESSION['cart'])) {
-    //     foreach ($_SESSION['cart'] as $key => $value) {
-    //         $price = $value['productPrice'] * $value['productquantity'];
-    //         $total += $value['productPrice'] * $value['productquantity']; {
-    //             // code to display cart items
-    //         }
-    //     }
-    // }
-    
-    //  navbar to increase the count number 
-    // $count = 0;
-    // if (isset($_SESSION['cart'])) {
-    //     $count = count($_SESSION['cart']);
-    // }
-
-?>

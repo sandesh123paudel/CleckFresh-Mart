@@ -779,6 +779,16 @@ scrollbar-width: none;  /* Firefox */
   outline: none;
   border: none;
 }
+
+.product-container .product-header .price_sort{
+  margin-right: 1%;
+  border-radius: 5px;
+  padding-left: 1rem;
+  background-color: #e6e6e6;
+  margin-block: 0.5rem;
+  outline: none;
+  border: none;
+}
 .product-container .product-header h3{
   padding-block: 5px;
   margin-inline: 3%;
@@ -1166,6 +1176,7 @@ transform: scale(1.2);
 .stars span{
   color: gray;
   padding-block: 5px;
+  cursor: pointer;
 }
 .product-stars button{
   background-color: var(--green);

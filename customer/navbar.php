@@ -31,7 +31,7 @@ if (isset($_SESSION['userID'])) {
     $(document).ready(function() {
       $("#searchproduct").click(function() {
         var product_name = $("#lgsearch").val();
-        document.location.href = "products.php?p_name=" + product_name.toLowerCase() + "&search=search";
+        document.location.href = "products.php?p_name=" + product_name.toLowerCase() + "&search="+product_name;
       })
     })
   </script>
@@ -156,7 +156,7 @@ if (isset($_SESSION['userID'])) {
         $c_name = $row['CATEGORY_NAME'];
 
         echo "<a href='products.php?cat_id=$c_id'>
-                        <label class='category-link'><p>" . $c_name . "</p><p>▼</p> </label> 
+                        <label class='category-link'><p>" . ucfirst($c_name) . "</p><p>▼</p> </label> 
                     </a>";
       }
       ?>
