@@ -183,8 +183,13 @@ if (isset($_POST['subCustomer'])) {
 
                 $fullname = $fname . " " . $lname;
                 $sub = "Verify Your Email address";
-                $message = "Dear $fullname,\n Your Verification Code is: $otp_number";
-
+                $message = "Dear $fullname, 
+                \n\nThis email contains the OTP required to verify you as a Customer.
+                \n\n OTP: $otp_number
+                \n\nThank you.
+                \nHave a great day!
+                \nCleckFreshMart";
+                
                 include_once('sendmail.php');
 
                 unset($_SESSION['email']);

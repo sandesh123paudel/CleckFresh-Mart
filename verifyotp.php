@@ -60,8 +60,7 @@ if (isset($_POST['verifyotp'])) {
                 unset($_SESSION['otp']);
 
                 if (oci_execute($stid1)) {
-                    // header("location:insertcategory.php");
-                    header('location:login.php');
+                    header("location:insertcategory.php");
                 }
             } else if ($role == 'login') {
                 header("location:resetpassword.php?page=$role");
@@ -75,8 +74,14 @@ if (isset($_POST['resendOTP'])) {
 
     $otp_number = rand(100000, 999999);
     $femail = $_SESSION['email'];
-    $sub = "Please Verify Your Email address";
-    $message = "Dear User, \nYour Verification Code is: $otp_number";
+    $sub = "Resend (OTP) - Verify OTP";
+    $message = "Dear User, 
+                \n\nThis email contains the resend OTP required to verify your account.
+                \n\n OTP: $otp_number
+                \n\nThank you.
+                \nHave a great day!
+                \nCleckFreshMart";
+
     include_once('sendmail.php');
 
     $_SESSION['otp'] = $otp_number;

@@ -89,7 +89,6 @@ include("../db/connection.php");
                     while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
                         // session unset
                         unset($_SESSION['shopid']);
-
                         $s_id = $row['SHOP_ID'];
                         $s_name = $row['SHOP_NAME'];
                         $_SESSION['shopid'] = $s_id;

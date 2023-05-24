@@ -61,13 +61,14 @@ while ($data = oci_fetch_array($stms, OCI_ASSOC)) {
 
 // inserting in invoice table
 $payment = "PAYPAL";
+$invoice_price = $_SESSION['totalprice'];
 $invoicesql = "INSERT INTO INVOICE (ORDER_ID,INVOICE_DATE,PAYMENT_FROM,PAYMENT_TO,TOTAL_AMOUNT) VALUES (:order_id,:invoice_date,:payment_from,:payment_to,:totalprice)";
 $invoicestmt = oci_parse($connection, $invoicesql);
 oci_bind_by_name($invoicestmt, ":order_id", $order_id);
 oci_bind_by_name($invoicestmt, ":invoice_date", $_SESSION['order_date']);
 oci_bind_by_name($invoicestmt, ":payment_from", $payment);
 oci_bind_by_name($invoicestmt, ":payment_to", $_SESSION['userID']);
-oci_bind_by_name($invoicestmt, ":totalprice", $_SESSION['totalprice']);
+oci_bind_by_name($invoicestmt, ":totalprice", $invoice_price);
 oci_execute($invoicestmt);
 
 
@@ -78,4 +79,4 @@ oci_bind_by_name($delstmt, ":cart_id", $_SESSION['cart_id']);
 oci_execute($delstmt);
 
 
-header("location:invoice.php?order_id=$order_id&order_date=$order_date");
+header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");

@@ -2,7 +2,8 @@
 <?php
 session_start();
 include('db/connection.php');
-$errfname = $errlname = $erremail = $errDOB = $errgender = $errPhone = $errcategory = $errpassword = $errCpassword = $errremember = '';
+
+$errfname = $errlname = $errnew= $erremail = $errDOB = $errgender = $errPhone = $errcategory = $errpassword = $errCpassword = $errremember = '';
 $errcount = 0;
 
 $sfname = $slname = $semail = $sDOB = $sgender = $sPhone = $scategory = '';
@@ -38,12 +39,12 @@ if (isset($_POST['subtrader'])) {
     if (empty($_POST['phone'])) {
         $errPhone = 'Phone Number is required';
     }
-    // if(empty($_POST['category'])){
-    //     $errcategory='Category is required';
-    // }
-    if (empty($_POST['productcategory'])) {
-        $errcategory = 'Category is required';
+    if(empty($_POST['category'])){
+        $errcategory='Category is required';
     }
+    // if (empty($_POST['productcategory'])) {
+    //     $errcategory = 'Category is required';
+    // }
     if (empty($_POST['password'])) {
         $errpassword = 'Password is required';
     }
@@ -59,8 +60,10 @@ if (isset($_POST['subtrader'])) {
         $dob = $sDOB = $_POST['birthday'];
         $gender = $sgender = $_POST['gender'];
         $phone = (int)$sPhone = $_POST['phone'];
-        // $category = $scategory = strtolower($_POST['category']);
-        $category_id = $_POST['productcategory'];
+        
+        $category = $scategory = strtolower($_POST['category']);
+
+        // $category_id = $_POST['productcategory'];
         $password = $_POST['password'];
         $cpassword = $_POST['cpassword'];
         $remember = $_POST['remember'];
@@ -141,17 +144,21 @@ if (isset($_POST['subtrader'])) {
 
             $contact = $phone;
 
-            $vemail = $vcontact = $vcategory = $category = '';
+            $vemail = $vcontact = $vcategory = '';
 
             // extracting category from category table
-            $sqlcat = "SELECT * FROM CATEGORY WHERE CATEGORY_ID = :category_id";
+            $sqlcat = "SELECT COUNT(*) AS CATEGORY_COUNT FROM CATEGORY";
             $stidcat = oci_parse($connection, $sqlcat);
-            oci_bind_by_name($stidcat, ":category_id", $category_id);
             oci_execute($stidcat);
             while ($row = oci_fetch_array($stidcat, OCI_ASSOC)) {
-                $category = strtolower($row['CATEGORY_NAME']);
+                $categoryCount = strtolower($row['CATEGORY_COUNT']);
             }
 
+
+            if($categoryCount == 6){
+                $errcount += 1;
+                $errnew = "The Slot for New Trader is Closed!!";
+            }
             // extractig the data from user table
             $sql = "SELECT * FROM USER_I WHERE EMAIL = :demail OR CONTACT = : dcontact OR CATEGORY = :dcategory ";
             $stid1 = oci_parse($connection, $sql);
@@ -202,17 +209,24 @@ if (isset($_POST['subtrader'])) {
                 oci_bind_by_name($stid, ':email', $femail);
                 oci_bind_by_name($stid, ':dob', $dateFormatted);
                 oci_bind_by_name($stid, ':role', $role);
+
                 oci_bind_by_name($stid, ':category', $category);
+
                 oci_bind_by_name($stid, ':password', $fpassword);
                 oci_bind_by_name($stid, ':status', $status);
                 oci_bind_by_name($stid, ':verify', $verify);
                 // including php mailer to send email
 
                 $fullname = $fname . " " . $lname;
-                $sub = "Verify Your Email address";
-                $message = "Dear $fullname, \nYour Verification Code is: $otp_number .\nAfter inserting your OTP Code. 
-                    \nYour account will go on the process. You will be notified through email after you will successfully verified as trader.";
-
+                $sub = "One-Time Password (OTP) - Verify OTP";
+                $message = "Dear $fullname, 
+                \n\nThis email contains the OTP required to verify your process as a Trader.
+                \nYou will be notified through email after you will successfully verified as Trader.
+                \n\n OTP: $otp_number
+                \n\nThank you.
+                \nHave a great day!
+                \nCleckFreshMart";
+              
                 include_once('sendmail.php');
 
                 unset($_SESSION['email']);
@@ -264,7 +278,7 @@ if (isset($_POST['subtrader'])) {
         <div class='part2'>
             <h1>Create Trader Account</h1>
             <form method='Post' action=''>
-
+            <span class='error'> <?php echo $errnew; ?> </span>
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>First Name <span class='error'> * <?php echo $errfname; ?> </span></label>
@@ -285,12 +299,12 @@ if (isset($_POST['subtrader'])) {
                 <div class='input-name'>
                     <div class='form-data'>
                         <label>Date of Birth <span class='error'> * <?php echo $errDOB; ?> </span></label>
-                        <input type='date' class='inputbox' name='birthday' id="birthday" />
+                        <input type='date' class='inputbox' name='birthday' id="birthday"  value='<?php echo $sDOB; ?>'/>
                     </div>
                     <div class='form-data'>
                         <label>Gender <span class='error'> * <?php echo $errgender; ?> </span></label>
                         <select class='inputbox optionbox' name='gender'>
-                            <option value=''>Select Gender</option>
+                            <option  value=''>Select Gender</option>
                             <option value='Male'>Male</option>
                             <option value='Female'>Female</option>
                             <option value='Other'>Other</option>
@@ -305,19 +319,19 @@ if (isset($_POST['subtrader'])) {
 
                 <div class='form-data'>
                     <label>Category <span class='error'> * <?php echo $errcategory; ?> </span></label>
-                    <select class="inputbox" name="productcategory">
+                    <!-- <select class="inputbox" name="productcategory">
                         <option value="">Select Category</option>
-                        <?php
-                        $sql = "SELECT * FROM CATEGORY";
-                        $stid = oci_parse($connection, $sql);
-                        oci_execute($stid);
-                        while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                            echo "<option value=" . $row['CATEGORY_ID'] . ">" . $row['CATEGORY_NAME'] . "</option>";
-                        }
-                        ?>
-                    </select>
+                         <?php
+                        // $sql = "SELECT * FROM CATEGORY";
+                        // $stid = oci_parse($connection, $sql);
+                        // oci_execute($stid);
+                        // while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                        //     echo "<option value=" . $row['CATEGORY_ID'] . ">" . $row['CATEGORY_NAME'] . "</option>";
+                        // }
+                        ?> 
+                    </select> -->
 
-                    <!-- <input type='text' class='inputbox' placeholder='Category'  name='category' value='<?php echo $scategory; ?>' /> -->
+                    <input type='text' class='inputbox' placeholder='Category'  name='category' value='<?php echo $scategory; ?>' />
                 </div>
 
                 <div class='form-data'>

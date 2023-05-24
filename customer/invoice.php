@@ -4,10 +4,11 @@ include("../db/connection.php");
 
 unset($_SESSION['order_id']);
 
-$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate";
+$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";
 $stmt = oci_parse($connection, $sql);
 oci_bind_by_name($stmt, ":order_id", $_GET['order_id']);
 oci_bind_by_name($stmt, ":odate", $_GET['order_date']);
+oci_bind_by_name($stmt,":invoice_price",$_GET['price']);
 oci_execute($stmt);
 
 while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
@@ -25,10 +26,10 @@ $usersql = "SELECT * FROM USER_I WHERE USER_ID = :user_id";
 $userstmt = oci_parse($connection, $usersql);
 oci_bind_by_name($userstmt, ":user_id", $_SESSION["userID"]);
 oci_execute($userstmt);
-while ($row = oci_fetch_array($userstmt, OCI_ASSOC)) {
-    $username = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
-    $email = $row['EMAIL'];
-    $contact = $row['CONTACT'];
+while ($data = oci_fetch_array($userstmt, OCI_ASSOC)) {
+    $username = $data['FIRST_NAME'] . " " . $data['LAST_NAME'];
+    $email = $data['EMAIL'];
+    $contact = $data['CONTACT'];
 }
 
 include('../payment/config.php');

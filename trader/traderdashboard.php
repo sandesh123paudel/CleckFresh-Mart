@@ -33,7 +33,7 @@ if (empty($_SESSION['traderID'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trader Dashboard</title>
-    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+  <link rel="icon" href="../assets/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/dashb.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
@@ -146,7 +146,6 @@ if (empty($_SESSION['traderID'])) {
                 <div>
                   <ul class="dropdown-menu" id='setting'>
                     <li><a class="dropdown-item" href="traderdashboard.php?cat=UpdateProfile&name=Home&role=trader">Update Profile</a></li>
-                    <li><a class="dropdown-item" href="deactivate/php">Deactivate</a></li>
                   </ul>
                 </div>
               </li>

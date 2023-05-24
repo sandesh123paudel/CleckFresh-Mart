@@ -2,6 +2,7 @@
 include('../db/connection.php');
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,6 +153,7 @@ include('../db/connection.php');
         }
       }
 
+
     // with login
       if (isset($_SESSION['userID'])) {
 
@@ -223,6 +225,8 @@ include('../db/connection.php');
       }
 
       ?>
+
+
 
       <div class="line"></div>
 
