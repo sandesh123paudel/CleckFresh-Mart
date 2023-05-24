@@ -9,7 +9,8 @@ include('../db/connection.php');
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>CartList</title>
+    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/cartpage.css" />
 
@@ -97,10 +98,10 @@ include('../db/connection.php');
           $quantity = $value['product_quantity'];
 
           while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            $product_image = $row['PRODUCT_IMAGE'];
-            $prouct_id=$row['PRODUCT_ID'];
+            $product_id = $row['PRODUCT_ID'];
+            $product_price = $row['PRODUCT_PRICE'];
             $productname = $row['PRODUCT_NAME'];
-            $product_price =$row['PRODUCT_PRICE'];
+            $product_image = $row['PRODUCT_IMAGE'];
 
             if (!empty($row['OFFER_ID'])) {
               $offer_id = $row['OFFER_ID'];
@@ -124,25 +125,25 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\". ./db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
               <h3>" . ucfirst($productname) . "</h3>
               <label>CleckFreshMart </label>
             </div>
-            <div class='price'>&#163; " . $discount_price. "</div>
+            <div class='price'>&#163; " . $product_price . "</div>
 
             <div class='qty'>
             <h3> 
-              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" .$prouct_id . "' class='cart-item-quantity' disabled>
+              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $product_id . "' class='cart-item-quantity' disabled>
             </h3>
             </div>
 
-            <div class='price'>&#163; $productprice</div>
+            <div class='price'>&#163; " . $productprice . "</div>
 
             <div class='remove'>
-              <span class='material-symbols-outlined' onclick='removecart(" . $prouct_id . ")'> delete </span>
+              <span class='material-symbols-outlined' onclick='removecart(" . $product_id . ")'> delete </span>
             </div>
           </div>
 
@@ -151,7 +152,7 @@ include('../db/connection.php');
         }
       }
 
-
+    // with login
       if (isset($_SESSION['userID'])) {
 
         $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";

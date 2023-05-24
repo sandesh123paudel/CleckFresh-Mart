@@ -106,7 +106,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CleckFreshMart Login</title>
+    <link rel="icon" href="assets/logo.png" type="image/x-icon">
     <link rel='stylesheet' href='customer/css/login.css' />
 </head>
 <body>
@@ -133,7 +134,7 @@
             <form method='Post' action=''>
                 <div class='error'><?php echo $err; ?></div>
                 <div class='form-data'>
-                    <label>Email or Username <span class='error'> * <?php echo $erremail; ?> </span></label>
+                    <label>Email <span class='error'> * <?php echo $erremail; ?> </span></label>
                     <input type='email' class='inputbox' placeholder='Email Address' name='email' />
                 </div>      
                 

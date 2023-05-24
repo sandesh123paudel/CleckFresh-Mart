@@ -45,7 +45,7 @@ if (isset($_POST['subCustomer'])) {
         $errCpassword = 'Confirm Password is required';
     }
     if (empty($_POST['remember'])) {
-        $errremember = 'Terms & Conditions is required';
+        $errremember = 'Please accept the Terms & Conditions to continue';
     } else {
 
         $fname = $sfname = trim($_POST['fname']);
@@ -72,7 +72,7 @@ if (isset($_POST['subCustomer'])) {
         }
         if (strlen(trim($lname)) != strlen($lname)) {
             $errcount += 1;
-            $errlname = "You cannot input space as a first name";
+            $errlname = "You cannot input space as a Last name";
         }
         if (strlen(trim($phone)) != strlen($phone)) {
             $errcount += 1;
@@ -80,12 +80,12 @@ if (isset($_POST['subCustomer'])) {
         }
         if (!preg_match('/^[a-zA-Z]*$/', $fname)) {
             $errcount += 1;
-            $errfname = "Only letters allowed";
+            $errfname = "Please Enter a Valid First Name";
         }
 
         if (!preg_match('/^[a-zA-Z]*$/', $lname)) {
             $errcount += 1;
-            $errlname = "Only letters allowed";
+            $errlname = "Please Enter a Valid Last Name";
         }
 
         // email validation
@@ -210,7 +210,8 @@ if (isset($_POST['subCustomer'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Customer Signup</title>
+    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
     <link rel='stylesheet' href='customer/css/registers.css' />
 </head>
 

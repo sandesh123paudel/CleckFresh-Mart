@@ -88,8 +88,14 @@ include("../db/connection.php");
 
                 if ($order_status == 'pending') {
                     echo "<td id='status'>" . $order_status . "</td>";
-                } else {
+                } 
+                else if($order_status == 'completed')
+                {
                     echo "<td class='success'>" . $order_status . "</td>";
+                }
+                else if($order_status == 'transfered')
+                {
+                    echo "<td class='success'>Reveiced</td>";
                 }
 
                 if ($order_status == 'pending') {
