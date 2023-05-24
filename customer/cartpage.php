@@ -11,18 +11,30 @@ include('../db/connection.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CartList</title>
-    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+  <link rel="icon" href="../assets/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/cartpage.css" />
 
   <style>
-    .qty #quantity {
-      border: none;
-      outline: none;
-      width: 30px;
-      font-weight: 600;
-      background: transparent;
+    .prod-quantity {
+      display: flex;
+      column-gap: 10px;
+      margin-top: 3rem;
+    }
 
+    .prod-quantity #quantity {
+      width: 40px;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      padding-left: 5px;
+    }
+
+    .prod-quantity button {
+      width: 30px;
+      height: 30px;
+      border: 1px solid lightgray;
+      border-radius: 50%;
     }
   </style>
   <script src="addremove.js"></script>
@@ -103,6 +115,7 @@ include('../db/connection.php');
             $product_price = $row['PRODUCT_PRICE'];
             $productname = $row['PRODUCT_NAME'];
             $product_image = $row['PRODUCT_IMAGE'];
+            $product_stock = $row['STOCK_NUMBER'];
 
             if (!empty($row['OFFER_ID'])) {
               $offer_id = $row['OFFER_ID'];
@@ -133,15 +146,24 @@ include('../db/connection.php');
               <h3>" . ucfirst($productname) . "</h3>
               <label>CleckFreshMart </label>
             </div>
-            <div class='price'>&#163; " . $product_price . "</div>
+            <div class='price'>&#163; " . $product_price . "</div>";
 
-            <div class='qty'>
-            <h3> 
-              <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $product_id . "' class='cart-item-quantity' disabled>
-            </h3>
-            </div>
+            // <div class='qty'>
+            // <h3> 
+            //   <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $product_id . "' class='cart-item-quantity' disabled>
+            // </h3>
+            // </div>
+            echo "<div class='prod-quantity'>
 
-            <div class='price'>&#163; " . $productprice . "</div>
+                    <button onclick='remove_session($product_id,1)'>-</button>
+                    <h3>
+                        <input type='text' min='1' value='" . $quantity . "' max='" . $product_stock . "' id='quantity' disabled>
+                    </h3>
+                    <button onclick='add_session($product_id,1)'>+</button>
+                
+                  </div>";
+
+            echo "<div class='price'>&#163; " . $productprice . "</div>
 
             <div class='remove'>
               <span class='material-symbols-outlined' onclick='removecart(" . $product_id . ")'> delete </span>
@@ -154,7 +176,7 @@ include('../db/connection.php');
       }
 
 
-    // with login
+      // with login
       if (isset($_SESSION['userID'])) {
 
         $sql = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
@@ -172,6 +194,7 @@ include('../db/connection.php');
           while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
             $product_price = $data['PRODUCT_PRICE'];
             $productname = $data['PRODUCT_NAME'];
+            $product_stock = $data['STOCK_NUMBER'];
 
             if (!empty($data['OFFER_ID'])) {
               $offer_id = $data['OFFER_ID'];
@@ -202,16 +225,24 @@ include('../db/connection.php');
             <h3>" . ucfirst($productname) . "</h3>
             <label>CleckFreshMart</label>
           </div>
-          <div class='price'>&#163; " . $discount_price . "</div>
+          <div class='price'>&#163; " . $discount_price . "</div>";
 
-          <div class='qty'>
-          <h3>
-            <input type='hidden' value='" . $discount_price . "' id='product_id'>
-            <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' disabled>
-          </h3>
-            
-          </div>
-          <div class='price'>&#163; $productprice</div>
+            // <div class='qty'>
+            // <h3>
+            //   <input type='hidden' value='" . $discount_price . "' id='product_id'>
+            //   <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' disabled>
+            // </h3>
+
+            // </div>
+            echo "<div class='prod-quantity'>
+                  <button onclick='removequantity($pid,1)'>-</button>
+                  <h3>
+                      <input type='text' min='1' value='" . $quantity . "' max='" . $product_stock . "' id='quantity' disabled>
+                  </h3>
+                  <button onclick='addedquantity($pid,1)'>+</button>
+              </div>";
+
+            echo " <div class='price'>&#163; $productprice</div>
 
 
           <div class='remove'>
@@ -270,22 +301,25 @@ include('../db/connection.php');
       document.location.href = '../login.php';
     }
 
-    function removequantity() {
-      const quantity = document.getElementById('quantity').value;
-      if (quantity > 1) {
-        const subtract = parseInt(quantity) - 1;
-        document.getElementById('quantity').value = subtract;
-      }
+    // with login
+    function addedquantity(product_id, quantity) {
+      addupdatetocart(product_id, quantity);
     }
 
-    function addedquantity() {
-      const quantity = document.getElementById('quantity').value;
-      if (quantity < 20) {
-        const addition = parseInt(quantity) + 1;
-        document.getElementById('quantity').value = addition;
-      }
-
+    function removequantity(product_id, quantity) {
+      removeupdatetocart(product_id, quantity);
     }
+
+    // update quantity in cart
+    function add_session(product_id, quantity) {
+      addupdatecart(product_id, quantity);
+    }
+
+    function remove_session(product_id, quantity) {
+
+      removeupdatecart(product_id, quantity);
+    }
+
   </script>
 </body>
 

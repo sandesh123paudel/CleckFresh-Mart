@@ -155,8 +155,27 @@ include("../db/connection.php");
                     oci_execute($stmtpayment);
 
                     while ($row = oci_fetch_array($stmtpayment)) {
-                        $product_price = (float)$row['PRODUCT_PRICE'] * $row['ORDER_QUANTITY'];
-                        $total_amount += $product_price;
+                        $order_quantity = $row['ORDER_QUANTITY'];
+                        $product_price = (float)$row['PRODUCT_PRICE'];
+
+                        if (!empty($row['OFFER_ID'])) {
+                            $offer_id = $row['OFFER_ID'];
+
+                            $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                            $stmt = oci_parse($connection, $sql);
+                            oci_bind_by_name($stmt, ":offer_id", $offer_id);
+                            oci_execute($stmt);
+                            while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
+                                $discount = (int)$data['OFFER_PERCENTAGE'];
+                                $discount_price = $product_price - $product_price * ($discount / 100);
+                                $productprice =  $order_quantity * $discount_price;
+                                $total_amount += $productprice;
+                            }
+                        } else {
+                            $discount_price = $product_price;
+                            $productprice =   $order_quantity * $discount_price;
+                            $total_amount += $productprice;
+                        }
                     }
 
                     echo "<h3>&pound; " . number_format($total_amount, 2) . "</h3>";
