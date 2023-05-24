@@ -1,8 +1,7 @@
 <?php
 session_start();
 include('../db/connection.php');
-$err =$errdate = '';
-
+$err = $errdate = '';
 
 if (isset($_POST['placeorder'])) {
   if (empty($_POST['selectslot'])) {
@@ -12,33 +11,39 @@ if (isset($_POST['placeorder'])) {
     $errdate = "Choose the date";
   } else {
     $selectedDate = strtotime($_POST['date']);
-    $currentDate = strtotime(date('y-m-d'));
+
+    date_default_timezone_set("Asia/Kathmandu");
+    $currentDate = strtotime(date('m/d/y'));
     $twentyFourHoursLater = strtotime('+24 hours', $currentDate);
+
     if ($selectedDate >= $twentyFourHoursLater) {
-      $date = $_POST['date'];
-      $dayOfWeek = date('l', strtotime($date));
+      unset($_SESSION['collectionslot_id']);
+      unset($_SESSION['order_date']);
+      unset($_SESSION['collection_date']);
+      unset($_SESSION['order_id']);
 
-      if ($dayOfWeek === 'Wednesday' || $dayOfWeek === 'Thursday' || $dayOfWeek === 'Friday') {
-        unset($_SESSION['collectionslot_id']);
-        unset($_SESSION['order_date']);
-        unset($_SESSION['collection_date']);
-
-        $current_Date = new DateTime();
-        $formattedDate = $current_Date->format('m/d/y h:i A');
-        $_SESSION['order_date'] = $formattedDate;
-
-        $collectionslot_id = $_POST['selectslot'];
+      $collectionslot_id = $_POST['selectslot'];
 
         $_SESSION['collectionslot_id'] = $collectionslot_id;
+
         $colsql = "SELECT * FROM COLLECTION_SLOT WHERE COLLECTION_SLOT_ID = :collectionslot_id";
         $colstmt = oci_parse($connection, $colsql);
         oci_bind_by_name($colstmt, ":collectionslot_id", $collectionslot_id);
         oci_execute($colstmt);
         $data = oci_fetch_assoc($colstmt);
-
+        $weekday = $data['COLLECTION_DAY'];
 
         $dateFormatted = date('m/d/Y', $currentDate);
-        $_SESSION['collection_date'] = "Date:" . $dateFormatted . " Day: " . $dayOfWeek . " Time: " . $data['SLOT_TIMING'];
+        $_SESSION['collection_date'] = "Date:" . $dateFormatted . " Day: " .  $weekday . " Time: " . $data['SLOT_TIMING'];
+      
+        $date = $_POST['date'];
+        $dayOfWeek = date('l', strtotime($date));
+
+      if ($dayOfWeek === $weekday || $dayOfWeek === $weekday || $dayOfWeek === $weekday) {
+
+        $current_Date = new DateTime();
+        $formattedDate = $current_Date->format('m/d/y');
+        $_SESSION['order_date'] = $formattedDate;
 
         $status = 'pending';
 
@@ -80,6 +85,7 @@ if (isset($_POST['placeorder'])) {
     }
   }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

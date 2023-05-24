@@ -8,8 +8,11 @@
   <div class="trending-container">
 
     <?php
-    $sql = "SELECT * FROM PRODUCT WHERE ROWNUM <= 8";
+    $verified = 'verified';
+
+    $sql = "SELECT * FROM PRODUCT WHERE ROWNUM <= 8 AND PRODUCT_STATUS = :verify";
     $stmt = oci_parse($connection, $sql);
+    oci_bind_by_name($stmt,":verify" , $verified);
     oci_execute($stmt);
 
     while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
@@ -91,9 +94,10 @@
     oci_execute($stmt);
     while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
       $offer_id = $row['OFFER_ID'];
-      $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 7';
+      $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 7 AND PRODUCT_STATUS = :verify';
       $stid = oci_parse($connection, $sql);
       oci_bind_by_name($stid, ':off_id', $offer_id);
+      oci_bind_by_name($stid,":verify" , $verified);
       oci_execute($stid);
 
       while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
@@ -158,8 +162,10 @@
 
       <?php
 
-      $sql = 'SELECT * FROM PRODUCT WHERE ROWNUM <= 25';
+      $sql = 'SELECT * FROM PRODUCT WHERE ROWNUM <= 25 AND PRODUCT_STATUS = :verify';
       $stid = oci_parse($connection, $sql);
+      oci_bind_by_name($stid,":verify" , $verified);
+
       oci_execute($stid);
 
       while ($row = oci_fetch_array($stid, OCI_ASSOC)) {

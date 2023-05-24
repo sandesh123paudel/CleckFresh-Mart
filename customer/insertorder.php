@@ -7,19 +7,21 @@ include("../db/connection.php");
 // $formattedDate = $currentDate->format('d-M-y h.i A');
 // echo $formattedDate;
 
+
 // $sqls = "SELECT * FROM ORDER_I WHERE CART_ID= :cart_id AND COLLECTION_SLOT_ID = :slot_id AND ORDER_DATE= :cdate";
-$sqls = "SELECT * FROM ORDER_I WHERE CART_ID= :cart_id AND COLLECTION_SLOT_ID = :slot_id AND ORDER_DATE= :cdate";
+$sqls = "SELECT * FROM ORDER_I WHERE CART_ID= :cart_id AND COLLECTION_SLOT_ID = :slot_id AND ORDER_DATE= :cdate AND TOTAL_PRICE = :price";
 $stmt = oci_parse($connection, $sqls);
 oci_bind_by_name($stmt, ":cart_id", $_SESSION['cart_id']);
 oci_bind_by_name($stmt, ":slot_id", $_SESSION['collectionslot_id']);
 oci_bind_by_name($stmt, ":cdate", $_SESSION['order_date']);
+oci_bind_by_name($stmt, ":price", $_SESSION['totalprice']);
 
 oci_execute($stmt);
 while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
     $order_id = $data['ORDER_ID'];
     $order_date = $data['ORDER_DATE'];
 }
-
+$_SESSION['order_id'] = $order_id;
 
 $sqlt = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
 $stms = oci_parse($connection, $sqlt);
@@ -75,5 +77,5 @@ $delstmt = oci_parse($connection, $delsql);
 oci_bind_by_name($delstmt, ":cart_id", $_SESSION['cart_id']);
 oci_execute($delstmt);
 
-// echo "success";
+
 header("location:invoice.php?order_id=$order_id&order_date=$order_date");
