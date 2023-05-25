@@ -140,7 +140,7 @@ include("../db/connection.php");
             <div class="report">
                 <div class="report-info">
                     <?php
-                    $total_amount = 0;
+                 $total_amount = 0;
 
                     $sqlpayment = "SELECT op.*,pr.*,r.*
                     FROM REPORT r
@@ -155,6 +155,7 @@ include("../db/connection.php");
                     oci_execute($stmtpayment);
 
                     while ($row = oci_fetch_array($stmtpayment)) {
+                        
                         $order_quantity = $row['ORDER_QUANTITY'];
                         $product_price = (float)$row['PRODUCT_PRICE'];
 
