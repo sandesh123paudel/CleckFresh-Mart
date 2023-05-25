@@ -27,11 +27,21 @@
 
         if($_GET['action'] == 'verified'){
             $sub ="Notification from Cleckfreshmart";
-            $message="Dear ".$username.",\nYou are successfully registered as Trader in our Ecommerce Patform.\n Now You can login And Do your business.";
+            $message="Dear ".$username.",
+            \nYou are successfully registered as Trader in our Ecommerce Patform.
+            \nNow You can login And Do your business.
+            \n\nThank you.
+            \nHave a great day!
+            \nCleckFreshMart";
         }
         else if ($_GET['action'] == 'pending'){   
             $sub ="Notification form Cleckfreshmart";
-            $message="Dear ".$username.",\nYour Trader account is deactivate because of non activation. \nTo activate you account you can reply this mail with your proper information.";
+            $message="Dear ".$username.",
+            \nYour Trader account is deactivate because of non activation. 
+            \nTo activate you account you can reply this mail with your proper information.
+            \n\nThank you.
+            \nHave a great day!
+            \nCleckFreshMart";
             
         }
                   

@@ -105,7 +105,7 @@
                 <div class="member-info">
                     <img src="../assets/greengrocers.jpg" alt="admin" />
                     <div class="member-def">
-                        <h3>Partner</h3>
+                        <h3>GreenGrocers</h3>
                     </div>
                 </div>
 
@@ -113,20 +113,20 @@
                 <div class="member-info">
                     <img src="../assets/bakery.jpg" alt="admin" />
                     <div class="member-def">
-                        <h3>Partner</h3>
+                        <h3>Bakery</h3>
                     </div>
                 </div>
 
                 <div class="member-info">
                     <img src="../assets/butcher.jpg" alt="admin" />
                     <div class="member-def">
-                        <h3>Partner</h3>
+                        <h3>Butcher</h3>
                     </div>
                 </div>
                 <div class="member-info">
                     <img src="../assets/fishmonger.jpg" alt="admin" />
                     <div class="member-def">
-                        <h3>Partner</h3>
+                        <h3>Fishmonger</h3>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
                 <div class="member-info">
                     <img src="../assets/delicatessen.jpg" alt="admin" />
                     <div class="member-def">
-                        <h3>Partner</h3>
+                        <h3>Delicatessen</h3>
                     </div>
                 </div>
             </div>

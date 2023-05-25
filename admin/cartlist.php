@@ -7,6 +7,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>No of Items</th>
+        <th>Action</th>
         </tr>";
 
         $sql = "SELECT u.*,c.* 
@@ -30,6 +31,9 @@
             echo "<td>".$cart_id."</td>";
             echo "<td>".ucfirst($user_name)."</td>";
             echo "<td>".$items."</td>";
+            echo "<td></span></a><a href='dashboard.php?cat=Cart Details&cart_id=$cart_id' ><span class='material-symbols-outlined p-1 ' >
+            visibility
+            </span></a></td>";
             echo "</tr>";
             
         }

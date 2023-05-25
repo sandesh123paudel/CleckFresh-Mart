@@ -1,35 +1,34 @@
 <?php
 session_start();
 include("../db/connection.php");
-
-unset($_SESSION['order_id']);
+// unset($_SESSION['order_id']);
 
 $sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";
 $stmt = oci_parse($connection, $sql);
 oci_bind_by_name($stmt, ":order_id", $_GET['order_id']);
 oci_bind_by_name($stmt, ":odate", $_GET['order_date']);
-oci_bind_by_name($stmt,":invoice_price",$_GET['price']);
+oci_bind_by_name($stmt, ":invoice_price", $_GET['price']);
 oci_execute($stmt);
 
-while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-    $invoice_id = $row['INVOICE_ID'];
-    $order_id = $row['ORDER_ID'];
-    $issued_date = $row['INVOICE_DATE'];
-    $payment_from = $row['PAYMENT_FROM'];
-    $payment_to = $row['PAYMENT_TO'];
-    $totalprice = $row['TOTAL_AMOUNT'];
+while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
+    $invoice_id = $data['INVOICE_ID'];
+    $order_id = $data['ORDER_ID'];
+    $issued_date = $data['INVOICE_DATE'];
+    $payment_from = $data['PAYMENT_FROM'];
+    $payment_to = $data['PAYMENT_TO'];
+    $totalprice = $data['TOTAL_AMOUNT'];
 }
 
-$_SESSION['order_id'] = $order_id;
+// $_SESSION['order_id'] = $order_id;
 
 $usersql = "SELECT * FROM USER_I WHERE USER_ID = :user_id";
 $userstmt = oci_parse($connection, $usersql);
-oci_bind_by_name($userstmt, ":user_id", $_SESSION["userID"]);
+oci_bind_by_name($userstmt, ":user_id", $_GET["user_id"]);
 oci_execute($userstmt);
-while ($data = oci_fetch_array($userstmt, OCI_ASSOC)) {
-    $username = $data['FIRST_NAME'] . " " . $data['LAST_NAME'];
-    $email = $data['EMAIL'];
-    $contact = $data['CONTACT'];
+while ($row = oci_fetch_array($userstmt, OCI_ASSOC)) {
+    $username = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+    $email = $row['EMAIL'];
+    $contact = $row['CONTACT'];
 }
 
 include('../payment/config.php');
@@ -50,7 +49,7 @@ include('../payment/config.php');
 
     <div class="invoice-container">
         <div class="logo">
-            <h3>INVOICE</h3>
+            <h3>PAYMENT INVOICE RECEIPT</h3>
             <img src="../assets/logo.png" alt="">
         </div>
 
@@ -172,23 +171,6 @@ include('../payment/config.php');
             </tr>
         </table>
 
-        <form action="<?php echo PAYPAL_URL; ?>" method='post'>
-            <div class="place-btn">
-
-                <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
-
-                <input type="hidden" name="amount" value="<?php echo $finalamount; ?>">
-
-                <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
-                <!-- Specify a Buy Now button. -->
-                <input type="hidden" name="cmd" value="_xclick">
-                <!-- Specify URLs -->
-                <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
-                <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
-
-                <input type="submit" name="submit" value="Payment By Paypal" />
-            </div>
-        </form>
     </div>
 </body>
 
