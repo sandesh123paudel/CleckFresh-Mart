@@ -66,7 +66,7 @@ if (isset($_GET['PayerID'])) {
         oci_execute($stmtinsert);
     }
 
-    header('location:http://localhost/learning/karan/customer/homepage.php');
+    header('location:http://localhost/project/customer/homepage.php');
 
     // echo "<script>alert('Payment has been Successfull')</script>";
 
