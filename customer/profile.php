@@ -16,6 +16,14 @@
   <div class='nav-bar'>
     <?php
     require('navbar.php');
+
+    if (empty($_SESSION['token'])) {
+      echo "<script>
+      alert('SESSION is EXPIRED Please Login!!!');
+      document.location.href='../login.php';
+      </script>";
+    }
+
     ?>
   </div>
 
@@ -24,7 +32,7 @@
       <a href="profile.php?cat=profile">Profile Information</a>
       <a href="profile.php?cat=update">Update Profile</a>
       <a href="profile.php?cat=orderlist">Orders List</a>
-      <a href="../db/logout.php">Logout</a>
+      <a href="../db/logout.php?role=customer">Logout</a>
     </div>
 
     <div class="profile-content">

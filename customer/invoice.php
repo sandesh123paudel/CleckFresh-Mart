@@ -2,6 +2,13 @@
 session_start();
 include("../db/connection.php");
 
+if (empty($_SESSION['token'])) {
+    echo "<script>
+    alert('SESSION is EXPIRED Please Login!!!');
+    document.location.href='../login.php';
+    </script>";
+  }
+
 unset($_SESSION['order_id']);
 
 $sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";

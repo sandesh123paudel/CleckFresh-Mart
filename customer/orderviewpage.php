@@ -1,6 +1,11 @@
 <?php
 include('../db/connection.php');
-
+if (empty($_SESSION['token'])) {
+  echo "<script>
+  alert('SESSION is EXPIRED Please Login!!!');
+  document.location.href='../login.php';
+  </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
