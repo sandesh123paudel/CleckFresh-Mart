@@ -36,7 +36,7 @@ if (isset($_POST['placeorder'])) {
       $data = oci_fetch_assoc($colstmt);
       $weekday = $data['COLLECTION_DAY'];
 
-      $dateFormatted = date('m/d/Y', $currentDate);
+      $dateFormatted = date('mm/dd/YYYY', $currentDate);
 
       $_SESSION['collection_date'] = "\nDate:" . $_SESSION['collect_date'] . " \nDay: " .  $weekday . " \nTime: " . $data['SLOT_TIMING'];
 
@@ -45,17 +45,13 @@ if (isset($_POST['placeorder'])) {
 
       if ($dayOfWeek === $weekday || $dayOfWeek === $weekday || $dayOfWeek === $weekday) {
 
-        $current_Date = new DateTime();
-        $formattedDate = $current_Date->format('m/d/y');
-        $_SESSION['order_date'] = $formattedDate;
-
         $status = 'pending';
 
-        $sql = "INSERT INTO ORDER_I (CART_ID,COLLECTION_SLOT_ID,ORDER_DATE,ORDER_STATUS,NO_OF_ITEM,TOTAL_PRICE,COLLECTION_DATE) VALUES(:cart_id,:slot_id,:order_date,:statu,:item,:price,:collect_date)";
+        $sql = "INSERT INTO ORDER_I (CART_ID,COLLECTION_SLOT_ID,ORDER_STATUS,NO_OF_ITEM,TOTAL_PRICE,COLLECTION_DATE) VALUES(:cart_id,:slot_id,:statu,:item,:price,:collect_date)";
         $stids = oci_parse($connection, $sql);
         oci_bind_by_name($stids, ":cart_id", $_SESSION['cart_id']);
         oci_bind_by_name($stids, ":slot_id", $_SESSION['collectionslot_id']);
-        oci_bind_by_name($stids, ":order_date", $formattedDate);
+        // oci_bind_by_name($stids, ":order_date", $dateFormatted);
         oci_bind_by_name($stids, ":statu", $status);
         oci_bind_by_name($stids, ":item", $_SESSION['cart_num']);
         oci_bind_by_name($stids, ":price", $_SESSION['totalprice']);
