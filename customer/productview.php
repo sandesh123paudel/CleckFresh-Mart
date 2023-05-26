@@ -322,57 +322,57 @@ include('../db/connection.php');
 
 
                     echo "<div class='single' >";
-                        echo "<div class='img' onclick='viewproduct($product_id)'>";
-                            echo "<img src=\"../db/uploads/products/". $product_image ."\" alt='$product_name' /> ";
-                            // echo "<div class='tag'>";
-                            if (!empty($product_offer)) {
-                                echo "<div class='offer'>Offer</div>";
-                            } else {
-                                echo "";
-                            }
-                            if ((int)$product_stock <= 0) {
-                                echo "<div class='outofstock'>out of stock</div>";
-                            } else {
-                                echo "";
-                            }
-                        // echo "</div>";    
-                        echo "</div>";
+                    echo "<div class='img' onclick='viewproduct($product_id)'>";
+                    echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
+                    // echo "<div class='tag'>";
+                    if (!empty($product_offer)) {
+                        echo "<div class='offer'>Offer</div>";
+                    } else {
+                        echo "";
+                    }
+                    if ((int)$product_stock <= 0) {
+                        echo "<div class='outofstock'>out of stock</div>";
+                    } else {
+                        echo "";
+                    }
+                    // echo "</div>";    
+                    echo "</div>";
 
-                        echo "<div class='content'>";
-                            echo "<h5>" . ucfirst($product_name) . "</h5>";
-                            echo "<span class='piece'>" . $product_quantity . " gm</span>";
-                            echo "<div class='price'>";
-                                if ($product_offer) {
-                                    // echo $product_offer;
-                                    $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
-                                    $stmt = oci_parse($connection, $sql);
-                                    oci_bind_by_name($stmt, ":offer_id", $product_offer);
-                                    oci_execute($stmt);
-                                    $row = oci_fetch_array($stmt, OCI_ASSOC);
-                                    $discount = (int)$row['OFFER_PERCENTAGE'];
-                                    $total_price = $product_price - $product_price * ($discount / 100);
+                    echo "<div class='content'>";
+                    echo "<h5>" . ucfirst($product_name) . "</h5>";
+                    echo "<span class='piece'>" . $product_quantity . " gm</span>";
+                    echo "<div class='price'>";
+                    if ($product_offer) {
+                        // echo $product_offer;
+                        $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                        $stmt = oci_parse($connection, $sql);
+                        oci_bind_by_name($stmt, ":offer_id", $product_offer);
+                        oci_execute($stmt);
+                        $row = oci_fetch_array($stmt, OCI_ASSOC);
+                        $discount = (int)$row['OFFER_PERCENTAGE'];
+                        $total_price = $product_price - $product_price * ($discount / 100);
 
-                                    echo "<span class='cut'>&pound;" . $product_price . "</span>";
-                                    echo "<span class='main'>&pound;" . $total_price . "</span>";
-                                } else {
-                                    echo "<span class='main'>&pound; " . $product_price . "</span>";
-                                }
+                        echo "<span class='cut'>&pound;" . $product_price . "</span>";
+                        echo "<span class='main'>&pound;" . $total_price . "</span>";
+                    } else {
+                        echo "<span class='main'>&pound; " . $product_price . "</span>";
+                    }
 
-                            echo "</div>";
+                    echo "</div>";
 
-                            if ((int)$product_stock <= 0) {
-                                echo "<div class='btn' id='outstock' >Add +</div>";
-                            } else {
-                                if (isset($_SESSION['userID'])) {
-                                    echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
-                                } else {
-                                    echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
-                                }
-                            }
-                        echo "</div>";
+                    if ((int)$product_stock <= 0) {
+                        echo "<div class='btn' id='outstock' >Add +</div>";
+                    } else {
+                        if (isset($_SESSION['userID'])) {
+                            echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+                        } else {
+                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+                        }
+                    }
+                    echo "</div>";
                     echo "</div>";
                 }
-                
+
                 ?>
             </div>
         </div>

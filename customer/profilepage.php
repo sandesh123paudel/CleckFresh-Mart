@@ -1,7 +1,14 @@
 <?php
 // session_start();
-
 include('../db/connection.php');
+
+if (empty($_SESSION['token'])) {
+  echo "<script>
+  alert('SESSION is EXPIRED Please Login!!!');
+  document.location.href='../login.php';
+  </script>";
+}
+
 
 $firstname =  $lastname =   $gender =  $contact = $role = $email = $dob = '';
 $sql = "SELECT * FROM USER_I WHERE USER_ID = :id ";

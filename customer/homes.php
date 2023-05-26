@@ -89,16 +89,14 @@
 
   <div class="offer-container">
     <?php
-    $offerSql = "SELECT * FROM OFFER";
-    $stmt = oci_parse($connection, $offerSql);
-    oci_execute($stmt);
-    while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-      $offer_id = $row['OFFER_ID'];
-      $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 7 AND PRODUCT_STATUS = :verify';
-      $stid = oci_parse($connection, $sql);
-      oci_bind_by_name($stid, ':off_id', $offer_id);
-      oci_bind_by_name($stid,":verify" , $verified);
-      oci_execute($stid);
+   
+    $offerSql = "SELECT p.* 
+    FROM OFFER o
+    JOIN PRODUCT p ON o.OFFER_ID = p.OFFER_ID WHERE ROWNUM <=7 AND PRODUCT_STATUS = :verify";
+    $stid = oci_parse($connection, $offerSql);
+        // oci_bind_by_name($stid, ':off_id', $offer_id);
+    oci_bind_by_name($stid, ":verify", $verified);
+    oci_execute($stid);
 
       while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
         $product_name = $row['PRODUCT_NAME'];
@@ -141,7 +139,7 @@
 
         echo "</div>";
         echo "</div>";
-      }
+      // }
     }
     ?>
 

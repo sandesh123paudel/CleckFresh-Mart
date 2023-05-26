@@ -147,7 +147,7 @@ if (empty($_SESSION['adminID'])) {
                         ?> </h3>
                     <div>
                         <ul class="dropdown-menu setting">
-                            <li><a class="dropdown-item" href="dashboard.php?cat=Profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="dashboard.php?cat=Profile&role=admin">Profile</a></li>
                             <li>
                                 <label class="dropdown-item dropdown-toggle" onmouseover="onMouse('Profile')" onmouseout="outMouse('Profile')" data-bs-toggle="dropdown" aria-expanded="false">Setting</label>
                                 <div>
