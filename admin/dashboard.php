@@ -3,27 +3,27 @@ session_start();
 include("../db/connection.php");
 unset($_SESSION['username']);
 
-//  if($_SESSION['adminID']){
-//   $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
-//   $stid = oci_parse($connection,$sql);
+if ($_SESSION['adminID']) {
+    $sql = 'SELECT * FROM USER_I WHERE USER_ID= :id ';
+    $stid = oci_parse($connection, $sql);
 
-//   oci_bind_by_name($stid,':id',$_SESSION['adminID']);
+    oci_bind_by_name($stid, ':id', $_SESSION['adminID']);
 
-//   oci_execute($stid);
+    oci_execute($stid);
 
-//   $username='';
-//   while($row = oci_fetch_array($stid,OCI_ASSOC)){
-//     $username = $row['FIRST_NAME'];
-//     $_SESSION['username'] = $username;
-//   }
-// }
+    $username = '';
+    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+        $username = $row['FIRST_NAME'];
+        $_SESSION['username'] = $username;
+    }
+}
 
-// if(empty($_SESSION['adminID'])){
-//   echo "<script>
-//     alert('SESSION is EXPIRED Please Login!!!');
-//     document.location.href='../login.php';
-//     </script>";
-// }
+if (empty($_SESSION['adminID'])) {
+    echo "<script>
+    alert('SESSION is EXPIRED Please Login!!!');
+    document.location.href='../login.php';
+    </script>";
+}
 
 ?>
 
@@ -107,6 +107,11 @@ unset($_SESSION['username']);
                     <a href="dashboard.php?cat=Order Lists">Order List</a>
                 </div>
 
+                <div class="home-link">
+                    <span class="material-symbols-outlined">reviews</span>
+                    <a href="dashboard.php?cat=Review Lists">Review List</a>
+                </div>
+
                 <div class="logout">
                     <a href="../db/logout.php?role=admin">LOGOUT</a>
                 </div>
@@ -187,8 +192,19 @@ unset($_SESSION['username']);
                     if ($links == "Order Lists") {
                         require('orderlists.php');
                     }
+                    if ($links == "Cart Details") {
+                        $cart_id = $_GET['cart_id'];
+                        require_once('viewcart.php');
+                    }
+                    if ($links == "Wishlist Details") {
+                        $wishlist_id = $_GET['wishlist_id'];
+                        require_once('viewwishlist.php');
+                    }
                     if ($links == "Profile") {
                         require_once('profilepage.php');
+                    }
+                    if ($links == "Review Lists") {
+                        require_once('viewreview.php');
                     }
                     if ($links == "UpdateProfile") {
                         require_once('editprofile.php');
@@ -245,6 +261,11 @@ unset($_SESSION['username']);
                 </div>
 
                 <div class="home-link">
+                    <span class="material-symbols-outlined">storefront</span>
+                    <a href="dashboard.php?cat=Shop Lists">Shop Lists</a>
+                </div>
+
+                <div class="home-link">
                     <span class="material-symbols-outlined">shopping_basket</span>
                     <a href="dashboard.php?cat=Cart Lists">Cart List</a>
                 </div>
@@ -252,6 +273,11 @@ unset($_SESSION['username']);
                 <div class="home-link">
                     <span class="material-symbols-outlined">favorite</span>
                     <a href="dashboard.php?cat=Wish Lists">Wish List</a>
+                </div>
+
+                <div class="home-link">
+                    <span class="material-symbols-outlined">local_mall</span>
+                    <a href="dashboard.php?cat=Order Lists">Order List</a>
                 </div>
 
                 <div class="logout">

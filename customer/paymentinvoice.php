@@ -1,23 +1,25 @@
 <?php
 session_start();
 include("../db/connection.php");
+// unset($_SESSION['order_id']);
 
-$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate";
+$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";
 $stmt = oci_parse($connection, $sql);
 oci_bind_by_name($stmt, ":order_id", $_GET['order_id']);
 oci_bind_by_name($stmt, ":odate", $_GET['order_date']);
+oci_bind_by_name($stmt, ":invoice_price", $_GET['price']);
 oci_execute($stmt);
 
-while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-    $invoice_id = $row['INVOICE_ID'];
-    $order_id = $row['ORDER_ID'];
-    $issued_date = $row['INVOICE_DATE'];
-    $payment_from = $row['PAYMENT_FROM'];
-    $payment_to = $row['PAYMENT_TO'];
-    $totalprice = $row['TOTAL_AMOUNT'];
+while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
+    $invoice_id = $data['INVOICE_ID'];
+    $order_id = $data['ORDER_ID'];
+    $issued_date = $data['INVOICE_DATE'];
+    $payment_from = $data['PAYMENT_FROM'];
+    $payment_to = $data['PAYMENT_TO'];
+    $totalprice = $data['TOTAL_AMOUNT'];
 }
 
-$_SESSION['order_id'] = $order_id;
+// $_SESSION['order_id'] = $order_id;
 
 $usersql = "SELECT * FROM USER_I WHERE USER_ID = :user_id";
 $userstmt = oci_parse($connection, $usersql);
@@ -47,7 +49,7 @@ include('../payment/config.php');
 
     <div class="invoice-container">
         <div class="logo">
-            <h3>INVOICE RECEIPT</h3>
+            <h3>PAYMENT INVOICE RECEIPT</h3>
             <img src="../assets/logo.png" alt="">
         </div>
 

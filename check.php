@@ -46,6 +46,10 @@
     echo '<option value="' . $wednesday_value . '">' . $wednesday . '</option>';
     echo '<option value="' . $thursday_value . '">' . $thursday . '</option>';
     echo '<option value="' . $friday_value . '">' . $friday . '</option>';
+
+
+    
     ?>
+
 
 </select>

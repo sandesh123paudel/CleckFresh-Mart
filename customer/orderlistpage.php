@@ -47,6 +47,7 @@ include('../db/connection.php');
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
           $order_id = $row['ORDER_ID'];
           $order_date = $row['ORDER_DATE'];
+          $price = $row['TOTAL_PRICE'];
 
           echo "
             <tr>
@@ -61,7 +62,7 @@ include('../db/connection.php');
               <td class='links-btn '>";
           if ($row['ORDER_STATUS'] == 'pending') {
 
-            echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date'>
+            echo "<a href='invoice.php?cat=history&order_id=$order_id&order_date=$order_date&price=$price'>
             <span class='material-symbols-outlined p-1'>
             payments
             </span></a><a href='profile.php?cat=history&order_id=$order_id&order_date=$order_date' ><span class='material-symbols-outlined p-1 ' >

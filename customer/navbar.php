@@ -147,8 +147,10 @@ if (isset($_SESSION['userID'])) {
     <div class="category">
       <!-- 1st category -->
       <?php
-      $sql = "SELECT * FROM CATEGORY";
+      $verified = 'verified';
+      $sql = "SELECT * FROM CATEGORY  c JOIN USER_I u ON c.CATEGORY_NAME = u.CATEGORY WHERE u.VERIFY = :verify";
       $stid = oci_parse($connection, $sql);
+      oci_bind_by_name($stid, ":verify" , $verified);
       oci_execute($stid);
 
       while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
@@ -156,8 +158,8 @@ if (isset($_SESSION['userID'])) {
         $c_name = $row['CATEGORY_NAME'];
 
         echo "<a href='products.php?cat_id=$c_id'>
-                        <label class='category-link'><p>" . ucfirst($c_name) . "</p><p>▼</p> </label> 
-                    </a>";
+              <label class='category-link'><p>" . ucfirst($c_name) . "</p><p>▼</p> </label> 
+            </a>";
       }
       ?>
     </div>

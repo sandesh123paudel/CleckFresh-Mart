@@ -28,6 +28,7 @@ if (isset($_GET['action']) && isset($_GET['order_id'])) {
             $product_id = $row['PRODUCT_ID'];
             $product_price = $row['PRODUCT_PRICE'];
             $product_name = $row['PRODUCT_NAME'];
+            $orderId = $row['ORDER_ID'];
 
             if (!empty($row['OFFER_ID'])) {
                 $sql = "SELECT * FROM OFFER WHERE OFFER_ID = :offer_id";
@@ -44,9 +45,19 @@ if (isset($_GET['action']) && isset($_GET['order_id'])) {
             $username = $user_name;
             $femail = $email;
 
-            $sub = "Notification from CleckFreshMart";
-            $message = "Dear " . $username . ",\n\n\tYour product is successfully sold.
-            \n\tProduct Name : $product_name \n\t\tProduct amount receive : £ $total_price";
+            $sub = "Confirmation of Product Sale - Order: " . $orderId . "";
+            $message = "Dear " . $username .
+                ",\n\nThank you for choosing CleckFreshMart as your trusted provider of " . ucfirst($product_name) . ".
+            \nWe are delighted to inform you that your order has been successfully processed and the following item(s) have been sold:.
+            
+            \n\nOrder Details:
+            \nOrder Number: " . $orderId . "
+            \nProduct: ".ucfirst($product_name )."
+            \nTotal Amount: £ $total_price
+            \n\nThank you.
+            \nHave a great day!
+            \nCleckFreshMart";
+
             include('../sendmail.php');
         }
         $transfer = "transfered";

@@ -1311,10 +1311,10 @@ scrollbar-width: none;  /* Firefox */
 
 }
 
-.productview-lists  .single .img .offer {
-  position: absolute;
-  margin-top: -210px;
-  margin-left: 122px;
+.productview-lists .single .img .offer {
+  position: relative;
+  margin-top: -210px; 
+  left: 122px;
   background: #ff187c;
   color: white;
   z-index: 1;
@@ -1327,11 +1327,11 @@ scrollbar-width: none;  /* Firefox */
   border-top-left-radius: 6px;
 }
 
-.productview-lists  .single .img .outofstock {
-  position: absolute;
+.productview-lists  .single .img .outofstock{
+  position: relative;
+  margin-top: -210px; 
+  left: 122px;
   z-index: 1;
-  margin-top: -210px;
-  margin-left: 122px;
   background: #949494;
   color: white;
   padding: 4px;

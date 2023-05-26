@@ -7,8 +7,13 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
 
     $femail = $delemail ;
 
-    $sub = "Notification from chfxmart";
-    $message = "Dear " . $username . ",\nSorry!! For this time You shop is not verified. Try again Later..\nThank You for your interest. ";
+    $sub = "Rejection from CleckFreshMart";
+    $message = "Dear " . $username . ",
+    \n\nSorry!! For this time You shop is not verified. 
+    \nTry again Later..
+    \n\nThank You for your interest. 
+    \nHave a great day!
+    \nCleckFreshMart";
 
     include_once('../sendmail.php');
 

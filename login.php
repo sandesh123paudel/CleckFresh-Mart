@@ -24,7 +24,7 @@ if (isset($_POST['sublogin'])) {
         $password = (string)$password;
 
         // setting the cookie if remember is clicked
-        if (!empty($remember)) {
+        if (!empty($remember)) { 
             setcookie("email", $email, time() + 60 * 60 * 24 * 15, "/");
             setcookie("password", $password, time() + 60 * 60 * 24 * 15, "/");
             setcookie("role", $role, time() + 60 * 60 * 24 * 15, "/");

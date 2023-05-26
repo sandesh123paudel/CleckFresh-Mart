@@ -5,7 +5,7 @@ echo "<div class='user-container'>";
 echo "<table>";
 echo "<tr>
         <th>Id</th>
-        <th>Name</th>
+        <th>User Name</th>
         <th>No of Item</th>
         <th>Order Date</th>
         <th>&pound; Price</th>
