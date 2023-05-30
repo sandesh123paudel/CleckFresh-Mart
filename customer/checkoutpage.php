@@ -241,7 +241,7 @@ if (isset($_POST['placeorder'])) {
                 <?php
                 unset($_SESSION['totalprice']);
                 $finalamount = $taxamount + $totalprice;
-                $_SESSION['totalprice'] = $finalamount;
+                $_SESSION['totalprice'] = number_format($finalamount,2);
                 echo $finalamount;
                 ?>
               </b>

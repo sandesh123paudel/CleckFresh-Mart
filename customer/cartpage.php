@@ -96,7 +96,9 @@ include('../db/connection.php');
       </div>
 
       <?php
-
+      if (isset($_GET['error'])) {
+        echo "<p class='error'>" . $_GET['error'] . "</p>";
+      }
       $productprice = 0;
       $totalprice = 0;
 
@@ -148,11 +150,6 @@ include('../db/connection.php');
             </div>
             <div class='price'>&#163; " . $product_price . "</div>";
 
-            // <div class='qty'>
-            // <h3> 
-            //   <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' data-item-id='" . $product_id . "' class='cart-item-quantity' disabled>
-            // </h3>
-            // </div>
             echo "<div class='prod-quantity'>
 
                     <button onclick='remove_session($product_id,1)'>-</button>
@@ -226,14 +223,6 @@ include('../db/connection.php');
             <label>CleckFreshMart</label>
           </div>
           <div class='price'>&#163; " . $discount_price . "</div>";
-
-            // <div class='qty'>
-            // <h3>
-            //   <input type='hidden' value='" . $discount_price . "' id='product_id'>
-            //   <input type='text' min='1' max='20' value='" . $quantity . "' id='quantity' disabled>
-            // </h3>
-
-            // </div>
             echo "<div class='prod-quantity'>
                   <button onclick='removequantity($pid,1)'>-</button>
                   <h3>
@@ -279,7 +268,11 @@ include('../db/connection.php');
         <h4>Process Payment</h4>
         <?php
         if (isset($_SESSION['userID'])) {
-          echo "<button onclick='checkout()'>Process to Checkout</button>";
+          if ($cart_num == 0) {
+            echo "<button onclick='checkouterror()'>Process to Checkout</button>";
+          } else {
+            echo "<button onclick='checkout()'>Process to Checkout</button>";
+          }
         } else {
           echo "<button onclick='cartlogin()'>Process to Checkout</button>";
         }
@@ -293,6 +286,10 @@ include('../db/connection.php');
 
 
   <script>
+    function checkouterror() {
+      document.location.href = 'cartpage.php?error=Your cart is empty!';
+    }
+
     function checkout() {
       document.location.href = 'checkoutpage.php';
     }
@@ -319,7 +316,6 @@ include('../db/connection.php');
 
       removeupdatecart(product_id, quantity);
     }
-
   </script>
 </body>
 
