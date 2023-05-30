@@ -15,8 +15,8 @@
         oci_bind_by_name($stid, ':id' , $_SESSION['traderID'] );
       }
     if(isset($_SESSION['adminID'] )){
-        oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
-      }
+      oci_bind_by_name($stid, ':id' , $_SESSION['adminID'] );
+    }
       
     oci_execute($stid);
 
@@ -33,4 +33,3 @@
     }
 
     header('location:../login.php');
-?>
