@@ -1,6 +1,14 @@
 <?php
 session_start();
 include('../db/connection.php');
+
+if (empty($_SESSION['token'])) {
+  echo "<script>
+  alert('SESSION is EXPIRED Please Login!!!');
+  document.location.href='../login.php';
+  </script>";
+}
+
 $err = $errdate = '';
 
 if (isset($_POST['placeorder'])) {
@@ -233,7 +241,7 @@ if (isset($_POST['placeorder'])) {
                 <?php
                 unset($_SESSION['totalprice']);
                 $finalamount = $taxamount + $totalprice;
-                $_SESSION['totalprice'] = $finalamount;
+                $_SESSION['totalprice'] = number_format($finalamount,2);
                 echo $finalamount;
                 ?>
               </b>

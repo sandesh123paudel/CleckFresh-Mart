@@ -19,12 +19,14 @@ if (isset($_SESSION['ID'])) {
     $token = base64_encode(random_bytes($token_length));
 
     if ($role === 'customer') {
+        unset($_SESSION['userID']);
         $_SESSION['userID'] = $user['USER_ID'];
         $_SESSION['token'] = $token;
         include('customer/addremove.php');
         header('location:customer/homepage.php');
     }
     if ($role === 'trader') {
+        unset($_SESSION['traderID']);
         $_SESSION['traderID'] = $user['USER_ID'];
         $_SESSION['type'] = $user['CATEGORY'];
         header('location:trader/traderdashboard.php');

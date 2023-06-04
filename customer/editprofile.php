@@ -2,7 +2,12 @@
 
 // session_start();
 include('../db/connection.php');
-
+if (empty($_SESSION['token'])) {
+  echo "<script>
+  alert('SESSION is EXPIRED Please Login!!!');
+  document.location.href='../login.php';
+  </script>";
+}
 
 if (isset($_SESSION['userID'])) {
   $firstname =  $lastname =  $role = $gender =  $contact =  $email = $dob = '';

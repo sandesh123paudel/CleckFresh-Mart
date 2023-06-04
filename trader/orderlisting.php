@@ -88,20 +88,17 @@ include("../db/connection.php");
 
                 if ($order_status == 'pending') {
                     echo "<td id='status'>" . $order_status . "</td>";
-                } 
-                else if($order_status == 'completed')
-                {
+                } else if ($order_status == 'completed') {
                     echo "<td class='success'>" . $order_status . "</td>";
-                }
-                else if($order_status == 'transfered')
-                {
+                } else if ($order_status == 'transfered') {
                     echo "<td class='success'>Reveiced</td>";
                 }
+
 
                 if ($order_status == 'pending') {
                     echo "<td>
                         <div class='action'>
-                            <a id='decline' href='deletetrader.php?id=$order_id&action=decline'>Remove</a>
+                            <a id='decline' href='deleteorder.php?order_id=$order_id'>Remove</a>
                         </div>
                         </td>";
                 }

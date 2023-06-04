@@ -13,6 +13,7 @@
 // $currentDate = strtotime(date('m/d/y'));
 // echo $currentDate;
 
+echo md5("Cleckfreshmart@123");
 
 
 // date_default_timezone_set("Asia/Kathmandu");

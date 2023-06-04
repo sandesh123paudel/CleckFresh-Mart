@@ -107,61 +107,56 @@ include("../db/connection.php");
             <?php
             $verified = 'verified';
             if (isset($_GET['offer_name'])) {
-                $offerSql = "SELECT * FROM OFFER";
-                $stmt = oci_parse($connection, $offerSql);
-                oci_execute($stmt);
-                while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {
-                    $offer_id = $row['OFFER_ID'];
-                    $sql = 'SELECT * FROM PRODUCT WHERE OFFER_ID= :off_id AND ROWNUM <= 8 AND PRODUCT_STATUS = :verify';
-                    $stid = oci_parse($connection, $sql);
-                    oci_bind_by_name($stid, ':off_id', $offer_id);
-                    oci_bind_by_name($stid, ":verify", $verified);
-                    oci_execute($stid);
+                $offerSql = "SELECT p.* 
+                FROM OFFER o
+                JOIN PRODUCT p ON o.OFFER_ID = p.OFFER_ID WHERE PRODUCT_STATUS = :verify";
+                $stid = oci_parse($connection, $offerSql);
+                // oci_bind_by_name($stid, ':off_id', $offer_id);
+                oci_bind_by_name($stid, ":verify", $verified);
+                oci_execute($stid);
 
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        $product_name = $row['PRODUCT_NAME'];
-                        $product_id = $row['PRODUCT_ID'];
-                        $product_image = $row['PRODUCT_IMAGE'];
-                        $product_price = $row['PRODUCT_PRICE'];
-                        $product_offer = $row['OFFER_ID'];
+                while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+                    $product_name = $row['PRODUCT_NAME'];
+                    $product_id = $row['PRODUCT_ID'];
+                    $product_image = $row['PRODUCT_IMAGE'];
+                    $product_price = $row['PRODUCT_PRICE'];
+                    $product_offer = $row['OFFER_ID'];
 
-                        echo "<div class='single'>";
-                        echo "<div class='img' onclick='viewproduct($product_id)'>";
-                        echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
-                        echo "<div class='offer'>Offer</div>";
-                        echo "</div>";
-                        echo "<div class='content'>";
-                        echo "<h5>" . ucfirst($product_name) . "</h5>";
-                        echo "<span class='piece'>" . $row['QUANTITY'] . " gm</span>";
+                    echo "<div class='single'>";
+                    echo "<div class='img' onclick='viewproduct($product_id)'>";
+                    echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
+                    echo "<div class='offer'>Offer</div>";
+                    echo "</div>";
+                    echo "<div class='content'>";
+                    echo "<h5>" . ucfirst($product_name) . "</h5>";
+                    echo "<span class='piece'>" . $row['QUANTITY'] . " gm</span>";
 
-                        echo "<input type='hidden' data-quantity='1' >";
+                    echo "<input type='hidden' data-quantity='1' >";
 
-                        echo "<div class='price'>";
+                    echo "<div class='price'>";
 
-                        $sqlp = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
-                        $stmts = oci_parse($connection, $sqlp);
-                        oci_bind_by_name($stmts, ":offer_id", $product_offer);
-                        oci_execute($stmts);
-                        $dis = oci_fetch_array($stmts, OCI_ASSOC);
+                    $sqlp = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = :offer_id";
+                    $stmts = oci_parse($connection, $sqlp);
+                    oci_bind_by_name($stmts, ":offer_id", $product_offer);
+                    oci_execute($stmts);
+                    $dis = oci_fetch_array($stmts, OCI_ASSOC);
 
-                        $discount = (int)$dis['OFFER_PERCENTAGE'];
-                        $total_price = $product_price - $product_price * ($discount / 100);
+                    $discount = (int)$dis['OFFER_PERCENTAGE'];
+                    $total_price = $product_price - $product_price * ($discount / 100);
 
-                        echo "<span class='cut'>&pound;" . $product_price . "</span>";
-                        echo "<span class='main'>&pound; " . $total_price . "</span>";
+                    echo "<span class='cut'>&pound;" . $product_price . "</span>";
+                    echo "<span class='main'>&pound; " . $total_price . "</span>";
 
-                        echo "</div>";
+                    echo "</div>";
 
-                        // echo "<a href=''><div class='btn'>Add +</div></a>";
-                        if (isset($_SESSION['userID'])) {
-                            echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
-                        } else {
-                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
-                        }
-
-                        echo "</div>";
-                        echo "</div>";
+                    if (isset($_SESSION['userID'])) {
+                        echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+                    } else {
+                        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
                     }
+
+                    echo "</div>";
+                    echo "</div>";
                 }
             } else {
                 // $verified = 'verified';

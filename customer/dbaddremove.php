@@ -62,11 +62,7 @@ else if ($_GET['action'] == 'updatecart') {
     oci_bind_by_name($stid, ":qty", $quantity);
     oci_bind_by_name($stid, ":pid", $product_id);
     oci_execute($stid);
-}
-// add to wishlist
-
-else if ($_GET['action'] == 'addwishlist') {
-
+} else if ($_GET['action'] == 'addwishlist') {
     $check = "SELECT * FROM WISHLIST_PRODUCT WHERE WISHLIST_ID = :wishlist_id AND PRODUCT_ID = :pid";
     $checkstid = oci_parse($connection, $check);
     oci_bind_by_name($checkstid, ":wishlist_id", $wishlist_id);
@@ -75,15 +71,19 @@ else if ($_GET['action'] == 'addwishlist') {
     if (oci_fetch_array($checkstid)) {
         echo "Already Added to Wishlist";
     } else {
-        $sql = "INSERT INTO WISHLIST_PRODUCT (WISHLIST_ID,PRODUCT_ID) VALUES (:wishlist_id,:pid)";
+        $sql = "INSERT INTO WISHLIST_PRODUCT (WISHLIST_ID, PRODUCT_ID) VALUES (:wishlist_id, :pid)";
         $stid = oci_parse($connection, $sql);
         oci_bind_by_name($stid, ":wishlist_id", $wishlist_id);
         oci_bind_by_name($stid, ":pid", $product_id);
         if (oci_execute($stid)) {
             echo "Added to Wishlist";
+        } else {
+            echo "Failed to add to Wishlist";
         }
     }
 }
+
+
 // remove from wishlist
 else if ($_GET['action'] == 'removewishlist') {
     $sql = "DELETE FROM WISHLIST_PRODUCT WHERE PRODUCT_ID = :pid";
@@ -92,8 +92,7 @@ else if ($_GET['action'] == 'removewishlist') {
     if (oci_execute($stid)) {
         echo "Successfully remove from wishlist";
     }
-} 
-else if ($_GET['action'] == 'addupdatecart') {
+} else if ($_GET['action'] == 'addupdatecart') {
     $product_id = $_GET['id']; // Store the product ID
 
     $sql = "SELECT cp.*, p.STOCK_NUMBER
@@ -111,7 +110,7 @@ else if ($_GET['action'] == 'addupdatecart') {
     }
 
     $quantity = (int)$data['QUANTITY'] + 1;
-    
+
     $sql = "UPDATE CART_PRODUCT SET QUANTITY = :quantity WHERE PRODUCT_ID = :product_id";
     $stid = oci_parse($connection, $sql);
     oci_bind_by_name($stid, ":product_id", $product_id);
@@ -122,10 +121,7 @@ else if ($_GET['action'] == 'addupdatecart') {
     } else {
         echo "Failed to update cart";
     }
-}
-
-
-else if ($_GET['action'] == 'removeupdatecart') {
+} else if ($_GET['action'] == 'removeupdatecart') {
     $product_id = $_GET['id']; // Store the product ID
 
     $sql = "SELECT QUANTITY FROM CART_PRODUCT WHERE PRODUCT_ID = :product_id";

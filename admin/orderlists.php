@@ -8,7 +8,8 @@ echo "<tr>
         <th>User Name</th>
         <th>No of Item</th>
         <th>Order Date</th>
-        <th>&pound; Price</th>
+        <th>PickUp Date</th>
+        <th>Amount</th>
         <th>Payment</th>
         <th>Action</th>
         </tr>";
@@ -23,6 +24,7 @@ oci_execute($stid);
 while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
     $order_id = $row['ORDER_ID'];
     $order_date = $row['ORDER_DATE'];
+    $collect_date = $row['COLLECTION_DATE'];
     $items = $row['NO_OF_ITEM'];
     $totalprice = $row['TOTAL_PRICE'];
     $order_status = $row['ORDER_STATUS'];
@@ -33,6 +35,7 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
     echo "<td>" . ucfirst($user_name) . "</td>";
     echo "<td>" . $items . "</td>";
     echo "<td>" . $order_date . "</td>";
+    echo "<td>" . $collect_date . "</td>";
     echo "<td><b>&pound; " . $totalprice . "</b></td>";
     if ($order_status == 'pending') {
         echo "<td id='red'>" . $order_status . "</td>";
@@ -40,7 +43,7 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
         echo "<td id='green'>" . $order_status . "</td>";
     }
     echo "<td>";
-    
+
     if ($order_status == 'pending') {
         echo "<div class='action'>
         <a id='decline' href=moneytransfer.php?order_id=$order_id&action=delete>Remove</a>
@@ -49,11 +52,11 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
         echo "<div class='action'>
             <a id='approve' href=moneytransfer.php?order_id=$order_id&action=transfer>Transfer</a>
         </div>";
+    } else if ($order_status == 'transfered') {
+        echo "<td id='green'>" . $order_status . "</td>";
+    } else if ($order_status == 'removed') {
+        echo "<td id='red'>" . $order_status . "</td>";
     }
-    else if($order_status == 'transfered'){
-        echo "<td id='green'>" . $order_status . "</td>";    }
-    else if($order_status == 'removed'){
-        echo "<td id='red'>" . $order_status . "</td>";    }
 
     echo "</td>";
     echo "</tr>";

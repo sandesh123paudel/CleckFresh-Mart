@@ -9,7 +9,7 @@ if (isset($_GET['PayerID'])) {
 
     $user_id = $_SESSION['userID'];
     $order_id = $_SESSION['order_id'];
-    $collect_date = $_SESSION['collect_date'];
+    $collect_date = $_SESSION['order_date'];
 
     $status = "completed";
     $updatesql = "UPDATE ORDER_I SET ORDER_STATUS = :ustatus WHERE ORDER_ID = :order_id";
