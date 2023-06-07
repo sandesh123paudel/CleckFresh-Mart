@@ -42,7 +42,7 @@ if (isset($_GET['PayerID'])) {
         "\nYour collection time : " . $_SESSION['collection_date'] .
         "\nBe there on time.
         \n Thank You for shopping.  
-        \nYour payment invoice link: http://localhost/learning/pm_project/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
+        \nYour payment invoice link: http://localhost/learning/karan/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
         \n\nThank you.
         \nHave a great day!
         \nCleckFreshMart";

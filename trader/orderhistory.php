@@ -37,6 +37,7 @@ include("../db/connection.php");
 
             <?php
 
+            $order_price = 0;
             $sql = "SELECT o.*,op.*,p.*,u.*
                 FROM ORDER_I o
                 JOIN ORDER_PRODUCT op ON o.ORDER_ID = op.ORDER_ID
@@ -55,7 +56,22 @@ include("../db/connection.php");
                 $order_date = $row['ORDER_DATE'];
                 $order_price = $row['TOTAL_PRICE'];
                 $order_status = $row['ORDER_STATUS'];
-                $order_item = $row['NO_OF_ITEM'];
+                $order_quantity = $row['ORDER_QUANTITY'];
+
+                if (!empty($row['OFFER_ID'])) {
+                    $offer_id = $row['OFFER_ID'];
+                    $sql = "SELECT OFFER_PERCENTAGE FROM OFFER WHERE OFFER_ID = '$offer_id' ";
+                    $stidsd = oci_parse($connection, $sql);
+                    oci_execute($stidsd);
+                    $ds = oci_fetch_assoc($stidsd);
+                    $offerPer = $ds['OFFER_PERCENTAGE'];
+                    $product_price = number_format($row['PRODUCT_PRICE'] - ($row['PRODUCT_PRICE'] * ($offerPer / 100)), 2);
+                } else {
+                    $product_price = $row['PRODUCT_PRICE'];
+                }
+
+                $order_price = number_format($product_price * $order_quantity, 2);
+
 
                 $sqq = "SELECT u.* 
                 FROM CART c
@@ -74,7 +90,7 @@ include("../db/connection.php");
                     <td>" . $order_id . "</td>
                     <td>" . $user_name . "</td>
                     <td><img id='image' src='../db/uploads/products/$product_image' alt='' /></td>
-                    <td>" . $order_item . "</td>
+                    <td>" . $order_quantity . "</td>
                     <td><b> &pound; " . $order_price . "</b></td>
                     <td>" . $order_date . "</td>
                     

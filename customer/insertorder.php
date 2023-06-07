@@ -84,4 +84,3 @@ oci_execute($delstmt);
 
 // header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");
 header("location:invoice.php?order_id=$order_id");
-
