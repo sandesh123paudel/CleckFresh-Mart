@@ -35,14 +35,14 @@ if (isset($_GET['PayerID'])) {
 
     $sub = "Payment Receipt from CleckFreshMart";
     $message = "Dear " . $username .
-        "\n\nPlease find our payment receipt attached to this email".
-        ",\n\nYou have successfully paid your total amount : £ ". $invoice_price .
+        "\n\nPlease find our payment receipt attached to this email" .
+        ",\n\nYou have successfully paid your total amount : £ " . $invoice_price .
         "\nNow You can pick your order from your collection place.
-        \nYour Order ID : " . $_SESSION['order_id'] . 
+        \nYour Order ID : " . $_SESSION['order_id'] .
         "\nYour collection time : " . $_SESSION['collection_date'] .
         "\nBe there on time.
         \n Thank You for shopping.  
-        \nYour payment invoice link: http://localhost/learning/karan/customer/paymentinvoice.php?order_id=$order_id&order_date=$collect_date&user_id=$user_id&price=$invoice_price
+        \nYour payment invoice link: http://localhost/learning/pm_project/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
         \n\nThank you.
         \nHave a great day!
         \nCleckFreshMart";
