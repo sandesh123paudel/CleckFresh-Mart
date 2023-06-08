@@ -11,11 +11,13 @@ if (empty($_SESSION['token'])) {
 
 unset($_SESSION['order_id']);
 
-$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";
+// $sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id AND INVOICE_DATE = :odate AND TOTAL_AMOUNT = :invoice_price";
+$sql = "SELECT * FROM INVOICE WHERE ORDER_ID = :order_id";
+
 $stmt = oci_parse($connection, $sql);
 oci_bind_by_name($stmt, ":order_id", $_GET['order_id']);
-oci_bind_by_name($stmt, ":odate", $_GET['order_date']);
-oci_bind_by_name($stmt,":invoice_price",$_GET['price']);
+// oci_bind_by_name($stmt, ":odate", $_GET['order_date']);
+// oci_bind_by_name($stmt,":invoice_price",$_GET['price']);
 oci_execute($stmt);
 
 while ($row = oci_fetch_array($stmt, OCI_ASSOC)) {

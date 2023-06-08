@@ -1,6 +1,13 @@
 <?php
 include("../db/connection.php");
 
+if (isset($_GET['review_id'])) {
+    $sql = "DELETE FROM REVIEW WHERE REVIEW_ID = :review_id";
+    $stid = oci_parse($connection, $sql);
+    oci_bind_by_name($stid, ":review_id", $_GET['review_id']);
+    oci_execute($stid);
+}
+
 echo "<div class='user-container'>";
 echo "<table>";
 echo "<tr>
@@ -10,6 +17,7 @@ echo "<tr>
         <th>Image</th>
         <th>Rating</th>
         <th>Reviews</th>
+        <th>Action</th>
         </tr>";
 
 $count = 0;
@@ -24,6 +32,7 @@ oci_execute($stid);
 
 while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
     $count += 1;
+    $review_id = $row['REVIEW_ID'];
     $user_name = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
     $product_image = $row['PRODUCT_IMAGE'];
     $product_name = $row['PRODUCT_NAME'];
@@ -43,6 +52,10 @@ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
     } else {
         echo "<td>-</td>";
     }
+    echo "<td><a href='dashboard.php?cat=Review Lists&review_id=$review_id'><span class='material-symbols-outlined'>
+    delete
+    </span></a> </td>";
+
     echo "</tr>";
 }
 echo "</table>";

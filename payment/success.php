@@ -9,7 +9,7 @@ if (isset($_GET['PayerID'])) {
 
     $user_id = $_SESSION['userID'];
     $order_id = $_SESSION['order_id'];
-    $collect_date = $_SESSION['collect_date'];
+    $collect_date = $_SESSION['order_date'];
 
     $status = "completed";
     $updatesql = "UPDATE ORDER_I SET ORDER_STATUS = :ustatus WHERE ORDER_ID = :order_id";
@@ -35,26 +35,18 @@ if (isset($_GET['PayerID'])) {
 
     $sub = "Payment Receipt from CleckFreshMart";
     $message = "Dear " . $username .
-<<<<<<< HEAD
         ",\n\nYou have successfully paid your total amount : £ "
         . $_SESSION['totalprice'] .
         "\n\n\t\tNow You can pick your order from your collection place.
-    \n\t Your Order ID : " . $_SESSION['order_id'] . "\n\t
-    Your collection time is " . $_SESSION['collection_date'] .
-        "\n\tBe there on time.\n\t Thank You for shopping.  \n\t Your payment invoice link http://localhost/mart/customer/paymentinvoice.php?order_id=$order_id&order_date=$order_date&user_id=$user_id";
-=======
-        "\n\nPlease find our payment receipt attached to this email".
-        ",\n\nYou have successfully paid your total amount : £ ". $invoice_price .
-        "\nNow You can pick your order from your collection place.
-        \nYour Order ID : " . $_SESSION['order_id'] . 
-        "\nYour collection time : " . $_SESSION['collection_date'] .
-        "\nBe there on time.
-        \n Thank You for shopping.  
-        \nYour payment invoice link: http://localhost/learning/karan/customer/paymentinvoice.php?order_id=$order_id&order_date=$collect_date&user_id=$user_id&price=$invoice_price
+        \n\t Your Order ID : " . $_SESSION['order_id'] . "\n\t
+        Your collection time is " . $_SESSION['collection_date'] .
+        "\n\tBe there on time.
+        \n\t Thank You for shopping.  
+        \n\t Your payment invoice link http://localhost/mart/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
         \n\nThank you.
         \nHave a great day!
         \nCleckFreshMart";
->>>>>>> e238dc59ed0ebb90d9174629c2c7dc52ffd43a89
+
     include_once('../sendmail.php');
 
     $sql = "INSERT INTO PAYMENT (USER_ID,ORDER_ID,TOTAL_AMOUNT,PAYMENT_DETAILS) VALUES (:user_id,:order_id,:total_amount,:payment_detail)";

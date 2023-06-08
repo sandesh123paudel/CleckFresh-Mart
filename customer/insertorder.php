@@ -14,9 +14,20 @@ oci_bind_by_name($stmt, ":price", $_SESSION['totalprice']);
 oci_execute($stmt);
 while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
     $order_id = $data['ORDER_ID'];
-    $order_date = $data['COLLECTION_DATE'];
+    $date = DateTime::createFromFormat('d-M-y', $data['ORDER_DATE']);
+    $order_date = $date->format('d/m/Y');
 }
+
+// echo "\n" . $_SESSION['cart_id'];
+// echo "\n" . $_SESSION['collectionslot_id'];
+// echo "\n" . $_SESSION['collect_date'];
+// echo "\n" . $_SESSION['totalprice'];
+// echo "\n" . $order_id;
+// echo "\n" .$order_date;
+
 $_SESSION['order_id'] = $order_id;
+
+$_SESSION['order_date'] = $order_date;
 
 $sqlt = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
 $stms = oci_parse($connection, $sqlt);
@@ -57,7 +68,7 @@ $invoice_price = $_SESSION['totalprice'];
 $invoicesql = "INSERT INTO INVOICE (ORDER_ID,INVOICE_DATE,PAYMENT_FROM,PAYMENT_TO,TOTAL_AMOUNT) VALUES (:order_id,:invoice_date,:payment_from,:payment_to,:totalprice)";
 $invoicestmt = oci_parse($connection, $invoicesql);
 oci_bind_by_name($invoicestmt, ":order_id", $order_id);
-oci_bind_by_name($invoicestmt, ":invoice_date",$_SESSION['collect_date']);
+oci_bind_by_name($invoicestmt, ":invoice_date",  $order_date);
 oci_bind_by_name($invoicestmt, ":payment_from", $payment);
 oci_bind_by_name($invoicestmt, ":payment_to", $_SESSION['userID']);
 oci_bind_by_name($invoicestmt, ":totalprice", $invoice_price);
@@ -71,4 +82,5 @@ oci_bind_by_name($delstmt, ":cart_id", $_SESSION['cart_id']);
 oci_execute($delstmt);
 
 
-header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");
+// header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");
+header("location:invoice.php?order_id=$order_id");

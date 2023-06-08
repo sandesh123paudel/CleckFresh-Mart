@@ -173,6 +173,7 @@ include('../db/connection.php');
                         <input type="text" min="1" value='1' id='quantity' disabled>
                     </h3>
                     <?php
+
                     echo "<button onclick='addedquantity($p_stock)'>+</button>";
                     ?>
                 </div>
@@ -181,11 +182,16 @@ include('../db/connection.php');
                     <?php
                     // echo "<button>Add to basket</button>";
                     // add to cart
-                    if (isset($_SESSION['userID'])) {
-                        echo "<button  id='add' onclick='add_database()'>Add to Basket</button>";
+                    if ($p_stock <= 0) {
+                        echo "<button id='outstock'>Add to Basket</button>";
                     } else {
-                        echo "<button  id='addcart' onclick='add_session()'>Add to Basket</button>";
+                        if (isset($_SESSION['userID'])) {
+                            echo "<button  id='add' onclick='add_database()'>Add to Basket</button>";
+                        } else {
+                            echo "<button  id='addcart' onclick='add_session()'>Add to Basket</button>";
+                        }
                     }
+
 
                     //add to wishlist
                     // echo "<button >Add to List &#9825; </button>";
