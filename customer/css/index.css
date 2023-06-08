@@ -745,7 +745,7 @@ scrollbar-width: none;  /* Firefox */
 .other-main .product-lists  .single  .outofstock {
   position: absolute;
   z-index: 1;
-  margin-top: -180px;
+  margin-top: -185px;
   margin-left: 130px;
   background: #949494;
   color: white;

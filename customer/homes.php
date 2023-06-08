@@ -22,6 +22,7 @@
       $product_quantity = $row['QUANTITY'];
       $product_image = $row['PRODUCT_IMAGE'];
       $product_price = $row['PRODUCT_PRICE'];
+      $product_stock = $row['STOCK_NUMBER'];
 
       echo "<div class='single-container'>";
       echo "<div class='image' onclick='viewproduct($product_id)'>";
@@ -32,11 +33,17 @@
       echo "<p class='price'>&pound; $product_price</p>";
       echo "<input type='hidden' data-quantity='1' >";
 
-      if (isset($_SESSION['userID'])) {
-        echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+      if ((int)$product_stock <= 0) {
+        echo "<div class='btn' id='outstock' >Add +</div>";
       } else {
-        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+
+        if (isset($_SESSION['userID'])) {
+          echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+        } else {
+          echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+        }
       }
+
       echo "</div>";
     }
     ?>
@@ -105,11 +112,19 @@
       $product_price = $row['PRODUCT_PRICE'];
       $product_offer = $row['OFFER_ID'];
       $product_quantity = $row['QUANTITY'];
+      $product_stock = $row['STOCK_NUMBER'];
 
       echo "<div class='single'>";
       echo "<div class='img' onclick='viewproduct($product_id)'>";
       echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$product_name' /> ";
-      echo "<div class='offer'>Offer</div>";
+      
+      if((int)$product_stock <= 0){
+        echo "<div class='offer' id='outstock'>out of stock</div>";
+      }
+      else{
+        echo "<div class='offer'>Offer</div>";
+      }
+
       echo "</div>";
       echo "<div class='content'>";
       echo "<h5>" . ucfirst($product_name) . "</h5>";
@@ -131,10 +146,21 @@
       echo "</div>";
       echo "<input type='hidden' data-quantity='1' >";
 
-      if (isset($_SESSION['userID'])) {
-        echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+      // if (isset($_SESSION['userID'])) {
+      //   echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+      // } else {
+      //   echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+      // }
+
+      if ((int)$product_stock <= 0) {
+        echo "<div class='btn' id='outstock' >Add +</div>";
       } else {
-        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+
+        if (isset($_SESSION['userID'])) {
+          echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+        } else {
+          echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+        }
       }
 
       echo "</div>";

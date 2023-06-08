@@ -121,6 +121,7 @@ include("../db/connection.php");
                     $product_image = $row['PRODUCT_IMAGE'];
                     $product_price = $row['PRODUCT_PRICE'];
                     $product_offer = $row['OFFER_ID'];
+                    $product_stock = $row['STOCK_NUMBER'];
 
                     echo "<div class='single'>";
                     echo "<div class='img' onclick='viewproduct($product_id)'>";
@@ -149,10 +150,15 @@ include("../db/connection.php");
 
                     echo "</div>";
 
-                    if (isset($_SESSION['userID'])) {
-                        echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+                    if ((int)$product_stock <= 0) {
+                        echo "<div class='btn' id='outstock' >Add +</div>";
                     } else {
-                        echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+
+                        if (isset($_SESSION['userID'])) {
+                            echo "<button class='btn' id='add' onclick='addtocart($product_id,1)'>Add +</button>";
+                        } else {
+                            echo "<button class='btn' id='addcart' onclick='addcart($product_id,1)'>Add +</button>";
+                        }
                     }
 
                     echo "</div>";
