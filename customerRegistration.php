@@ -45,7 +45,7 @@ if (isset($_POST['subCustomer'])) {
         $errCpassword = 'Confirm Password is required';
     }
     if (empty($_POST['remember'])) {
-        $errremember = 'Please accept the Terms & Conditions to continue';
+        $errremember = 'Terms & Conditions is required';
     } else {
 
         $fname = $sfname = trim($_POST['fname']);
@@ -72,7 +72,7 @@ if (isset($_POST['subCustomer'])) {
         }
         if (strlen(trim($lname)) != strlen($lname)) {
             $errcount += 1;
-            $errlname = "You cannot input space in a last name";
+            $errlname = "You cannot input space in a first name";
         }
         if (strlen(trim($phone)) != strlen($phone)) {
             $errcount += 1;
@@ -80,12 +80,12 @@ if (isset($_POST['subCustomer'])) {
         }
         if (!preg_match('/^[a-zA-Z]*$/', $fname)) {
             $errcount += 1;
-            $errfname = "Please Enter a Valid First Name";
+            $errfname = "Only letters allowed";
         }
 
         if (!preg_match('/^[a-zA-Z]*$/', $lname)) {
             $errcount += 1;
-            $errlname = "Please Enter a Valid Last Name";
+            $errlname = "Only letters allowed";
         }
 
         // email validation

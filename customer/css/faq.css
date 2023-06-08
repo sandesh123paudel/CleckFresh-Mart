@@ -1,0 +1,159 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.faq{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.faq .nav-bar{
+    overflow: hidden;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    background-color: transparent;
+    box-shadow: 0px 0px 5px 2px lightgray;
+
+}
+.container-faq{
+    width: 100%;
+}
+
+.banner{
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 2%;
+    margin-top: 10%;
+    width: 100%;
+    height: 140px;
+    background-image: linear-gradient(rgb(255, 188, 64),rgb(255, 119, 0),rgb(255, 119, 0));
+}
+.banner img{
+    width: 20%;
+}
+.banner h1{
+    padding-block: 5px;
+    margin-block: 25px;
+    color: white;
+}
+
+
+.faq-info{
+    display: flex;
+    flex-direction: column;
+    padding-block: 80px;
+    margin-inline: 5%;
+    padding-inline: 2% ;
+    width: 85%;
+    margin-block: 3%;
+    border-radius: 5px;
+}
+.title{
+    text-align: center;
+    padding-top:  2rem;
+    margin-bottom: -100px;
+}
+.title h3{
+    font-size: 30px;
+    font-weight: 650;
+    padding-block: 5px;
+}
+
+.questions{
+    width: 100%;
+    margin-block: 2px;
+    padding:10px;
+}
+.faq-dorpdown{
+    padding-block: 10px;
+    border: 1px solid lightgray;
+    display: flex;
+    cursor: pointer;
+}
+.faq-dorpdown ,span, label {
+    cursor: pointer;
+}
+.answer{
+    padding: 10px;
+    border: 1px solid lightgray;
+    margin-top: 1px;
+    display: none;
+    transition-delay: display 2s;
+}
+
+.material-symbols-outlined{
+    padding: 3px;
+    color: grey;
+    padding-left: 10px;
+}
+
+.faq-dorpdown label{
+    padding-top: 2px;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.contact-links{
+    text-align: center;
+    position: relative;
+    top: -100px;
+    padding-block: 50px;
+    margin-inline: 8%;
+    border:1px solid lightgray;
+}
+.contact-links h3{
+    padding-block: 5px;
+}
+
+.contact-links a{
+    text-decoration: none;
+    background-color: orange;
+    padding-block: 10px;
+    position: relative;
+    top: 20px;
+    padding-inline:25px ;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media screen and (max-width:420px) {
+    .faq-info{
+        width: 90%;
+        margin: 0%;
+    }
+    .questions{
+        width: 99%;
+    }
+    
+    .banner{
+       margin-top: 30%;
+    }
+    .banner img{
+        width: 120px;
+        height: 120px;
+    }
+
+    .banner h1{
+        font-size: 25px;
+        margin-block: 40px;
+        z-index: 2;
+    }
+
+    .contact-links{
+        margin-block: 30px;
+        width: 90%;
+        margin-inline: 4%;
+
+    }
+}

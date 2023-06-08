@@ -141,7 +141,7 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
@@ -192,7 +192,6 @@ include('../db/connection.php');
             $product_price = $data['PRODUCT_PRICE'];
             $productname = $data['PRODUCT_NAME'];
             $product_stock = $data['STOCK_NUMBER'];
-            $product_image = $data['PRODUCT_IMAGE'];
 
             if (!empty($data['OFFER_ID'])) {
               $offer_id = $data['OFFER_ID'];
@@ -216,7 +215,7 @@ include('../db/connection.php');
             echo "
         <div class='item-container'>
           <div class='image'>";
-            echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/" . $data['PRODUCT_IMAGE'] . "\" alt='$productname' /> ";
 
             echo " </div>
           <div class='item-info'>
@@ -236,7 +235,7 @@ include('../db/connection.php');
 
 
           <div class='remove'>
-            <span class='material-symbols-outlined' onclick='removecartdb(" .  $pid. ")'> delete </span>
+            <span class='material-symbols-outlined' onclick='removecartdb(" . $data['PRODUCT_ID'] . ")'> delete </span>
           </div>
         </div>
 

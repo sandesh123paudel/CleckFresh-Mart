@@ -1,0 +1,96 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+.footer{
+    padding-block:30px ;
+    display: flex;
+    flex-direction: column;
+    background-color:  rgb(255, 179, 1);
+}
+.footer .line{
+    margin-block: 30px;
+    margin-inline: 5%;
+    width: 90%;
+    height: 2px;
+    background-color: white;
+}
+.footer p{
+    text-align: center;
+    padding-bottom: 30px;
+}
+.footer-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.foot-container{
+    display: flex;
+    margin-inline: 20px;
+    flex-direction: column;
+}
+
+.foot-container h3{
+    font-size: 20px;
+    margin-block: 20px;
+    padding-block: 5px;
+}
+
+.footer-links{
+    display: flex;
+    flex-direction:column;
+    padding-left: 10px;
+}
+.footer-links a{
+    text-decoration: none;
+    padding-block: 5px;
+    color: black;
+}
+
+.footer-links a:hover{
+    color:white;
+}
+
+.social-links{
+    display: flex;
+}
+.social-links img{
+    background-color: black;
+    padding: 5px;
+    border-radius: 6px;
+    width: 24px;
+    height: 24px;
+    margin-inline: 10px;
+}
+#twiter{
+    width: 35px;
+}
+
+.social-links img:hover{
+    background-color: white;
+}
+
+/* Responsive */
+@media screen and (max-width:420px) {
+    .footer{
+        width: 100%;
+        margin-inline: 0%;
+    }
+    .foot-container{
+        width: 190px;
+        margin-inline: 0px;
+    }
+    #fot{
+        width: 145px;
+    }
+    .footer-links  {
+        width: 100%;
+        margin-right: 20px;
+    }
+}

@@ -1,0 +1,122 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300&family=Libre+Baskerville:ital@1&family=Poppins:wght@200;300&family=Tangerine&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+}
+
+.product-container{
+    display: flex;
+    flex-direction: column;
+    margin-inline: 10%;
+    padding-block:2%;
+}
+.product-container h2{
+    font-weight: 550;   
+    padding-block: 5px;
+}
+
+.product-part1 , .product-part2{
+    border: 2px solid lightgray;
+    margin-block:2% ;
+    border-radius: 5px;
+    padding-block: 3%;
+    padding-inline: 3%;
+}
+
+.image-file{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-file label{
+    font-size: 25px;
+    font-weight: 520;
+    padding-bottom: 10px;
+}
+
+.image-file p{
+    font-size:18px;
+    color: gray;
+}
+
+.inputbox{
+    font-size: 15px;
+    padding: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-block: 10px;
+    outline: none;
+    
+    border: 1px solid lightgray;
+}
+.error{
+    color: red;
+}
+.info1{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding-block: 15px;
+}
+
+.info1 h3{
+    font-size: 25px;
+    padding-block: 5px;
+}
+.info1 p{
+    color: gray;
+}
+
+.info2{
+    display: flex;
+    flex-direction: column;
+    margin-block: 20px;
+}
+
+.info2 label{
+    font-size: 18px;
+}
+
+.part2-info{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.part2-info h3{
+    font-size: 25px;
+    padding-block: 5px;
+
+}
+.part2-info p{
+    color: gray;
+}
+
+.addbtn{
+    font-size: 18px;
+    padding-inline: 15px;
+    padding-block: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-block: 10px;
+    outline: none;
+    color: orange;
+    background-color: transparent;
+    border: 1px solid orange;
+}
+.addbtn:hover{
+    cursor: pointer;
+    background-color: orange;
+    color: white;
+    border: 1px solid white;
+}
+
+.selectbox{
+    color: gray;
+}

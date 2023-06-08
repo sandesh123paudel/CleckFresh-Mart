@@ -35,18 +35,17 @@ if (isset($_GET['PayerID'])) {
 
     $sub = "Payment Receipt from CleckFreshMart";
     $message = "Dear " . $username .
-        ",\n\nYou have successfully paid your total amount : £ "
-        . $_SESSION['totalprice'] .
-        "\n\n\t\tNow You can pick your order from your collection place.
-        \n\t Your Order ID : " . $_SESSION['order_id'] . "\n\t
-        Your collection time is " . $_SESSION['collection_date'] .
-        "\n\tBe there on time.
-        \n\t Thank You for shopping.  
-        \n\t Your payment invoice link http://localhost/mart/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
+        "\n\nPlease find our payment receipt attached to this email" .
+        ",\n\nYou have successfully paid your total amount : £ " . $invoice_price .
+        "\nNow You can pick your order from your collection place.
+        \nYour Order ID : " . $_SESSION['order_id'] .
+        "\nYour collection time : " . $_SESSION['collection_date'] .
+        "\nBe there on time.
+        \n Thank You for shopping.  
+        \nYour payment invoice link: http://localhost/learning/karan/customer/paymentinvoice.php?order_id=$order_id&user_id=$user_id
         \n\nThank you.
         \nHave a great day!
         \nCleckFreshMart";
-
     include_once('../sendmail.php');
 
     $sql = "INSERT INTO PAYMENT (USER_ID,ORDER_ID,TOTAL_AMOUNT,PAYMENT_DETAILS) VALUES (:user_id,:order_id,:total_amount,:payment_detail)";
@@ -84,7 +83,7 @@ if (isset($_GET['PayerID'])) {
         oci_execute($stmtinsert);
     }
 
-    header('location:http://localhost/mart/customer/homepage.php');
+    header('location:http://localhost/learning/karan/customer/homepage.php');
 
     // echo "<script>alert('Payment has been Successfull')</script>";
 
