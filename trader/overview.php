@@ -123,7 +123,7 @@ include("../db/connection.php");
 
             </div>
 
-            <a href="http://127.0.0.1:8080/apex/f?p=104:LOGIN_DESKTOP:4882380719837:::::">
+            <a href="http://localhost:8080/apex/f?p=101:9999:14337463141200::YES:::">
                 <!-- <div class="report"> -->
                 <div class="report-info">
                     <h3>Report</h3>
@@ -142,13 +142,15 @@ include("../db/connection.php");
                     <?php
                     $total_amount = 0;
 
-                    $sqlpayment = "SELECT op.*,pr.*,r.*
-                    FROM REPORT r
-                    JOIN ORDER_PRODUCT op ON r.ORDER_ID = op.ORDER_ID
+                    $sqlpayment = "SELECT op.*,pr.*
+                    FROM PAYMENT p
+                    JOIN ORDER_I o ON p.ORDER_ID = o.ORDER_ID
+                    JOIN ORDER_PRODUCT op ON o.ORDER_ID = op.ORDER_ID
                     JOIN PRODUCT pr ON op.PRODUCT_ID = pr.PRODUCT_ID
                     JOIN SHOP s ON pr.SHOP_ID = s.SHOP_ID
                     JOIN USER_I u ON s.USER_ID = u.USER_ID
-                    WHERE u.USER_ID = :user_id";
+                    WHERE u.USER_ID = :user_id ";
+
 
                     $stmtpayment = oci_parse($connection, $sqlpayment);
                     oci_bind_by_name($stmtpayment, ":user_id", $_SESSION['traderID']);
@@ -165,6 +167,7 @@ include("../db/connection.php");
                             $stmt = oci_parse($connection, $sql);
                             oci_bind_by_name($stmt, ":offer_id", $offer_id);
                             oci_execute($stmt);
+
                             while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
                                 $discount = (int)$data['OFFER_PERCENTAGE'];
                                 $discount_price = $product_price - $product_price * ($discount / 100);
