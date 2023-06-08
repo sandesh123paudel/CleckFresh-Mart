@@ -14,8 +14,10 @@ oci_bind_by_name($stmt, ":price", $_SESSION['totalprice']);
 oci_execute($stmt);
 while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
     $order_id = $data['ORDER_ID'];
-    $order_date = $data['ORDER_DATE'];
+    $date = DateTime::createFromFormat('d-M-y', $data['ORDER_DATE']);
+    $order_date = $date->format('d/m/Y');
 }
+
 // echo "\n" . $_SESSION['cart_id'];
 // echo "\n" . $_SESSION['collectionslot_id'];
 // echo "\n" . $_SESSION['collect_date'];
@@ -24,6 +26,7 @@ while ($data = oci_fetch_array($stmt, OCI_ASSOC)) {
 // echo "\n" .$order_date;
 
 $_SESSION['order_id'] = $order_id;
+
 $_SESSION['order_date'] = $order_date;
 
 $sqlt = "SELECT * FROM CART_PRODUCT WHERE CART_ID = :cart_id";
@@ -79,4 +82,5 @@ oci_bind_by_name($delstmt, ":cart_id", $_SESSION['cart_id']);
 oci_execute($delstmt);
 
 
-header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");
+// header("location:invoice.php?order_id=$order_id&order_date=$order_date&price=$invoice_price");
+header("location:invoice.php?order_id=$order_id");
