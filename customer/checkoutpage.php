@@ -59,7 +59,6 @@ if (isset($_POST['placeorder'])) {
         $stids = oci_parse($connection, $sql);
         oci_bind_by_name($stids, ":cart_id", $_SESSION['cart_id']);
         oci_bind_by_name($stids, ":slot_id", $_SESSION['collectionslot_id']);
-        // oci_bind_by_name($stids, ":order_date", $dateFormatted);
         oci_bind_by_name($stids, ":statu", $status);
         oci_bind_by_name($stids, ":item", $_SESSION['cart_num']);
         oci_bind_by_name($stids, ":price", $_SESSION['totalprice']);

@@ -141,7 +141,7 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
