@@ -53,6 +53,11 @@ include('../payment/config.php');
     <title>Invoice</title>
     <link rel="icon" href="../assets/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/invoic.css">
+    <style>
+        #data td{
+            border-bottom: 1px solid lightgray;
+        }
+    </style>
 </head>
 
 <body>
@@ -135,7 +140,7 @@ include('../payment/config.php');
                     }
 
                     echo "
-                        <tr>
+                        <tr id='data'>
                             <td>" . $count . "</td>
                             <td>" . ucfirst($productname) . "</td>
                             <td>" . $quantity . "</td>
