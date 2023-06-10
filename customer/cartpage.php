@@ -141,7 +141,7 @@ include('../db/connection.php');
             echo "
           <div class='item-container'>
             <div class='image'>";
-            echo "<img src=\"../db/uploads/products/" . $product_image . "\" alt='$productname' /> ";
+            echo "<img src=\"../db/uploads/products/".$product_image."\" alt='$productname' /> ";
 
             echo " </div>
             <div class='item-info'>
@@ -270,9 +270,16 @@ include('../db/connection.php');
         if (isset($_SESSION['userID'])) {
           if ($cart_num == 0) {
             echo "<button onclick='checkouterror()'>Process to Checkout</button>";
-          } else {
+          } 
+
+          else if($cart_num > 20){
+            echo "<button onclick='checkexceed()'>Process to Checkout</button>";
+          }
+          else {
             echo "<button onclick='checkout()'>Process to Checkout</button>";
           }
+        
+
         } else {
           echo "<button onclick='cartlogin()'>Process to Checkout</button>";
         }
@@ -315,6 +322,9 @@ include('../db/connection.php');
     function remove_session(product_id, quantity) {
 
       removeupdatecart(product_id, quantity);
+    }
+    function checkexceed(){
+      alert("Maximum 20 products per Order only!");
     }
   </script>
 </body>

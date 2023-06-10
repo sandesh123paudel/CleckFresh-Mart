@@ -12,9 +12,11 @@
 // echo date('m/d/y')."\n";
 // $currentDate = strtotime(date('m/d/y'));
 // echo $currentDate;
-
-echo md5("Cleckfreshmart@123");
-
+session_start();
+ echo "\n".$_SESSION['collectionslot_id'];
+   echo "\n".     $_SESSION['cart_num'];
+        echo "\n". $_SESSION['totalprice'];
+    echo "\n".     $_SESSION['collect_date'];
 
 // date_default_timezone_set("Asia/Kathmandu");
 // $currentDate = strtotime(date('m/d/y'));
@@ -48,9 +50,7 @@ echo md5("Cleckfreshmart@123");
     echo '<option value="' . $thursday_value . '">' . $thursday . '</option>';
     echo '<option value="' . $friday_value . '">' . $friday . '</option>';
 
-
-    
-    ?>
+?>
 
 
 </select>
