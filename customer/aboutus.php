@@ -65,7 +65,7 @@
                     <div class="member-info">
                         <img src="../assets/Picture2.jpg" alt="admin" />
                         <div class="member-def">
-                            <h3>Sandesh Poudel</h3>
+                            <h3>Sandesh Paudel</h3>
                         </div>
                     </div>
                     <div class="member-info">

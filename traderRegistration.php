@@ -111,11 +111,7 @@ if (isset($_POST['subtrader'])) {
             $errcount += 1;
             $errPhone = "Phone number length should be 10";
         }
-        if (!preg_match("/^9[0-9]{9}$/", $phone)) {
-            $errcount += 1;
-            $errPhone = "Phone number is not valid. Please enter a valid Phone number";
-        }
-
+   
         $age = date_diff(date_create($dob), date_create('now'))->y;
 
         if ($age < 20) {
