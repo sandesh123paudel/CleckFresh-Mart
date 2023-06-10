@@ -83,13 +83,27 @@ if (isset($_SESSION['userID'])) {
         <!-- Cart -->
         <!-- <a href="cartpage.php"> -->
         <div onclick='cartfunction()'>
-          <!-- <b class="number">
+          <b class="number">
             <?php
             if (isset($_SESSION['cart'])) {
               echo count($_SESSION['cart']);
             }
+            if(isset($_SESSION['userID'])){
+              $sql = "SELECT COUNT(*) AS NUM_OF_ROWS
+              FROM CART_PRODUCT cp
+              JOIN CART c ON c.CART_ID = cp.CART_ID
+              JOIN USER_I u ON u.USER_ID = c.USER_ID
+              WHERE c.USER_ID = :user_id ";
+              $stmts = oci_parse($connection, $sql);
+              oci_bind_by_name($stmts, ":user_id", $_SESSION['userID']);
+
+              oci_define_by_name($stmts, "NUM_OF_ROWS", $cart_num);
+              oci_execute($stmts);
+              oci_fetch($stmts);
+              echo $cart_num;
+            }
             ?>
-          </b> -->
+          </b>
           <span class="material-symbols-outlined"> shopping_cart </span>
           <p class="icon">Cart</p>
         </div>

@@ -69,21 +69,27 @@ include('../db/connection.php');
         <div class="shopitems">
             <?php
             // selecting all items from product
-
+            $verified ="verified";
             if (isset($_GET['product_name'])) {
-                $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME= :p_name AND PRODUCT_TYPE = :product_cat";
+                $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME LIKE '%' || :p_name || '%' AND PRODUCT_TYPE = :product_cat AND PRODUCT_STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':p_name', $_GET['product_name']);
                 oci_bind_by_name($stid, ':product_cat', $_SESSION['type']);
+                oci_bind_by_name($stid, ":verify", $verified);
+
             } else if (isset($_GET['s_id'])) {
-                $sql = "SELECT * FROM PRODUCT WHERE SHOP_ID = :s_id AND PRODUCT_TYPE = :product_cat";
+                $sql = "SELECT * FROM PRODUCT WHERE SHOP_ID = :s_id AND PRODUCT_TYPE = :product_cat AND PRODUCT_STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':s_id', $_GET['s_id']);
                 oci_bind_by_name($stid, ':product_cat', $_SESSION['type']);
+                oci_bind_by_name($stid, ":verify", $verified);
+
             } else {
-                $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = :product_cat";
+                $sql = "SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = :product_cat AND PRODUCT_STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':product_cat', $_SESSION['type']);
+                oci_bind_by_name($stid, ":verify", $verified);
+
             }
 
             oci_execute($stid);
@@ -106,7 +112,7 @@ include('../db/connection.php');
                     echo "<label>P_ID :  " . $row['PRODUCT_ID'] . "</label>";
                     echo "<label>Name:  " . ucfirst(substr($row['PRODUCT_NAME'], 0, 25)) . "</label>";
 
-                    echo "<label>Shop Name:  " . ucfirst(substr($shopname, 0, 25)) . "</label>";
+                    echo "<label>Shop Name:  " . ucfirst(substr($shopname, 0, 10)) . "</label>";
 
                     echo "<label>Price:  <span> &pound; " . $row['PRODUCT_PRICE'] . "<span></label>";
                     echo "<label>Stock : " . $row['STOCK_NUMBER'] . "</label>";

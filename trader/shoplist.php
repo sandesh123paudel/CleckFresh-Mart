@@ -51,7 +51,7 @@ include('../db/connection.php');
             $status = 'verified';
             // selecting all items from shops
             if (isset($_GET['s_name'])) {
-                $sql = "SELECT * FROM SHOP WHERE SHOP_NAME= :sname AND SHOP_TYPE = :shop_cat AND STATUS = :verify";
+                $sql = "SELECT * FROM SHOP WHERE SHOP_NAME LIKE '%' || :sname  || '%'AND SHOP_TYPE = :shop_cat AND STATUS = :verify";
                 $stid = oci_parse($connection, $sql);
                 oci_bind_by_name($stid, ':sname', $_GET['s_name']);
                 oci_bind_by_name($stid, ':shop_cat', $_SESSION['type']);
