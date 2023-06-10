@@ -123,7 +123,7 @@ include("../db/connection.php");
 
             </div>
 
-            <a href="http://localhost:8080/apex/f?p=101:14:310130353739::NO:::">
+            <a href="http://localhost:8080/apex/f?p=101:14:310130353739::NO:::"target="_blank">
                 <!-- <div class="report"> -->
                 <div class="report-info">
                     <h3>Report</h3>
