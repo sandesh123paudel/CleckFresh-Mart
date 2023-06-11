@@ -8,7 +8,7 @@
 
     <title>CleckFreshMart</title>
     <link rel="icon" href="../assets/logo.png" type="image/x-icon">
-
+    
     <link rel='stylesheet' href="css/index.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 

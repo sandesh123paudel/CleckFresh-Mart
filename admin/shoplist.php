@@ -3,7 +3,7 @@
 
         //writing the sql query
         $role = 'trader';
-        $sql = "SELECT * FROM SHOP"; // selecting the all data from the user
+        $sql = "SELECT * FROM SHOP ORDER BY SHOP_ID DESC"; // selecting the all data from the user
         $stid = oci_parse($connection,$sql);
         // exeucuting the query
         oci_execute($stid);

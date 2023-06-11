@@ -45,7 +45,7 @@ if (empty($_SESSION['token'])) {
         FROM COLLECTION_SLOT cs
         JOIN ORDER_I ot ON cs.COLLECTION_SLOT_ID = ot.COLLECTION_SLOT_ID
         JOIN CART ct ON ot.CART_ID = ct.CART_ID
-        WHERE ct.USER_ID = :user_id";
+        WHERE ct.USER_ID = :user_id ORDER BY ot.ORDER_ID DESC";
 
         $stid = oci_parse($connection, $sql);
         oci_bind_by_name($stid, ":user_id", $_SESSION['userID']);

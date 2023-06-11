@@ -44,7 +44,7 @@ include("../db/connection.php");
                 JOIN PRODUCT p ON op.PRODUCT_ID = p.PRODUCT_ID
                 JOIN SHOP s ON p.SHOP_ID = s.SHOP_ID
                 JOIN USER_I u ON s.USER_ID = u.USER_ID
-                WHERE u.USER_ID = :user_id";
+                WHERE u.USER_ID = :user_id ORDER BY o.ORDER_ID DESC";
 
             $stid = oci_parse($connection, $sql);
             oci_bind_by_name($stid, ":user_id", $_SESSION['traderID']);

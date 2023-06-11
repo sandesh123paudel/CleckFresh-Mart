@@ -13,11 +13,8 @@
 // $currentDate = strtotime(date('m/d/y'));
 // echo $currentDate;
 session_start();
- echo "\n".$_SESSION['collectionslot_id'];
-   echo "\n".     $_SESSION['cart_num'];
-        echo "\n". $_SESSION['totalprice'];
-    echo "\n".     $_SESSION['collect_date'];
 
+    echo $_SESSION['otp'];
 // date_default_timezone_set("Asia/Kathmandu");
 // $currentDate = strtotime(date('m/d/y'));
 // $twentyFourHoursLater = strtotime('+24 hours', $currentDate);
@@ -35,24 +32,3 @@ session_start();
 
 ?>
 
-<select name="collectionSlot">
-    <option value="" disabled selected>Collection Time</option>
-
-    <?php
-    $wednesday_value = strtotime('next wednesday 10:00:00');
-    $wednesday = date("j M, Y", strtotime('next wednesday 10:00:00')) . " (10AM - 1PM)";
-    $thursday_value = strtotime('next thursday 10:00:00');
-    $thursday = date("j M, Y", strtotime('next thursday 13:00:00')) . " (1PM - 4PM)";
-    $friday_value = strtotime('next friday 16:00:00');
-    $friday = date("j M, Y", strtotime('next friday 16:00:00')) . " (4PM - 7PM)";
-
-    echo '<option value="' . $wednesday_value . '">' . $wednesday . '</option>';
-    echo '<option value="' . $thursday_value . '">' . $thursday . '</option>';
-    echo '<option value="' . $friday_value . '">' . $friday . '</option>';
-
-
-    
-    ?>
-
-
-</select>

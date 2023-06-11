@@ -2,7 +2,7 @@
 include("../db/connection.php");
 
 //writing the sql query
-$sql = "SELECT * FROM PRODUCT"; // selecting the all data from the user
+$sql = "SELECT * FROM PRODUCT ORDER BY PRODUCT_ID DESC"; // selecting the all data from the user
 $stid = oci_parse($connection, $sql);
 // exeucuting the query
 oci_execute($stid);
